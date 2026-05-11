@@ -65,7 +65,9 @@
                         "background": "#f9f9fb",
                         "inverse-surface": "#2f3132",
                         "secondary-fixed": "#dae2fd",
-                        "primary-fixed": "#e2dfff"
+                        "primary-fixed": "#e2dfff",
+                        "brand-blue": "#4f46e5",
+                        "brand-purple": "#7c3aed"
                     },
                     fontFamily: {
                         "headline": ["Manrope", "sans-serif"],
@@ -227,6 +229,73 @@
                 transform: translateY(0);
             }
         }
+
+        /* ═══ HERO REDESIGN ═══ */
+        .text-gradient-infinity {
+            background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 40%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .bg-light-mesh {
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(79, 70, 229, 0.06), transparent),
+                radial-gradient(ellipse 60% 40% at 80% 50%, rgba(124, 58, 237, 0.04), transparent),
+                radial-gradient(ellipse 60% 40% at 20% 80%, rgba(79, 70, 229, 0.03), transparent);
+        }
+
+        .bg-cube-grid-light {
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        @keyframes heroFadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes heroFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes heroCardSlideIn {
+            from { opacity: 0; transform: translate(var(--card-x, 30px), var(--card-y, -40px)); }
+            to { opacity: 1; transform: translate(0, 0); }
+        }
+
+        @keyframes heroScaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .hero-fade-up {
+            opacity: 0;
+            animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hero-fade-up-d1 { animation-delay: 0s; }
+        .hero-fade-up-d2 { animation-delay: 0.1s; }
+        .hero-fade-up-d3 { animation-delay: 0.2s; }
+        .hero-fade-up-d4 { animation-delay: 0.5s; }
+
+        .hero-scale-in {
+            opacity: 0;
+            animation: heroScaleIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.3s;
+        }
+
+        .hero-card-slide {
+            opacity: 0;
+            animation: heroCardSlideIn 1s ease forwards;
+        }
+
+        .hero-card-slide-1 { --card-x: 30px; --card-y: -40px; animation-delay: 0.6s; }
+        .hero-card-slide-2 { --card-x: 60px; --card-y: 80px; animation-delay: 0.8s; }
+        .hero-card-slide-3 { --card-x: -60px; --card-y: 150px; animation-delay: 1s; }
 
         /* ═══ 2D GALLERY ═══ */
         .ez3d-gallery {
@@ -1374,47 +1443,175 @@
             <!-- ═══════════════════════ HERO ═══════════════════════ -->
             <div id="home" class="ez-scroll-target" aria-hidden="true"></div>
             <section
-                class="reveal relative overflow-hidden min-h-[95vh] flex items-center mb-0 w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
-                <!-- Background Video -->
-                <video autoplay muted loop playsinline preload="auto"
-                    class="absolute inset-0 w-full h-full object-cover"
-                    style="will-change: transform; transform: translateZ(0);">
-                    <source src="videoo.mp4" type="video/mp4">
-                </video>
-                <!-- Light Overlay for readability -->
-                <div class="absolute inset-0 bg-white/40"></div>
+                class="reveal relative overflow-hidden min-h-[95vh] mb-0 w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-white">
 
-                <div
-                    class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 md:px-16 text-left space-y-10 pt-24 sm:pt-28 md:pt-28 pb-20">
-                    <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-secondary-container rounded-full">
-                        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                        <span
-                            class="text-[11px] uppercase tracking-[0.2em] font-bold text-on-secondary-container font-label">Design
-                            Automation Platform</span>
+                <!-- Background Atmosphere -->
+                <div class="absolute inset-0 z-0 pointer-events-none">
+                    <div class="absolute top-0 left-0 w-full h-full bg-light-mesh opacity-100"></div>
+                    <div class="absolute top-1/4 -left-20 w-[600px] h-[600px] bg-brand-blue/5 blur-[120px] rounded-full"></div>
+                    <div class="absolute bottom-1/4 -right-20 w-[600px] h-[600px] bg-brand-purple/5 blur-[120px] rounded-full"></div>
+                </div>
+
+                <!-- Hero Content -->
+                <div class="relative z-10 flex flex-col lg:flex-row items-center px-6 pt-20 lg:pt-32 pb-40 mx-auto max-w-7xl gap-16 lg:gap-8">
+
+                    <!-- Left Side: Copy -->
+                    <div class="flex flex-col items-start w-full lg:w-1/2">
+                        <div class="hero-fade-up hero-fade-up-d1 flex items-center gap-2 px-3 py-1 mb-8 rounded-full bg-brand-blue/5 border border-brand-blue/10">
+                            <span class="material-symbols-outlined text-sm text-brand-blue">auto_awesome</span>
+                            <span class="text-[11px] font-bold tracking-wider text-brand-blue uppercase font-label">
+                                EasyVariants Engine 2.0 is live
+                            </span>
+                        </div>
+
+                        <h1 class="hero-fade-up hero-fade-up-d1 mb-8 text-5xl sm:text-6xl lg:text-[5.2rem] font-black font-headline tracking-tighter leading-[1] text-slate-950">
+                            Scale your <br />
+                            sports apparel <br />
+                            design <span class="text-gradient-infinity">to infinity.</span>
+                        </h1>
+
+                        <p class="hero-fade-up hero-fade-up-d2 mb-12 text-xl text-slate-500 max-w-xl leading-relaxed font-body">
+                            The enterprise Adobe Illustrator plug-in that automates team-based design variants.
+                            Generate thousands of production-ready files, tech packs, and 3D renders in seconds.
+                        </p>
+
+                        <div class="hero-fade-up hero-fade-up-d3 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+                            <a href="contactus.html"
+                                class="flex items-center justify-center gap-2 px-8 py-4 w-full sm:w-auto text-base font-bold text-white bg-slate-950 rounded-xl hover:bg-slate-800 transition-all active:scale-95 shadow-xl shadow-slate-950/10 no-underline group">
+                                Book Enterprise Demo
+                                <span class="material-symbols-outlined text-lg transition-transform group-hover:translate-x-1">arrow_forward</span>
+                            </a>
+                            <a href="#demos"
+                                class="flex items-center justify-center gap-2 px-8 py-4 w-full sm:w-auto text-base font-bold text-slate-600 bg-slate-50 border border-slate-200 rounded-xl hover:bg-slate-100 transition-all active:scale-95 no-underline group">
+                                <span class="w-8 h-8 rounded-full border border-brand-blue/20 flex items-center justify-center group-hover:border-brand-blue/40 transition-colors">
+                                    <span class="material-symbols-outlined text-sm text-brand-blue" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                                </span>
+                                Watch 2-Min Overview
+                            </a>
+                        </div>
+
+                        <div class="hero-fade-up hero-fade-up-d4 mt-16 flex flex-wrap gap-8">
+                            <div class="flex items-center gap-2 text-[13px] font-medium text-slate-400">
+                                <span class="material-symbols-outlined text-base text-brand-blue" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                Adobe Illustrator 2024+
+                            </div>
+                            <div class="flex items-center gap-2 text-[13px] font-medium text-slate-400">
+                                <span class="material-symbols-outlined text-base text-brand-blue" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                SOC2 Type II Certified
+                            </div>
+                        </div>
                     </div>
 
-                    <h1
-                        class="text-4xl sm:text-6xl md:text-8xl font-extrabold font-headline tracking-tighter text-on-surface leading-[0.9] md:leading-[0.85] max-w-3xl">
-                        Speed &amp;<br /> Precision<br />
-                        <span
-                            class="bg-gradient-to-r from-primary to-primary-container bg-clip-text text-transparent">10×
-                            Amplified.</span>
-                    </h1>
+                    <!-- Right Side: Visual Showcase -->
+                    <div class="relative w-full lg:w-1/2 h-[500px] lg:h-[700px] flex items-center justify-center pt-20">
 
-                    <p class="text-xl text-on-surface-variant max-w-xl leading-relaxed font-medium">
-                        Built for large manufacturers managing thousands of SKUs. Standardize logo placement, colorways,
-                        and style outputs across factories in minutes.
-                    </p>
+                        <!-- Main App Container -->
+                        <div class="hero-scale-in relative w-[540px] h-[440px] bg-white border border-slate-200 rounded-2xl shadow-[0_32px_128px_rgba(0,0,0,0.06)] overflow-hidden flex">
+                            <!-- Sidebar -->
+                            <div class="w-44 border-r border-slate-100 bg-slate-50/50 p-5 flex flex-col gap-6">
+                                <div class="flex gap-1.5 mb-2">
+                                    <div class="w-2.5 h-2.5 rounded-full bg-[#FF5F57]"></div>
+                                    <div class="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]"></div>
+                                    <div class="w-2.5 h-2.5 rounded-full bg-[#28C840]"></div>
+                                </div>
 
-                    <div class="flex flex-col sm:flex-row items-start justify-start gap-6 pt-6">
-                        <a href="contactus.html" class="ev-pill-btn ev-pill-btn--lg">
-                            Request a Demo Today
-                            <span class="material-symbols-outlined text-xl">arrow_forward</span>
-                        </a>
-                        <a href="#demos" class="ev-pill-btn ev-pill-btn--lg">
-                            <span class="material-symbols-outlined text-2xl">play_circle</span>
-                            Watch Explainer
-                        </a>
+                                <div class="space-y-6">
+                                    <div class="space-y-3">
+                                        <div class="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-[0.1em]">
+                                            <span class="material-symbols-outlined text-sm">title</span> Team Names
+                                        </div>
+                                        <div class="h-9 bg-white rounded-lg border border-slate-200 shadow-sm"></div>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-[0.1em]">
+                                            <span class="material-symbols-outlined text-sm">image</span> Mascots
+                                        </div>
+                                        <div class="h-9 bg-white rounded-lg border border-slate-200 shadow-sm"></div>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-[0.1em]">
+                                            <span class="material-symbols-outlined text-sm">palette</span> Color Ways
+                                        </div>
+                                        <div class="flex gap-2.5">
+                                            <div class="w-5 h-5 rounded-full bg-red-500 shadow-sm"></div>
+                                            <div class="w-5 h-5 rounded-full bg-blue-500 shadow-sm"></div>
+                                            <div class="w-5 h-5 rounded-full bg-green-500 shadow-sm"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Main Canvas Area -->
+                            <div class="flex-1 bg-white relative overflow-hidden flex flex-col">
+                                <div class="h-10 border-b border-slate-100 flex items-center px-4 justify-between bg-white">
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-sm text-slate-400">grid_view</span>
+                                        <div class="text-[10px] font-medium text-slate-400">EasyVariants Workspace</div>
+                                    </div>
+                                </div>
+
+                                <div class="flex-1 bg-cube-grid-light relative flex items-center justify-center p-8">
+                                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(255,255,255,0.8)_100%)] pointer-events-none"></div>
+
+                                    <!-- Template Center piece -->
+                                    <div class="relative w-full h-full border border-brand-blue/20 border-dashed rounded-xl flex flex-col items-center justify-center gap-6 bg-white shadow-inner">
+                                        <div class="absolute top-4 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-brand-blue text-[8px] font-bold rounded text-white uppercase tracking-wider z-10 shadow-lg shadow-brand-blue/20">
+                                            Master Template
+                                        </div>
+                                        <div class="text-5xl font-black tracking-tight text-slate-900/80 font-headline">{{TEAM}}</div>
+                                        <div class="w-20 h-20 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center shadow-inner">
+                                            <span class="material-symbols-outlined text-3xl text-slate-300">image</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Card 1: Wildcats -->
+                        <div class="hero-card-slide hero-card-slide-1 absolute top-8 right-0 w-48 bg-white border border-slate-200 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.08)] overflow-hidden z-20">
+                            <div class="p-5 flex flex-col items-center gap-4">
+                                <div class="text-[11px] font-black uppercase tracking-wider text-slate-900">Wildcats</div>
+                                <div class="w-14 h-14 rounded-full bg-red-50 border border-red-100 flex items-center justify-center">
+                                    <span class="text-xl">🐾</span>
+                                </div>
+                            </div>
+                            <div class="px-4 py-2 bg-slate-50 border-t border-slate-100 flex justify-between items-center">
+                                <span class="text-[9px] text-slate-400">Variant 01</span>
+                                <span class="text-[9px] text-green-600 font-bold uppercase tracking-wide">Ready</span>
+                            </div>
+                            <div class="absolute top-0 left-0 w-full h-[3px] bg-red-500"></div>
+                        </div>
+
+                        <!-- Floating Card 2: Eagles -->
+                        <div class="hero-card-slide hero-card-slide-2 absolute bottom-12 -right-8 w-56 bg-white border border-slate-200 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.08)] overflow-hidden z-20">
+                            <div class="p-7 flex flex-col items-center gap-5">
+                                <div class="text-sm font-black uppercase tracking-wider text-slate-900">Eagles</div>
+                                <div class="w-18 h-18 rounded-full bg-brand-blue/5 border border-brand-blue/10 flex items-center justify-center">
+                                    <span class="text-3xl">🦅</span>
+                                </div>
+                            </div>
+                            <div class="px-5 py-2.5 bg-slate-50 border-t border-slate-100 flex justify-between items-center">
+                                <span class="text-[10px] text-slate-400">Variant 02</span>
+                                <span class="text-[10px] text-green-600 font-bold uppercase tracking-wide">Ready</span>
+                            </div>
+                            <div class="absolute top-0 left-0 w-full h-[3px] bg-brand-blue"></div>
+                        </div>
+
+                        <!-- Floating Card 3: Tigers -->
+                        <div class="hero-card-slide hero-card-slide-3 absolute bottom-0 left-4 w-44 bg-white border border-slate-200 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.08)] overflow-hidden z-20">
+                            <div class="p-5 flex flex-col items-center gap-4">
+                                <div class="text-[11px] font-black uppercase tracking-wider text-slate-900">Tigers</div>
+                                <div class="w-14 h-14 rounded-full bg-orange-50 border border-orange-100 flex items-center justify-center">
+                                    <span class="text-2xl">🐅</span>
+                                </div>
+                            </div>
+                            <div class="px-4 py-2 bg-slate-50 border-t border-slate-100 flex justify-between items-center">
+                                <span class="text-[9px] text-slate-400">Variant 03</span>
+                                <span class="text-[9px] text-green-600 font-bold uppercase tracking-wide">Ready</span>
+                            </div>
+                            <div class="absolute top-0 left-0 w-full h-[3px] bg-green-500"></div>
+                        </div>
+
                     </div>
                 </div>
             </section>
