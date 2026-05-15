@@ -53,11 +53,14 @@ const decalRotation = new THREE.Euler();
 const decalOrientation = new THREE.Euler();
 const position = new THREE.Vector3();
 
-// Helper to check if script is loaded
-console.log("3D Customizer Initialized");
-
-init();
-animate();
+// Only initialize when the 3D customizer section is present on the page
+if (!container) {
+    console.warn("3D Customizer: #canvas-container not found, skipping initialization.");
+} else {
+    console.log("3D Customizer Initialized");
+    init();
+    animate();
+}
 
 function init() {
     // 1. Scene Setup
