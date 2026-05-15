@@ -12,6 +12,70 @@
     rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
     rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-variant": "#e2e2e4",
+            "primary-fixed-dim": "#c3c0ff",
+            "on-primary-container": "#dad7ff",
+            "inverse-primary": "#c3c0ff",
+            "error-container": "#ffdad6",
+            "tertiary-fixed-dim": "#ffb695",
+            "on-tertiary": "#ffffff",
+            "surface-container-high": "#e8e8ea",
+            "on-primary-fixed-variant": "#3323cc",
+            "outline-variant": "#c7c4d8",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f3f3f5",
+            "on-primary-fixed": "#0f0069",
+            "surface-dim": "#d9dadc",
+            "on-tertiary-container": "#ffd2be",
+            "on-surface-variant": "#464555",
+            "surface-container": "#eeeef0",
+            "on-surface": "#1a1c1d",
+            "secondary": "#565e74",
+            "secondary-container": "#dae2fd",
+            "on-tertiary-fixed-variant": "#7b2f00",
+            "primary-container": "#4f46e5",
+            "on-background": "#1a1c1d",
+            "surface-container-highest": "#e2e2e4",
+            "inverse-on-surface": "#f0f0f2",
+            "on-secondary-container": "#5c647a",
+            "outline": "#777587",
+            "on-error-container": "#93000a",
+            "on-error": "#ffffff",
+            "surface-bright": "#f9f9fb",
+            "on-primary": "#ffffff",
+            "tertiary-fixed": "#ffdbcc",
+            "tertiary-container": "#a44100",
+            "on-secondary-fixed-variant": "#3f465c",
+            "surface": "#f9f9fb",
+            "primary": "#3525cd",
+            "error": "#ba1a1a",
+            "on-secondary": "#ffffff",
+            "secondary-fixed-dim": "#bec6e0",
+            "surface-tint": "#4d44e3",
+            "on-tertiary-fixed": "#351000",
+            "tertiary": "#7e3000",
+            "on-secondary-fixed": "#131b2e",
+            "background": "#f9f9fb",
+            "inverse-surface": "#2f3132",
+            "secondary-fixed": "#dae2fd",
+            "primary-fixed": "#e2dfff"
+          },
+          fontFamily: {
+            "headline": ["Manrope", "sans-serif"],
+            "body": ["Inter", "sans-serif"],
+            "label": ["Inter", "sans-serif"]
+          },
+        },
+      },
+    }
+  </script>
   <style>
     html {
       scroll-behavior: smooth;
@@ -264,15 +328,31 @@
         transform: translateY(-8px);
       }
     }
+
+    html,
+    body {
+      overflow-x: hidden;
+    }
+
+    @media (max-width: 639px) {
+      .brand-logo-img {
+        height: 3rem !important;
+        max-width: min(100vw - 5rem, 180px) !important;
+      }
+
+      .ev-pill-btn--lg {
+        width: 100%;
+        justify-content: center;
+      }
+    }
   </style>
-  <link rel="stylesheet" crossorigin href="/assets/tailwind-1H0Ydj9r.css">
 </head>
 
 <body class="font-body text-on-surface antialiased">
 
   <!-- ═══════════════ NAVBAR ═══════════════ -->
   <nav class="glass-panel fixed top-0 left-0 w-full z-50 shadow-sm shadow-primary/3 overflow-visible">
-    <div class="w-full flex items-center justify-between pl-9 pr-10 py-0.5 md:py-1">
+    <div class="w-full flex items-center justify-between px-4 sm:px-6 md:px-8 lg:pl-9 lg:pr-10 py-0.5 md:py-1">
       <!-- Left: Logo -->
       <div class="flex-1 flex justify-start min-w-0">
         <a href="index.html" class="flex items-center shrink-0">
@@ -318,7 +398,7 @@
   </div>
 
   <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
-  <main class="pt-24 sm:pt-28 md:pt-28 pb-24 px-6 md:px-8 overflow-hidden">
+  <main class="pt-24 sm:pt-28 md:pt-28 pb-24 px-4 sm:px-6 md:px-8 overflow-x-hidden">
     <div class="max-w-7xl mx-auto">
 
       <!-- HERO HEADER -->
