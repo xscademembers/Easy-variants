@@ -326,16 +326,9 @@
       line-height: 1;
     }
 
-    .menu-toggle-light__icon--close {
-      display: none;
-    }
-
-    .menu-toggle-light.is-open .menu-toggle-light__icon--menu {
-      display: none;
-    }
-
-    .menu-toggle-light.is-open .menu-toggle-light__icon--close {
-      display: block;
+    body.mobile-menu-open .menu-toggle-light {
+      visibility: hidden;
+      pointer-events: none;
     }
 
     @media(max-width: 768px) {
@@ -484,8 +477,7 @@
       <!-- Mobile: Toggle -->
       <button type="button" id="mobileMenuToggle" class="menu-toggle-light hidden md:hidden"
         aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-        <span class="material-symbols-outlined menu-toggle-light__icon menu-toggle-light__icon--menu">menu</span>
-        <span class="material-symbols-outlined menu-toggle-light__icon menu-toggle-light__icon--close">close</span>
+        <span class="material-symbols-outlined menu-toggle-light__icon">menu</span>
       </button>
     </div>
   </nav>
