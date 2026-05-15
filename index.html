@@ -303,6 +303,192 @@
         .hero-card-slide-2 { --card-x: 60px; --card-y: 80px; animation-delay: 0.8s; }
         .hero-card-slide-3 { --card-x: -60px; --card-y: 150px; animation-delay: 1s; }
 
+        .hero-showcase-stage {
+            position: relative;
+            width: 100%;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ═══ RESPONSIVE: MOBILE / TABLET / DESKTOP ═══ */
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        @media (max-width: 639px) {
+            .hero-section {
+                min-height: auto;
+            }
+
+            .hero-section .hero-content-wrap {
+                padding-top: 5.5rem;
+                padding-bottom: 2.5rem;
+                gap: 2.5rem;
+            }
+
+            .hero-showcase-col {
+                min-height: auto !important;
+                padding-top: 0;
+            }
+
+            .hero-showcase-stage {
+                max-width: 100%;
+            }
+
+            .hero-showcase-stage .hero-card-slide {
+                position: static !important;
+                width: 100% !important;
+                max-width: 100%;
+                margin: 0;
+                animation: heroFadeUp 0.6s ease forwards;
+            }
+
+            .hero-showcase-stage .hero-card-slide-1 { animation-delay: 0.4s; }
+            .hero-showcase-stage .hero-card-slide-2 { animation-delay: 0.5s; }
+            .hero-showcase-stage .hero-card-slide-3 { animation-delay: 0.6s; }
+
+            .hero-stats-stack {
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+                margin-top: 1rem;
+                width: 100%;
+            }
+
+            .hero-cta-row .ev-pill-btn--lg {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .navbar > div {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .brand-logo-img {
+                height: 3rem !important;
+                max-width: min(100vw - 5rem, 180px) !important;
+            }
+        }
+
+        @media (min-width: 640px) and (max-width: 1023px) {
+            .hero-section {
+                min-height: auto;
+            }
+
+            .hero-section .hero-content-wrap {
+                padding-top: 6rem;
+                padding-bottom: 3rem;
+                gap: 3rem;
+            }
+
+            .hero-showcase-col {
+                min-height: auto !important;
+            }
+
+            .hero-showcase-stage .hero-card-slide {
+                position: static !important;
+                width: 100% !important;
+                margin: 0;
+                animation: heroFadeUp 0.6s ease forwards;
+            }
+
+            .hero-stats-stack {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.75rem;
+                margin-top: 1.25rem;
+                width: 100%;
+            }
+
+            .hero-stats-stack .hero-card-slide {
+                padding: 0.875rem !important;
+            }
+
+            .hero-stats-stack .hero-card-slide .text-2xl {
+                font-size: 1.25rem;
+            }
+
+            .hero-cta-row .ev-pill-btn--lg {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .navbar > div {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-stats-stack {
+                display: block;
+            }
+
+            .hero-showcase-stage {
+                min-height: 440px;
+            }
+
+            .hero-showcase-stage .hero-card-slide {
+                position: absolute;
+            }
+        }
+
+        @media (max-width: 1023px) {
+            .hero-showcase-stage > .hero-scale-in {
+                margin-bottom: 0;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .problem-card-carousel {
+                min-height: 280px !important;
+            }
+
+            .cta-gradient {
+                padding: 2.5rem 1.5rem !important;
+            }
+
+            #workflow-steps-section .grid {
+                gap: 1rem;
+            }
+
+            #meet .flex.items-end {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            #light-slideshow {
+                height: min(55vh, 400px) !important;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .hero-showcase-stage {
+                max-width: 480px;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .navbar .nav-section-link {
+                font-size: 14px;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .hero-content-wrap {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+
         /* ═══ 2D GALLERY ═══ */
         .ez3d-gallery {
             position: absolute;
@@ -1402,7 +1588,7 @@
 
     <!-- ═══════════════════════ NAVIGATION ═══════════════════════ -->
     <nav class="navbar fixed top-0 w-full z-50 transition-all duration-300 overflow-visible">
-        <div class="w-full flex items-center justify-between pl-9 pr-10 py-0.5 md:py-1">
+        <div class="w-full flex items-center justify-between px-4 sm:px-6 md:px-8 lg:pl-9 lg:pr-10 py-0.5 md:py-1">
             <!-- Left: Logo -->
             <div class="flex-1 flex justify-start min-w-0">
                 <a href="#" class="flex items-center shrink-0">
@@ -1443,13 +1629,13 @@
         <a href="contactus.html" class="ev-pill-btn ev-pill-btn--sm">Get Your Demo Today</a>
     </div>
 
-    <main class="pt-0 pb-24 px-6 md:px-8 overflow-hidden">
+    <main class="pt-0 pb-24 px-4 sm:px-6 md:px-8 overflow-x-hidden">
         <div class="max-w-7xl mx-auto">
 
             <!-- ═══════════════════════ HERO ═══════════════════════ -->
             <div id="home" class="ez-scroll-target" aria-hidden="true"></div>
             <section
-                class="hero-section relative overflow-hidden min-h-[95vh] mb-0 w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-white">
+                class="hero-section relative overflow-hidden min-h-0 lg:min-h-[95vh] mb-0 w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-white">
 
                 <!-- Background Atmosphere -->
                 <div class="absolute inset-0 z-0 pointer-events-none">
@@ -1459,7 +1645,7 @@
                 </div>
 
                 <!-- Hero Content -->
-                <div class="relative z-10 flex flex-col lg:flex-row items-center px-6 pt-20 lg:pt-32 pb-40 mx-auto max-w-7xl gap-16 lg:gap-8">
+                <div class="hero-content-wrap relative z-10 flex flex-col lg:flex-row items-center px-4 sm:px-6 pt-20 sm:pt-24 lg:pt-32 pb-12 sm:pb-20 lg:pb-32 mx-auto max-w-7xl gap-10 sm:gap-12 lg:gap-8">
 
                     <!-- Left Side: Copy -->
                     <div class="flex flex-col items-start w-full lg:w-1/2">
@@ -1468,17 +1654,17 @@
                             <span class="text-[11px] uppercase tracking-[0.2em] font-bold text-on-secondary-container font-label">Design Automation Platform</span>
                         </div>
 
-                        <h1 class="hero-fade-up hero-fade-up-d1 mb-8 text-5xl sm:text-6xl lg:text-[5.2rem] font-extrabold font-headline tracking-tighter leading-[0.9] text-on-surface max-w-3xl">
+                        <h1 class="hero-fade-up hero-fade-up-d1 mb-6 sm:mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-[5.2rem] font-extrabold font-headline tracking-tighter leading-[0.95] sm:leading-[0.9] text-on-surface max-w-3xl">
                             Speed &amp;<br /> Precision<br />
                             <span class="bg-gradient-to-r from-primary to-primary-container bg-clip-text text-transparent">10× Amplified.</span>
                         </h1>
 
-                        <p class="hero-fade-up hero-fade-up-d2 mb-12 text-xl text-on-surface-variant max-w-xl leading-relaxed font-medium font-body">
+                        <p class="hero-fade-up hero-fade-up-d2 mb-8 sm:mb-12 text-base sm:text-lg lg:text-xl text-on-surface-variant max-w-xl leading-relaxed font-medium font-body">
                             Built for large manufacturers managing thousands of SKUs. Standardize logo placement, colorways,
                             and style outputs across factories in minutes.
                         </p>
 
-                        <div class="hero-fade-up hero-fade-up-d3 flex flex-col sm:flex-row items-start gap-6 w-full sm:w-auto">
+                        <div class="hero-fade-up hero-fade-up-d3 hero-cta-row flex flex-col sm:flex-row items-stretch sm:items-start gap-4 sm:gap-6 w-full">
                             <a href="contactus.html" class="ev-pill-btn ev-pill-btn--lg">
                                 Request a Demo Today
                                 <span class="material-symbols-outlined text-xl">arrow_forward</span>
@@ -1491,49 +1677,49 @@
                     </div>
 
                     <!-- Right Side: Product Showcase -->
-                    <div class="relative w-full lg:w-1/2 flex items-center justify-center pt-8 lg:pt-0 min-h-[420px] lg:min-h-[560px]">
+                    <div class="hero-showcase-col relative w-full lg:w-1/2 flex flex-col items-center justify-center pt-4 sm:pt-8 lg:pt-0 min-h-0 lg:min-h-[560px]">
 
-                        <!-- App screenshot -->
-                        <div class="hero-scale-in relative w-full max-w-[520px] rounded-2xl border border-slate-200/80 bg-white p-2 shadow-[0_32px_80px_rgba(53,37,205,0.12)] overflow-hidden">
-                            <img src="images/EasyVariants application.jpg.jpeg" alt="EasyVariants application interface"
-                                class="w-full h-auto rounded-xl object-cover" loading="eager" />
-                        </div>
-
-                        <!-- Stat: Faster output -->
-                        <div class="hero-card-slide hero-card-slide-1 absolute top-4 right-0 lg:-right-4 w-44 bg-white border border-slate-200 rounded-xl shadow-[0_16px_40px_rgba(0,0,0,0.08)] p-4 z-20">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                                    <span class="material-symbols-outlined text-primary text-xl">layers</span>
-                                </div>
-                                <div>
-                                    <div class="text-2xl font-black font-headline text-on-surface leading-none">10×</div>
-                                    <div class="text-[11px] font-semibold text-on-surface-variant mt-0.5">Faster output</div>
-                                </div>
+                        <div class="hero-showcase-stage w-full">
+                            <div class="hero-scale-in relative w-full rounded-2xl border border-slate-200/80 bg-white p-2 shadow-[0_32px_80px_rgba(53,37,205,0.12)] overflow-hidden">
+                                <img src="images/EasyVariants application.jpg.jpeg" alt="EasyVariants application interface"
+                                    class="w-full h-auto rounded-xl object-cover" loading="eager" />
                             </div>
-                        </div>
 
-                        <!-- Stat: SKUs -->
-                        <div class="hero-card-slide hero-card-slide-2 absolute bottom-16 -right-2 lg:-right-6 w-52 bg-white border border-slate-200 rounded-xl shadow-[0_16px_40px_rgba(0,0,0,0.08)] p-4 z-20">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-lg bg-brand-blue/10 flex items-center justify-center shrink-0">
-                                    <span class="material-symbols-outlined text-brand-blue text-xl">inventory_2</span>
+                            <div class="hero-stats-stack lg:contents">
+                                <div class="hero-card-slide hero-card-slide-1 lg:absolute lg:top-4 lg:right-0 lg:-right-4 lg:w-44 bg-white border border-slate-200 rounded-xl shadow-[0_16px_40px_rgba(0,0,0,0.08)] p-4 z-20">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                                            <span class="material-symbols-outlined text-primary text-xl">layers</span>
+                                        </div>
+                                        <div>
+                                            <div class="text-2xl font-black font-headline text-on-surface leading-none">10×</div>
+                                            <div class="text-[11px] font-semibold text-on-surface-variant mt-0.5">Faster output</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <div class="text-2xl font-black font-headline text-on-surface leading-none">1K+</div>
-                                    <div class="text-[11px] font-semibold text-on-surface-variant mt-0.5">SKUs per run</div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Stat: Illustrator plugin -->
-                        <div class="hero-card-slide hero-card-slide-3 absolute bottom-4 left-0 lg:-left-4 w-48 bg-white border border-slate-200 rounded-xl shadow-[0_16px_40px_rgba(0,0,0,0.08)] p-4 z-20">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center shrink-0">
-                                    <span class="material-symbols-outlined text-green-600 text-xl">draw</span>
+                                <div class="hero-card-slide hero-card-slide-2 lg:absolute lg:bottom-16 lg:-right-2 xl:-right-6 lg:w-52 bg-white border border-slate-200 rounded-xl shadow-[0_16px_40px_rgba(0,0,0,0.08)] p-4 z-20">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-brand-blue/10 flex items-center justify-center shrink-0">
+                                            <span class="material-symbols-outlined text-brand-blue text-xl">inventory_2</span>
+                                        </div>
+                                        <div>
+                                            <div class="text-2xl font-black font-headline text-on-surface leading-none">1K+</div>
+                                            <div class="text-[11px] font-semibold text-on-surface-variant mt-0.5">SKUs per run</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <div class="text-sm font-black font-headline text-on-surface leading-tight">Illustrator</div>
-                                    <div class="text-[11px] font-semibold text-on-surface-variant mt-0.5">Native plugin</div>
+
+                                <div class="hero-card-slide hero-card-slide-3 lg:absolute lg:bottom-4 lg:left-0 lg:-left-4 lg:w-48 bg-white border border-slate-200 rounded-xl shadow-[0_16px_40px_rgba(0,0,0,0.08)] p-4 z-20">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center shrink-0">
+                                            <span class="material-symbols-outlined text-green-600 text-xl">draw</span>
+                                        </div>
+                                        <div>
+                                            <div class="text-sm font-black font-headline text-on-surface leading-tight">Illustrator</div>
+                                            <div class="text-[11px] font-semibold text-on-surface-variant mt-0.5">Native plugin</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
