@@ -207,6 +207,24 @@
       box-shadow: 0 24px 64px rgba(53, 37, 205, 0.10), 0 8px 20px rgba(0, 0, 0, 0.04);
     }
 
+    body.mobile-menu-open {
+      overflow: hidden;
+    }
+
+    .mobile-menu-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 45;
+      background: rgba(26, 28, 29, 0.45);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+    }
+
+    .mobile-menu-backdrop.active {
+      display: block;
+    }
+
     .mobile-menu-light {
       display: none;
     }
@@ -215,16 +233,58 @@
       display: flex;
       flex-direction: column;
       position: fixed;
-      top: 5rem;
+      top: 4.5rem;
       left: 0;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.96);
+      right: 0;
+      max-height: calc(100vh - 4.5rem);
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.98);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
-      z-index: 40;
-      padding: 20px;
+      z-index: 50;
+      padding: 0 20px 24px;
       border-bottom: 1px solid rgba(199, 196, 216, 0.25);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .mobile-menu-light__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0 12px;
+      margin-bottom: 4px;
+      border-bottom: 1px solid rgba(199, 196, 216, 0.2);
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.98);
+      z-index: 1;
+    }
+
+    .mobile-menu-light__title {
+      font-family: Manrope, Inter, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #464555;
+    }
+
+    .mobile-menu-light__close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border: none;
+      border-radius: 9999px;
+      background: #f3f3f5;
+      color: #1a1c1d;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.15s ease;
+    }
+
+    .mobile-menu-light__close:hover {
+      background: #e8e8ea;
     }
 
     .mobile-menu-light a {
@@ -233,6 +293,49 @@
       color: #1a1c1d;
       border-bottom: 1px solid rgba(199, 196, 216, 0.12);
       text-decoration: none;
+    }
+
+    .menu-toggle-light {
+      position: relative;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      flex-shrink: 0;
+      border: none;
+      border-radius: 9999px;
+      background: #f3f3f5;
+      color: #1a1c1d;
+      cursor: pointer;
+      padding: 0;
+      transition: background-color 0.2s ease, transform 0.15s ease;
+    }
+
+    .menu-toggle-light:hover {
+      background: #e8e8ea;
+    }
+
+    .menu-toggle-light:active {
+      transform: scale(0.95);
+    }
+
+    .menu-toggle-light__icon {
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .menu-toggle-light__icon--close {
+      display: none;
+    }
+
+    .menu-toggle-light.is-open .menu-toggle-light__icon--menu {
+      display: none;
+    }
+
+    .menu-toggle-light.is-open .menu-toggle-light__icon--close {
+      display: block;
     }
 
     @media(max-width: 768px) {
@@ -379,17 +482,24 @@
       </div>
 
       <!-- Mobile: Toggle -->
-      <button class="menu-toggle-light hidden flex-col gap-1.5 md:hidden" aria-label="Toggle Menu"
-        onclick="document.querySelector('.mobile-menu-light').classList.toggle('active')">
-        <span class="block w-5 h-0.5 bg-on-surface rounded-full"></span>
-        <span class="block w-5 h-0.5 bg-on-surface rounded-full"></span>
-        <span class="block w-5 h-0.5 bg-on-surface rounded-full"></span>
+      <button type="button" id="mobileMenuToggle" class="menu-toggle-light hidden md:hidden"
+        aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span class="material-symbols-outlined menu-toggle-light__icon menu-toggle-light__icon--menu">menu</span>
+        <span class="material-symbols-outlined menu-toggle-light__icon menu-toggle-light__icon--close">close</span>
       </button>
     </div>
   </nav>
 
   <!-- Mobile Menu -->
-  <div class="mobile-menu-light">
+  <div id="mobileMenuBackdrop" class="mobile-menu-backdrop" aria-hidden="true"></div>
+  <div id="mobileMenu" class="mobile-menu-light" role="dialog" aria-modal="true" aria-label="Navigation menu"
+    aria-hidden="true">
+    <div class="mobile-menu-light__header">
+      <span class="mobile-menu-light__title">Menu</span>
+      <button type="button" id="mobileMenuClose" class="mobile-menu-light__close" aria-label="Close menu">
+        <span class="material-symbols-outlined text-xl">close</span>
+      </button>
+    </div>
     <a href="index.html#home">Home</a>
     <a href="index.html#solution">Our Solution</a>
     <a href="index.html#how-it-works">Work Flow</a>
@@ -621,6 +731,35 @@
   <!-- ═══════════════ JAVASCRIPT ═══════════════ -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      (function initMobileMenu() {
+        const menu = document.getElementById("mobileMenu");
+        const backdrop = document.getElementById("mobileMenuBackdrop");
+        const toggle = document.getElementById("mobileMenuToggle");
+        const closeBtn = document.getElementById("mobileMenuClose");
+        if (!menu || !toggle) return;
+
+        const setOpen = (open) => {
+          menu.classList.toggle("active", open);
+          backdrop?.classList.toggle("active", open);
+          toggle.classList.toggle("is-open", open);
+          toggle.setAttribute("aria-expanded", String(open));
+          toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+          menu.setAttribute("aria-hidden", String(!open));
+          backdrop?.setAttribute("aria-hidden", String(!open));
+          document.body.classList.toggle("mobile-menu-open", open);
+        };
+
+        toggle.addEventListener("click", () => setOpen(!menu.classList.contains("active")));
+        closeBtn?.addEventListener("click", () => setOpen(false));
+        backdrop?.addEventListener("click", () => setOpen(false));
+        menu.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => setOpen(false));
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && menu.classList.contains("active")) setOpen(false);
+        });
+      })();
+
       // Scroll Reveal
       const revealEls = document.querySelectorAll(".reveal");
       const revealObserver = new IntersectionObserver((entries) => {
