@@ -5,9 +5,10 @@
   "outputDirectory": "dist",
   "cleanUrls": true,
   "rewrites": [
-    {
-      "source": "/contactus",
-      "destination": "/contactus.html"
-    }
+    { "source": "/contactus", "destination": "/contactus.html" },
+    { "source": "/admin", "destination": "/admin/login.html" },
+    { "source": "/admin/", "destination": "/admin/login.html" },
+    { "source": "/admin/login", "destination": "/admin/login.html" },
+    { "source": "/admin/dashboard", "destination": "/admin/dashboard.html" }
   ]
 }

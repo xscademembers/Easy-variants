@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Leads Dashboard &middot; EasyVariants Admin</title>
+  <link rel="icon" type="image/png" href="/assets/logo-C015aalk.png" />
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      color: #1a1c1d;
+      background: #f6f7fb;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      background: #fff;
+      border-bottom: 1px solid rgba(199, 196, 216, 0.25);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand img {
+      height: 32px;
+      width: auto;
+    }
+
+    .brand-badge {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 800;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #3525cd;
+      background: rgba(53, 37, 205, 0.08);
+      padding: 3px 10px;
+      border-radius: 9999px;
+    }
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: #464555;
+    }
+
+    .logout {
+      border: none;
+      background: #f3f3f5;
+      color: #1a1c1d;
+      padding: 8px 14px;
+      border-radius: 9999px;
+      font: inherit;
+      font-weight: 700;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .logout:hover {
+      background: #e8e8ea;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 28px 24px 64px;
+    }
+
+    h1 {
+      font-family: 'Manrope', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin: 0 0 0.4rem;
+    }
+
+    .subtitle {
+      color: #464555;
+      font-size: 0.9rem;
+      margin: 0 0 1.75rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat {
+      background: #fff;
+      border: 1px solid rgba(199, 196, 216, 0.22);
+      border-radius: 1rem;
+      padding: 16px 18px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+
+    .stat .label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+      color: #777587;
+    }
+
+    .stat .value {
+      font-family: 'Manrope', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-top: 4px;
+      color: #1a1c1d;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      background: #fff;
+      border: 1px solid rgba(199, 196, 216, 0.22);
+      border-radius: 1rem;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+
+    .toolbar input,
+    .toolbar select {
+      padding: 9px 12px;
+      border-radius: 0.65rem;
+      border: 1px solid rgba(199, 196, 216, 0.4);
+      font: inherit;
+      font-size: 0.85rem;
+      outline: none;
+      background: #fbfbfd;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .toolbar input:focus,
+    .toolbar select:focus {
+      border-color: #4d44e3;
+      box-shadow: 0 0 0 3px rgba(77, 68, 227, 0.1);
+      background: #fff;
+    }
+
+    .toolbar input {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .toolbar .refresh {
+      border: none;
+      background: linear-gradient(135deg, #3525cd 0%, #4f46e5 100%);
+      color: #fff;
+      padding: 9px 16px;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .table-wrap {
+      background: #fff;
+      border: 1px solid rgba(199, 196, 216, 0.22);
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(199, 196, 216, 0.18);
+      vertical-align: top;
+    }
+
+    th {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #777587;
+      background: #fafafc;
+      position: sticky;
+      top: 64px;
+    }
+
+    tbody tr:hover {
+      background: #fafbff;
+    }
+
+    .name {
+      font-weight: 700;
+      color: #1a1c1d;
+    }
+
+    .email {
+      color: #3525cd;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .email:hover {
+      text-decoration: underline;
+    }
+
+    .message {
+      max-width: 380px;
+      color: #464555;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .meta {
+      color: #777587;
+      font-size: 0.78rem;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .status-new {
+      background: rgba(53, 37, 205, 0.1);
+      color: #3525cd;
+    }
+
+    .status-contacted {
+      background: rgba(245, 158, 11, 0.12);
+      color: #b45309;
+    }
+
+    .status-closed {
+      background: rgba(22, 163, 74, 0.1);
+      color: #15803d;
+    }
+
+    .actions {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .actions select {
+      padding: 5px 8px;
+      border-radius: 0.4rem;
+      border: 1px solid rgba(199, 196, 216, 0.4);
+      font: inherit;
+      font-size: 0.78rem;
+      background: #fbfbfd;
+      cursor: pointer;
+    }
+
+    .actions .delete {
+      border: none;
+      background: rgba(186, 26, 26, 0.08);
+      color: #b91c1c;
+      width: 28px;
+      height: 28px;
+      border-radius: 9999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+    }
+
+    .actions .delete:hover {
+      background: rgba(186, 26, 26, 0.16);
+    }
+
+    .empty,
+    .loading,
+    .error {
+      padding: 36px 24px;
+      text-align: center;
+      color: #464555;
+      font-size: 0.9rem;
+    }
+
+    .error {
+      color: #b91c1c;
+    }
+
+    @media (max-width: 700px) {
+      table {
+        display: block;
+        overflow-x: auto;
+      }
+      th {
+        position: static;
+      }
+      .message {
+        max-width: 240px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="/assets/logo-C015aalk.png" alt="EasyVariants" />
+      <span class="brand-badge">Admin</span>
+    </div>
+    <div class="user">
+      <span id="userEmail"></span>
+      <button class="logout" id="logoutBtn">Logout</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Contact form leads</h1>
+    <p class="subtitle">Submissions from the EasyVariants contact form.</p>
+
+    <div class="stats" id="stats">
+      <div class="stat"><div class="label">Total</div><div class="value" id="stat-total">—</div></div>
+      <div class="stat"><div class="label">New</div><div class="value" id="stat-new">—</div></div>
+      <div class="stat"><div class="label">Contacted</div><div class="value" id="stat-contacted">—</div></div>
+      <div class="stat"><div class="label">Closed</div><div class="value" id="stat-closed">—</div></div>
+    </div>
+
+    <div class="toolbar">
+      <input type="search" id="searchInput" placeholder="Search by name, email, company, or message" />
+      <select id="statusFilter">
+        <option value="">All statuses</option>
+        <option value="new">New</option>
+        <option value="contacted">Contacted</option>
+        <option value="closed">Closed</option>
+      </select>
+      <button class="refresh" id="refreshBtn">
+        <span class="material-symbols-outlined" style="font-size:18px;">refresh</span>
+        Refresh
+      </button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Company</th>
+            <th>Message</th>
+            <th>Received</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="leadsBody">
+          <tr><td colspan="7" class="loading">Loading leads…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    const token = localStorage.getItem('ev_admin_token');
+    const userEmail = localStorage.getItem('ev_admin_email') || '';
+    if (!token) {
+      window.location.replace('/admin/login.html');
+    }
+    document.getElementById('userEmail').textContent = userEmail;
+
+    function authHeaders() {
+      return {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      };
+    }
+
+    function logout() {
+      localStorage.removeItem('ev_admin_token');
+      localStorage.removeItem('ev_admin_email');
+      window.location.replace('/admin/login.html');
+    }
+
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+
+    function fmtDate(iso) {
+      try {
+        const d = new Date(iso);
+        return d.toLocaleString(undefined, {
+          year: 'numeric', month: 'short', day: '2-digit',
+          hour: '2-digit', minute: '2-digit',
+        });
+      } catch { return ''; }
+    }
+
+    function escapeHtml(s) {
+      return String(s || '').replace(/[&<>"']/g, (c) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      })[c]);
+    }
+
+    function statusBadge(status) {
+      const cls = `status status-${status}`;
+      return `<span class="${cls}">${status}</span>`;
+    }
+
+    let allLeads = [];
+
+    async function loadLeads() {
+      const body = document.getElementById('leadsBody');
+      body.innerHTML = `<tr><td colspan="7" class="loading">Loading leads…</td></tr>`;
+      const status = document.getElementById('statusFilter').value;
+      const q = document.getElementById('searchInput').value.trim();
+      const params = new URLSearchParams();
+      if (status) params.set('status', status);
+      if (q) params.set('q', q);
+      try {
+        const res = await fetch(`/api/admin/leads?${params.toString()}`, { headers: authHeaders() });
+        if (res.status === 401) return logout();
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to load leads.');
+
+        document.getElementById('stat-total').textContent = data.stats.total;
+        document.getElementById('stat-new').textContent = data.stats.new;
+        document.getElementById('stat-contacted').textContent = data.stats.contacted;
+        document.getElementById('stat-closed').textContent = data.stats.closed;
+
+        allLeads = data.leads;
+        renderLeads();
+      } catch (err) {
+        body.innerHTML = `<tr><td colspan="7" class="error">${escapeHtml(err.message)}</td></tr>`;
+      }
+    }
+
+    function renderLeads() {
+      const body = document.getElementById('leadsBody');
+      if (!allLeads.length) {
+        body.innerHTML = `<tr><td colspan="7" class="empty">No leads found.</td></tr>`;
+        return;
+      }
+      body.innerHTML = allLeads.map((l) => `
+        <tr data-id="${l._id}">
+          <td><span class="name">${escapeHtml(l.firstName)} ${escapeHtml(l.lastName)}</span></td>
+          <td><a class="email" href="mailto:${escapeHtml(l.email)}">${escapeHtml(l.email)}</a></td>
+          <td>${escapeHtml(l.company || '—')}</td>
+          <td class="message">${escapeHtml(l.message)}</td>
+          <td class="meta">${fmtDate(l.createdAt)}</td>
+          <td>${statusBadge(l.status)}</td>
+          <td>
+            <div class="actions">
+              <select class="status-select" data-id="${l._id}">
+                <option value="new" ${l.status === 'new' ? 'selected' : ''}>New</option>
+                <option value="contacted" ${l.status === 'contacted' ? 'selected' : ''}>Contacted</option>
+                <option value="closed" ${l.status === 'closed' ? 'selected' : ''}>Closed</option>
+              </select>
+              <button class="delete" data-id="${l._id}" title="Delete lead">
+                <span class="material-symbols-outlined" style="font-size:16px;">delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+
+      body.querySelectorAll('.status-select').forEach((sel) => {
+        sel.addEventListener('change', async (e) => {
+          const id = e.target.getAttribute('data-id');
+          const status = e.target.value;
+          try {
+            const res = await fetch('/api/admin/leads', {
+              method: 'PATCH',
+              headers: authHeaders(),
+              body: JSON.stringify({ id, status }),
+            });
+            if (res.status === 401) return logout();
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Update failed.');
+            loadLeads();
+          } catch (err) {
+            alert(err.message);
+          }
+        });
+      });
+
+      body.querySelectorAll('.delete').forEach((btn) => {
+        btn.addEventListener('click', async (e) => {
+          const id = btn.getAttribute('data-id');
+          if (!confirm('Delete this lead? This cannot be undone.')) return;
+          try {
+            const res = await fetch(`/api/admin/leads?id=${encodeURIComponent(id)}`, {
+              method: 'DELETE',
+              headers: authHeaders(),
+            });
+            if (res.status === 401) return logout();
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Delete failed.');
+            loadLeads();
+          } catch (err) {
+            alert(err.message);
+          }
+        });
+      });
+    }
+
+    document.getElementById('refreshBtn').addEventListener('click', loadLeads);
+    document.getElementById('statusFilter').addEventListener('change', loadLeads);
+    let searchTimer;
+    document.getElementById('searchInput').addEventListener('input', () => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(loadLeads, 300);
+    });
+
+    loadLeads();
+  </script>
+</body>
+
+</html>
