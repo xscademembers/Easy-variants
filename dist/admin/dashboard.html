@@ -5,7 +5,8 @@
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Leads Dashboard &middot; EasyVariants Admin</title>
-  <link rel="icon" type="image/png" href="/assets/logo-C015aalk.png" />
+  <link rel="icon" type="image/png" href="/assets/EV%20logo-C9OWGHkt.png" />
+  <link rel="apple-touch-icon" href="/assets/EV%20logo-C9OWGHkt.png" />
   <link href="https://fonts.googleapis.com" rel="preconnect" />
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
   <link
@@ -199,16 +200,23 @@
 
     table {
       width: 100%;
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 0;
       font-size: 0.88rem;
+      table-layout: auto;
+    }
+
+    thead {
+      background: #fafafc;
     }
 
     th,
     td {
       text-align: left;
-      padding: 12px 14px;
+      padding: 14px 16px;
       border-bottom: 1px solid rgba(199, 196, 216, 0.18);
       vertical-align: top;
+      background-clip: padding-box;
     }
 
     th {
@@ -218,12 +226,20 @@
       text-transform: uppercase;
       color: #777587;
       background: #fafafc;
-      position: sticky;
-      top: 64px;
+      white-space: nowrap;
+      border-bottom: 1px solid rgba(199, 196, 216, 0.3);
+    }
+
+    tbody tr {
+      background: #fff;
     }
 
     tbody tr:hover {
       background: #fafbff;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
     }
 
     .name {
@@ -328,13 +344,13 @@
       color: #b91c1c;
     }
 
-    @media (max-width: 700px) {
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    @media (max-width: 900px) {
       table {
-        display: block;
-        overflow-x: auto;
-      }
-      th {
-        position: static;
+        min-width: 880px;
       }
       .message {
         max-width: 240px;
