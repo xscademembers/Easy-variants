@@ -320,11 +320,45 @@
       text-decoration: underline;
     }
 
-    .message {
+    .message-cell {
       max-width: 380px;
+      min-width: 160px;
+    }
+
+    .message-text {
       color: #464555;
       white-space: pre-wrap;
       word-break: break-word;
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+
+    .message-text.is-clamped {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+    }
+
+    .message-toggle {
+      display: none;
+      margin-top: 6px;
+      padding: 0;
+      border: none;
+      background: none;
+      color: #3525cd;
+      font: inherit;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .message-toggle.is-visible {
+      display: inline-block;
+    }
+
+    .message-toggle:hover {
+      text-decoration: underline;
     }
 
     .meta {
@@ -456,7 +490,7 @@
       table {
         min-width: 880px;
       }
-      .message {
+      .message-cell {
         max-width: 240px;
       }
     }
@@ -720,7 +754,10 @@
           <td><span class="name">${escapeHtml(l.firstName)} ${escapeHtml(l.lastName)}</span></td>
           <td><a class="email" href="mailto:${escapeHtml(l.email)}">${escapeHtml(l.email)}</a></td>
           <td>${escapeHtml(l.company || '—')}</td>
-          <td class="message">${escapeHtml(l.message)}</td>
+          <td class="message-cell">
+            <div class="message-text is-clamped">${escapeHtml(l.message)}</div>
+            <button type="button" class="message-toggle" aria-expanded="false">Read more</button>
+          </td>
           <td class="meta">${fmtDate(l.createdAt)}</td>
           <td>${statusBadge(l.status)}</td>
           <td class="col-actions">
@@ -737,6 +774,8 @@
           </td>
         </tr>
       `).join('');
+
+      initMessageToggles(body);
 
       body.querySelectorAll('.status-select').forEach((sel) => {
         sel.addEventListener('change', async (e) => {
@@ -774,6 +813,29 @@
           } catch (err) {
             alert(err.message);
           }
+        });
+      });
+    }
+
+    function initMessageToggles(root) {
+      root.querySelectorAll('.message-cell').forEach((cell) => {
+        const text = cell.querySelector('.message-text');
+        const btn = cell.querySelector('.message-toggle');
+        if (!text || !btn) return;
+
+        text.classList.add('is-clamped');
+        btn.classList.remove('is-visible');
+        btn.textContent = 'Read more';
+        btn.setAttribute('aria-expanded', 'false');
+
+        if (text.scrollHeight > text.clientHeight + 1) {
+          btn.classList.add('is-visible');
+        }
+
+        btn.addEventListener('click', () => {
+          const expanded = text.classList.toggle('is-clamped') === false;
+          btn.textContent = expanded ? 'Read less' : 'Read more';
+          btn.setAttribute('aria-expanded', String(expanded));
         });
       });
     }
