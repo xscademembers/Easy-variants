@@ -14,72 +14,6 @@
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "surface-variant": "#e2e2e4",
-                        "primary-fixed-dim": "#c3c0ff",
-                        "on-primary-container": "#dad7ff",
-                        "inverse-primary": "#c3c0ff",
-                        "error-container": "#ffdad6",
-                        "tertiary-fixed-dim": "#ffb695",
-                        "on-tertiary": "#ffffff",
-                        "surface-container-high": "#e8e8ea",
-                        "on-primary-fixed-variant": "#3323cc",
-                        "outline-variant": "#c7c4d8",
-                        "surface-container-lowest": "#ffffff",
-                        "surface-container-low": "#f3f3f5",
-                        "on-primary-fixed": "#0f0069",
-                        "surface-dim": "#d9dadc",
-                        "on-tertiary-container": "#ffd2be",
-                        "on-surface-variant": "#464555",
-                        "surface-container": "#eeeef0",
-                        "on-surface": "#1a1c1d",
-                        "secondary": "#565e74",
-                        "secondary-container": "#dae2fd",
-                        "on-tertiary-fixed-variant": "#7b2f00",
-                        "primary-container": "#4f46e5",
-                        "on-background": "#1a1c1d",
-                        "surface-container-highest": "#e2e2e4",
-                        "inverse-on-surface": "#f0f0f2",
-                        "on-secondary-container": "#5c647a",
-                        "outline": "#777587",
-                        "on-error-container": "#93000a",
-                        "on-error": "#ffffff",
-                        "surface-bright": "#f9f9fb",
-                        "on-primary": "#ffffff",
-                        "tertiary-fixed": "#ffdbcc",
-                        "tertiary-container": "#a44100",
-                        "on-secondary-fixed-variant": "#3f465c",
-                        "surface": "#f9f9fb",
-                        "primary": "#3525cd",
-                        "error": "#ba1a1a",
-                        "on-secondary": "#ffffff",
-                        "secondary-fixed-dim": "#bec6e0",
-                        "surface-tint": "#4d44e3",
-                        "on-tertiary-fixed": "#351000",
-                        "tertiary": "#7e3000",
-                        "on-secondary-fixed": "#131b2e",
-                        "background": "#f9f9fb",
-                        "inverse-surface": "#2f3132",
-                        "secondary-fixed": "#dae2fd",
-                        "primary-fixed": "#e2dfff",
-                        "brand-blue": "#4f46e5",
-                        "brand-purple": "#7c3aed"
-                    },
-                    fontFamily: {
-                        "headline": ["Manrope", "sans-serif"],
-                        "body": ["Inter", "sans-serif"],
-                        "label": ["Inter", "sans-serif"]
-                    },
-                },
-            },
-        }
-    </script>
     <style>
         /* ═══ BASE ═══ */
         :root {
@@ -1685,6 +1619,7 @@
             }
         }
     </script>
+  <link rel="stylesheet" crossorigin href="/assets/tailwind-DbEGt9XZ.css">
 </head>
 
 <body class="font-body text-on-surface antialiased">
@@ -2756,7 +2691,7 @@
                     slide.style.transition = 'opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1)';
                     slide.style.cursor = 'pointer';
                     slide.innerHTML = `
-                    <iframe width="100%" height="100%" src="${data.embed}" frameborder="0"
+                    <iframe width="100%" height="100%" data-src="${data.embed}" title="${data.title}"
                         style="position: absolute; top: var(--demo-iframe-top); left: 0; width: 100%; height: var(--demo-iframe-height); z-index: 1; border: none; pointer-events: none; transform: scale(1.02); transition: all 0.5s ease;"></iframe>
                     <div class="demo-overlay" style="position: absolute; inset: 0; z-index: 5; cursor: pointer;"></div>
                     <div class="demo-play-btn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 8; pointer-events: none;">
@@ -2775,6 +2710,10 @@
                     slide.querySelector('.demo-overlay').addEventListener('click', () => {
                         slides.forEach(s => s.classList.remove('is-playing'));
                         slide.classList.add('is-playing');
+                        const iframe = slide.querySelector('iframe');
+                        if (iframe && !iframe.src && iframe.dataset.src) {
+                            iframe.src = iframe.dataset.src;
+                        }
                     });
                     lightSlideshow.appendChild(slide);
 

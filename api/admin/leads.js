@@ -10,7 +10,16 @@ export default async function handler(req, res) {
     await connectToDatabase();
 
     if (req.method === 'GET') {
-      const { status, q, limit = '100' } = req.query || {};
+      const {
+        status,
+        q,
+        limit = '100',
+        dateFrom,
+        dateTo,
+        sortBy = 'createdAt',
+        sortOrder = 'desc',
+      } = req.query || {};
+
       const filter = {};
       if (status && ['new', 'contacted', 'closed'].includes(status)) {
         filter.status = status;
@@ -26,8 +35,31 @@ export default async function handler(req, res) {
         ];
       }
 
+      if (dateFrom || dateTo) {
+        filter.createdAt = {};
+        if (dateFrom) {
+          const start = new Date(String(dateFrom));
+          if (!Number.isNaN(start.getTime())) {
+            start.setHours(0, 0, 0, 0);
+            filter.createdAt.$gte = start;
+          }
+        }
+        if (dateTo) {
+          const end = new Date(String(dateTo));
+          if (!Number.isNaN(end.getTime())) {
+            end.setHours(23, 59, 59, 999);
+            filter.createdAt.$lte = end;
+          }
+        }
+        if (Object.keys(filter.createdAt).length === 0) delete filter.createdAt;
+      }
+
+      const allowedSortFields = ['createdAt', 'firstName', 'lastName', 'email', 'company', 'status'];
+      const sortField = allowedSortFields.includes(sortBy) ? sortBy : 'createdAt';
+      const sortDir = sortOrder === 'asc' ? 1 : -1;
+
       const docs = await Lead.find(filter)
-        .sort({ createdAt: -1 })
+        .sort({ [sortField]: sortDir })
         .limit(Math.min(parseInt(limit, 10) || 100, 500))
         .lean();
 
@@ -36,6 +68,7 @@ export default async function handler(req, res) {
         new: await Lead.countDocuments({ status: 'new' }),
         contacted: await Lead.countDocuments({ status: 'contacted' }),
         closed: await Lead.countDocuments({ status: 'closed' }),
+        filtered: await Lead.countDocuments(filter),
       };
 
       return res.status(200).json({ ok: true, leads: docs, stats });

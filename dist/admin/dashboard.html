@@ -142,14 +142,47 @@
 
     .toolbar {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
+      flex-direction: column;
+      gap: 12px;
       background: #fff;
       border: 1px solid rgba(199, 196, 216, 0.22);
       border-radius: 1rem;
       padding: 12px;
       margin-bottom: 16px;
+    }
+
+    .toolbar-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .toolbar-row + .toolbar-row {
+      padding-top: 12px;
+      border-top: 1px solid rgba(199, 196, 216, 0.18);
+    }
+
+    .toolbar-label {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #777587;
+      margin-right: 4px;
+      white-space: nowrap;
+    }
+
+    .toolbar-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toolbar input[type="date"] {
+      min-width: 150px;
+      flex: 0 1 auto;
     }
 
     .toolbar input,
@@ -188,6 +221,35 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
+    }
+
+    .toolbar .clear-filters {
+      border: 1px solid rgba(199, 196, 216, 0.45);
+      background: #fff;
+      color: #464555;
+      padding: 9px 14px;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .toolbar .clear-filters:hover {
+      background: #f6f7fb;
+    }
+
+    .filter-summary {
+      font-size: 0.82rem;
+      color: #464555;
+      margin: -8px 0 12px;
+    }
+
+    .filter-summary strong {
+      color: #3525cd;
+      font-weight: 700;
     }
 
     .table-wrap {
@@ -383,18 +445,48 @@
     </div>
 
     <div class="toolbar">
-      <input type="search" id="searchInput" placeholder="Search by name, email, company, or message" />
-      <select id="statusFilter">
-        <option value="">All statuses</option>
-        <option value="new">New</option>
-        <option value="contacted">Contacted</option>
-        <option value="closed">Closed</option>
-      </select>
-      <button class="refresh" id="refreshBtn">
-        <span class="material-symbols-outlined" style="font-size:18px;">refresh</span>
-        Refresh
-      </button>
+      <div class="toolbar-row">
+        <input type="search" id="searchInput" placeholder="Search by name, email, company, or message" />
+        <select id="statusFilter">
+          <option value="">All statuses</option>
+          <option value="new">New</option>
+          <option value="contacted">Contacted</option>
+          <option value="closed">Closed</option>
+        </select>
+        <button class="refresh" id="refreshBtn" type="button">
+          <span class="material-symbols-outlined" style="font-size:18px;">refresh</span>
+          Refresh
+        </button>
+      </div>
+      <div class="toolbar-row">
+        <span class="toolbar-label">Date range</span>
+        <div class="toolbar-group">
+          <input type="date" id="dateFrom" aria-label="From date" />
+          <span class="meta">to</span>
+          <input type="date" id="dateTo" aria-label="To date" />
+        </div>
+        <span class="toolbar-label">Sort</span>
+        <div class="toolbar-group">
+          <select id="sortBy" aria-label="Sort by">
+            <option value="createdAt">Received date</option>
+            <option value="firstName">First name</option>
+            <option value="lastName">Last name</option>
+            <option value="email">Email</option>
+            <option value="company">Company</option>
+            <option value="status">Status</option>
+          </select>
+          <select id="sortOrder" aria-label="Sort order">
+            <option value="desc">Newest / Z → A</option>
+            <option value="asc">Oldest / A → Z</option>
+          </select>
+        </div>
+        <button class="clear-filters" id="clearFiltersBtn" type="button">
+          <span class="material-symbols-outlined" style="font-size:18px;">filter_alt_off</span>
+          Clear filters
+        </button>
+      </div>
     </div>
+    <p class="filter-summary" id="filterSummary" hidden></p>
 
     <div class="table-wrap">
       <table>
@@ -462,15 +554,100 @@
 
     let allLeads = [];
 
-    async function loadLeads() {
-      const body = document.getElementById('leadsBody');
-      body.innerHTML = `<tr><td colspan="7" class="loading">Loading leads…</td></tr>`;
+    function getFilterParams() {
       const status = document.getElementById('statusFilter').value;
       const q = document.getElementById('searchInput').value.trim();
+      const dateFrom = document.getElementById('dateFrom').value;
+      const dateTo = document.getElementById('dateTo').value;
+      const sortBy = document.getElementById('sortBy').value;
+      const sortOrder = document.getElementById('sortOrder').value;
+
+      if (dateFrom && dateTo && dateFrom > dateTo) {
+        throw new Error('Start date must be on or before end date.');
+      }
+
       const params = new URLSearchParams();
       if (status) params.set('status', status);
       if (q) params.set('q', q);
+      if (dateFrom) params.set('dateFrom', dateFrom);
+      if (dateTo) params.set('dateTo', dateTo);
+      if (sortBy) params.set('sortBy', sortBy);
+      if (sortOrder) params.set('sortOrder', sortOrder);
+      return params;
+    }
+
+    function updateSortOrderLabels() {
+      const sortBy = document.getElementById('sortBy').value;
+      const sortOrder = document.getElementById('sortOrder');
+      if (sortBy === 'createdAt') {
+        sortOrder.options[0].textContent = 'Newest first';
+        sortOrder.options[1].textContent = 'Oldest first';
+      } else {
+        sortOrder.options[0].textContent = 'Descending (Z → A)';
+        sortOrder.options[1].textContent = 'Ascending (A → Z)';
+      }
+    }
+
+    function updateFilterSummary(filteredCount, total, params) {
+      const el = document.getElementById('filterSummary');
+      const status = params.get('status');
+      const q = params.get('q');
+      const dateFrom = params.get('dateFrom');
+      const dateTo = params.get('dateTo');
+      const sortBy = params.get('sortBy') || 'createdAt';
+      const sortOrder = params.get('sortOrder') || 'desc';
+      const parts = [];
+
+      if (status) parts.push(`status: ${status}`);
+      if (q) parts.push(`search: "${q}"`);
+      if (dateFrom || dateTo) {
+        parts.push(`dates: ${dateFrom || '…'} → ${dateTo || '…'}`);
+      }
+
+      const sortLabels = {
+        createdAt: 'Received date',
+        firstName: 'First name',
+        lastName: 'Last name',
+        email: 'Email',
+        company: 'Company',
+        status: 'Status',
+      };
+      const orderLabel = sortBy === 'createdAt'
+        ? (sortOrder === 'asc' ? 'oldest first' : 'newest first')
+        : (sortOrder === 'asc' ? 'A → Z' : 'Z → A');
+      parts.push(`${sortLabels[sortBy] || sortBy}, ${orderLabel}`);
+
+      const hasFilters = status || q || dateFrom || dateTo;
+      const nonDefaultSort = sortBy !== 'createdAt' || sortOrder !== 'desc';
+
+      if (!hasFilters && !nonDefaultSort && filteredCount === total) {
+        el.hidden = true;
+        el.textContent = '';
+        return;
+      }
+
+      el.hidden = false;
+      const countText = filteredCount === total
+        ? `<strong>${filteredCount}</strong> lead${filteredCount === 1 ? '' : 's'}`
+        : `<strong>${filteredCount}</strong> of <strong>${total}</strong> leads`;
+      el.innerHTML = `Showing ${countText} · ${parts.join(' · ')}`;
+    }
+
+    function clearFilters() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('statusFilter').value = '';
+      document.getElementById('dateFrom').value = '';
+      document.getElementById('dateTo').value = '';
+      document.getElementById('sortBy').value = 'createdAt';
+      document.getElementById('sortOrder').value = 'desc';
+      loadLeads();
+    }
+
+    async function loadLeads() {
+      const body = document.getElementById('leadsBody');
+      body.innerHTML = `<tr><td colspan="7" class="loading">Loading leads…</td></tr>`;
       try {
+        const params = getFilterParams();
         const res = await fetch(`/api/admin/leads?${params.toString()}`, { headers: authHeaders() });
         if (res.status === 401) return logout();
         const data = await res.json();
@@ -482,8 +659,10 @@
         document.getElementById('stat-closed').textContent = data.stats.closed;
 
         allLeads = data.leads;
+        updateFilterSummary(data.stats.filtered ?? allLeads.length, data.stats.total, params);
         renderLeads();
       } catch (err) {
+        document.getElementById('filterSummary').hidden = true;
         body.innerHTML = `<tr><td colspan="7" class="error">${escapeHtml(err.message)}</td></tr>`;
       }
     }
@@ -558,7 +737,15 @@
     }
 
     document.getElementById('refreshBtn').addEventListener('click', loadLeads);
+    document.getElementById('clearFiltersBtn').addEventListener('click', clearFilters);
     document.getElementById('statusFilter').addEventListener('change', loadLeads);
+    document.getElementById('sortBy').addEventListener('change', () => {
+      updateSortOrderLabels();
+      loadLeads();
+    });
+    document.getElementById('sortOrder').addEventListener('change', loadLeads);
+    document.getElementById('dateFrom').addEventListener('change', loadLeads);
+    document.getElementById('dateTo').addEventListener('change', loadLeads);
     let searchTimer;
     document.getElementById('searchInput').addEventListener('input', () => {
       clearTimeout(searchTimer);
@@ -566,6 +753,7 @@
     });
 
     loadLeads();
+    updateSortOrderLabels();
   </script>
 </body>
 
