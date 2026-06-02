@@ -15,6 +15,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
     rel="stylesheet" />
   <style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -54,14 +66,12 @@
 
     .brand-badge {
       font-family: 'Manrope', sans-serif;
-      font-weight: 800;
-      font-size: 0.65rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #3525cd;
-      background: rgba(53, 37, 205, 0.08);
-      padding: 3px 10px;
-      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.02em;
+      text-transform: none;
+      color: #464555;
+      padding-left: 12px;
     }
 
     .user {
@@ -70,6 +80,93 @@
       gap: 10px;
       font-size: 0.85rem;
       color: #464555;
+      min-width: 0;
+    }
+
+    #userEmail {
+      max-width: 180px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 640px) {
+      .topbar {
+        padding: 12px 16px;
+      }
+
+      #userEmail {
+        display: none;
+      }
+
+      .toolbar-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .toolbar input,
+      .toolbar select,
+      .toolbar input[type="date"] {
+        width: 100%;
+        min-width: 0;
+        flex: 1 1 auto;
+      }
+
+      .toolbar-group {
+        width: 100%;
+      }
+
+      .toolbar .refresh,
+      .toolbar .clear-filters {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    .table-wrap.is-loading tbody {
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      max-width: min(360px, calc(100vw - 32px));
+      padding: 12px 16px;
+      border-radius: 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+      z-index: 100;
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .toast-error {
+      background: #fef2f2;
+      color: #b91c1c;
+      border: 1px solid rgba(185, 28, 28, 0.15);
+    }
+
+    .toast-success {
+      background: #f0fdf4;
+      color: #15803d;
+      border: 1px solid rgba(21, 128, 61, 0.15);
+    }
+
+    .stats-hint {
+      font-size: 0.78rem;
+      color: #777587;
+      margin: -8px 0 14px;
     }
 
     .logout {
@@ -319,11 +416,45 @@
       text-decoration: underline;
     }
 
-    .message {
+    .message-cell {
       max-width: 380px;
+      min-width: 160px;
+    }
+
+    .message-text {
       color: #464555;
       white-space: pre-wrap;
       word-break: break-word;
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+
+    .message-text.is-clamped {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+    }
+
+    .message-toggle {
+      display: none;
+      margin-top: 6px;
+      padding: 0;
+      border: none;
+      background: none;
+      color: #3525cd;
+      font: inherit;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .message-toggle.is-visible {
+      display: inline-block;
+    }
+
+    .message-toggle:hover {
+      text-decoration: underline;
     }
 
     .meta {
@@ -358,39 +489,80 @@
       color: #15803d;
     }
 
-    .actions {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-      flex-wrap: wrap;
+    th.col-actions,
+    td.col-actions {
+      width: 1%;
+      white-space: nowrap;
+      vertical-align: middle;
     }
 
-    .actions select {
-      padding: 5px 8px;
-      border-radius: 0.4rem;
-      border: 1px solid rgba(199, 196, 216, 0.4);
+    .action-group {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(199, 196, 216, 0.45);
+      border-radius: 0.55rem;
+      overflow: hidden;
+      background: #fbfbfd;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    }
+
+    .action-group .status-select {
+      height: 34px;
+      min-width: 112px;
+      padding: 0 28px 0 10px;
+      margin: 0;
+      border: none;
+      border-right: 1px solid rgba(199, 196, 216, 0.35);
+      border-radius: 0;
+      background: transparent;
       font: inherit;
       font-size: 0.78rem;
-      background: #fbfbfd;
+      font-weight: 600;
+      color: #1a1c1d;
       cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23777587' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
     }
 
-    .actions .delete {
+    .action-group .status-select:focus {
+      outline: none;
+      background-color: #fff;
+    }
+
+    .action-delete {
+      flex-shrink: 0;
+      width: 34px;
+      height: 34px;
+      margin: 0;
+      padding: 0;
       border: none;
-      background: rgba(186, 26, 26, 0.08);
+      background: transparent;
       color: #b91c1c;
-      width: 28px;
-      height: 28px;
-      border-radius: 9999px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      transition: background-color 0.2s ease;
+      transition: background-color 0.15s ease, color 0.15s ease;
     }
 
-    .actions .delete:hover {
-      background: rgba(186, 26, 26, 0.16);
+    .action-delete .material-symbols-outlined {
+      font-size: 18px;
+      line-height: 1;
+      display: block;
+      width: 18px;
+      height: 18px;
+    }
+
+    .action-delete:hover {
+      background: rgba(186, 26, 26, 0.1);
+      color: #991b1b;
+    }
+
+    .action-delete:focus-visible {
+      outline: 2px solid rgba(186, 26, 26, 0.35);
+      outline-offset: -2px;
     }
 
     .empty,
@@ -414,7 +586,7 @@
       table {
         min-width: 880px;
       }
-      .message {
+      .message-cell {
         max-width: 240px;
       }
     }
@@ -443,6 +615,8 @@
       <div class="stat"><div class="label">Contacted</div><div class="value" id="stat-contacted">—</div></div>
       <div class="stat"><div class="label">Closed</div><div class="value" id="stat-closed">—</div></div>
     </div>
+
+    <p class="stats-hint" id="statsHint">Stat cards show all-time totals. Use the table below for filtered results.</p>
 
     <div class="toolbar">
       <div class="toolbar-row">
@@ -488,7 +662,7 @@
     </div>
     <p class="filter-summary" id="filterSummary" hidden></p>
 
-    <div class="table-wrap">
+    <div class="table-wrap" id="tableWrap">
       <table>
         <thead>
           <tr>
@@ -497,16 +671,17 @@
             <th>Company</th>
             <th>Message</th>
             <th>Received</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <th class="col-actions">Actions</th>
           </tr>
         </thead>
         <tbody id="leadsBody">
-          <tr><td colspan="7" class="loading">Loading leads…</td></tr>
+          <tr><td colspan="6" class="loading">Loading leads…</td></tr>
         </tbody>
       </table>
     </div>
   </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script>
     const token = localStorage.getItem('ev_admin_token');
@@ -547,12 +722,39 @@
       })[c]);
     }
 
-    function statusBadge(status) {
-      const cls = `status status-${status}`;
-      return `<span class="${cls}">${status}</span>`;
+    let allLeads = [];
+    let statsCache = { total: 0, new: 0, contacted: 0, closed: 0 };
+    let toastTimer;
+
+    function showToast(message, type = 'error') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = `toast toast-${type} show`;
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 4000);
     }
 
-    let allLeads = [];
+    function updateStatsDisplay(stats) {
+      statsCache = { ...stats };
+      document.getElementById('stat-total').textContent = stats.total;
+      document.getElementById('stat-new').textContent = stats.new;
+      document.getElementById('stat-contacted').textContent = stats.contacted;
+      document.getElementById('stat-closed').textContent = stats.closed;
+    }
+
+    function updateLeadStatusInRow(id, status) {
+      const lead = allLeads.find((l) => l._id === id);
+      if (!lead || lead.status === status) return;
+
+      const oldStatus = lead.status;
+      lead.status = status;
+
+      if (statsCache[oldStatus] !== undefined) {
+        statsCache[oldStatus] = Math.max(0, statsCache[oldStatus] - 1);
+        statsCache[status] = (statsCache[status] || 0) + 1;
+        updateStatsDisplay(statsCache);
+      }
+    }
 
     function getFilterParams() {
       const status = document.getElementById('statusFilter').value;
@@ -574,6 +776,135 @@
       if (sortBy) params.set('sortBy', sortBy);
       if (sortOrder) params.set('sortOrder', sortOrder);
       return params;
+    }
+
+    async function loadLeads({ showLoading = true } = {}) {
+      const body = document.getElementById('leadsBody');
+      const tableWrap = document.getElementById('tableWrap');
+      const refreshBtn = document.getElementById('refreshBtn');
+
+      if (showLoading && !allLeads.length) {
+        body.innerHTML = `<tr><td colspan="6" class="loading">Loading leads…</td></tr>`;
+      } else if (showLoading) {
+        tableWrap?.classList.add('is-loading');
+        refreshBtn?.setAttribute('disabled', 'true');
+      }
+
+      try {
+        const params = getFilterParams();
+        const res = await fetch(`/api/admin/leads?${params.toString()}`, { headers: authHeaders() });
+        if (res.status === 401) return logout();
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to load leads.');
+
+        updateStatsDisplay(data.stats);
+        allLeads = data.leads;
+        updateFilterSummary(data.stats.filtered ?? allLeads.length, data.stats.total, params);
+        renderLeads();
+      } catch (err) {
+        document.getElementById('filterSummary').hidden = true;
+        if (!allLeads.length) {
+          body.innerHTML = `<tr><td colspan="6" class="error">${escapeHtml(err.message)}</td></tr>`;
+        } else {
+          showToast(err.message, 'error');
+        }
+      } finally {
+        tableWrap?.classList.remove('is-loading');
+        refreshBtn?.removeAttribute('disabled');
+      }
+    }
+
+    function renderLeads() {
+      const body = document.getElementById('leadsBody');
+      if (!allLeads.length) {
+        body.innerHTML = `<tr><td colspan="6" class="empty">No leads found.</td></tr>`;
+        return;
+      }
+      body.innerHTML = allLeads.map((l) => `
+        <tr data-id="${l._id}">
+          <td><span class="name">${escapeHtml(l.firstName)} ${escapeHtml(l.lastName)}</span></td>
+          <td><a class="email" href="mailto:${escapeHtml(l.email)}">${escapeHtml(l.email)}</a></td>
+          <td>${escapeHtml(l.company || '—')}</td>
+          <td class="message-cell">
+            <div class="message-text is-clamped">${escapeHtml(l.message)}</div>
+            <button type="button" class="message-toggle" aria-expanded="false">Read more</button>
+          </td>
+          <td class="meta">${fmtDate(l.createdAt)}</td>
+          <td class="col-actions">
+            <div class="action-group">
+              <select class="status-select status-select--${l.status}" data-id="${l._id}" aria-label="Update lead status">
+                <option value="new" ${l.status === 'new' ? 'selected' : ''}>New</option>
+                <option value="contacted" ${l.status === 'contacted' ? 'selected' : ''}>Contacted</option>
+                <option value="closed" ${l.status === 'closed' ? 'selected' : ''}>Closed</option>
+              </select>
+              <button type="button" class="action-delete" data-id="${l._id}" aria-label="Delete lead" title="Delete lead">
+                <span class="material-symbols-outlined" aria-hidden="true">delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+
+      initMessageToggles(body);
+
+      body.querySelectorAll('.status-select').forEach((sel) => {
+        let previousValue = sel.value;
+        sel.addEventListener('focus', () => { previousValue = sel.value; });
+        sel.addEventListener('change', async (e) => {
+          const id = e.target.getAttribute('data-id');
+          const status = e.target.value;
+          try {
+            const res = await fetch('/api/admin/leads', {
+              method: 'PATCH',
+              headers: authHeaders(),
+              body: JSON.stringify({ id, status }),
+            });
+            if (res.status === 401) return logout();
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Update failed.');
+            e.target.classList.remove('status-select--new', 'status-select--contacted', 'status-select--closed');
+            e.target.classList.add(`status-select--${status}`);
+            updateLeadStatusInRow(id, status);
+            previousValue = status;
+          } catch (err) {
+            e.target.value = previousValue;
+            showToast(err.message, 'error');
+          }
+        });
+      });
+
+      body.querySelectorAll('.action-delete').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const id = btn.getAttribute('data-id');
+          const lead = allLeads.find((l) => l._id === id);
+          if (!confirm('Delete this lead? This cannot be undone.')) return;
+          try {
+            const res = await fetch(`/api/admin/leads?id=${encodeURIComponent(id)}`, {
+              method: 'DELETE',
+              headers: authHeaders(),
+            });
+            if (res.status === 401) return logout();
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Delete failed.');
+
+            if (lead) {
+              statsCache.total = Math.max(0, statsCache.total - 1);
+              statsCache[lead.status] = Math.max(0, (statsCache[lead.status] || 0) - 1);
+              updateStatsDisplay(statsCache);
+            }
+            allLeads = allLeads.filter((l) => l._id !== id);
+            document.querySelector(`tr[data-id="${id}"]`)?.remove();
+            if (!allLeads.length) {
+              body.innerHTML = `<tr><td colspan="6" class="empty">No leads found.</td></tr>`;
+            }
+            const params = getFilterParams();
+            updateFilterSummary(allLeads.length, statsCache.total, params);
+            showToast('Lead deleted.', 'success');
+          } catch (err) {
+            showToast(err.message, 'error');
+          }
+        });
+      });
     }
 
     function updateSortOrderLabels() {
@@ -643,95 +974,25 @@
       loadLeads();
     }
 
-    async function loadLeads() {
-      const body = document.getElementById('leadsBody');
-      body.innerHTML = `<tr><td colspan="7" class="loading">Loading leads…</td></tr>`;
-      try {
-        const params = getFilterParams();
-        const res = await fetch(`/api/admin/leads?${params.toString()}`, { headers: authHeaders() });
-        if (res.status === 401) return logout();
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Failed to load leads.');
+    function initMessageToggles(root) {
+      root.querySelectorAll('.message-cell').forEach((cell) => {
+        const text = cell.querySelector('.message-text');
+        const btn = cell.querySelector('.message-toggle');
+        if (!text || !btn) return;
 
-        document.getElementById('stat-total').textContent = data.stats.total;
-        document.getElementById('stat-new').textContent = data.stats.new;
-        document.getElementById('stat-contacted').textContent = data.stats.contacted;
-        document.getElementById('stat-closed').textContent = data.stats.closed;
+        text.classList.add('is-clamped');
+        btn.classList.remove('is-visible');
+        btn.textContent = 'Read more';
+        btn.setAttribute('aria-expanded', 'false');
 
-        allLeads = data.leads;
-        updateFilterSummary(data.stats.filtered ?? allLeads.length, data.stats.total, params);
-        renderLeads();
-      } catch (err) {
-        document.getElementById('filterSummary').hidden = true;
-        body.innerHTML = `<tr><td colspan="7" class="error">${escapeHtml(err.message)}</td></tr>`;
-      }
-    }
+        if (text.scrollHeight > text.clientHeight + 1) {
+          btn.classList.add('is-visible');
+        }
 
-    function renderLeads() {
-      const body = document.getElementById('leadsBody');
-      if (!allLeads.length) {
-        body.innerHTML = `<tr><td colspan="7" class="empty">No leads found.</td></tr>`;
-        return;
-      }
-      body.innerHTML = allLeads.map((l) => `
-        <tr data-id="${l._id}">
-          <td><span class="name">${escapeHtml(l.firstName)} ${escapeHtml(l.lastName)}</span></td>
-          <td><a class="email" href="mailto:${escapeHtml(l.email)}">${escapeHtml(l.email)}</a></td>
-          <td>${escapeHtml(l.company || '—')}</td>
-          <td class="message">${escapeHtml(l.message)}</td>
-          <td class="meta">${fmtDate(l.createdAt)}</td>
-          <td>${statusBadge(l.status)}</td>
-          <td>
-            <div class="actions">
-              <select class="status-select" data-id="${l._id}">
-                <option value="new" ${l.status === 'new' ? 'selected' : ''}>New</option>
-                <option value="contacted" ${l.status === 'contacted' ? 'selected' : ''}>Contacted</option>
-                <option value="closed" ${l.status === 'closed' ? 'selected' : ''}>Closed</option>
-              </select>
-              <button class="delete" data-id="${l._id}" title="Delete lead">
-                <span class="material-symbols-outlined" style="font-size:16px;">delete</span>
-              </button>
-            </div>
-          </td>
-        </tr>
-      `).join('');
-
-      body.querySelectorAll('.status-select').forEach((sel) => {
-        sel.addEventListener('change', async (e) => {
-          const id = e.target.getAttribute('data-id');
-          const status = e.target.value;
-          try {
-            const res = await fetch('/api/admin/leads', {
-              method: 'PATCH',
-              headers: authHeaders(),
-              body: JSON.stringify({ id, status }),
-            });
-            if (res.status === 401) return logout();
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || 'Update failed.');
-            loadLeads();
-          } catch (err) {
-            alert(err.message);
-          }
-        });
-      });
-
-      body.querySelectorAll('.delete').forEach((btn) => {
-        btn.addEventListener('click', async (e) => {
-          const id = btn.getAttribute('data-id');
-          if (!confirm('Delete this lead? This cannot be undone.')) return;
-          try {
-            const res = await fetch(`/api/admin/leads?id=${encodeURIComponent(id)}`, {
-              method: 'DELETE',
-              headers: authHeaders(),
-            });
-            if (res.status === 401) return logout();
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || 'Delete failed.');
-            loadLeads();
-          } catch (err) {
-            alert(err.message);
-          }
+        btn.addEventListener('click', () => {
+          const expanded = text.classList.toggle('is-clamped') === false;
+          btn.textContent = expanded ? 'Read less' : 'Read more';
+          btn.setAttribute('aria-expanded', String(expanded));
         });
       });
     }

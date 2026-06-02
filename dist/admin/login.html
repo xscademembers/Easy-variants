@@ -14,7 +14,24 @@
     rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
     rel="stylesheet" />
+  <script>
+    if (localStorage.getItem('ev_admin_token')) {
+      window.location.replace('/admin/dashboard.html');
+    }
+  </script>
   <style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -58,14 +75,12 @@
 
     .login-logo .badge {
       font-family: 'Manrope', sans-serif;
-      font-weight: 800;
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #3525cd;
-      background: rgba(53, 37, 205, 0.08);
-      padding: 4px 10px;
-      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.02em;
+      text-transform: none;
+      color: #464555;
+      padding-left: 12px;
     }
 
     h1 {
@@ -196,10 +211,10 @@
         <input type="password" id="password" name="password" autocomplete="current-password" required placeholder="Enter your password" />
       </div>
       <button type="submit" class="submit" id="submitBtn">Sign in</button>
-      <div class="error" id="errorBox"></div>
+      <div class="error" id="errorBox" role="alert" aria-live="polite"></div>
     </form>
 
-    <a href="/" class="back">
+    <a href="../index.html" class="back">
       <span class="material-symbols-outlined" style="font-size:16px;">arrow_back</span>
       Back to site
     </a>
@@ -210,10 +225,7 @@
     const errorBox = document.getElementById('errorBox');
     const submitBtn = document.getElementById('submitBtn');
 
-    // If already logged in, redirect to dashboard
-    if (localStorage.getItem('ev_admin_token')) {
-      window.location.replace('/admin/dashboard.html');
-    }
+    // Redirect handled in head if already logged in
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();

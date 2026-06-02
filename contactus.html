@@ -110,6 +110,19 @@
       transform: translateY(0);
     }
 
+    .reveal.is-revealed {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+
     .card-premium {
       background: rgba(255, 255, 255, 0.85);
       border: 1px solid rgba(199, 196, 216, 0.12);
@@ -133,6 +146,73 @@
 
     .footer-premium {
       background: linear-gradient(180deg, #f8f8fc 0%, #f0f0f4 100%);
+    }
+
+    .footer-premium a {
+      transition: color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .footer-mini-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-radius: 1.25rem;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(199, 196, 216, 0.18);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 6px 20px rgba(53, 37, 205, 0.04);
+    }
+
+    .footer-mini-card__icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 0.875rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: rgba(53, 37, 205, 0.06);
+      border: 1px solid rgba(53, 37, 205, 0.1);
+    }
+
+    .footer-mini-card__title {
+      font-family: Manrope, Inter, system-ui, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #1a1c1d;
+      margin-bottom: 0.25rem;
+      line-height: 1.3;
+    }
+
+    .footer-mini-card__text {
+      font-family: Inter, system-ui, sans-serif;
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      color: #464555;
+      margin: 0;
+    }
+
+    .footer-link-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-link-col a {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: #1a1c1d;
+      text-decoration: none;
+    }
+
+    .footer-link-col a:hover {
+      color: #3525cd;
+    }
+
+    .footer-divider {
+      height: 1px;
+      background: rgba(199, 196, 216, 0.35);
+      margin: 2.5rem 0 1.75rem;
     }
 
     .hover-lift {
@@ -237,7 +317,7 @@
     .menu-toggle-light {
       position: relative;
       z-index: 60;
-      display: flex;
+      display: none;
       align-items: center;
       justify-content: center;
       width: 2.5rem;
@@ -386,7 +466,7 @@
 <body class="font-body text-on-surface antialiased">
 
   <!-- ═══════════════ NAVBAR ═══════════════ -->
-  <nav class="glass-panel fixed top-0 left-0 w-full z-50 shadow-sm shadow-primary/3 overflow-visible">
+  <nav class="glass-panel fixed top-0 left-0 w-full z-50 shadow-sm overflow-visible">
     <div class="w-full flex items-center justify-between px-4 sm:px-6 md:px-8 lg:pl-9 lg:pr-10 py-0.5 md:py-1">
       <!-- Left: Logo -->
       <div class="flex-1 flex justify-start min-w-0">
@@ -414,7 +494,7 @@
       </div>
 
       <!-- Mobile: Toggle -->
-      <button type="button" id="mobileMenuToggle" class="menu-toggle-light hidden md:hidden"
+      <button type="button" id="mobileMenuToggle" class="menu-toggle-light"
         aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
         <span class="material-symbols-outlined menu-toggle-light__icon">menu</span>
       </button>
@@ -443,29 +523,28 @@
     <div class="max-w-7xl mx-auto">
 
       <!-- HERO HEADER -->
-      <section class="text-center mb-16 reveal">
-        <div class="inline-flex items-center gap-2 px-3 py-1 bg-secondary-container rounded-full mb-6">
-          <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-          <span class="text-[10px] uppercase tracking-widest font-bold text-on-secondary-container font-label">Request a
-            Demo</span>
+      <section class="mb-16 reveal">
+        <div class="ez-section-header mb-0">
+          <div class="ez-page-badge mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+            <span class="ez-page-badge-text">Request a Demo</span>
+          </div>
+          <h1 class="ez-page-title mb-5">
+            Let's Build<br />
+            <span class="text-on-surface">Something Great.</span>
+          </h1>
+          <p class="ez-section-desc">
+            See how EasyVariants can automate your design workflow, save time, and scale your product variants
+            effortlessly.
+          </p>
         </div>
-        <h1
-          class="text-4xl sm:text-5xl md:text-7xl font-extrabold font-headline tracking-tighter text-on-surface leading-[0.95] mb-5">
-          Let's Build<br />
-          <span class="bg-gradient-to-r from-primary to-primary-container bg-clip-text text-transparent">Something
-            Great.</span>
-        </h1>
-        <p class="text-on-surface-variant text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-light">
-          See how EasyVariants can automate your design workflow, save time, and scale your product variants
-          effortlessly.
-        </p>
       </section>
 
       <!-- CONTACT SPLIT: FORM + INFO -->
       <section class="grid grid-cols-1 lg:grid-cols-5 gap-10 mb-24 reveal" style="transition-delay: 0.15s;">
         <!-- LEFT: FORM CARD -->
         <div class="lg:col-span-3 card-premium card-signature rounded-[2rem] p-6 sm:p-10 md:p-14 hover-lift">
-          <h2 class="text-2xl font-headline font-bold text-on-surface mb-2">Send us a message</h2>
+          <h2 class="ez-subsection-title mb-2">Send us a message</h2>
           <p class="text-on-surface-variant text-sm mb-8">Fill out the form and our team will get back to you within 24
             hours.</p>
 
@@ -506,13 +585,13 @@
               </button>
             </div>
 
-            <div class="success-msg" id="successMsg">
+            <div class="success-msg" id="successMsg" role="status" aria-live="polite">
               <span class="material-symbols-outlined text-base mr-2 align-middle">check_circle</span>
               Message sent successfully! We'll be in touch soon.
             </div>
-            <div class="error-msg" id="errorMsg">
+            <div class="error-msg" id="errorMsg" role="alert" aria-live="assertive">
               <span class="material-symbols-outlined text-base mr-2 align-middle">error</span>
-              Something went wrong. Please try again.
+              <span id="errorMsgText">Something went wrong. Please try again.</span>
             </div>
           </form>
         </div>
@@ -526,7 +605,7 @@
                 <span class="material-symbols-outlined text-primary text-xl">mail</span>
               </div>
               <div>
-                <h3 class="text-sm font-headline font-bold text-on-surface mb-1">Email Us</h3>
+                <h3 class="ez-card-title--sm mb-1">Email Us</h3>
                 <p class="text-on-surface-variant text-sm leading-relaxed">hello@easyvariants.com</p>
               </div>
             </div>
@@ -539,7 +618,7 @@
                 <span class="material-symbols-outlined text-primary text-xl">schedule</span>
               </div>
               <div>
-                <h3 class="text-sm font-headline font-bold text-on-surface mb-1">Response Time</h3>
+                <h3 class="ez-card-title--sm mb-1">Response Time</h3>
                 <p class="text-on-surface-variant text-sm leading-relaxed">We typically respond within 24 hours on
                   business days.</p>
               </div>
@@ -553,7 +632,7 @@
                 <span class="material-symbols-outlined text-primary text-xl">devices</span>
               </div>
               <div>
-                <h3 class="text-sm font-headline font-bold text-on-surface mb-1">Live Demo</h3>
+                <h3 class="ez-card-title--sm mb-1">Live Demo</h3>
                 <p class="text-on-surface-variant text-sm leading-relaxed">Get a personalized walkthrough of the
                   platform, tailored to your use case.</p>
               </div>
@@ -567,7 +646,7 @@
                 <span class="material-symbols-outlined text-primary text-xl">support_agent</span>
               </div>
               <div>
-                <h3 class="text-sm font-headline font-bold text-on-surface mb-1">Dedicated Support</h3>
+                <h3 class="ez-card-title--sm mb-1">Dedicated Support</h3>
                 <p class="text-on-surface-variant text-sm leading-relaxed">Our team is here to help you every step of
                   the way.</p>
               </div>
@@ -578,18 +657,14 @@
           <div class="card-premium rounded-[2rem] p-8 text-center">
             <div class="flex items-center justify-center gap-8">
               <div>
-                <div
-                  class="text-2xl font-extrabold font-headline bg-gradient-to-r from-primary to-primary-container bg-clip-text text-transparent">
-                  500+</div>
-                <div class="text-[9px] uppercase tracking-[0.2em] font-bold text-on-surface-variant/60 mt-1">Teams
+                <div class="ez-stat-value">500+</div>
+                <div class="text-[9px] uppercase tracking-[0.2em] font-bold text-on-surface-variant mt-1">Teams
                   Served</div>
               </div>
               <div class="w-px h-10 bg-outline-variant/20"></div>
               <div>
-                <div
-                  class="text-2xl font-extrabold font-headline bg-gradient-to-r from-primary to-primary-container bg-clip-text text-transparent">
-                  24hr</div>
-                <div class="text-[9px] uppercase tracking-[0.2em] font-bold text-on-surface-variant/60 mt-1">Avg Reply
+                <div class="ez-stat-value">24hr</div>
+                <div class="text-[9px] uppercase tracking-[0.2em] font-bold text-on-surface-variant mt-1">Avg Reply
                 </div>
               </div>
             </div>
@@ -601,57 +676,79 @@
   </main>
 
   <!-- ═══════════════ FOOTER ═══════════════ -->
-  <footer class="footer-premium bg-surface-container-[rgba(255,255,255,0.6)] w-full py-20 px-8 mt-10">
+  <footer class="footer-premium w-full py-16 md:py-20 px-4 sm:px-6 md:px-8 mt-10">
       <div class="max-w-7xl mx-auto">
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-              <!-- Brand Col -->
-              <div class="flex flex-col gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 gap-10 xl:gap-8 mb-0">
+
+              <!-- Brand -->
+              <div class="xl:col-span-4 flex flex-col gap-5">
                   <img src="logo.png" alt="EasyVariants"
-                    class="brand-logo-img h-20 w-auto max-w-[min(100%,280px)] sm:h-24 md:h-28 object-contain self-start" />
-                  <p class="text-on-surface text-[15px] leading-relaxed font-semibold">
+                    class="brand-logo-img h-20 w-auto max-w-[min(100%,280px)] sm:h-24 object-contain self-start" />
+                  <p class="text-on-surface text-[15px] leading-relaxed font-semibold max-w-md">
                       The ultimate design automation platform. Scale your product variants without limits and eliminate repetitive tasks from your workflow.
                   </p>
-                  <div class="flex items-center gap-4 mt-2">
-                      <a href="#" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-primary hover:text-white transition-all shadow-sm border border-outline-variant/20"><span class="material-symbols-outlined text-[20px]">share</span></a>
-                      <a href="#" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-primary hover:text-white transition-all shadow-sm border border-outline-variant/20"><span class="material-symbols-outlined text-[20px]">forum</span></a>
-                      <a href="mailto:hello@easyvariants.com" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-primary hover:text-white transition-all shadow-sm border border-outline-variant/20"><span class="material-symbols-outlined text-[20px]">mail</span></a>
+                  <a href="mailto:hello@easyvariants.com"
+                      class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors w-fit">
+                      <span class="material-symbols-outlined text-lg">mail</span>
+                      hello@easyvariants.com
+                  </a>
+                  <a href="contactus.html" class="ev-pill-btn ev-pill-btn--sm w-fit mt-1">Get Your Demo Today</a>
+              </div>
+
+              <!-- Menu -->
+              <div class="xl:col-span-2 footer-link-col">
+                  <h4 class="ez-footer-title mb-1">Menu</h4>
+                  <a href="index.html#home">Home</a>
+                  <a href="index.html#solution">Our Solution</a>
+                  <a href="index.html#how-it-works">Work Flow</a>
+                  <a href="index.html#demos">Demo Videos</a>
+              </div>
+
+              <!-- Quick Links -->
+              <div class="xl:col-span-2 footer-link-col">
+                  <h4 class="ez-footer-title mb-1">Quick Links</h4>
+                  <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+                  <a href="#" target="_blank" rel="noopener noreferrer">Youtube</a>
+                  <a href="#" target="_blank" rel="noopener noreferrer">facebook</a>
+                  <a href="#" target="_blank" rel="noopener noreferrer">Twitter</a>
+              </div>
+
+              <!-- Mini cards -->
+              <div class="xl:col-span-4 flex flex-col gap-4">
+                  <div class="footer-mini-card">
+                      <div class="footer-mini-card__icon">
+                          <span class="material-symbols-outlined text-primary text-xl">schedule</span>
+                      </div>
+                      <div>
+                          <p class="footer-mini-card__title">Response Time</p>
+                          <p class="footer-mini-card__text">We typically respond within 24 hours on business days.</p>
+                      </div>
                   </div>
-              </div>
-
-              <!-- Product Col -->
-              <div class="flex flex-col gap-4">
-                  <h4 class="font-headline font-extrabold text-lg text-on-surface tracking-tight mb-2">Product</h4>
-                  <a href="index.html#smooth" class="text-on-surface font-semibold hover:text-primary transition-colors">Platform Features</a>
-                  <a href="index.html#how-it-works" class="text-on-surface font-semibold hover:text-primary transition-colors">Work Flow</a>
-                  <a href="index.html#demos" class="text-on-surface font-semibold hover:text-primary transition-colors">Interactive Demos</a>
-                  <a href="#" class="text-on-surface font-semibold hover:text-primary transition-colors">Pricing Options</a>
-                  <a href="#" class="text-on-surface font-semibold hover:text-primary transition-colors">API Documentation</a>
-              </div>
-
-              <!-- Company Col -->
-              <div class="flex flex-col gap-4">
-                  <h4 class="font-headline font-extrabold text-lg text-on-surface tracking-tight mb-2">Company</h4>
-                  <a href="#" class="text-on-surface font-semibold hover:text-primary transition-colors">About Us</a>
-                  <a href="#" class="text-on-surface font-semibold hover:text-primary transition-colors">Careers & Culture</a>
-                  <a href="#" class="text-on-surface font-semibold hover:text-primary transition-colors">Blog & News</a>
-                  <a href="contactus.html" class="text-on-surface font-semibold hover:text-primary transition-colors">Contact Support</a>
-                  <a href="#" class="text-on-surface font-semibold hover:text-primary transition-colors">Partnerships</a>
-              </div>
-
-              <!-- Legal Col -->
-              <div class="flex flex-col gap-4">
-                  <h4 class="font-headline font-extrabold text-lg text-on-surface tracking-tight mb-2">Legal & Privacy</h4>
-                  <a href="#" class="text-on-surface font-semibold hover:text-primary transition-colors">Terms of Service</a>
-                  <a href="#" class="text-on-surface font-semibold hover:text-primary transition-colors">Privacy Policy</a>
-                  <a href="#" class="text-on-surface font-semibold hover:text-primary transition-colors">Cookie Policy</a>
-                  <a href="#" class="text-on-surface font-semibold hover:text-primary transition-colors">Security Overview</a>
+                  <div class="footer-mini-card">
+                      <div class="footer-mini-card__icon">
+                          <span class="material-symbols-outlined text-primary text-xl">devices</span>
+                      </div>
+                      <div>
+                          <p class="footer-mini-card__title">Live Demo</p>
+                          <p class="footer-mini-card__text">Get a personalized walkthrough of the platform, tailored to your use case.</p>
+                      </div>
+                  </div>
+                  <div class="footer-mini-card">
+                      <div class="footer-mini-card__icon">
+                          <span class="material-symbols-outlined text-primary text-xl">support_agent</span>
+                      </div>
+                      <div>
+                          <p class="footer-mini-card__title">Dedicated Support</p>
+                          <p class="footer-mini-card__text">Our team is here to help you every step of the way.</p>
+                      </div>
+                  </div>
               </div>
           </div>
 
-          <div class="gradient-sep mb-8"></div>
-          
+          <div class="footer-divider"></div>
+
           <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
-              <p class="text-[12px] tracking-[0.1em] uppercase font-bold text-on-surface">© 2025 EasyVariants. All Rights Reserved.</p>
+              <p class="text-[12px] tracking-[0.1em] uppercase font-bold text-on-surface">© 2026 EasyVariants. All Rights Reserved.</p>
               <p class="text-[11px] tracking-wide font-medium text-on-surface/80">
                   Adobe Illustrator® is a trademark of Adobe Inc. EasyVariants is not affiliated.
               </p>
@@ -692,20 +789,33 @@
       })();
 
       // Scroll Reveal
+      const revealInView = (el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) {
+          el.classList.add("is-revealed");
+        }
+      };
       const revealEls = document.querySelectorAll(".reveal");
       const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
+            entry.target.classList.add("is-revealed");
           }
         });
-      }, { threshold: 0.1, rootMargin: "0px 0px -60px 0px" });
-      revealEls.forEach(el => revealObserver.observe(el));
+      }, { threshold: 0.05, rootMargin: "0px 0px -40px 0px" });
+      revealEls.forEach(el => {
+        revealInView(el);
+        revealObserver.observe(el);
+      });
+      window.addEventListener("load", () => {
+        revealEls.forEach(revealInView);
+      }, { once: true });
 
       // Contact Form
       const form = document.getElementById('contactForm');
       const successMsg = document.getElementById('successMsg');
       const errorMsg = document.getElementById('errorMsg');
+      const errorMsgText = document.getElementById('errorMsgText');
 
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -740,8 +850,7 @@
           form.reset();
           setTimeout(() => successMsg.classList.remove('show'), 5000);
         } catch (err) {
-          const msgEl = errorMsg.querySelector('p') || errorMsg;
-          if (msgEl !== errorMsg) msgEl.textContent = err.message;
+          errorMsgText.textContent = err.message || 'Something went wrong. Please try again.';
           errorMsg.classList.add('show');
           setTimeout(() => errorMsg.classList.remove('show'), 6000);
         } finally {

@@ -21,9 +21,6 @@ export default async function handler(req, res) {
     if (!isValidEmail(email)) {
       return res.status(400).json({ error: 'Please provide a valid email address.' });
     }
-    if (String(message).trim().length < 5) {
-      return res.status(400).json({ error: 'Message is too short.' });
-    }
 
     await connectToDatabase();
 
