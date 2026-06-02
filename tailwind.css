@@ -74,23 +74,23 @@
 @layer components {
   /* ── Section headers (left-aligned by default) ── */
   .ez-section-header {
-    @apply max-w-2xl mb-12 md:mb-16 text-left;
+    @apply flex flex-col items-start max-w-2xl mb-12 md:mb-16 text-left;
   }
 
   .ez-section-header--center {
-    @apply mx-auto text-center;
+    @apply mx-auto items-center text-center;
   }
 
   .ez-section-eyebrow {
-    @apply inline-block font-label text-xs font-bold uppercase tracking-[0.2em] text-primary;
+    @apply block w-full font-label text-xs font-bold uppercase tracking-[0.2em] text-primary;
   }
 
   .ez-section-title {
-    @apply mt-2 text-4xl md:text-5xl font-headline font-bold tracking-tight text-on-surface leading-[1.1];
+    @apply mt-2 mb-0 w-full text-4xl md:text-5xl font-headline font-bold tracking-tight text-on-surface leading-[1.1];
   }
 
   .ez-section-desc {
-    @apply mt-4 text-lg font-body font-normal text-on-surface-variant leading-relaxed max-w-2xl;
+    @apply mt-4 mb-0 w-full text-lg font-body font-normal text-on-surface-variant leading-relaxed;
   }
 
   /* ── Page hero ── */

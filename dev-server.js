@@ -41,7 +41,7 @@ async function mountRoutes() {
       continue;
     }
     // Express provides req.method, req.headers, req.query, req.body, res.status, res.json,
-    // res.setHeader — same shape Vercel handlers expect.
+    // res.setHeader same shape Vercel handlers expect.
     app.all(route, (req, res) => {
       Promise.resolve(handler(req, res)).catch((err) => {
         console.error(`[dev-server] ${route} threw:`, err);

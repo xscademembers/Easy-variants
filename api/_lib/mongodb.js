@@ -13,7 +13,7 @@ const MONGODB_URI = process.env.MONGODB_URI;
 try {
   dns.setServers(['8.8.8.8', '1.1.1.1', '8.8.4.4']);
 } catch {
-  // ignore — only fails on extremely locked-down environments
+  // ignore only fails on extremely locked-down environments
 }
 
 // Cache the connection across hot-reloads in dev and warm Lambda invocations

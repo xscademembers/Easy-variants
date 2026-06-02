@@ -610,10 +610,10 @@
     <p class="subtitle">Submissions from the EasyVariants contact form.</p>
 
     <div class="stats" id="stats">
-      <div class="stat"><div class="label">Total</div><div class="value" id="stat-total">—</div></div>
-      <div class="stat"><div class="label">New</div><div class="value" id="stat-new">—</div></div>
-      <div class="stat"><div class="label">Contacted</div><div class="value" id="stat-contacted">—</div></div>
-      <div class="stat"><div class="label">Closed</div><div class="value" id="stat-closed">—</div></div>
+      <div class="stat"><div class="label">Total</div><div class="value" id="stat-total"> </div></div>
+      <div class="stat"><div class="label">New</div><div class="value" id="stat-new"> </div></div>
+      <div class="stat"><div class="label">Contacted</div><div class="value" id="stat-contacted"> </div></div>
+      <div class="stat"><div class="label">Closed</div><div class="value" id="stat-closed"> </div></div>
     </div>
 
     <p class="stats-hint" id="statsHint">Stat cards show all-time totals. Use the table below for filtered results.</p>
@@ -824,7 +824,7 @@
         <tr data-id="${l._id}">
           <td><span class="name">${escapeHtml(l.firstName)} ${escapeHtml(l.lastName)}</span></td>
           <td><a class="email" href="mailto:${escapeHtml(l.email)}">${escapeHtml(l.email)}</a></td>
-          <td>${escapeHtml(l.company || '—')}</td>
+          <td>${escapeHtml(l.company || ' ')}</td>
           <td class="message-cell">
             <div class="message-text is-clamped">${escapeHtml(l.message)}</div>
             <button type="button" class="message-toggle" aria-expanded="false">Read more</button>
