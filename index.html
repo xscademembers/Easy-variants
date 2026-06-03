@@ -325,7 +325,6 @@
 
             .hero-section .hero-content-wrap {
                 padding-top: 5.5rem;
-                padding-bottom: 2.5rem;
                 gap: 2.5rem;
             }
 
@@ -376,7 +375,6 @@
 
             .hero-section .hero-content-wrap {
                 padding-top: 6rem;
-                padding-bottom: 3rem;
                 gap: 3rem;
             }
 
@@ -659,10 +657,6 @@
         }
 
         /* ═══ OUR SOLUTION ═══ */
-        .solution-section {
-            background: linear-gradient(180deg, #ffffff 0%, #f8f8fc 100%);
-        }
-
         .solution-stat-pill {
             display: flex;
             flex-direction: column;
@@ -1700,136 +1694,100 @@
         }
 
         /* ═══ DEMO VIDEOS SECTION ═══ */
-        .demo-video-player {
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
+        .demo-showcase {
+            border-radius: 2rem;
+            background: #ffffff;
+            border: 1px solid rgba(199, 196, 216, 0.2);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 12px 40px rgba(53, 37, 205, 0.06);
+            overflow: hidden;
         }
 
-        .demo-video-toolbar {
+        .demo-showcase__bar {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            gap: 0.75rem 1.5rem;
-            padding: 0 0.25rem;
+            gap: 1rem 1.5rem;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid rgba(199, 196, 216, 0.2);
+            background: rgba(248, 248, 252, 0.9);
         }
 
-        .demo-video-toolbar__title {
+        .demo-showcase__meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 0;
+            flex: 1 1 12rem;
+        }
+
+        .demo-showcase__meta .material-symbols-outlined {
+            font-size: 1.5rem;
+            color: #3525cd;
+            flex-shrink: 0;
+        }
+
+        .demo-showcase__title {
+            margin: 0;
             font-family: Manrope, Inter, system-ui, sans-serif;
-            font-size: 1rem;
+            font-size: 0.9375rem;
             font-weight: 700;
             color: #1a1c1d;
             line-height: 1.35;
-            margin: 0;
-        }
-
-        .demo-video-toolbar__counter {
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: #464555;
-            padding: 0.35rem 0.75rem;
-            border-radius: 9999px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(199, 196, 216, 0.35);
-        }
-
-        .demo-video-stage-wrap {
-            position: relative;
-            width: 100%;
-        }
-
-        #light-slideshow.demo-video-stage {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            border-radius: 1.75rem;
+            white-space: nowrap;
             overflow: hidden;
-            background: #0f0f0f;
-            border: 1px solid rgba(199, 196, 216, 0.2);
-            box-shadow: 0 24px 64px rgba(53, 37, 205, 0.12), 0 8px 24px rgba(0, 0, 0, 0.06);
+            text-overflow: ellipsis;
         }
 
-        .demo-video-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 50;
-            width: 2.75rem;
-            height: 2.75rem;
-            border-radius: 9999px;
+        .demo-showcase__controls {
             display: flex;
             align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.96);
-            border: 1px solid rgba(199, 196, 216, 0.25);
-            color: #1a1c1d;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-            transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
-        }
-
-        .demo-video-nav:hover {
-            background: #3525cd;
-            color: #ffffff;
-            transform: translateY(-50%) scale(1.05);
-        }
-
-        .demo-video-nav--prev {
-            left: 1rem;
-        }
-
-        .demo-video-nav--next {
-            right: 1rem;
-        }
-
-        @media (min-width: 768px) {
-            .demo-video-nav {
-                width: 3rem;
-                height: 3rem;
-            }
-
-            .demo-video-nav--prev {
-                left: 1.25rem;
-            }
-
-            .demo-video-nav--next {
-                right: 1.25rem;
-            }
-        }
-
-        .demo-video-tabs {
-            display: flex;
-            flex-wrap: wrap;
             gap: 0.5rem;
+            flex-shrink: 0;
         }
 
-        .demo-video-tab {
-            flex: 1 1 auto;
-            min-width: min(100%, 10rem);
-            padding: 0.65rem 1rem;
-            border-radius: 9999px;
-            font-size: 0.8125rem;
-            font-weight: 600;
-            text-align: left;
+        .demo-showcase__counter {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
             color: #464555;
-            background: rgba(255, 255, 255, 0.88);
-            border: 1px solid rgba(199, 196, 216, 0.3);
-            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-            cursor: pointer;
+            padding: 0.4rem 0.65rem;
+            border-radius: 9999px;
+            background: #ffffff;
+            border: 1px solid rgba(199, 196, 216, 0.35);
+            margin-right: 0.25rem;
         }
 
-        .demo-video-tab:hover {
-            border-color: rgba(53, 37, 205, 0.35);
-            color: #3525cd;
+        .demo-showcase__nav {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            border: 1px solid rgba(199, 196, 216, 0.35);
+            color: #1a1c1d;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
         }
 
-        .demo-video-tab.is-active {
+        .demo-showcase__nav:hover {
             background: #3525cd;
             border-color: #3525cd;
             color: #ffffff;
-            box-shadow: 0 6px 20px rgba(53, 37, 205, 0.28);
+        }
+
+        .demo-showcase__stage-wrap {
+            position: relative;
+            width: 100%;
+            background: #0f0f0f;
+        }
+
+        #light-slideshow.demo-showcase__stage {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
         }
 
         .demo-slide iframe.demo-video-embed {
@@ -1937,7 +1895,7 @@
         <a href="contactus.html" class="ev-pill-btn ev-pill-btn--sm">Get Your Demo Today</a>
     </div>
 
-    <main class="pt-0 pb-24 overflow-x-hidden">
+    <main class="pt-0 pb-0 overflow-x-hidden">
 
             <!-- ═══════════════════════ HERO ═══════════════════════ -->
             <div id="home" class="ez-scroll-target" aria-hidden="true"></div>
@@ -1952,7 +1910,7 @@
                 </div>
 
                 <!-- Hero Content -->
-                <div class="hero-content-wrap ez-page-shell relative z-10 flex flex-col lg:flex-row lg:items-center pt-20 sm:pt-24 lg:pt-32 pb-12 sm:pb-20 lg:pb-32 gap-10 sm:gap-12 lg:gap-6 xl:gap-8">
+                <div class="hero-content-wrap ez-page-shell relative z-10 flex flex-col lg:flex-row lg:items-center pt-20 sm:pt-24 lg:pt-32 pb-20 md:pb-28 gap-10 sm:gap-12 lg:gap-6 xl:gap-8">
 
                     <!-- Left Side: Copy -->
                     <div class="hero-copy-col flex flex-col items-start w-full lg:w-[65%] xl:w-[58%]">
@@ -2042,7 +2000,7 @@
             <div class="gradient-sep"></div>
 
             <section id="meet"
-                class="mb-0 reveal bg-white py-6 md:py-8 shadow-sm w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+                class="mb-0 reveal bg-white ez-section-spacing shadow-sm w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
                     <div class="ez-section-header">
                             <span class="ez-section-eyebrow">Explore</span>
@@ -2068,7 +2026,7 @@
             <!-- ═══════════════════════ THE PROBLEM ═══════════════════════ -->
             <div class="gradient-sep"></div>
 
-            <section id="problem" class="mb-0 reveal py-20 md:py-28 bg-[#f8f8f8] w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+            <section id="problem" class="mb-0 reveal ez-section-spacing bg-[#f8f8f8] w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
                     <div class="flex flex-col md:flex-row items-start md:items-center gap-12 md:gap-20">
                         <!-- Left: Text Content & Navigation -->
@@ -2140,7 +2098,7 @@
             <!-- ═══════════════════════ THE EASYVARIANTS ADVANTAGE ═══════════════════════ -->
             <div class="gradient-sep"></div>
 
-            <section id="advantage" class="mb-0 reveal py-20 md:py-28 w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+            <section id="advantage" class="mb-0 reveal ez-section-spacing w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
                     <div class="ez-section-header">
                         <span class="ez-section-eyebrow">The EasyVariants Advantage</span>
@@ -2196,7 +2154,7 @@
 
             <!-- ═══════════════════════ INSIDE EASYVARIANTS ═══════════════════════ -->
             <div id="solution" class="ez-scroll-target" aria-hidden="true"></div>
-            <section class="mb-0 reveal bg-white py-24 sm:py-32 w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+            <section class="mb-0 reveal bg-white ez-section-spacing w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-y-16 lg:gap-x-12 items-center">
 
@@ -2278,7 +2236,7 @@
             <div class="gradient-sep"></div>
 
             <!-- ═══════════════════════ OUR SOLUTION ═══════════════════════ -->
-            <section class="solution-section mb-0 reveal py-20 md:py-28 w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+            <section class="solution-section mb-0 reveal ez-section-spacing w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-end mb-10 md:mb-14">
                         <div class="lg:col-span-7 ez-section-header mb-0 max-w-3xl">
@@ -2352,7 +2310,7 @@
 
             <div id="how-it-works" class="ez-scroll-target" aria-hidden="true"></div>
             <section id="workflow-steps-section"
-                class="py-24 mb-0 reveal bg-white shadow-sm w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+                class="ez-section-spacing mb-0 reveal bg-white shadow-sm w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
                     <div class="ez-section-header max-w-4xl">
                         <span class="ez-section-eyebrow">Workflow</span>
@@ -2548,40 +2506,35 @@
 
             <!-- ═══════════════════════ DEMO VIDEOS ═══════════════════════ -->
             <div id="demos" class="ez-scroll-target" aria-hidden="true"></div>
-            <section class="demo-videos-section mb-0 reveal py-20 md:py-28 w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+            <section class="demo-videos-section mb-0 reveal ez-section-spacing w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-end mb-10 md:mb-12">
-                        <div class="lg:col-span-8 ez-section-header mb-0 max-w-3xl">
-                            <span class="ez-section-eyebrow">Seeing is Believing</span>
-                            <h2 class="ez-section-title">Demo Videos.</h2>
-                            <p class="ez-section-desc">Explore enterprise-ready design automation flows built for high-volume manufacturing environments.</p>
-                        </div>
-                        <div class="lg:col-span-4 lg:text-right">
-                            <p class="text-on-surface-variant text-sm font-semibold leading-relaxed">
-                                Watch real EasyVariants workflows for apparel, caps, sweatshirts, shoes, and more.
-                            </p>
-                        </div>
+                    <div class="ez-section-header max-w-4xl">
+                        <span class="ez-section-eyebrow">Seeing is Believing</span>
+                        <h2 class="ez-section-title">Demo Videos.</h2>
+                        <p class="ez-section-desc">Explore enterprise-ready design automation flows built for high-volume manufacturing environments.</p>
                     </div>
 
-                    <div class="demo-video-player">
-                        <div class="demo-video-toolbar">
-                            <p class="demo-video-toolbar__title" id="demo-video-current-title">EasyVariants Explainer Video</p>
-                            <span class="demo-video-toolbar__counter" id="demo-video-counter" aria-live="polite">1 / 5</span>
+                    <div class="demo-showcase">
+                        <div class="demo-showcase__bar">
+                            <div class="demo-showcase__meta">
+                                <span class="material-symbols-outlined" aria-hidden="true">play_circle</span>
+                                <p class="demo-showcase__title" id="demo-video-current-title">EasyVariants Explainer Video</p>
+                            </div>
+                            <div class="demo-showcase__controls">
+                                <span class="demo-showcase__counter" id="demo-video-counter" aria-live="polite">1 / 5</span>
+                                <button type="button" id="light-prev" aria-label="Previous demo video" class="demo-showcase__nav">
+                                    <span class="material-symbols-outlined text-xl">chevron_left</span>
+                                </button>
+                                <button type="button" id="light-next" aria-label="Next demo video" class="demo-showcase__nav">
+                                    <span class="material-symbols-outlined text-xl">chevron_right</span>
+                                </button>
+                            </div>
                         </div>
-
-                        <div class="demo-video-stage-wrap">
-                            <div id="light-slideshow" class="demo-video-stage" role="region" aria-label="Demo video carousel">
+                        <div class="demo-showcase__stage-wrap">
+                            <div id="light-slideshow" class="demo-showcase__stage" role="region" aria-label="Demo video player">
                                 <!-- Slides injected by JS -->
                             </div>
-                            <button type="button" id="light-prev" aria-label="Previous demo video" class="demo-video-nav demo-video-nav--prev">
-                                <span class="material-symbols-outlined text-[22px]">chevron_left</span>
-                            </button>
-                            <button type="button" id="light-next" aria-label="Next demo video" class="demo-video-nav demo-video-nav--next">
-                                <span class="material-symbols-outlined text-[22px]">chevron_right</span>
-                            </button>
                         </div>
-
-                        <div id="demo-video-tabs" class="demo-video-tabs" role="tablist" aria-label="Choose a demo video"></div>
                     </div>
                 </div>
             </section>
@@ -2590,7 +2543,7 @@
             <!-- ═══════════════════════ FINAL CTA ═══════════════════════ -->
             <div class="gradient-sep"></div>
 
-            <section class="mb-0 reveal">
+            <section class="mb-0 reveal ez-section-spacing bg-white w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
                 <div
                     class="relative rounded-[2.5rem] overflow-hidden p-16 md:p-24 text-center cta-gradient shadow-2xl shadow-primary/15 group">
@@ -2867,24 +2820,23 @@
 
             /* ═══ DEMO VIDEO GLIDER (YouTube) ═══ */
             const demoVideos = [
-                { id: "Mrj4YI_RQzA", title: "EasyVariants Demo  Product Variants" },
-                { id: "Kd0Olg1cE-s", title: "EasyVariants Demo  Cap Variants" },
-                { id: "2Zl_BkN9L6w", title: "EasyVariants Explainer Video" },
-                { id: "ETiWWJaoaZM", title: "EasyVariants Demo  Sweatshirt Variants" },
-                { id: "l5tyQAdNiEY", title: "EasyVariants Demo  Shoe Variants" },
+                { id: "Mrj4YI_RQzA", title: "EasyVariants Demo  Product Variants", label: "Product Variants" },
+                { id: "Kd0Olg1cE-s", title: "EasyVariants Demo  Cap Variants", label: "Cap Variants" },
+                { id: "2Zl_BkN9L6w", title: "EasyVariants Explainer Video", label: "Explainer Video" },
+                { id: "ETiWWJaoaZM", title: "EasyVariants Demo  Sweatshirt Variants", label: "Sweatshirt Variants" },
+                { id: "l5tyQAdNiEY", title: "EasyVariants Demo  Shoe Variants", label: "Shoe Variants" },
             ];
 
             const youtubeEmbedUrl = (videoId) =>
                 `https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1`;
 
             const lightSlideshow = document.getElementById('light-slideshow');
-            const demoVideoTabs = document.getElementById('demo-video-tabs');
             const demoVideoTitle = document.getElementById('demo-video-current-title');
             const demoVideoCounter = document.getElementById('demo-video-counter');
             const lightPrev = document.getElementById('light-prev');
             const lightNext = document.getElementById('light-next');
 
-            if (lightSlideshow && demoVideoTabs) {
+            if (lightSlideshow) {
                 let currentSlide = 0;
                 let autoSlideTimer = null;
 
@@ -2898,22 +2850,6 @@
                     const iframe = slide?.querySelector("iframe");
                     if (iframe) iframe.removeAttribute("src");
                 };
-
-                const tabButtons = demoVideos.map((video, index) => {
-                    const tab = document.createElement('button');
-                    tab.type = 'button';
-                    tab.className = 'demo-video-tab';
-                    tab.setAttribute('role', 'tab');
-                    tab.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
-                    tab.setAttribute('aria-controls', 'light-slideshow');
-                    tab.textContent = video.title
-                        .replace(/^EasyVariants Demo\s+/, '')
-                        .replace(/^EasyVariants\s+/, '')
-                        .trim();
-                    tab.addEventListener('click', () => goToSlide(index));
-                    demoVideoTabs.appendChild(tab);
-                    return tab;
-                });
 
                 const slides = demoVideos.map((video, index) => {
                     const slide = document.createElement('div');
@@ -2944,11 +2880,6 @@
                         slide.style.zIndex = isActive ? '20' : '1';
                         if (isActive) activateSlide(slide);
                         else deactivateSlide(slide);
-                    });
-                    tabButtons.forEach((tab, idx) => {
-                        const isActive = idx === currentSlide;
-                        tab.classList.toggle('is-active', isActive);
-                        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
                     });
                     if (demoVideoTitle && video) demoVideoTitle.textContent = video.title;
                     if (demoVideoCounter) demoVideoCounter.textContent = `${currentSlide + 1} / ${demoVideos.length}`;

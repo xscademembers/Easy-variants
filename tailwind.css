@@ -77,6 +77,11 @@
     @apply max-w-7xl mx-auto w-full px-6 md:px-8;
   }
 
+  /* ── Shared vertical spacing (all main sections; not nav/footer) ── */
+  .ez-section-spacing {
+    @apply py-20 md:py-28;
+  }
+
   /* ── Section headers (left-aligned by default) ── */
   .ez-section-header {
     @apply flex flex-col items-start max-w-2xl mb-12 md:mb-16 text-left;
