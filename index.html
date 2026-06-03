@@ -149,6 +149,45 @@
             }
         }
 
+        /* Hero: tighter shell padding, 2-line headline, looser line-height (font size unchanged) */
+        .hero-content-wrap.ez-page-shell {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero-content-wrap.ez-page-shell {
+                padding-left: 1.25rem;
+                padding-right: 1.25rem;
+            }
+        }
+
+        .hero-copy-col {
+            min-width: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-copy-col {
+                padding-right: 1.5rem;
+            }
+        }
+
+        .hero-headline {
+            line-height: 1.12;
+            max-width: 100%;
+        }
+
+        .hero-headline-line1,
+        .hero-headline-line2 {
+            display: block;
+        }
+
+        @media (min-width: 1100px) {
+            .hero-headline-line1 {
+                white-space: nowrap;
+            }
+        }
+
         @media (prefers-reduced-motion: reduce) {
             .hero-fade-up,
             .hero-scale-in,
@@ -324,11 +363,6 @@
                 justify-content: center;
             }
 
-            .navbar > div {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-
             .brand-logo-img {
                 height: 3rem !important;
                 max-width: min(100vw - 5rem, 180px) !important;
@@ -377,11 +411,6 @@
                 width: 100%;
                 justify-content: center;
             }
-
-            .navbar > div {
-                padding-left: 1.5rem;
-                padding-right: 1.5rem;
-            }
         }
 
         @media (min-width: 1024px) {
@@ -416,10 +445,6 @@
             #workflow-steps-section .grid {
                 gap: 1rem;
             }
-
-            #light-slideshow {
-                height: min(55vh, 400px) !important;
-            }
         }
 
         @media (min-width: 768px) and (max-width: 1023px) {
@@ -431,13 +456,6 @@
         @media (min-width: 768px) and (max-width: 1023px) {
             .navbar .nav-section-link {
                 font-size: 14px;
-            }
-        }
-
-        @media (min-width: 1280px) {
-            .hero-content-wrap {
-                padding-left: 2rem;
-                padding-right: 2rem;
             }
         }
 
@@ -638,6 +656,132 @@
             border-color: rgba(53, 37, 205, 0.25);
             transform: translateY(-8px) scale(1.01) translateZ(0);
             box-shadow: 0 20px 48px rgba(53, 37, 205, 0.08), 0 10px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        /* ═══ OUR SOLUTION ═══ */
+        .solution-section {
+            background: linear-gradient(180deg, #ffffff 0%, #f8f8fc 100%);
+        }
+
+        .solution-stat-pill {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem 1.25rem;
+            border-radius: 1.25rem;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(199, 196, 216, 0.2);
+            box-shadow: 0 4px 20px rgba(53, 37, 205, 0.05);
+        }
+
+        .solution-stat-pill__value {
+            font-family: Manrope, Inter, system-ui, sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #3525cd;
+            line-height: 1.1;
+        }
+
+        .solution-stat-pill__label {
+            margin-top: 0.35rem;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #464555;
+        }
+
+        .solution-feature-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 1.75rem;
+            border-radius: 1.75rem;
+            background: #ffffff;
+            border: 1px solid rgba(199, 196, 216, 0.18);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 10px 36px rgba(53, 37, 205, 0.05);
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .solution-feature-card {
+                padding: 2rem 2.25rem;
+            }
+        }
+
+        .solution-feature-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(53, 37, 205, 0.22);
+            box-shadow: 0 18px 44px rgba(53, 37, 205, 0.1), 0 6px 16px rgba(0, 0, 0, 0.04);
+        }
+
+        .solution-feature-card__index {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.5rem;
+            font-family: Manrope, Inter, system-ui, sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+            color: rgba(53, 37, 205, 0.08);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .solution-feature-card__icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.875rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(53, 37, 205, 0.08);
+            border: 1px solid rgba(53, 37, 205, 0.12);
+            color: #3525cd;
+            margin-bottom: 1.25rem;
+        }
+
+        .solution-feature-card--accent {
+            background: linear-gradient(145deg, #3525cd 0%, #4f46e5 55%, #5b52e8 100%);
+            border-color: transparent;
+            color: #ffffff;
+        }
+
+        .solution-feature-card--accent .solution-feature-card__index {
+            color: rgba(255, 255, 255, 0.15);
+        }
+
+        .solution-feature-card--accent .solution-feature-card__icon {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+        }
+
+        .solution-feature-card--accent .ez-card-title--lg,
+        .solution-feature-card--accent p {
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .solution-format-chip {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.75rem;
+            background: rgba(53, 37, 205, 0.06);
+            border: 1px solid rgba(53, 37, 205, 0.1);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #464555;
+        }
+
+        .solution-format-chip .material-symbols-outlined {
+            font-size: 1.125rem;
+            color: #3525cd;
         }
 
         /* ═══ GRADIENT SEPARATOR (disabled  was read as a gray line between sections) ═══ */
@@ -1555,7 +1699,139 @@
             }
         }
 
-        /* ═══ YOUTUBE DEMO GLIDER ═══ */
+        /* ═══ DEMO VIDEOS SECTION ═══ */
+        .demo-video-player {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .demo-video-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem 1.5rem;
+            padding: 0 0.25rem;
+        }
+
+        .demo-video-toolbar__title {
+            font-family: Manrope, Inter, system-ui, sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a1c1d;
+            line-height: 1.35;
+            margin: 0;
+        }
+
+        .demo-video-toolbar__counter {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #464555;
+            padding: 0.35rem 0.75rem;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(199, 196, 216, 0.35);
+        }
+
+        .demo-video-stage-wrap {
+            position: relative;
+            width: 100%;
+        }
+
+        #light-slideshow.demo-video-stage {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 1.75rem;
+            overflow: hidden;
+            background: #0f0f0f;
+            border: 1px solid rgba(199, 196, 216, 0.2);
+            box-shadow: 0 24px 64px rgba(53, 37, 205, 0.12), 0 8px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .demo-video-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 50;
+            width: 2.75rem;
+            height: 2.75rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(199, 196, 216, 0.25);
+            color: #1a1c1d;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+        }
+
+        .demo-video-nav:hover {
+            background: #3525cd;
+            color: #ffffff;
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .demo-video-nav--prev {
+            left: 1rem;
+        }
+
+        .demo-video-nav--next {
+            right: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .demo-video-nav {
+                width: 3rem;
+                height: 3rem;
+            }
+
+            .demo-video-nav--prev {
+                left: 1.25rem;
+            }
+
+            .demo-video-nav--next {
+                right: 1.25rem;
+            }
+        }
+
+        .demo-video-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .demo-video-tab {
+            flex: 1 1 auto;
+            min-width: min(100%, 10rem);
+            padding: 0.65rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            text-align: left;
+            color: #464555;
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(199, 196, 216, 0.3);
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+
+        .demo-video-tab:hover {
+            border-color: rgba(53, 37, 205, 0.35);
+            color: #3525cd;
+        }
+
+        .demo-video-tab.is-active {
+            background: #3525cd;
+            border-color: #3525cd;
+            color: #ffffff;
+            box-shadow: 0 6px 20px rgba(53, 37, 205, 0.28);
+        }
+
         .demo-slide iframe.demo-video-embed {
             position: absolute;
             inset: 0;
@@ -1614,7 +1890,7 @@
 
     <!-- ═══════════════════════ NAVIGATION ═══════════════════════ -->
     <nav class="navbar fixed top-0 w-full z-50 transition-all duration-300 overflow-visible">
-        <div class="w-full flex items-center justify-between px-4 sm:px-6 md:px-8 lg:pl-9 lg:pr-10 py-0.5 md:py-1">
+        <div class="ez-page-shell flex items-center justify-between py-0.5 md:py-1">
             <!-- Left: Logo -->
             <div class="flex-1 flex justify-start min-w-0">
                 <a href="#home" class="flex items-center shrink-0">
@@ -1661,8 +1937,7 @@
         <a href="contactus.html" class="ev-pill-btn ev-pill-btn--sm">Get Your Demo Today</a>
     </div>
 
-    <main class="pt-0 pb-24 px-4 sm:px-6 md:px-8 overflow-x-hidden">
-        <div class="max-w-7xl mx-auto">
+    <main class="pt-0 pb-24 overflow-x-hidden">
 
             <!-- ═══════════════════════ HERO ═══════════════════════ -->
             <div id="home" class="ez-scroll-target" aria-hidden="true"></div>
@@ -1677,18 +1952,18 @@
                 </div>
 
                 <!-- Hero Content -->
-                <div class="hero-content-wrap relative z-10 flex flex-col lg:flex-row items-center px-4 sm:px-6 pt-20 sm:pt-24 lg:pt-32 pb-12 sm:pb-20 lg:pb-32 mx-auto max-w-7xl gap-10 sm:gap-12 lg:gap-8">
+                <div class="hero-content-wrap ez-page-shell relative z-10 flex flex-col lg:flex-row lg:items-center pt-20 sm:pt-24 lg:pt-32 pb-12 sm:pb-20 lg:pb-32 gap-10 sm:gap-12 lg:gap-6 xl:gap-8">
 
                     <!-- Left Side: Copy -->
-                    <div class="flex flex-col items-start w-full lg:w-1/2">
+                    <div class="hero-copy-col flex flex-col items-start w-full lg:w-[65%] xl:w-[58%]">
                         <div class="hero-fade-up hero-fade-up-d1 ez-page-badge mb-8">
                             <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
                             <span class="ez-page-badge-text">Design Automation Platform</span>
                         </div>
 
-                        <h1 class="hero-fade-up hero-fade-up-d1 ez-page-title mb-6 sm:mb-8 max-w-3xl">
-                            Speed &amp;<br /> Precision<br />
-                            <span class="text-on-surface">10× Amplified.</span>
+                        <h1 class="hero-fade-up hero-fade-up-d1 ez-page-title hero-headline mb-6 sm:mb-8">
+                            <span class="hero-headline-line1">Speed&nbsp;&amp;&nbsp;Precision</span>
+                            <span class="hero-headline-line2 text-on-surface">10× Amplified.</span>
                         </h1>
 
                         <p class="hero-fade-up hero-fade-up-d2 mb-8 sm:mb-12 text-base sm:text-lg lg:text-xl text-on-surface-variant max-w-xl leading-relaxed font-medium font-body">
@@ -1711,7 +1986,7 @@
                     </div>
 
                     <!-- Right Side: Product Showcase -->
-                    <div class="hero-showcase-col relative w-full lg:w-1/2 flex flex-col items-center justify-center pt-4 sm:pt-8 lg:pt-0 min-h-0 lg:min-h-[560px]">
+                    <div class="hero-showcase-col relative w-full lg:w-[35%] xl:w-[42%] lg:shrink-0 flex flex-col items-center justify-center pt-4 sm:pt-8 lg:pt-0 min-h-0 lg:min-h-[560px]">
 
                         <div class="hero-showcase-stage w-full">
                             <div class="hero-scale-in relative w-full rounded-2xl border border-slate-200/80 bg-white p-2 shadow-[0_32px_80px_rgba(53,37,205,0.12)] overflow-hidden">
@@ -1768,7 +2043,7 @@
 
             <section id="meet"
                 class="mb-0 reveal bg-white py-6 md:py-8 shadow-sm w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
-                <div class="max-w-7xl mx-auto px-6 md:px-8">
+                <div class="ez-page-shell">
                     <div class="ez-section-header">
                             <span class="ez-section-eyebrow">Explore</span>
                             <h2 class="ez-section-title">Meet EasyVariants.</h2>
@@ -1794,7 +2069,7 @@
             <div class="gradient-sep"></div>
 
             <section id="problem" class="mb-0 reveal py-20 md:py-28 bg-[#f8f8f8] w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
-                <div class="max-w-7xl mx-auto px-6 md:px-8">
+                <div class="ez-page-shell">
                     <div class="flex flex-col md:flex-row items-start md:items-center gap-12 md:gap-20">
                         <!-- Left: Text Content & Navigation -->
                         <div class="md:w-1/2 max-w-lg">
@@ -1866,7 +2141,7 @@
             <div class="gradient-sep"></div>
 
             <section id="advantage" class="mb-0 reveal py-20 md:py-28 w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
-                <div class="max-w-7xl mx-auto px-6 md:px-8">
+                <div class="ez-page-shell">
                     <div class="ez-section-header">
                         <span class="ez-section-eyebrow">The EasyVariants Advantage</span>
                         <h2 class="ez-section-title">10X Speed, Guarantee Brand Consistency.</h2>
@@ -1922,7 +2197,7 @@
             <!-- ═══════════════════════ INSIDE EASYVARIANTS ═══════════════════════ -->
             <div id="solution" class="ez-scroll-target" aria-hidden="true"></div>
             <section class="mb-0 reveal bg-white py-24 sm:py-32 w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
-                <div class="max-w-7xl mx-auto px-6 lg:px-16">
+                <div class="ez-page-shell">
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-y-16 lg:gap-x-12 items-center">
 
                         <!-- LEFT: Content -->
@@ -2002,93 +2277,72 @@
 
             <div class="gradient-sep"></div>
 
-            <section class="mb-0 reveal py-12 md:py-16 lg:py-20">
-                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-12">
-                    <div class="ez-section-header mb-0">
-                        <span class="ez-section-eyebrow">Our Solution</span>
-                        <h2 class="ez-section-title">Smart Automation System.</h2>
-                    </div>
-                    <div class="hidden md:block shrink-0">
-                        <div
-                            class="bg-surface-container-lowest rounded-2xl p-5 border border-outline-variant/10 shadow-sm">
-                            <div class="text-xs text-on-surface-variant font-semibold uppercase tracking-widest mb-1">
-                                Design Variations Generated</div>
-                            <div class="ez-stat-value">10,000+</div>
+            <!-- ═══════════════════════ OUR SOLUTION ═══════════════════════ -->
+            <section class="solution-section mb-0 reveal py-20 md:py-28 w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+                <div class="ez-page-shell">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-end mb-10 md:mb-14">
+                        <div class="lg:col-span-7 ez-section-header mb-0 max-w-3xl">
+                            <span class="ez-section-eyebrow">Our Solution</span>
+                            <h2 class="ez-section-title">Smart Automation System.</h2>
+                            <p class="ez-section-desc">One Illustrator template powers unlimited variants. Define rules once, map your data, and ship production-ready outputs at scale.</p>
                         </div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                    <!-- Automation  Large -->
-                    <div
-                        class="md:col-span-8 card-premium rounded-[2rem] p-6 md:p-12 relative overflow-hidden group hover-lift reveal reveal-left">
-                        <div class="relative z-10 max-w-sm">
-                            <div
-                                class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 mb-6">
-                                <span class="material-symbols-outlined">tune</span>
+                        <div class="lg:col-span-5 grid grid-cols-3 gap-3 sm:gap-4">
+                            <div class="solution-stat-pill">
+                                <span class="solution-stat-pill__value">10,000+</span>
+                                <span class="solution-stat-pill__label">Variants</span>
                             </div>
-                            <h3 class="ez-card-title--lg mb-4">Variable Control</h3>
-                            <p class="text-on-surface-variant leading-relaxed">Define text, colors, and images once 
-                                reuse everywhere instantly. Smart templates with dynamic layers that scale infinitely.
-                            </p>
-                        </div>
-                        <div
-                            class="absolute right-0 bottom-0 w-1/2 h-full opacity-[0.06] group-hover:opacity-[0.12] transition-opacity">
-                            <span class="material-symbols-outlined text-[300px] leading-none"
-                                style="font-variation-settings: 'wght' 100;">tune</span>
+                            <div class="solution-stat-pill">
+                                <span class="solution-stat-pill__value">Seconds</span>
+                                <span class="solution-stat-pill__label">Generation</span>
+                            </div>
+                            <div class="solution-stat-pill">
+                                <span class="solution-stat-pill__value">1-Click</span>
+                                <span class="solution-stat-pill__label">Export</span>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Intelligent Generation -->
-                    <div
-                        class="md:col-span-4 card-premium card-signature rounded-[2rem] p-6 md:p-12 flex flex-col justify-between hover-lift reveal reveal-right">
-                        <div
-                            class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-lg shadow-primary/20">
-                            <span class="material-symbols-outlined">auto_awesome</span>
-                        </div>
-                        <div class="mt-8">
-                            <h3 class="ez-card-title--lg mb-4">Intelligent Generation</h3>
-                            <p class="text-on-surface-variant text-sm">Automatically create hundreds of design
-                                variations in seconds with AI-powered layout engine.</p>
-                        </div>
-                    </div>
-                    <!-- Smart Generation  Small -->
-                    <div
-                        class="md:col-span-4 card-premium rounded-[2rem] p-6 md:p-12 relative overflow-hidden group hover-lift reveal reveal-left">
-                        <div class="relative z-10">
-                            <h3 class="ez-card-title--lg mb-4">Layer Management</h3>
-                            <p class="opacity-80 text-sm">Organize static and dynamic elements with precision control.
-                                Full layer hierarchy at your fingertips.</p>
-                        </div>
-                        <div class="mt-8 flex gap-2">
-                            <div class="w-8 h-8 rounded-lg bg-white/20"></div>
-                            <div class="w-8 h-8 rounded-lg bg-white/10"></div>
-                            <div class="w-8 h-8 rounded-lg bg-white/5"></div>
-                        </div>
-                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+                        <article class="solution-feature-card solution-feature-card--accent hover-lift reveal reveal-left">
+                            <span class="solution-feature-card__index" aria-hidden="true">01</span>
+                            <div class="solution-feature-card__icon">
+                                <span class="material-symbols-outlined text-2xl">tune</span>
+                            </div>
+                            <h3 class="ez-card-title--lg mb-3">Variable Control</h3>
+                            <p class="text-sm leading-relaxed opacity-95">Define text, colors, and images once. Reuse everywhere instantly with smart templates and dynamic layers that scale without limits.</p>
+                        </article>
 
-                    <!-- Export Anywhere -->
-                    <div
-                        class="md:col-span-8 card-premium rounded-[2rem] p-6 md:p-12 flex flex-col md:flex-row gap-8 items-center hover-lift reveal reveal-right">
-                        <div class="md:w-1/2">
-                            <h3 class="ez-card-title--lg mb-4">Export Anywhere</h3>
-                            <p class="text-on-surface-variant leading-relaxed">Download assets in multiple formats,
-                                ready for any platform. Production-ready outputs in a single click.</p>
-                        </div>
-                        <div class="md:w-1/2 grid grid-cols-3 gap-4">
-                            <div
-                                class="aspect-square rounded-2xl bg-surface-container-lowest shadow-sm flex items-center justify-center">
-                                <span class="material-symbols-outlined text-primary text-3xl">image</span>
+                        <article class="solution-feature-card hover-lift reveal reveal-right">
+                            <span class="solution-feature-card__index" aria-hidden="true">02</span>
+                            <div class="solution-feature-card__icon">
+                                <span class="material-symbols-outlined text-2xl">auto_awesome</span>
                             </div>
-                            <div
-                                class="aspect-square rounded-2xl bg-surface-container-lowest shadow-sm flex items-center justify-center">
-                                <span class="material-symbols-outlined text-primary text-3xl">picture_as_pdf</span>
+                            <h3 class="ez-card-title--lg mb-3">Intelligent Generation</h3>
+                            <p class="text-on-surface-variant text-sm leading-relaxed">Automatically create hundreds of design variations in seconds with an AI-powered layout engine built for production teams.</p>
+                        </article>
+
+                        <article class="solution-feature-card hover-lift reveal reveal-left">
+                            <span class="solution-feature-card__index" aria-hidden="true">03</span>
+                            <div class="solution-feature-card__icon">
+                                <span class="material-symbols-outlined text-2xl">layers</span>
                             </div>
-                            <div
-                                class="aspect-square rounded-2xl bg-surface-container-lowest shadow-sm flex items-center justify-center">
-                                <span class="material-symbols-outlined text-primary text-3xl">folder_zip</span>
+                            <h3 class="ez-card-title--lg mb-3">Layer Management</h3>
+                            <p class="text-on-surface-variant text-sm leading-relaxed">Organize static and dynamic elements with precision control. Full layer hierarchy and placement rules at your fingertips.</p>
+                        </article>
+
+                        <article class="solution-feature-card hover-lift reveal reveal-right">
+                            <span class="solution-feature-card__index" aria-hidden="true">04</span>
+                            <div class="solution-feature-card__icon">
+                                <span class="material-symbols-outlined text-2xl">ios_share</span>
                             </div>
-                        </div>
+                            <h3 class="ez-card-title--lg mb-3">Export Anywhere</h3>
+                            <p class="text-on-surface-variant text-sm leading-relaxed mb-5">Download assets in multiple formats, ready for any platform. Production-ready outputs in a single click.</p>
+                            <div class="flex flex-wrap gap-2 mt-auto">
+                                <span class="solution-format-chip"><span class="material-symbols-outlined">image</span> PNG</span>
+                                <span class="solution-format-chip"><span class="material-symbols-outlined">picture_as_pdf</span> PDF</span>
+                                <span class="solution-format-chip"><span class="material-symbols-outlined">folder_zip</span> ZIP</span>
+                            </div>
+                        </article>
                     </div>
                 </div>
             </section>
@@ -2099,7 +2353,7 @@
             <div id="how-it-works" class="ez-scroll-target" aria-hidden="true"></div>
             <section id="workflow-steps-section"
                 class="py-24 mb-0 reveal bg-white shadow-sm w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
-                <div class="max-w-7xl mx-auto px-6 md:px-8">
+                <div class="ez-page-shell">
                     <div class="ez-section-header max-w-4xl">
                         <span class="ez-section-eyebrow">Workflow</span>
                         <h2 class="ez-section-title">Automate in 5 Steps.</h2>
@@ -2294,35 +2548,41 @@
 
             <!-- ═══════════════════════ DEMO VIDEOS ═══════════════════════ -->
             <div id="demos" class="ez-scroll-target" aria-hidden="true"></div>
-            <section class="mb-0 reveal py-12 md:py-16 lg:py-20">
-                <div class="max-w-6xl mx-auto w-full">
-                    <div class="ez-section-header">
-                        <span class="ez-section-eyebrow">Seeing is Believing</span>
-                        <h2 class="ez-section-title">Demo Videos.</h2>
-                        <p class="ez-section-desc">Explore enterprise-ready design automation flows built for high-volume manufacturing environments.</p>
+            <section class="demo-videos-section mb-0 reveal py-20 md:py-28 w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+                <div class="ez-page-shell">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-end mb-10 md:mb-12">
+                        <div class="lg:col-span-8 ez-section-header mb-0 max-w-3xl">
+                            <span class="ez-section-eyebrow">Seeing is Believing</span>
+                            <h2 class="ez-section-title">Demo Videos.</h2>
+                            <p class="ez-section-desc">Explore enterprise-ready design automation flows built for high-volume manufacturing environments.</p>
+                        </div>
+                        <div class="lg:col-span-4 lg:text-right">
+                            <p class="text-on-surface-variant text-sm font-semibold leading-relaxed">
+                                Watch real EasyVariants workflows for apparel, caps, sweatshirts, shoes, and more.
+                            </p>
+                        </div>
                     </div>
 
-                    <div class="relative w-full">
-                    <div id="light-slideshow"
-                        class="relative w-full h-[550px] md:h-auto md:aspect-video rounded-[2rem] overflow-hidden bg-surface-container-low border border-outline-variant/10 shadow-[0_40px_100px_rgba(0,0,0,0.06)]">
-                        <!-- Slides injected by JS -->
-                    </div>
+                    <div class="demo-video-player">
+                        <div class="demo-video-toolbar">
+                            <p class="demo-video-toolbar__title" id="demo-video-current-title">EasyVariants Explainer Video</p>
+                            <span class="demo-video-toolbar__counter" id="demo-video-counter" aria-live="polite">1 / 5</span>
+                        </div>
 
-                    <!-- Nav Arrows -->
-                    <button type="button" id="light-prev" aria-label="Previous demo slide"
-                        class="absolute top-1/2 left-4 md:-left-6 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-surface-container-lowest shadow-xl border border-outline-variant/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all z-50 text-on-surface">
-                        <span class="material-symbols-outlined text-[20px] md:text-[24px]">chevron_left</span>
-                    </button>
-                    <button type="button" id="light-next" aria-label="Next demo slide"
-                        class="absolute top-1/2 right-4 md:-right-6 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-surface-container-lowest shadow-xl border border-outline-variant/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all z-50 text-on-surface">
-                        <span class="material-symbols-outlined text-[20px] md:text-[24px]">chevron_right</span>
-                    </button>
+                        <div class="demo-video-stage-wrap">
+                            <div id="light-slideshow" class="demo-video-stage" role="region" aria-label="Demo video carousel">
+                                <!-- Slides injected by JS -->
+                            </div>
+                            <button type="button" id="light-prev" aria-label="Previous demo video" class="demo-video-nav demo-video-nav--prev">
+                                <span class="material-symbols-outlined text-[22px]">chevron_left</span>
+                            </button>
+                            <button type="button" id="light-next" aria-label="Next demo video" class="demo-video-nav demo-video-nav--next">
+                                <span class="material-symbols-outlined text-[22px]">chevron_right</span>
+                            </button>
+                        </div>
 
-                    <!-- Dots -->
-                    <div id="light-dots" class="flex justify-center gap-3 mt-8">
-                        <!-- Dots injected by JS -->
+                        <div id="demo-video-tabs" class="demo-video-tabs" role="tablist" aria-label="Choose a demo video"></div>
                     </div>
-                </div>
                 </div>
             </section>
 
@@ -2331,6 +2591,7 @@
             <div class="gradient-sep"></div>
 
             <section class="mb-0 reveal">
+                <div class="ez-page-shell">
                 <div
                     class="relative rounded-[2.5rem] overflow-hidden p-16 md:p-24 text-center cta-gradient shadow-2xl shadow-primary/15 group">
                     <div
@@ -2350,14 +2611,14 @@
                             your product variants.</p>
                     </div>
                 </div>
+                </div>
             </section>
 
-        </div>
     </main>
 
     <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
-    <footer class="footer-premium w-full pt-16 pb-10 md:pt-20 md:pb-12 px-4 sm:px-6 md:px-8 mt-0">
-        <div class="max-w-7xl mx-auto">
+    <footer class="footer-premium w-full pt-16 pb-10 md:pt-20 md:pb-12 mt-0">
+        <div class="ez-page-shell">
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 gap-10 xl:gap-8 mb-0">
 
                 <!-- Brand -->
@@ -2617,11 +2878,13 @@
                 `https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1`;
 
             const lightSlideshow = document.getElementById('light-slideshow');
-            const lightDots = document.getElementById('light-dots');
+            const demoVideoTabs = document.getElementById('demo-video-tabs');
+            const demoVideoTitle = document.getElementById('demo-video-current-title');
+            const demoVideoCounter = document.getElementById('demo-video-counter');
             const lightPrev = document.getElementById('light-prev');
             const lightNext = document.getElementById('light-next');
 
-            if (lightSlideshow) {
+            if (lightSlideshow && demoVideoTabs) {
                 let currentSlide = 0;
                 let autoSlideTimer = null;
 
@@ -2635,6 +2898,22 @@
                     const iframe = slide?.querySelector("iframe");
                     if (iframe) iframe.removeAttribute("src");
                 };
+
+                const tabButtons = demoVideos.map((video, index) => {
+                    const tab = document.createElement('button');
+                    tab.type = 'button';
+                    tab.className = 'demo-video-tab';
+                    tab.setAttribute('role', 'tab');
+                    tab.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+                    tab.setAttribute('aria-controls', 'light-slideshow');
+                    tab.textContent = video.title
+                        .replace(/^EasyVariants Demo\s+/, '')
+                        .replace(/^EasyVariants\s+/, '')
+                        .trim();
+                    tab.addEventListener('click', () => goToSlide(index));
+                    demoVideoTabs.appendChild(tab);
+                    return tab;
+                });
 
                 const slides = demoVideos.map((video, index) => {
                     const slide = document.createElement('div');
@@ -2652,32 +2931,27 @@
                         allowfullscreen
                         loading="lazy"></iframe>`;
                     lightSlideshow.appendChild(slide);
-
-                    const dot = document.createElement('button');
-                    dot.type = 'button';
-                    dot.className = 'w-2.5 h-2.5 rounded-full transition-all cursor-pointer';
-                    dot.setAttribute('aria-label', `Show ${video.title}`);
-                    dot.addEventListener('click', () => goToSlide(index));
-                    lightDots.appendChild(dot);
-
                     return slide;
                 });
 
                 const updateSlides = () => {
+                    const video = demoVideos[currentSlide];
                     slides.forEach((slide, idx) => {
                         const isActive = idx === currentSlide;
                         slide.style.opacity = isActive ? '1' : '0';
-                        slide.style.transform = isActive ? 'scale(1) translateY(0)' : 'scale(0.97) translateY(10px)';
+                        slide.style.transform = isActive ? 'scale(1) translateY(0)' : 'scale(0.98) translateY(8px)';
                         slide.style.pointerEvents = isActive ? 'auto' : 'none';
                         slide.style.zIndex = isActive ? '20' : '1';
                         if (isActive) activateSlide(slide);
                         else deactivateSlide(slide);
                     });
-                    [...lightDots.children].forEach((dot, idx) => {
-                        dot.style.background = idx === currentSlide ? '#3525cd' : '#c7c4d8';
-                        dot.style.transform = idx === currentSlide ? 'scale(1.4)' : 'scale(1)';
-                        dot.style.boxShadow = idx === currentSlide ? '0 0 8px rgba(53,37,205,0.4)' : 'none';
+                    tabButtons.forEach((tab, idx) => {
+                        const isActive = idx === currentSlide;
+                        tab.classList.toggle('is-active', isActive);
+                        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
                     });
+                    if (demoVideoTitle && video) demoVideoTitle.textContent = video.title;
+                    if (demoVideoCounter) demoVideoCounter.textContent = `${currentSlide + 1} / ${demoVideos.length}`;
                 };
 
                 const goToSlide = (i) => {
