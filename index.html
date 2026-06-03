@@ -1370,7 +1370,7 @@
             position: relative;
             opacity: 1;
             z-index: 2;
-            animation: slideInRight 2s cubic-bezier(0.4, 0.2, 0.1, 1) forwards;
+            animation: slideInRight 0.65s cubic-bezier(0.4, 0.2, 0.1, 1) forwards;
             pointer-events: auto;
         }
 
@@ -1379,7 +1379,7 @@
             position: absolute;
             opacity: 1;
             z-index: 1;
-            animation: slideOutLeft 2s cubic-bezier(0.4, 0.2, 0.1, 1) forwards;
+            animation: slideOutLeft 0.65s cubic-bezier(0.4, 0.2, 0.1, 1) forwards;
             pointer-events: none;
         }
     </style>
@@ -1471,7 +1471,7 @@
 
                         <h1 class="hero-fade-up hero-fade-up-d1 ez-page-title hero-headline mb-6 sm:mb-8">
                             <span class="hero-headline-line1">Speed&nbsp;&amp;&nbsp;Precision</span>
-                            <span class="hero-headline-line2 text-on-surface">10× Amplified.</span>
+                            <span class="hero-headline-line2 text-on-surface">10× Amplified</span>
                         </h1>
 
                         <p class="hero-fade-up hero-fade-up-d2 mb-8 sm:mb-10 lg:mb-12 ez-p1 max-w-xl font-medium">
@@ -1554,7 +1554,7 @@
                 <div class="ez-page-shell">
                     <div class="ez-section-header">
                             <span class="ez-section-eyebrow">Explore</span>
-                            <h2 class="ez-section-title">Meet EasyVariants.</h2>
+                            <h2 class="ez-section-title">Meet EasyVariants</h2>
                             <p class="ez-section-desc">Designed for enterprise
                                 production teams handling complex assortments. Orchestrate colorways, logo systems, and
                                 placement rules at scale without manual rework.</p>
@@ -1580,11 +1580,11 @@
                 <div class="ez-page-shell">
                     <div class="flex flex-col lg:flex-row items-start lg:items-center gap-10 lg:gap-20">
                         <!-- Left: Text Content & Navigation -->
-                        <div class="w-full lg:w-1/2 max-w-lg">
-                            <div class="ez-section-header mb-0 md:mb-0">
+                        <div class="w-full lg:w-1/2 min-w-0">
+                            <div class="ez-section-header ez-section-header--fluid mb-0 md:mb-0">
                                 <span class="ez-section-eyebrow">The Problem</span>
-                                <h2 class="ez-section-title">The Design<br>Bottleneck.</h2>
-                                <p class="ez-section-desc">
+                                <h2 class="ez-section-title ez-section-title--single-line">The Design Bottleneck</h2>
+                                <p class="ez-section-desc max-w-lg">
                                     Manual variant creation isn't just time-consuming  it's a bottleneck that drains your team's creativity and slows your market speed.
                                 </p>
                             </div>
@@ -1602,7 +1602,7 @@
 
                         <!-- Right: Auto-Rotating Card Carousel -->
                         <div class="w-full lg:w-1/2 flex justify-center lg:justify-end">
-                            <div class="problem-card-carousel relative w-full max-w-md" style="min-height: 300px;">
+                            <div id="problem-carousel" class="problem-card-carousel relative w-full max-w-md" style="min-height: 300px;">
 
                                 <!-- Card 1: Repetitive Work -->
                                 <div class="problem-card active bg-white rounded-[1.5rem] p-8 md:p-10 shadow-[0_4px_40px_rgba(0,0,0,0.06)]" data-card="0">
@@ -1650,9 +1650,9 @@
 
             <section id="advantage" class="mb-0 reveal ez-section-spacing w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
-                    <div class="ez-section-header">
+                    <div class="ez-section-header ez-section-header--fluid">
                         <span class="ez-section-eyebrow">The EasyVariants Advantage</span>
-                        <h2 class="ez-section-title">10X Speed, Guarantee Brand Consistency.</h2>
+                        <h2 class="ez-section-title ez-section-title--single-line">10X Speed, Guarantee Brand Consistency</h2>
                         <p class="ez-section-desc">
                             Generate hundreds, even thousands, of error-free design variants in minutes  not hours or days. Fuel your innovation.
                         </p>
@@ -1790,7 +1790,7 @@
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-end mb-10 md:mb-14">
                         <div class="lg:col-span-7 ez-section-header mb-0 max-w-3xl">
                             <span class="ez-section-eyebrow">Our Solution</span>
-                            <h2 class="ez-section-title">Smart Automation System.</h2>
+                            <h2 class="ez-section-title">Smart Automation System</h2>
                             <p class="ez-section-desc">One Illustrator template powers unlimited variants. Define rules once, map your data, and ship production-ready outputs at scale.</p>
                         </div>
                         <div class="lg:col-span-5 grid grid-cols-1 min-[400px]:grid-cols-3 gap-3 sm:gap-4 w-full">
@@ -1862,7 +1862,7 @@
                 <div class="ez-page-shell">
                     <div class="ez-section-header max-w-4xl">
                         <span class="ez-section-eyebrow">Workflow</span>
-                        <h2 class="ez-section-title">Automate in 5 Steps.</h2>
+                        <h2 class="ez-section-title">Automate in 5 Steps</h2>
                         <p class="ez-section-desc">Streamlined workflow that turns raw inputs into hundreds of production-ready variants.</p>
                     </div>
 
@@ -2057,7 +2057,7 @@
                 <div class="ez-page-shell">
                     <div class="ez-section-header max-w-4xl">
                         <span class="ez-section-eyebrow">Seeing is Believing</span>
-                        <h2 class="ez-section-title">Demo Videos.</h2>
+                        <h2 class="ez-section-title">Demo Videos</h2>
                         <p class="ez-section-desc">Explore enterprise-ready design automation flows built for high-volume manufacturing environments.</p>
                     </div>
 
@@ -2469,62 +2469,110 @@
             }
 
             /* ═══ PROBLEM CARD CAROUSEL ═══ */
-            const problemCards = document.querySelectorAll('.problem-card');
+            const problemCarouselEl = document.getElementById('problem-carousel');
+            const problemCards = problemCarouselEl
+                ? problemCarouselEl.querySelectorAll('.problem-card')
+                : [];
             const problemPrev = document.getElementById('problem-prev');
             const problemNext = document.getElementById('problem-next');
+            const PROBLEM_TRANSITION_MS = 650;
+            const PROBLEM_AUTO_MS = 8000;
             let currentProblemCard = 0;
-            let problemInterval;
+            let problemInterval = null;
+            let problemTransitionTimer = null;
             let isProblemTransitioning = false;
+            let problemCarouselActive = false;
+
+            const normalizeProblemIndex = (index) => {
+                const total = problemCards.length;
+                if (!total) return 0;
+                return ((index % total) + total) % total;
+            };
+
+            const finishProblemTransition = () => {
+                problemCards.forEach((card) => card.classList.remove('exit'));
+                isProblemTransitioning = false;
+                problemTransitionTimer = null;
+            };
 
             const updateProblemCards = (nextIndex) => {
+                if (!problemCards.length) return;
+
+                const targetIndex = normalizeProblemIndex(nextIndex);
+                if (targetIndex === currentProblemCard && !isProblemTransitioning) return;
+
+                if (problemTransitionTimer) {
+                    clearTimeout(problemTransitionTimer);
+                    problemTransitionTimer = null;
+                }
+
                 const prevIndex = currentProblemCard;
-                if (isProblemTransitioning || nextIndex === prevIndex) return;
+                const prevCard = problemCards[prevIndex];
+                const nextCard = problemCards[targetIndex];
+
                 isProblemTransitioning = true;
 
-                const prevCard = problemCards[prevIndex];
-                const nextCard = problemCards[nextIndex];
+                problemCards.forEach((card, i) => {
+                    if (i !== prevIndex && i !== targetIndex) {
+                        card.classList.remove('active', 'exit');
+                    }
+                });
 
-                // Previous card exits
-                prevCard.classList.remove('active');
-                prevCard.classList.add('exit');
+                if (prevCard && prevCard !== nextCard) {
+                    prevCard.classList.remove('active');
+                    prevCard.classList.add('exit');
+                }
 
-                // Next card enters
+                nextCard.classList.remove('exit');
+                nextCard.classList.remove('active');
+                void nextCard.offsetWidth;
                 nextCard.classList.add('active');
 
-                currentProblemCard = nextIndex;
+                currentProblemCard = targetIndex;
 
-                // Cleanup after transition
-                setTimeout(() => {
-                    prevCard.classList.remove('exit');
-                    isProblemTransitioning = false;
-                }, 2000);
+                problemTransitionTimer = setTimeout(finishProblemTransition, PROBLEM_TRANSITION_MS);
+            };
+
+            const stopProblemCycle = () => {
+                if (problemInterval) {
+                    clearInterval(problemInterval);
+                    problemInterval = null;
+                }
             };
 
             const startProblemCycle = () => {
-                if (problemInterval) clearInterval(problemInterval);
+                stopProblemCycle();
+                if (!problemCards.length || !problemCarouselActive) return;
                 problemInterval = setInterval(() => {
-                    updateProblemCards((currentProblemCard + 1) % problemCards.length);
-                }, 2000); // 2 seconds per card
+                    if (!isProblemTransitioning) {
+                        updateProblemCards(currentProblemCard + 1);
+                    }
+                }, PROBLEM_AUTO_MS);
             };
 
-            if (problemPrev && problemNext) {
-                problemPrev.addEventListener('click', () => {
-                    let next = (currentProblemCard - 1 + problemCards.length) % problemCards.length;
-                    updateProblemCards(next);
+            if (problemPrev && problemNext && problemCards.length) {
+                problemPrev.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    stopProblemCycle();
+                    updateProblemCards(currentProblemCard - 1);
                     startProblemCycle();
                 });
-                problemNext.addEventListener('click', () => {
-                    let next = (currentProblemCard + 1) % problemCards.length;
-                    updateProblemCards(next);
+                problemNext.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    stopProblemCycle();
+                    updateProblemCards(currentProblemCard + 1);
                     startProblemCycle();
                 });
             }
 
-            // Start Problem carousel when in view
             const problemSection = document.getElementById('problem');
-            if (problemSection) {
+            if (problemSection && problemCards.length) {
+                problemSection.addEventListener('mouseenter', stopProblemCycle);
+                problemSection.addEventListener('mouseleave', startProblemCycle);
+
                 const probObserver = new IntersectionObserver((entries) => {
                     if (entries[0].isIntersecting) {
+                        problemCarouselActive = true;
                         startProblemCycle();
                         probObserver.unobserve(problemSection);
                     }

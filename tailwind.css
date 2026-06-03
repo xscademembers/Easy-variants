@@ -144,6 +144,22 @@
     @apply mt-2 mb-0 w-full text-3xl sm:text-4xl lg:text-5xl font-headline font-bold tracking-tight text-on-surface leading-[1.1];
   }
 
+  /* Section headers that must not clip long titles (problem, advantage, etc.) */
+  .ez-section-header--fluid {
+    @apply max-w-none;
+  }
+
+  /* One-line section titles from sm+; wraps on very narrow phones */
+  .ez-section-title--single-line {
+    @apply max-w-none lg:text-4xl xl:text-5xl;
+  }
+
+  @media (min-width: 640px) {
+    .ez-section-title--single-line {
+      white-space: nowrap;
+    }
+  }
+
   .ez-section-desc {
     @apply mt-4 mb-0 w-full text-lg font-body font-normal text-on-surface-variant leading-[1.65];
   }
