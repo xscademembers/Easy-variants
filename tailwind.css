@@ -122,14 +122,14 @@
     @apply max-w-7xl mx-auto w-full px-6 md:px-8;
   }
 
-  /* ── Shared vertical spacing (all main sections; not nav/footer) ── */
+  /* ── Shared vertical spacing (phone / tablet / desktop) ── */
   .ez-section-spacing {
-    @apply py-20 md:py-28;
+    @apply py-14 md:py-20 lg:py-28;
   }
 
   /* ── Section headers (left-aligned by default) ── */
   .ez-section-header {
-    @apply flex flex-col items-start max-w-2xl mb-12 md:mb-16 text-left;
+    @apply flex flex-col items-start max-w-2xl mb-10 md:mb-12 lg:mb-16 text-left;
   }
 
   .ez-section-header--center {
@@ -141,7 +141,7 @@
   }
 
   .ez-section-title {
-    @apply mt-2 mb-0 w-full text-4xl md:text-5xl font-headline font-bold tracking-tight text-on-surface leading-[1.1];
+    @apply mt-2 mb-0 w-full text-3xl sm:text-4xl lg:text-5xl font-headline font-bold tracking-tight text-on-surface leading-[1.1];
   }
 
   .ez-section-desc {
@@ -191,7 +191,7 @@
   }
 
   .ez-cta-title {
-    @apply text-4xl md:text-5xl font-extrabold font-headline text-white tracking-tighter leading-[1.1];
+    @apply text-3xl sm:text-4xl lg:text-5xl font-extrabold font-headline text-white tracking-tighter leading-[1.1];
   }
 
   .ez-nav-link {

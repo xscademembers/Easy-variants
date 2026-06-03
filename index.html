@@ -444,12 +444,50 @@
             #how-it-works .grid {
                 gap: 1rem;
             }
+
+            .demo-showcase__title {
+                white-space: normal;
+                font-size: 1rem;
+            }
+
+            .demo-showcase {
+                border-radius: 1.25rem;
+            }
+
+            .solution-stat-pill__value {
+                font-size: 1.25rem;
+            }
+
+            .inside-ez-media {
+                padding-bottom: 1.5rem;
+            }
         }
 
         @media (min-width: 768px) and (max-width: 1023px) {
             .hero-showcase-stage {
                 max-width: 480px;
+                margin-left: auto;
+                margin-right: auto;
             }
+
+            .inside-ez-media .inside-ez-overlap {
+                width: 40%;
+                right: 0;
+                bottom: -2rem;
+            }
+
+            .demo-showcase__title {
+                font-size: 1.125rem;
+            }
+
+            .navbar .ez-page-shell {
+                gap: 0.5rem;
+            }
+        }
+
+        /* Prevent full-bleed sections from causing horizontal scroll */
+        main {
+            overflow-x: clip;
         }
 
         @keyframes gradientShift {
@@ -1239,14 +1277,14 @@
             pointer-events: none;
         }
 
-        @media(max-width: 768px) {
+        @media (max-width: 1023px) {
             .menu-toggle-light {
                 display: flex !important;
             }
         }
 
-        /* Nav scroll-spy: active section in menu */
-        @media (min-width: 768px) {
+        /* Nav scroll-spy: active section in menu (desktop) */
+        @media (min-width: 1024px) {
             .navbar .nav-section-link {
                 font-size: 1rem;
                 padding-bottom: 0.125rem;
@@ -1437,7 +1475,7 @@
             </div>
 
             <!-- Center: Navigation Links (active = aria-current, synced on scroll) -->
-            <div class="hidden md:flex items-center justify-center gap-10">
+            <div class="hidden lg:flex items-center justify-center gap-6 xl:gap-10">
                 <a class="nav-section-link ez-nav-link" data-section="home" href="#home">Home</a>
                 <a class="nav-section-link ez-nav-link" data-section="solution" href="#solution">Our Solution</a>
                 <a class="nav-section-link ez-nav-link" data-section="how-it-works" href="#how-it-works">Workflow</a>
@@ -1445,7 +1483,7 @@
             </div>
 
             <!-- Right: CTA -->
-            <div class="flex-1 hidden md:flex items-center justify-end gap-6">
+            <div class="flex-1 hidden lg:flex items-center justify-end gap-6">
                 <a href="contactus.html" class="ev-pill-btn ev-pill-btn--sm">Get Your Demo Today</a>
             </div>
 
@@ -1502,7 +1540,7 @@
                             <span class="hero-headline-line2 text-on-surface">10× Amplified.</span>
                         </h1>
 
-                        <p class="hero-fade-up hero-fade-up-d2 mb-8 sm:mb-12 ez-p1 max-w-xl font-medium">
+                        <p class="hero-fade-up hero-fade-up-d2 mb-8 sm:mb-10 lg:mb-12 ez-p1 max-w-xl font-medium">
                             Engineered for high-volume manufacturing through automated placement zones, color blocks, and
                             decoration-specific instructions. Standardize complex text contours with optical-fit precision to
                             generate hundreds of variants complete with precise factory application specs from a single template
@@ -1606,9 +1644,9 @@
 
             <section id="problem" class="mb-0 reveal ez-section-spacing bg-[#f8f8f8] w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
-                    <div class="flex flex-col md:flex-row items-start md:items-center gap-12 md:gap-20">
+                    <div class="flex flex-col lg:flex-row items-start lg:items-center gap-10 lg:gap-20">
                         <!-- Left: Text Content & Navigation -->
-                        <div class="md:w-1/2 max-w-lg">
+                        <div class="w-full lg:w-1/2 max-w-lg">
                             <div class="ez-section-header mb-0 md:mb-0">
                                 <span class="ez-section-eyebrow">The Problem</span>
                                 <h2 class="ez-section-title">The Design<br>Bottleneck.</h2>
@@ -1629,7 +1667,7 @@
                         </div>
 
                         <!-- Right: Auto-Rotating Card Carousel -->
-                        <div class="md:w-1/2 flex justify-center md:justify-end">
+                        <div class="w-full lg:w-1/2 flex justify-center lg:justify-end">
                             <div class="problem-card-carousel relative w-full max-w-md" style="min-height: 300px;">
 
                                 <!-- Card 1: Repetitive Work -->
@@ -1794,13 +1832,13 @@
 
                         <!-- RIGHT: Image Showcase -->
                         <div class="lg:col-span-7 relative flex items-center">
-                            <div class="relative w-full">
+                            <div class="relative w-full inside-ez-media pb-6 sm:pb-10 lg:pb-0">
                                 <!-- Main large image -->
                                 <div class="relative z-10 w-full overflow-hidden rounded-2xl shadow-2xl ring-1 ring-outline-variant/10">
                                     <img src="images/EasyVariants.jpg.jpeg" alt="EasyVariants Plugin Interface" class="w-full h-auto object-cover" />
                                 </div>
-                                <!-- Overlapping smaller image -->
-                                <div class="absolute -bottom-12 -right-6 z-20 w-[45%] overflow-hidden rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-outline-variant/20 hidden sm:block">
+                                <!-- Overlapping smaller image (desktop only) -->
+                                <div class="inside-ez-overlap absolute -bottom-12 -right-6 z-20 w-[45%] max-w-[220px] overflow-hidden rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-outline-variant/20 hidden lg:block">
                                     <img src="images/EasyVariants application.jpg.jpeg" alt="EasyVariants Application" class="w-full h-auto object-cover" />
                                 </div>
                             </div>
@@ -1821,7 +1859,7 @@
                             <h2 class="ez-section-title">Smart Automation System.</h2>
                             <p class="ez-section-desc">One Illustrator template powers unlimited variants. Define rules once, map your data, and ship production-ready outputs at scale.</p>
                         </div>
-                        <div class="lg:col-span-5 grid grid-cols-3 gap-3 sm:gap-4">
+                        <div class="lg:col-span-5 grid grid-cols-1 min-[400px]:grid-cols-3 gap-3 sm:gap-4 w-full">
                             <div class="solution-stat-pill">
                                 <span class="solution-stat-pill__value">10,000+</span>
                                 <span class="solution-stat-pill__label">Variants</span>
@@ -1895,13 +1933,13 @@
                     </div>
 
                     <!-- Progress Bar -->
-                    <div class="relative mb-12 mx-4 md:mx-12">
+                    <div class="relative mb-8 md:mb-12 mx-0 md:mx-8 lg:mx-12 hidden md:block">
                         <div class="h-1.5 bg-surface-container-highest/50 rounded-full" id="step-progress-container">
                             <div class="absolute top-0 left-0 h-1.5 bg-gradient-to-r from-primary to-primary-container rounded-full transition-[width] duration-300 ease-out shadow-[0_0_12px_rgba(53,37,205,0.3)]"
                                 id="step-progress-fill" style="width: 0%;"></div>
                         </div>
                         <!-- Dot markers on progress bar -->
-                        <div class="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between pointer-events-none">
+                        <div class="workflow-progress-dots absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between pointer-events-none">
                             <div class="w-3.5 h-3.5 rounded-full bg-white border-2 border-primary shadow-md step-dot" data-step="1"></div>
                             <div class="w-3.5 h-3.5 rounded-full bg-white border-2 border-outline-variant/40 shadow-sm step-dot" data-step="2"></div>
                             <div class="w-3.5 h-3.5 rounded-full bg-white border-2 border-outline-variant/40 shadow-sm step-dot" data-step="3"></div>
@@ -1911,7 +1949,7 @@
                     </div>
 
                     <!-- Step Cards -->
-                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative z-10">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 relative z-10">
                         <div id="step-card-1" class="step-card relative rounded-2xl p-6 flex flex-col border-2 border-transparent bg-surface-container-lowest transition-all duration-500 overflow-hidden">
                             <div class="absolute top-0 left-0 w-full h-1 bg-transparent transition-all duration-500 step-top-bar"></div>
                             <div class="flex items-center gap-3 mb-4">
@@ -2121,7 +2159,7 @@
             <section class="mb-0 reveal ez-section-spacing bg-white w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
                 <div
-                    class="relative rounded-[2.5rem] overflow-hidden p-16 md:p-24 text-center cta-gradient shadow-2xl shadow-primary/15 group">
+                    class="relative rounded-2xl sm:rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden p-8 sm:p-12 md:p-16 lg:p-24 text-center cta-gradient shadow-2xl shadow-primary/15 group">
                     <div
                         class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
                     </div>
