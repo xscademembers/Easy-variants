@@ -28,59 +28,7 @@
       background-size: 100% 800px, 100px 100px;
     }
 
-    a.ev-pill-btn,
-    button.ev-pill-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.75rem;
-      border-radius: 9999px;
-      font-family: Manrope, Inter, system-ui, sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      line-height: 1.2;
-      color: #3525cd !important;
-      background: #ffffff;
-      border: none;
-      box-shadow: 0 6px 24px rgba(53, 37, 205, 0.28), 0 2px 8px rgba(53, 37, 205, 0.12);
-      text-decoration: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    a.ev-pill-btn:hover,
-    button.ev-pill-btn:hover {
-      background: #fafaff;
-      transform: translateY(-2px);
-      box-shadow: 0 10px 32px rgba(53, 37, 205, 0.34), 0 4px 14px rgba(53, 37, 205, 0.16);
-    }
-
-    a.ev-pill-btn:active,
-    button.ev-pill-btn:active {
-      transform: scale(0.98);
-    }
-
-    .ev-pill-btn--sm {
-      padding: 0.5rem 1.35rem;
-      font-size: 0.875rem;
-    }
-
-    .ev-pill-btn--lg {
-      padding: 1.125rem 2.35rem;
-      font-size: 1rem;
-    }
-
-    .ev-pill-btn--block {
-      width: 100%;
-    }
-
-    .mobile-menu-light a.ev-pill-btn {
-      margin-top: 0.75rem;
-      border-bottom: none;
-      justify-content: center;
-    }
+    /* Pill + icon buttons: see tailwind.css (.ev-pill-btn, .ez-icon-btn) */
 
     .glass-panel {
       background: rgba(255, 255, 255, 0.72);
@@ -288,17 +236,9 @@
     }
 
     .mobile-menu-light__close {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 2.5rem;
-      height: 2.5rem;
       border: none;
-      border-radius: 9999px;
       background: #f3f3f5;
       color: #1a1c1d;
-      cursor: pointer;
-      transition: background-color 0.2s ease, transform 0.15s ease;
     }
 
     .mobile-menu-light__close:hover {
@@ -318,18 +258,10 @@
       position: relative;
       z-index: 60;
       display: none;
-      align-items: center;
-      justify-content: center;
-      width: 2.5rem;
-      height: 2.5rem;
       flex-shrink: 0;
       border: none;
-      border-radius: 9999px;
       background: #f3f3f5;
       color: #1a1c1d;
-      cursor: pointer;
-      padding: 0;
-      transition: background-color 0.2s ease, transform 0.15s ease;
     }
 
     .menu-toggle-light:hover {
@@ -477,7 +409,7 @@
       }
     }
   </style>
-  <link rel="stylesheet" crossorigin href="/assets/tailwind-8CC79KuX.css">
+  <link rel="stylesheet" crossorigin href="/assets/tailwind-2V55oAHi.css">
 </head>
 
 <body class="font-body text-on-surface antialiased">
@@ -511,7 +443,7 @@
       </div>
 
       <!-- Mobile: Toggle -->
-      <button type="button" id="mobileMenuToggle" class="menu-toggle-light"
+      <button type="button" id="mobileMenuToggle" class="menu-toggle-light ez-icon-btn"
         aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
         <span class="material-symbols-outlined menu-toggle-light__icon">menu</span>
       </button>
@@ -524,7 +456,7 @@
     aria-hidden="true">
     <div class="mobile-menu-light__header">
       <span class="mobile-menu-light__title">Menu</span>
-      <button type="button" id="mobileMenuClose" class="mobile-menu-light__close" aria-label="Close menu">
+      <button type="button" id="mobileMenuClose" class="mobile-menu-light__close ez-icon-btn" aria-label="Close menu">
         <span class="material-symbols-outlined text-xl">close</span>
       </button>
     </div>

@@ -201,4 +201,105 @@
   .ez-nav-link:hover {
     @apply text-on-surface;
   }
+
+  /* ── Unified buttons (same height + line-height everywhere) ── */
+  .ev-pill-btn,
+  a.ev-pill-btn,
+  button.ev-pill-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-sizing: border-box;
+    min-height: 3.25rem;
+    height: 3.25rem;
+    padding: 0 1.75rem;
+    border-radius: 9999px;
+    font-family: Manrope, Inter, system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.2;
+    color: #3525cd !important;
+    background: #ffffff;
+    border: none;
+    box-shadow: 0 6px 24px rgba(53, 37, 205, 0.28), 0 2px 8px rgba(53, 37, 205, 0.12);
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .ev-pill-btn:hover,
+  a.ev-pill-btn:hover,
+  button.ev-pill-btn:hover {
+    background: #fafaff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(53, 37, 205, 0.34), 0 4px 14px rgba(53, 37, 205, 0.16);
+  }
+
+  .ev-pill-btn:active,
+  a.ev-pill-btn:active,
+  button.ev-pill-btn:active {
+    transform: scale(0.98);
+  }
+
+  .ev-pill-btn--sm {
+    padding: 0 1.35rem;
+    font-size: 0.875rem;
+    line-height: 1.2;
+  }
+
+  .ev-pill-btn--lg {
+    padding: 0 2.35rem;
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+
+  .ev-pill-btn--dark {
+    color: #ffffff !important;
+    background: #1a1c1d;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .ev-pill-btn--dark:hover {
+    background: rgba(26, 28, 29, 0.9);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16);
+  }
+
+  .ev-pill-btn--block {
+    width: 100%;
+  }
+
+  .mobile-menu-light a.ev-pill-btn {
+    margin-top: 0.75rem;
+    border-bottom: none;
+    justify-content: center;
+  }
+
+  .ev-pill-btn .material-symbols-outlined {
+    font-size: 1.25rem;
+    line-height: 1.2;
+  }
+
+  /* Icon-only controls: same 3.25rem height as pill buttons */
+  .ez-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: 3.25rem;
+    height: 3.25rem;
+    min-height: 3.25rem;
+    padding: 0;
+    border-radius: 9999px;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  }
+
+  .ez-icon-btn .material-symbols-outlined {
+    font-size: 1.25rem;
+    line-height: 1.2;
+  }
 }
