@@ -62,7 +62,7 @@
             border-radius: 9999px;
             font-family: Manrope, Inter, system-ui, sans-serif;
             font-weight: 700;
-            font-size: 0.9375rem;
+            font-size: 1rem;
             line-height: 1.2;
             color: #3525cd !important;
             background: #ffffff;
@@ -88,7 +88,7 @@
 
         .ev-pill-btn--sm {
             padding: 0.5rem 1.35rem;
-            font-size: 0.8125rem;
+            font-size: 0.875rem;
         }
 
         .ev-pill-btn--lg {
@@ -440,7 +440,7 @@
                 padding: 2.5rem 1.5rem !important;
             }
 
-            #workflow-steps-section .grid {
+            #how-it-works .grid {
                 gap: 1rem;
             }
         }
@@ -448,115 +448,6 @@
         @media (min-width: 768px) and (max-width: 1023px) {
             .hero-showcase-stage {
                 max-width: 480px;
-            }
-        }
-
-        @media (min-width: 768px) and (max-width: 1023px) {
-            .navbar .nav-section-link {
-                font-size: 14px;
-            }
-        }
-
-        /* ═══ 2D GALLERY ═══ */
-        .ez3d-gallery {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(15px);
-            z-index: 20;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 3rem;
-            overflow-y: auto;
-            border-radius: 2rem;
-        }
-
-        .ez3d-gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .ez3d-gallery-item {
-            background: #ffffff;
-            border-radius: 1rem;
-            padding: 1rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border: 2px solid transparent;
-        }
-
-        .ez3d-gallery-item:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(77, 68, 227, 0.15);
-            border-color: #4d44e3;
-        }
-
-        .ez3d-gallery-img-wrapper {
-            width: 100%;
-            height: 22vh; /* Slightly smaller height to guarantee 4x2 fits on any screen */
-            min-height: 140px;
-            max-height: 200px;
-            overflow: hidden;
-            border-radius: 0.5rem;
-            margin-bottom: 0.8rem;
-            background: #f8fafc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .ez3d-gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Guarantees the entire image is shown without cropping */
-            transform: scale(1.15); /* Tiny zoom to clean margins but keep full shirt */
-            transform-origin: center center;
-            transition: transform 0.3s;
-        }
-
-        .ez3d-gallery-item:hover img {
-            transform: scale(1.25);
-        }
-
-        .ez3d-gallery-item span {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: #1e293b;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        @keyframes shimmer {
-            0% {
-                background-position: -200% 0;
-            }
-
-            100% {
-                background-position: 200% 0;
             }
         }
 
@@ -570,14 +461,6 @@
             50% {
                 background-position: 100% 50%;
             }
-        }
-
-        .stat-number {
-            animation: countUp 0.6s ease-out forwards;
-        }
-
-        .float-anim {
-            animation: float 4s ease-in-out infinite;
         }
 
         /* ═══ SLIDES ═══ */
@@ -680,7 +563,7 @@
 
         .solution-stat-pill__label {
             margin-top: 0.35rem;
-            font-size: 0.6875rem;
+            font-size: 0.75rem;
             font-weight: 700;
             letter-spacing: 0.12em;
             text-transform: uppercase;
@@ -755,7 +638,7 @@
             color: #ffffff;
         }
 
-        .solution-feature-card--accent .ez-card-title--lg,
+        .solution-feature-card--accent .ez-h3,
         .solution-feature-card--accent p {
             color: rgba(255, 255, 255, 0.92);
         }
@@ -768,7 +651,7 @@
             border-radius: 0.75rem;
             background: rgba(53, 37, 205, 0.06);
             border: 1px solid rgba(53, 37, 205, 0.1);
-            font-size: 0.75rem;
+            font-size: 0.875rem;
             font-weight: 600;
             color: #464555;
         }
@@ -1151,7 +1034,7 @@
         .footer-mini-card__title {
             font-family: Manrope, Inter, system-ui, sans-serif;
             font-size: 0.875rem;
-            font-weight: 700;
+            font-weight: 600;
             color: #1a1c1d;
             margin-bottom: 0.25rem;
             line-height: 1.3;
@@ -1159,7 +1042,7 @@
 
         .footer-mini-card__text {
             font-family: Inter, system-ui, sans-serif;
-            font-size: 0.8125rem;
+            font-size: 0.875rem;
             line-height: 1.5;
             color: #464555;
             margin: 0;
@@ -1172,7 +1055,7 @@
         }
 
         .footer-link-col a {
-            font-size: 0.9375rem;
+            font-size: 1rem;
             font-weight: 600;
             color: #1a1c1d;
             text-decoration: none;
@@ -1311,6 +1194,7 @@
 
         .mobile-menu-light a {
             padding: 14px 0;
+            font-size: 1rem;
             font-weight: 600;
             color: #1a1c1d;
             border-bottom: 1px solid rgba(199, 196, 216, 0.12);
@@ -1363,7 +1247,7 @@
         /* Nav scroll-spy: active section in menu */
         @media (min-width: 768px) {
             .navbar .nav-section-link {
-                font-size: 15px;
+                font-size: 1rem;
                 padding-bottom: 0.125rem;
                 border-bottom: 2px solid transparent;
                 transition: color 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
@@ -1385,312 +1269,6 @@
         .mobile-menu-light .nav-section-link[aria-current="page"] {
             color: #3525cd;
             font-weight: 800;
-        }
-
-        /* ═══ 3D CUSTOMIZER SECTION ═══ */
-        .ez3d-section {
-            padding: 2rem 0 4rem;
-            contain: layout style paint;
-        }
-
-        .ez3d-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .ez3d-header h2 {
-            font-size: 2.5rem;
-            font-family: 'Manrope', sans-serif;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            color: #1a1c1d;
-        }
-
-        .ez3d-header p {
-            color: #464555;
-            font-size: 1.05rem;
-        }
-
-        .ez3d-container {
-            position: relative;
-            width: 100%;
-            height: 750px;
-            border-radius: 2rem;
-            overflow: hidden;
-            background: #ffffff;
-            /* Removed border and box-shadow to blend seamlessly with the white section */
-        }
-
-        #canvas-container {
-            position: absolute;
-            inset: 0;
-            z-index: 1;
-            contain: strict;
-        }
-
-        .ez3d-left-panel {
-            position: absolute;
-            left: 1.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 190px;
-            z-index: 2;
-            background: rgba(255, 255, 255, 0.45);
-            backdrop-filter: blur(20px) saturate(150%);
-            -webkit-backdrop-filter: blur(20px) saturate(150%);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .ez3d-right-panel {
-            position: absolute;
-            right: 1.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 300px;
-            z-index: 2;
-            background: rgba(255, 255, 255, 0.45);
-            backdrop-filter: blur(20px) saturate(150%);
-            -webkit-backdrop-filter: blur(20px) saturate(150%);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            max-height: 85%;
-            overflow-y: auto;
-        }
-
-        .ez3d-right-panel::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        .ez3d-right-panel::-webkit-scrollbar-thumb {
-            background-color: rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-        }
-
-        .ez3d-control-group h3 {
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            color: #1a1c1d;
-            font-family: 'Manrope', sans-serif;
-        }
-
-        .ez3d-swatches {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .ez3d-swatch {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-        }
-
-        .ez3d-swatch:hover {
-            transform: scale(1.15);
-        }
-
-        .ez3d-swatch.active {
-            border-color: #4d44e3;
-            transform: scale(1.15);
-            box-shadow: 0 0 0 2px white, 0 0 0 4px #4d44e3;
-        }
-
-        .ez3d-input {
-            width: 100%;
-            padding: 0.5rem 0.75rem;
-            border-radius: 0.5rem;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            background: white;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.875rem;
-            transition: border-color 0.2s;
-            margin-bottom: 0.5rem;
-        }
-
-        .ez3d-input:focus {
-            outline: none;
-            border-color: #4d44e3;
-        }
-
-        input[type="file"].ez3d-input {
-            padding: 0.4rem;
-            font-size: 0.75rem;
-        }
-
-        input[type="range"].ez3d-slider {
-            width: 100%;
-            padding: 0;
-            height: 6px;
-            border: none;
-            background: rgba(0, 0, 0, 0.1);
-            border-radius: 3px;
-            appearance: none;
-            -webkit-appearance: none;
-            margin-bottom: 0.5rem;
-        }
-
-        input[type="range"].ez3d-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 16px;
-            height: 16px;
-            background: #1a1c1d;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .ez3d-helper {
-            font-size: 0.75rem;
-            color: #464555;
-            margin-top: 0.25rem;
-            text-align: left;
-            display: block;
-        }
-
-        .ez3d-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.65rem 1.35rem;
-            border-radius: 9999px;
-            font-weight: 700;
-            font-size: 0.875rem;
-            text-decoration: none;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-            cursor: pointer;
-            width: 100%;
-            font-family: Manrope, Inter, sans-serif;
-            background-color: #ffffff;
-            color: #3525cd !important;
-            border: 1px solid rgba(53, 37, 205, 0.14);
-            box-shadow: 0 5px 20px rgba(53, 37, 205, 0.22), 0 2px 6px rgba(53, 37, 205, 0.1);
-        }
-
-        .ez3d-btn-primary:hover,
-        .ez3d-btn-secondary:hover,
-        .ez3d-btn-accent:hover {
-            background-color: #fafaff;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 28px rgba(53, 37, 205, 0.3), 0 3px 10px rgba(53, 37, 205, 0.14);
-        }
-
-        .ez3d-btn-primary:active,
-        .ez3d-btn-secondary:active,
-        .ez3d-btn-accent:active {
-            transform: scale(0.98);
-        }
-
-        .ez3d-loader {
-            position: absolute;
-            inset: 0;
-            background: #f8fafc;
-            z-index: 10;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #1a1c1d;
-            transition: opacity 0.5s ease;
-        }
-
-        .ez3d-loader.active {
-            display: flex;
-        }
-
-        .ez3d-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(0, 0, 0, 0.1);
-            border-top-color: #4d44e3;
-            border-radius: 50%;
-            animation: ez3d-spin 1s linear infinite;
-            margin-bottom: 1rem;
-        }
-
-        @keyframes ez3d-spin {
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        .ez3d-mt-2 {
-            margin-top: 0.5rem;
-        }
-
-        .ez3d-mt-4 {
-            margin-top: 1rem;
-        }
-
-        /* 3D Customizer Mobile */
-        @media (max-width: 1024px) {
-            .ez3d-container {
-                height: auto;
-                min-height: 500px;
-                display: flex;
-                flex-direction: column;
-            }
-
-            #canvas-container {
-                position: relative;
-                height: 450px;
-                min-height: 450px;
-            }
-
-            .ez3d-left-panel {
-                position: relative;
-                left: auto;
-                top: auto;
-                transform: none;
-                width: 100%;
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-                padding: 1rem;
-                border-radius: 0 0 1rem 1rem;
-            }
-
-            .ez3d-left-panel .ez3d-control-group {
-                display: flex;
-                width: 100%;
-                align-items: center;
-                gap: 0.75rem;
-                flex-wrap: wrap;
-            }
-
-            .ez3d-left-panel h3 {
-                display: none;
-            }
-
-            .ez3d-model-switcher {
-                display: flex;
-                gap: 0.5rem;
-                width: 100%;
-            }
-
-            .ez3d-right-panel {
-                position: relative;
-                right: auto;
-                top: auto;
-                transform: none;
-                width: 100%;
-                max-height: 350px;
-                border-radius: 1rem;
-                margin-top: 1rem;
-            }
         }
 
         /* ═══ DEMO VIDEOS SECTION ═══ */
@@ -1730,7 +1308,7 @@
         .demo-showcase__title {
             margin: 0;
             font-family: Manrope, Inter, system-ui, sans-serif;
-            font-size: 0.9375rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: #1a1c1d;
             line-height: 1.35;
@@ -1747,7 +1325,7 @@
         }
 
         .demo-showcase__counter {
-            font-size: 0.6875rem;
+            font-size: 0.75rem;
             font-weight: 700;
             letter-spacing: 0.1em;
             text-transform: uppercase;
@@ -1859,10 +1437,10 @@
 
             <!-- Center: Navigation Links (active = aria-current, synced on scroll) -->
             <div class="hidden md:flex items-center justify-center gap-10">
-                <a class="nav-section-link" data-section="home" href="#home">Home</a>
-                <a class="nav-section-link" data-section="solution" href="#solution">Our Solution</a>
-                <a class="nav-section-link" data-section="how-it-works" href="#how-it-works">Work Flow</a>
-                <a class="nav-section-link" data-section="demos" href="#demos">Demo Videos</a>
+                <a class="nav-section-link ez-nav-link" data-section="home" href="#home">Home</a>
+                <a class="nav-section-link ez-nav-link" data-section="solution" href="#solution">Our Solution</a>
+                <a class="nav-section-link ez-nav-link" data-section="how-it-works" href="#how-it-works">Workflow</a>
+                <a class="nav-section-link ez-nav-link" data-section="demos" href="#demos">Demo Videos</a>
             </div>
 
             <!-- Right: CTA -->
@@ -1888,18 +1466,17 @@
                 <span class="material-symbols-outlined text-xl">close</span>
             </button>
         </div>
-        <a class="nav-section-link" data-section="home" href="#home">Home</a>
-        <a class="nav-section-link" data-section="solution" href="#solution">Our Solution</a>
-        <a class="nav-section-link" data-section="how-it-works" href="#how-it-works">Work Flow</a>
-        <a class="nav-section-link" data-section="demos" href="#demos">Demo Videos</a>
+        <a class="nav-section-link ez-nav-link" data-section="home" href="#home">Home</a>
+        <a class="nav-section-link ez-nav-link" data-section="solution" href="#solution">Our Solution</a>
+        <a class="nav-section-link ez-nav-link" data-section="how-it-works" href="#how-it-works">Workflow</a>
+        <a class="nav-section-link ez-nav-link" data-section="demos" href="#demos">Demo Videos</a>
         <a href="contactus.html" class="ev-pill-btn ev-pill-btn--sm">Get Your Demo Today</a>
     </div>
 
     <main class="pt-0 pb-0 overflow-x-hidden">
 
             <!-- ═══════════════════════ HERO ═══════════════════════ -->
-            <div id="home" class="ez-scroll-target" aria-hidden="true"></div>
-            <section
+            <section id="home"
                 class="hero-section relative overflow-hidden min-h-0 lg:min-h-[95vh] mb-0 w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-white">
 
                 <!-- Background Atmosphere -->
@@ -1924,7 +1501,7 @@
                             <span class="hero-headline-line2 text-on-surface">10× Amplified.</span>
                         </h1>
 
-                        <p class="hero-fade-up hero-fade-up-d2 mb-8 sm:mb-12 text-base sm:text-lg lg:text-xl text-on-surface-variant max-w-xl leading-relaxed font-medium font-body">
+                        <p class="hero-fade-up hero-fade-up-d2 mb-8 sm:mb-12 ez-p1 max-w-xl font-medium">
                             Engineered for high-volume manufacturing through automated placement zones, color blocks, and
                             decoration-specific instructions. Standardize complex text contours with optical-fit precision to
                             generate hundreds of variants complete with precise factory application specs from a single template
@@ -1960,7 +1537,7 @@
                                         </div>
                                         <div>
                                             <div class="text-2xl font-black font-headline text-on-surface leading-none">10×</div>
-                                            <div class="text-[11px] font-semibold text-on-surface-variant mt-0.5">Faster output</div>
+                                            <div class="ez-p3-legal font-semibold text-on-surface-variant mt-0.5">Faster output</div>
                                         </div>
                                     </div>
                                 </div>
@@ -1972,7 +1549,7 @@
                                         </div>
                                         <div>
                                             <div class="text-2xl font-black font-headline text-on-surface leading-none">1K+</div>
-                                            <div class="text-[11px] font-semibold text-on-surface-variant mt-0.5">SKUs per run</div>
+                                            <div class="ez-p3-legal font-semibold text-on-surface-variant mt-0.5">SKUs per run</div>
                                         </div>
                                     </div>
                                 </div>
@@ -1983,8 +1560,8 @@
                                             <span class="material-symbols-outlined text-green-600 text-xl">draw</span>
                                         </div>
                                         <div>
-                                            <div class="text-sm font-black font-headline text-on-surface leading-tight">Illustrator</div>
-                                            <div class="text-[11px] font-semibold text-on-surface-variant mt-0.5">Native plugin</div>
+                                            <div class="ez-h5 font-black font-headline leading-tight">Illustrator</div>
+                                            <div class="ez-p3-legal font-semibold text-on-surface-variant mt-0.5">Native plugin</div>
                                         </div>
                                     </div>
                                 </div>
@@ -2059,8 +1636,8 @@
                                     <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-6">
                                         <span class="material-symbols-outlined text-2xl text-red-500">cycle</span>
                                     </div>
-                                    <h3 class="ez-card-title--md mb-3">Repetitive Work</h3>
-                                    <p class="text-on-surface-variant leading-relaxed text-[15px]">Duplicating assets across hundreds of styles, regions, and channels. Production teams lose hours on repetitive execution work.</p>
+                                    <h3 class="ez-h3 mb-3">Repetitive Work</h3>
+                                    <p class="ez-p2">Duplicating assets across hundreds of styles, regions, and channels. Production teams lose hours on repetitive execution work.</p>
                                 </div>
 
                                 <!-- Card 2: Consistency Challenges -->
@@ -2068,8 +1645,8 @@
                                     <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-6">
                                         <span class="material-symbols-outlined text-2xl text-red-500">rule</span>
                                     </div>
-                                    <h3 class="ez-card-title--md mb-3">Consistency Challenges</h3>
-                                    <p class="text-on-surface-variant leading-relaxed text-[15px]">Maintaining brand consistency across factories and production lines is difficult when variants are created manually.</p>
+                                    <h3 class="ez-h3 mb-3">Consistency Challenges</h3>
+                                    <p class="ez-p2">Maintaining brand consistency across factories and production lines is difficult when variants are created manually.</p>
                                 </div>
 
                                 <!-- Card 3: Slow Time-to-Market -->
@@ -2077,8 +1654,8 @@
                                     <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-6">
                                         <span class="material-symbols-outlined text-2xl text-red-500">hourglass_empty</span>
                                     </div>
-                                    <h3 class="ez-card-title--md mb-3">Slow Time-to-Market</h3>
-                                    <p class="text-on-surface-variant leading-relaxed text-[15px]">Manual operations delay line launches and replenishment cycles when manufacturing calendars are already compressed.</p>
+                                    <h3 class="ez-h3 mb-3">Slow Time-to-Market</h3>
+                                    <p class="ez-p2">Manual operations delay line launches and replenishment cycles when manufacturing calendars are already compressed.</p>
                                 </div>
 
                                 <!-- Card 4: Limited Personalization -->
@@ -2086,8 +1663,8 @@
                                     <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-6">
                                         <span class="material-symbols-outlined text-2xl text-red-500">block</span>
                                     </div>
-                                    <h3 class="ez-card-title--md mb-3">Limited Personalization</h3>
-                                    <p class="text-on-surface-variant leading-relaxed text-[15px]">Variant expansion becomes expensive and risky when every SKU requires individual manual intervention.</p>
+                                    <h3 class="ez-h3 mb-3">Limited Personalization</h3>
+                                    <p class="ez-p2">Variant expansion becomes expensive and risky when every SKU requires individual manual intervention.</p>
                                 </div>
                             </div>
                         </div>
@@ -2115,8 +1692,8 @@
                             <div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 mb-6">
                                 <span class="material-symbols-outlined">rocket_launch</span>
                             </div>
-                            <h3 class="ez-card-title mb-3">Boost Output 10X</h3>
-                            <p class="text-on-surface-variant text-sm leading-relaxed">Free your designers from repetitive drudgery, allowing them to focus on pure innovation.</p>
+                            <h3 class="ez-h4 mb-3">Boost Output 10X</h3>
+                            <p class="ez-p2">Free your designers from repetitive drudgery, allowing them to focus on pure innovation.</p>
                         </div>
 
                         <!-- Card 2 -->
@@ -2124,8 +1701,8 @@
                             <div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 mb-6">
                                 <span class="material-symbols-outlined">verified</span>
                             </div>
-                            <h3 class="ez-card-title mb-3">Guaranteed Consistency</h3>
-                            <p class="text-on-surface-variant text-sm leading-relaxed">Eliminate human error and ensure every variant perfectly aligns with your brand standards.</p>
+                            <h3 class="ez-h4 mb-3">Guaranteed Consistency</h3>
+                            <p class="ez-p2">Eliminate human error and ensure every variant perfectly aligns with your brand standards.</p>
                         </div>
 
                         <!-- Card 3 -->
@@ -2133,8 +1710,8 @@
                             <div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 mb-6">
                                 <span class="material-symbols-outlined">trending_up</span>
                             </div>
-                            <h3 class="ez-card-title mb-3">Faster Time-to-Market</h3>
-                            <p class="text-on-surface-variant text-sm leading-relaxed">Rapidly customize and deploy new collections, gaining a critical competitive edge.</p>
+                            <h3 class="ez-h4 mb-3">Faster Time-to-Market</h3>
+                            <p class="ez-p2">Rapidly customize and deploy new collections, gaining a critical competitive edge.</p>
                         </div>
 
                         <!-- Card 4 -->
@@ -2142,8 +1719,8 @@
                             <div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 mb-6">
                                 <span class="material-symbols-outlined">tune</span>
                             </div>
-                            <h3 class="ez-card-title mb-3">Scalable Personalization</h3>
-                            <p class="text-on-surface-variant text-sm leading-relaxed">Offer extensive personalization without fear of an unmanageable design workload.</p>
+                            <h3 class="ez-h4 mb-3">Scalable Personalization</h3>
+                            <p class="ez-p2">Offer extensive personalization without fear of an unmanageable design workload.</p>
                         </div>
                     </div>
                 </div>
@@ -2153,7 +1730,6 @@
             <div class="gradient-sep"></div>
 
             <!-- ═══════════════════════ INSIDE EASYVARIANTS ═══════════════════════ -->
-            <div id="solution" class="ez-scroll-target" aria-hidden="true"></div>
             <section class="mb-0 reveal bg-white ez-section-spacing w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-y-16 lg:gap-x-12 items-center">
@@ -2174,42 +1750,42 @@
                                     <div class="w-5 h-5 flex items-center justify-center rounded-full bg-surface-container-low border border-outline-variant/20">
                                         <svg class="w-3 h-3 text-on-surface-variant" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                                     </div>
-                                    <span class="text-sm font-medium text-on-surface-variant">Placement Zones</span>
+                                    <span class="ez-h5 text-on-surface-variant">Placement Zones</span>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <div class="w-5 h-5 flex items-center justify-center rounded-full bg-surface-container-low border border-outline-variant/20">
                                         <svg class="w-3 h-3 text-on-surface-variant" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                                     </div>
-                                    <span class="text-sm font-medium text-on-surface-variant">Color Blocks</span>
+                                    <span class="ez-h5 text-on-surface-variant">Color Blocks</span>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <div class="w-5 h-5 flex items-center justify-center rounded-full bg-surface-container-low border border-outline-variant/20">
                                         <svg class="w-3 h-3 text-on-surface-variant" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                                     </div>
-                                    <span class="text-sm font-medium text-on-surface-variant">Team Asset Mapping</span>
+                                    <span class="ez-h5 text-on-surface-variant">Team Asset Mapping</span>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <div class="w-5 h-5 flex items-center justify-center rounded-full bg-surface-container-low border border-outline-variant/20">
                                         <svg class="w-3 h-3 text-on-surface-variant" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                                     </div>
-                                    <span class="text-sm font-medium text-on-surface-variant">Embroidery Support</span>
+                                    <span class="ez-h5 text-on-surface-variant">Embroidery Support</span>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <div class="w-5 h-5 flex items-center justify-center rounded-full bg-surface-container-low border border-outline-variant/20">
                                         <svg class="w-3 h-3 text-on-surface-variant" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                                     </div>
-                                    <span class="text-sm font-medium text-on-surface-variant">Template Versioning</span>
+                                    <span class="ez-h5 text-on-surface-variant">Template Versioning</span>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <div class="w-5 h-5 flex items-center justify-center rounded-full bg-surface-container-low border border-outline-variant/20">
                                         <svg class="w-3 h-3 text-on-surface-variant" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                                     </div>
-                                    <span class="text-sm font-medium text-on-surface-variant">Variant Generation</span>
+                                    <span class="ez-h5 text-on-surface-variant">Variant Generation</span>
                                 </div>
                             </div>
 
                             <div class="pt-4">
-                                <a href="#how-it-works" class="inline-block px-8 py-3.5 bg-on-surface text-white rounded-full font-semibold text-sm hover:bg-on-surface/90 transition-all shadow-sm active:scale-95">
+                                <a href="#how-it-works" class="inline-block px-8 py-3.5 bg-on-surface text-white rounded-full ez-p2 font-semibold text-white hover:bg-on-surface/90 transition-all shadow-sm active:scale-95">
                                     Explore Workflow
                                 </a>
                             </div>
@@ -2236,7 +1812,7 @@
             <div class="gradient-sep"></div>
 
             <!-- ═══════════════════════ OUR SOLUTION ═══════════════════════ -->
-            <section class="solution-section mb-0 reveal ez-section-spacing w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+            <section id="solution" class="solution-section mb-0 reveal ez-section-spacing w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-end mb-10 md:mb-14">
                         <div class="lg:col-span-7 ez-section-header mb-0 max-w-3xl">
@@ -2266,8 +1842,8 @@
                             <div class="solution-feature-card__icon">
                                 <span class="material-symbols-outlined text-2xl">tune</span>
                             </div>
-                            <h3 class="ez-card-title--lg mb-3">Variable Control</h3>
-                            <p class="text-sm leading-relaxed opacity-95">Define text, colors, and images once. Reuse everywhere instantly with smart templates and dynamic layers that scale without limits.</p>
+                            <h3 class="ez-h3 mb-3">Variable Control</h3>
+                            <p class="ez-p2 opacity-95">Define text, colors, and images once. Reuse everywhere instantly with smart templates and dynamic layers that scale without limits.</p>
                         </article>
 
                         <article class="solution-feature-card hover-lift reveal reveal-right">
@@ -2275,8 +1851,8 @@
                             <div class="solution-feature-card__icon">
                                 <span class="material-symbols-outlined text-2xl">auto_awesome</span>
                             </div>
-                            <h3 class="ez-card-title--lg mb-3">Intelligent Generation</h3>
-                            <p class="text-on-surface-variant text-sm leading-relaxed">Automatically create hundreds of design variations in seconds with an AI-powered layout engine built for production teams.</p>
+                            <h3 class="ez-h3 mb-3">Intelligent Generation</h3>
+                            <p class="ez-p2">Automatically create hundreds of design variations in seconds with an AI-powered layout engine built for production teams.</p>
                         </article>
 
                         <article class="solution-feature-card hover-lift reveal reveal-left">
@@ -2284,8 +1860,8 @@
                             <div class="solution-feature-card__icon">
                                 <span class="material-symbols-outlined text-2xl">layers</span>
                             </div>
-                            <h3 class="ez-card-title--lg mb-3">Layer Management</h3>
-                            <p class="text-on-surface-variant text-sm leading-relaxed">Organize static and dynamic elements with precision control. Full layer hierarchy and placement rules at your fingertips.</p>
+                            <h3 class="ez-h3 mb-3">Layer Management</h3>
+                            <p class="ez-p2">Organize static and dynamic elements with precision control. Full layer hierarchy and placement rules at your fingertips.</p>
                         </article>
 
                         <article class="solution-feature-card hover-lift reveal reveal-right">
@@ -2293,8 +1869,8 @@
                             <div class="solution-feature-card__icon">
                                 <span class="material-symbols-outlined text-2xl">ios_share</span>
                             </div>
-                            <h3 class="ez-card-title--lg mb-3">Export Anywhere</h3>
-                            <p class="text-on-surface-variant text-sm leading-relaxed mb-5">Download assets in multiple formats, ready for any platform. Production-ready outputs in a single click.</p>
+                            <h3 class="ez-h3 mb-3">Export Anywhere</h3>
+                            <p class="ez-p2 mb-5">Download assets in multiple formats, ready for any platform. Production-ready outputs in a single click.</p>
                             <div class="flex flex-wrap gap-2 mt-auto">
                                 <span class="solution-format-chip"><span class="material-symbols-outlined">image</span> PNG</span>
                                 <span class="solution-format-chip"><span class="material-symbols-outlined">picture_as_pdf</span> PDF</span>
@@ -2308,9 +1884,8 @@
             <!-- ═══════════════════════ HOW IT WORKS ═══════════════════════ -->
             <div class="gradient-sep"></div>
 
-            <div id="how-it-works" class="ez-scroll-target" aria-hidden="true"></div>
-            <section id="workflow-steps-section"
-                class="ez-section-spacing mb-0 reveal bg-white shadow-sm w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+            <section id="how-it-works"
+                class="workflow-steps-section ez-section-spacing mb-0 reveal bg-white shadow-sm w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
                     <div class="ez-section-header max-w-4xl">
                         <span class="ez-section-eyebrow">Workflow</span>
@@ -2342,10 +1917,10 @@
                                 <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                                     <span class="material-symbols-outlined text-xl text-primary">palette</span>
                                 </div>
-                                <span class="text-xs font-bold text-primary/60 uppercase tracking-widest">Step 1</span>
+                                <span class="ez-h6 text-primary/60 tracking-widest">Step 1</span>
                             </div>
-                            <h3 class="ez-card-title mb-2">Upload PLM Colorways</h3>
-                            <p class="text-on-surface-variant leading-relaxed text-[13px] grow">Bring in approved colorway data from your PLM and set the foundation for automated outputs.</p>
+                            <h3 class="ez-h4 mb-2">Upload PLM Colorways</h3>
+                            <p class="ez-p2 grow">Bring in approved colorway data from your PLM and set the foundation for automated outputs.</p>
                         </div>
 
                         <div id="step-card-2" class="step-card relative rounded-2xl p-6 flex flex-col border-2 border-transparent bg-surface-container-lowest transition-all duration-500 overflow-hidden">
@@ -2354,10 +1929,10 @@
                                 <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                                     <span class="material-symbols-outlined text-xl text-primary">upload_file</span>
                                 </div>
-                                <span class="text-xs font-bold text-primary/60 uppercase tracking-widest">Step 2</span>
+                                <span class="ez-h6 text-primary/60 tracking-widest">Step 2</span>
                             </div>
-                            <h3 class="ez-card-title mb-2">Load Ai Template</h3>
-                            <p class="text-on-surface-variant leading-relaxed text-[13px] grow">Load your Illustrator template so structure and artwork layers are ready for mapping.</p>
+                            <h3 class="ez-h4 mb-2">Load Ai Template</h3>
+                            <p class="ez-p2 grow">Load your Illustrator template so structure and artwork layers are ready for mapping.</p>
                         </div>
 
                         <div id="step-card-3" class="step-card relative rounded-2xl p-6 flex flex-col border-2 border-transparent bg-surface-container-lowest transition-all duration-500 overflow-hidden">
@@ -2366,10 +1941,10 @@
                                 <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                                     <span class="material-symbols-outlined text-xl text-primary">data_object</span>
                                 </div>
-                                <span class="text-xs font-bold text-primary/60 uppercase tracking-widest">Step 3</span>
+                                <span class="ez-h6 text-primary/60 tracking-widest">Step 3</span>
                             </div>
-                            <h3 class="ez-card-title mb-2">Define Variables</h3>
-                            <p class="text-on-surface-variant leading-relaxed text-[13px] grow">Define variable inputs like colors, names, codes, and artwork references for each variant.</p>
+                            <h3 class="ez-h4 mb-2">Define Variables</h3>
+                            <p class="ez-p2 grow">Define variable inputs like colors, names, codes, and artwork references for each variant.</p>
                         </div>
 
                         <div id="step-card-4" class="step-card relative rounded-2xl p-6 flex flex-col border-2 border-transparent bg-surface-container-lowest transition-all duration-500 overflow-hidden">
@@ -2378,10 +1953,10 @@
                                 <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                                     <span class="material-symbols-outlined text-xl text-primary">rule_settings</span>
                                 </div>
-                                <span class="text-xs font-bold text-primary/60 uppercase tracking-widest">Step 4</span>
+                                <span class="ez-h6 text-primary/60 tracking-widest">Step 4</span>
                             </div>
-                            <h3 class="ez-card-title mb-2">Map Elements</h3>
-                            <p class="text-on-surface-variant leading-relaxed text-[13px] grow">Map template elements to variable data so every layer updates accurately across outputs.</p>
+                            <h3 class="ez-h4 mb-2">Map Elements</h3>
+                            <p class="ez-p2 grow">Map template elements to variable data so every layer updates accurately across outputs.</p>
                         </div>
 
                         <div id="step-card-5" class="step-card relative rounded-2xl p-6 flex flex-col border-2 border-transparent bg-surface-container-lowest transition-all duration-500 overflow-hidden">
@@ -2390,10 +1965,10 @@
                                 <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                                     <span class="material-symbols-outlined text-xl text-primary">auto_awesome_motion</span>
                                 </div>
-                                <span class="text-xs font-bold text-primary/60 uppercase tracking-widest">Step 5</span>
+                                <span class="ez-h6 text-primary/60 tracking-widest">Step 5</span>
                             </div>
-                            <h3 class="ez-card-title mb-2">Generate Variants</h3>
-                            <p class="text-on-surface-variant leading-relaxed text-[13px] grow">Run generation to produce final, production-ready variants at scale in minutes.</p>
+                            <h3 class="ez-h4 mb-2">Generate Variants</h3>
+                            <p class="ez-p2 grow">Run generation to produce final, production-ready variants at scale in minutes.</p>
                         </div>
                     </div>
                 </div>
@@ -2431,7 +2006,7 @@
 
                 <script>
                     document.addEventListener('DOMContentLoaded', () => {
-                        const container = document.getElementById('workflow-steps-section');
+                        const container = document.getElementById('how-it-works');
                         const fillLine = document.getElementById('step-progress-fill');
                         const stepCards = [
                             document.getElementById('step-card-1'),
@@ -2505,8 +2080,7 @@
             </section>
 
             <!-- ═══════════════════════ DEMO VIDEOS ═══════════════════════ -->
-            <div id="demos" class="ez-scroll-target" aria-hidden="true"></div>
-            <section class="demo-videos-section mb-0 reveal ez-section-spacing w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+            <section id="demos" class="demo-videos-section mb-0 reveal ez-section-spacing w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
                     <div class="ez-section-header max-w-4xl">
                         <span class="ez-section-eyebrow">Seeing is Believing</span>
@@ -2553,14 +2127,14 @@
                     <div class="relative z-10">
                         <h2 class="ez-cta-title mb-6 group-hover:scale-105 transition-transform duration-700">
                             Ready to Design Smarter?</h2>
-                        <p class="text-white/80 text-xl mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+                        <p class="ez-p1 text-white/80 mb-12 max-w-2xl mx-auto font-light">
                             Reduce production-cycle bottlenecks, scale variant output across factories, and enforce
                             brand consistency across every product line.
                         </p>
                         <a href="contactus.html" class="ev-pill-btn ev-pill-btn--lg">
                             Request a Demo Today
                         </a>
-                        <p class="mt-8 text-white/50 text-xs font-semibold uppercase tracking-widest">Let's automate
+                        <p class="mt-8 ez-h6 text-white/50 tracking-widest">Let's automate
                             your product variants.</p>
                     </div>
                 </div>
@@ -2578,7 +2152,7 @@
                 <div class="xl:col-span-4 flex flex-col gap-5">
                     <img src="logo.png" alt="EasyVariants"
                         class="brand-logo-img h-20 w-auto max-w-[min(100%,280px)] sm:h-24 object-contain self-start" />
-                    <p class="text-on-surface text-[15px] leading-relaxed font-semibold max-w-md">
+                    <p class="ez-p2 text-on-surface font-semibold max-w-md">
                         Enterprise design automation for large manufacturers. Scale product variants across global
                         operations with controlled, repeatable workflows.
                     </p>
@@ -2589,7 +2163,7 @@
                     <h4 class="ez-footer-title mb-1">Menu</h4>
                     <a href="#home">Home</a>
                     <a href="#solution">Our Solution</a>
-                    <a href="#how-it-works">Work Flow</a>
+                    <a href="#how-it-works">Workflow</a>
                     <a href="#demos">Demo Videos</a>
                 </div>
 
@@ -2630,9 +2204,9 @@
             <div class="footer-divider"></div>
 
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
-                <p class="text-[11px] tracking-wide font-medium text-on-surface/80">© 2026 EasyVariants. All
+                <p class="ez-p3-legal">© 2026 EasyVariants. All
                     Rights Reserved.</p>
-                <p class="text-[11px] tracking-wide font-medium text-on-surface/80">
+                <p class="ez-p3-legal">
                     Adobe Illustrator® is a trademark of Adobe Inc. EasyVariants is not affiliated.
                 </p>
             </div>
@@ -2685,7 +2259,9 @@
 
             const sectionIds = ["home", "solution", "how-it-works", "demos"];
             const sectionBlockFor = (marker) => {
-                let el = marker?.nextElementSibling ?? null;
+                if (!marker) return null;
+                if (marker.tagName === "SECTION") return marker;
+                let el = marker.nextElementSibling ?? null;
                 while (el && el.tagName !== "SECTION") el = el.nextElementSibling;
                 return el || marker;
             };
@@ -2734,7 +2310,7 @@
             window.addEventListener("scroll", onScrollNav, { passive: true });
             onScrollNav();
 
-            /* ═══ IN-PAGE NAV: targets are .ez-scroll-target (outside .reveal transforms) ═══ */
+            /* ═══ IN-PAGE NAV: section ids on <section> elements (scroll + spy) ═══ */
             const navScrollPad = () => {
                 if (!navbar) return;
                 const h = Math.ceil(navbar.getBoundingClientRect().height) + 16;
@@ -2743,7 +2319,8 @@
             const prefersReducedMotion = () =>
                 window.matchMedia("(prefers-reduced-motion: reduce)").matches;
             const scrollToSectionById = (id, behavior) => {
-                const el = id && document.getElementById(id);
+                const marker = id && document.getElementById(id);
+                const el = sectionBlockFor(marker);
                 if (!el) return false;
                 navScrollPad();
                 const navH = navbar ? Math.ceil(navbar.getBoundingClientRect().height) + 16 : 80;

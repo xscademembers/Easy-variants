@@ -60,6 +60,10 @@
 }
 
 @layer base {
+  body {
+    @apply text-base font-body text-on-surface antialiased;
+  }
+
   h1,
   h2,
   h3,
@@ -72,6 +76,47 @@
 }
 
 @layer components {
+  /* ── Typography scale (H1–H6, P1–P3) ── */
+  .ez-h1 {
+    @apply text-4xl sm:text-5xl md:text-6xl lg:text-[5.2rem] font-extrabold font-headline tracking-tighter text-on-surface leading-[1.05];
+  }
+
+  .ez-h2 {
+    @apply text-4xl md:text-5xl font-headline font-bold tracking-tight text-on-surface leading-[1.1];
+  }
+
+  .ez-h3 {
+    @apply text-2xl font-headline font-bold text-on-surface leading-snug;
+  }
+
+  .ez-h4 {
+    @apply text-xl font-headline font-bold text-on-surface leading-snug;
+  }
+
+  .ez-h5 {
+    @apply text-sm font-body font-semibold text-on-surface leading-normal;
+  }
+
+  .ez-h6 {
+    @apply text-xs font-label font-bold uppercase tracking-[0.2em] text-primary leading-tight;
+  }
+
+  .ez-p1 {
+    @apply text-lg font-body font-normal text-on-surface-variant leading-[1.65];
+  }
+
+  .ez-p2 {
+    @apply text-base font-body font-normal text-on-surface-variant leading-[1.6];
+  }
+
+  .ez-p3 {
+    @apply text-sm font-body font-normal text-on-surface-variant leading-normal;
+  }
+
+  .ez-p3-legal {
+    @apply text-[11px] font-body font-medium text-on-surface/80 tracking-wide leading-normal;
+  }
+
   /* ── Shared page width + horizontal padding (all sections) ── */
   .ez-page-shell {
     @apply max-w-7xl mx-auto w-full px-6 md:px-8;
@@ -92,7 +137,7 @@
   }
 
   .ez-section-eyebrow {
-    @apply block w-full font-label text-xs font-bold uppercase tracking-[0.2em] text-primary;
+    @apply block w-full text-xs font-label font-bold uppercase tracking-[0.2em] text-primary leading-tight;
   }
 
   .ez-section-title {
@@ -100,12 +145,12 @@
   }
 
   .ez-section-desc {
-    @apply mt-4 mb-0 w-full text-lg font-body font-normal text-on-surface-variant leading-relaxed;
+    @apply mt-4 mb-0 w-full text-lg font-body font-normal text-on-surface-variant leading-[1.65];
   }
 
   /* ── Page hero ── */
   .ez-page-title {
-    @apply text-4xl sm:text-5xl md:text-6xl lg:text-[5.2rem] font-extrabold font-headline tracking-tighter text-on-surface leading-[0.95];
+    @apply text-4xl sm:text-5xl md:text-6xl lg:text-[5.2rem] font-extrabold font-headline tracking-tighter text-on-surface leading-[1.05];
   }
 
   .ez-page-badge {
@@ -118,27 +163,27 @@
 
   /* ── Card & subsection titles ── */
   .ez-subsection-title {
-    @apply text-2xl font-headline font-bold text-on-surface;
+    @apply text-2xl font-headline font-bold text-on-surface leading-snug;
   }
 
   .ez-card-title {
-    @apply text-lg font-headline font-bold text-on-surface;
+    @apply text-xl font-headline font-bold text-on-surface leading-snug;
   }
 
   .ez-card-title--md {
-    @apply text-xl font-headline font-bold text-on-surface;
+    @apply text-xl font-headline font-bold text-on-surface leading-snug;
   }
 
   .ez-card-title--lg {
-    @apply text-2xl font-headline font-bold text-on-surface;
+    @apply text-2xl font-headline font-bold text-on-surface leading-snug;
   }
 
   .ez-card-title--sm {
-    @apply text-sm font-headline font-bold text-on-surface;
+    @apply text-sm font-body font-semibold text-on-surface leading-normal;
   }
 
   .ez-footer-title {
-    @apply font-headline font-extrabold text-lg text-on-surface tracking-tight;
+    @apply text-xl font-headline font-extrabold text-on-surface tracking-tight leading-snug;
   }
 
   .ez-stat-value {
@@ -147,5 +192,13 @@
 
   .ez-cta-title {
     @apply text-4xl md:text-5xl font-extrabold font-headline text-white tracking-tighter leading-[1.1];
+  }
+
+  .ez-nav-link {
+    @apply text-base font-body font-semibold text-on-surface-variant no-underline transition-colors duration-300;
+  }
+
+  .ez-nav-link:hover {
+    @apply text-on-surface;
   }
 }
