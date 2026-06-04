@@ -97,27 +97,9 @@
             }
         }
 
-        /* Hero: tighter shell padding, 2-line headline, looser line-height (font size unchanged) */
-        .hero-content-wrap.ez-page-shell {
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-
-        @media (min-width: 768px) {
-            .hero-content-wrap.ez-page-shell {
-                padding-left: 1.25rem;
-                padding-right: 1.25rem;
-            }
-        }
-
+        /* Hero uses .ez-page-shell for same horizontal padding as all sections */
         .hero-copy-col {
             min-width: 0;
-        }
-
-        @media (min-width: 1024px) {
-            .hero-copy-col {
-                padding-right: 1.5rem;
-            }
         }
 
         .hero-headline {
@@ -272,7 +254,6 @@
             }
 
             .hero-section .hero-content-wrap {
-                padding-top: 5.5rem;
                 gap: 2.5rem;
             }
 
@@ -322,7 +303,6 @@
             }
 
             .hero-section .hero-content-wrap {
-                padding-top: 6rem;
                 gap: 3rem;
             }
 
@@ -1460,7 +1440,7 @@
                 </div>
 
                 <!-- Hero Content -->
-                <div class="hero-content-wrap ez-page-shell relative z-10 flex flex-col lg:flex-row lg:items-center pt-20 sm:pt-24 lg:pt-32 pb-14 md:pb-20 gap-10 sm:gap-12 lg:gap-6 xl:gap-8">
+                <div class="hero-content-wrap ez-page-shell relative z-10 flex flex-col lg:flex-row lg:items-center pt-20 sm:pt-24 lg:pt-28 pb-14 md:pb-20 gap-10 sm:gap-12 lg:gap-6 xl:gap-8">
 
                     <!-- Left Side: Copy -->
                     <div class="hero-copy-col flex flex-col items-start w-full lg:w-[65%] xl:w-[58%]">
