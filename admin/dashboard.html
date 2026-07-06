@@ -612,6 +612,592 @@
         max-width: 240px;
       }
     }
+
+    .admin-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .admin-tab {
+      border: 1px solid rgba(199, 196, 216, 0.45);
+      background: #fff;
+      color: #464555;
+      padding: 10px 16px;
+      border-radius: 9999px;
+      font-family: Manrope, Inter, system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 0.875rem;
+      line-height: 1.2;
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .admin-tab.is-active {
+      background: #3525cd;
+      border-color: #3525cd;
+      color: #fff;
+    }
+
+    .admin-panel[hidden] {
+      display: none !important;
+    }
+
+    .cms-form {
+      display: grid;
+      gap: 16px;
+      max-width: 820px;
+    }
+
+    .cms-intro {
+      margin-bottom: 1.25rem;
+    }
+
+    .cms-intro .subtitle {
+      margin-bottom: 0.75rem;
+    }
+
+    .cms-steps {
+      margin: 0;
+      padding-left: 1.25rem;
+      font-size: 0.875rem;
+      color: #464555;
+      line-height: 1.6;
+    }
+
+    .cms-steps li {
+      margin-bottom: 0.25rem;
+    }
+
+    .cms-toolbar {
+      position: sticky;
+      top: 64px;
+      z-index: 5;
+      display: grid;
+      gap: 10px;
+      padding: 14px 16px;
+      margin: 0 -4px 4px;
+      border: 1px solid rgba(199, 196, 216, 0.35);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 24px rgba(15, 12, 41, 0.06);
+    }
+
+    .cms-toolbar .cms-meta {
+      margin: 0;
+    }
+
+    .cms-section-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .cms-section-nav button {
+      border: 1px solid rgba(199, 196, 216, 0.45);
+      background: #fff;
+      color: #464555;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .cms-section-nav button:hover,
+    .cms-section-nav button:focus-visible {
+      border-color: #3525cd;
+      color: #3525cd;
+      outline: none;
+    }
+
+    .cms-section-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cms-field-search {
+      flex: 1 1 200px;
+      min-width: 0;
+      border: 1px solid rgba(199, 196, 216, 0.45);
+      border-radius: 999px;
+      padding: 0.55rem 1rem;
+      font: inherit;
+      background: #fff;
+    }
+
+    .cms-section-tools button {
+      border: none;
+      background: transparent;
+      color: #3525cd;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 6px 8px;
+    }
+
+    .cms-sections {
+      display: grid;
+      gap: 10px;
+    }
+
+    .cms-section {
+      border: 1px solid rgba(199, 196, 216, 0.35);
+      border-radius: 14px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .cms-section > summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 14px 16px;
+      font-family: Manrope, Inter, system-ui, sans-serif;
+      user-select: none;
+    }
+
+    .cms-section > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .cms-section > summary::before {
+      content: '▸';
+      color: #3525cd;
+      font-size: 0.875rem;
+      transition: transform 0.15s ease;
+    }
+
+    .cms-section[open] > summary::before {
+      transform: rotate(90deg);
+    }
+
+    .cms-section-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a1c1d;
+    }
+
+    .cms-section-hint {
+      font-size: 0.8125rem;
+      color: #6b7280;
+      flex: 1 1 auto;
+    }
+
+    .cms-section-count {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #3525cd;
+      background: rgba(53, 37, 205, 0.08);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .cms-section-body {
+      padding: 0 16px 16px;
+      display: grid;
+      gap: 14px;
+      border-top: 1px solid rgba(199, 196, 216, 0.25);
+    }
+
+    .cms-section-body .cms-field:first-child {
+      margin-top: 14px;
+    }
+
+    .cms-field.is-hidden {
+      display: none;
+    }
+
+    .cms-section.is-hidden {
+      display: none;
+    }
+
+    .cms-field-hint {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin: -2px 0 6px;
+      line-height: 1.4;
+    }
+
+    .cms-panel-block--collapsible details {
+      border: 1px solid rgba(199, 196, 216, 0.35);
+      border-radius: 12px;
+      background: #fff;
+      padding: 0 14px 14px;
+    }
+
+    .cms-panel-block--collapsible summary {
+      cursor: pointer;
+      font-family: Manrope, Inter, system-ui, sans-serif;
+      font-weight: 700;
+      padding: 14px 0;
+      list-style: none;
+    }
+
+    .cms-panel-block--collapsible summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .cms-panel-block {
+      margin-top: 1.5rem;
+      padding-top: 0;
+      border-top: none;
+    }
+
+    .cms-panel-block h2 {
+      display: none;
+    }
+
+    .cms-field label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #464555;
+      margin-bottom: 6px;
+    }
+
+    .cms-field input,
+    .cms-field textarea {
+      width: 100%;
+      border: 1px solid rgba(199, 196, 216, 0.45);
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      font: inherit;
+      color: #1a1c1d;
+      background: #fff;
+    }
+
+    .cms-field textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .cms-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .cms-meta {
+      font-size: 0.8125rem;
+      color: #6b7280;
+      margin-top: 0.75rem;
+    }
+
+    .cms-editor-footer {
+      font-size: 0.8125rem;
+      color: #4b5563;
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(199, 196, 216, 0.35);
+      line-height: 1.5;
+    }
+
+    .cms-editor-footer strong {
+      color: #3525cd;
+      font-weight: 700;
+    }
+
+    .cms-section-title {
+      display: none;
+    }
+
+    .cms-sublabel {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #6b7280;
+      margin: 0.5rem 0 0.35rem;
+    }
+
+    .cms-list-item {
+      border: 1px solid rgba(199, 196, 216, 0.35);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: #fafbff;
+    }
+
+    .cms-list-item__title {
+      margin: 0 0 8px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: #3525cd;
+    }
+
+    .cms-field--nested {
+      margin-bottom: 8px;
+    }
+
+    .cms-page-picker {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .cms-page-picker label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #464555;
+    }
+
+    .cms-page-picker select {
+      min-width: 180px;
+      border: 1px solid rgba(199, 196, 216, 0.45);
+      border-radius: 12px;
+      padding: 0.65rem 0.85rem;
+      font: inherit;
+      background: #fff;
+    }
+
+    .cms-page-picker > div label {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .cms-revisions-list,
+    .cms-audit-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .cms-revision-item,
+    .cms-audit-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(243, 242, 248, 0.7);
+      font-size: 0.8125rem;
+    }
+
+    .cms-revision-item time,
+    .cms-audit-item time {
+      color: #6b7280;
+    }
+
+    .cms-revision-item button {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: none;
+      background: #3525cd;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .cms-revision-item button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .cms-preview {
+      margin-top: 8px;
+      max-width: 280px;
+      border-radius: 12px;
+      border: 1px solid rgba(199, 196, 216, 0.35);
+    }
+
+    .cms-preview--video {
+      max-width: 360px;
+      width: 100%;
+      background: #0f0f0f;
+    }
+
+    .cms-preview--poster {
+      max-width: 200px;
+    }
+
+    .cms-upload-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin: 0.5rem 0 0.75rem;
+    }
+
+    .cms-upload-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .cms-upload-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .cms-upload-status {
+      font-size: 0.8125rem;
+      color: #6b7280;
+    }
+
+    .cms-upload-status--error {
+      color: #b91c1c;
+    }
+
+    .cms-launcher {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin: 1rem 0 1.5rem;
+    }
+
+    .cms-launch-card {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 20px;
+      background: linear-gradient(135deg, #ffffff 0%, #f5f3ff 100%);
+      border: 1px solid rgba(53, 37, 205, 0.18);
+      border-radius: 16px;
+      text-decoration: none;
+      color: #1a1c1d;
+      box-shadow: 0 4px 12px rgba(53, 37, 205, 0.06);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .cms-launch-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(53, 37, 205, 0.18);
+      border-color: rgba(53, 37, 205, 0.35);
+    }
+
+    .cms-launch-icon {
+      font-size: 36px !important;
+      color: #3525cd;
+      background: rgba(53, 37, 205, 0.08);
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cms-launch-title {
+      display: block;
+      font-size: 1.0625rem;
+      font-weight: 700;
+      color: #1a1259;
+    }
+
+    .cms-launch-sub {
+      display: block;
+      font-size: 0.8125rem;
+      color: #6b7280;
+      margin-top: 2px;
+    }
+
+    .cms-launch-cta {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: #3525cd;
+      white-space: nowrap;
+    }
+
+    .cms-tips {
+      background: rgba(243, 242, 248, 0.55);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin: 0 0 1.5rem;
+      font-size: 0.875rem;
+      color: #464555;
+    }
+
+    .cms-tips strong {
+      display: block;
+      color: #1a1259;
+      margin-bottom: 6px;
+      font-size: 0.9375rem;
+    }
+
+    .cms-tips ul {
+      margin: 0;
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .cms-tips kbd {
+      background: #fff;
+      border: 1px solid rgba(199, 196, 216, 0.6);
+      border-bottom-width: 2px;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-size: 0.75rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .cms-advanced {
+      margin-top: 1rem;
+      border: 1px solid rgba(199, 196, 216, 0.4);
+      border-radius: 12px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .cms-advanced > summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      background: rgba(243, 242, 248, 0.4);
+    }
+
+    .cms-advanced > summary::-webkit-details-marker { display: none; }
+
+    .cms-advanced > summary::before {
+      content: '▸';
+      display: inline-block;
+      margin-right: 8px;
+      color: #3525cd;
+      transition: transform 0.15s ease;
+    }
+
+    .cms-advanced[open] > summary::before { transform: rotate(90deg); }
+
+    .cms-advanced-title {
+      font-weight: 700;
+      color: #1a1259;
+      font-size: 0.9375rem;
+    }
+
+    .cms-advanced-hint {
+      font-size: 0.8125rem;
+      color: #6b7280;
+    }
+
+    .cms-advanced-body {
+      padding: 16px 18px 20px;
+      border-top: 1px solid rgba(199, 196, 216, 0.35);
+    }
   </style>
 </head>
 
@@ -628,6 +1214,12 @@
   </header>
 
   <main class="container">
+    <div class="admin-tabs" role="tablist" aria-label="Admin sections">
+      <button type="button" class="admin-tab is-active" id="tabLeads" role="tab" aria-selected="true" aria-controls="panelLeads">Leads</button>
+      <button type="button" class="admin-tab" id="tabContent" role="tab" aria-selected="false" aria-controls="panelContent">Content</button>
+    </div>
+
+    <div id="panelLeads" class="admin-panel" role="tabpanel" aria-labelledby="tabLeads">
     <h1>Contact form leads</h1>
     <p class="subtitle">Submissions from the EasyVariants contact form.</p>
 
@@ -701,10 +1293,78 @@
         </tbody>
       </table>
     </div>
+    </div>
+
+    <div id="panelContent" class="admin-panel" role="tabpanel" aria-labelledby="tabContent" hidden>
+      <h1>Website content</h1>
+      <p class="subtitle">Open the live site and click any text or image to edit it.</p>
+
+      <div class="cms-launcher">
+        <a class="cms-launch-card" href="/?cms-edit=1" target="_blank" rel="noopener noreferrer">
+          <span class="cms-launch-icon material-symbols-outlined" aria-hidden="true">home</span>
+          <span class="cms-launch-body">
+            <span class="cms-launch-title">Edit Homepage</span>
+            <span class="cms-launch-sub">Hero, sections, demos, footer…</span>
+          </span>
+          <span class="cms-launch-cta">Open editor →</span>
+        </a>
+        <a class="cms-launch-card" href="/contactus.html?cms-edit=1" target="_blank" rel="noopener noreferrer">
+          <span class="cms-launch-icon material-symbols-outlined" aria-hidden="true">mail</span>
+          <span class="cms-launch-body">
+            <span class="cms-launch-title">Edit Contact page</span>
+            <span class="cms-launch-sub">Headline, intro, form copy…</span>
+          </span>
+          <span class="cms-launch-cta">Open editor →</span>
+        </a>
+      </div>
+
+      <div class="cms-tips">
+        <strong>How it works</strong>
+        <ul>
+          <li>Click any text on the page → edit inline → press <kbd>Enter</kbd> or click away.</li>
+          <li>Click an image → upload a new one or paste a URL.</li>
+          <li>Use the top bar to <strong>Save draft</strong>, <strong>Publish live</strong>, or <strong>Preview draft</strong>.</li>
+          <li>Videos and demo lists open back here in the <em>Advanced editor</em> below.</li>
+        </ul>
+      </div>
+
+      <details class="cms-advanced">
+        <summary>
+          <span class="cms-advanced-title">Advanced editor (videos, demo list, raw fields)</span>
+          <span class="cms-advanced-hint">Use only for fields that can't be edited inline.</span>
+        </summary>
+        <div class="cms-advanced-body">
+          <div class="cms-page-picker">
+            <div>
+              <label for="cmsPageSelect">Page</label>
+              <select id="cmsPageSelect" aria-label="Select page to edit">
+                <option value="home">Homepage</option>
+                <option value="contact">Contact</option>
+              </select>
+            </div>
+          </div>
+          <div id="cmsEditorHost"></div>
+          <section class="cms-panel-block cms-panel-block--collapsible" id="cmsRevisionsPanel" hidden>
+            <details>
+              <summary>Version history</summary>
+              <p class="cms-meta">Last 15 published snapshots. Restore replaces live content (current version is saved first).</p>
+              <ul class="cms-revisions-list" id="cmsRevisionsList"></ul>
+            </details>
+          </section>
+          <section class="cms-panel-block cms-panel-block--collapsible" id="cmsAuditPanel" hidden>
+            <details>
+              <summary>Activity log</summary>
+              <ul class="cms-audit-list" id="cmsAuditList"></ul>
+            </details>
+          </section>
+        </div>
+      </details>
+    </div>
   </main>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
+  <script src="/admin/content-editor.js"></script>
   <script>
     const token = localStorage.getItem('ev_admin_token');
     const userEmail = localStorage.getItem('ev_admin_email') || '';
@@ -718,6 +1378,21 @@
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       };
+    }
+
+    async function authFetch(url, options = {}) {
+      const res = await fetch(url, {
+        ...options,
+        headers: {
+          ...authHeaders(),
+          ...(options.headers || {}),
+        },
+      });
+      if (res.status === 401) {
+        logout();
+        throw new Error('Session expired. Please log in again.');
+      }
+      return res;
     }
 
     function logout() {
@@ -1037,6 +1712,317 @@
 
     loadLeads();
     updateSortOrderLabels();
+
+    /* ═══ CMS · Schema-driven editor (Phase 2) ═══ */
+    const tabLeads = document.getElementById('tabLeads');
+    const tabContent = document.getElementById('tabContent');
+    const panelLeads = document.getElementById('panelLeads');
+    const panelContent = document.getElementById('panelContent');
+    const cmsEditorHost = document.getElementById('cmsEditorHost');
+    const cmsPageSelect = document.getElementById('cmsPageSelect');
+    const cmsRevisionsPanel = document.getElementById('cmsRevisionsPanel');
+    const cmsRevisionsList = document.getElementById('cmsRevisionsList');
+    const cmsAuditPanel = document.getElementById('cmsAuditPanel');
+    const cmsAuditList = document.getElementById('cmsAuditList');
+
+    let cmsSchema = null;
+    let cmsBlocks = {};
+    let cmsPage = 'home';
+
+    function actionLabel(action) {
+      if (action === 'publish') return 'Published';
+      if (action === 'draft_save') return 'Draft saved';
+      if (action === 'restore') return 'Restored';
+      return action;
+    }
+
+    async function loadCmsRevisions(page) {
+      if (!cmsRevisionsList) return;
+      cmsRevisionsList.innerHTML = '<li class="cms-meta">Loading…</li>';
+      cmsRevisionsPanel.hidden = false;
+      try {
+        const res = await authFetch(`/api/admin/content-revisions?page=${encodeURIComponent(page)}`);
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to load revisions.');
+        if (!data.revisions?.length) {
+          cmsRevisionsList.innerHTML = '<li class="cms-meta">No published versions yet.</li>';
+          return;
+        }
+        cmsRevisionsList.innerHTML = '';
+        for (const rev of data.revisions) {
+          const li = document.createElement('li');
+          li.className = 'cms-revision-item';
+          const when = new Date(rev.savedAt).toLocaleString();
+          li.innerHTML = `
+            <span><time datetime="${rev.savedAt}">${when}</time> · ${rev.savedBy} · ${rev.keyCount} keys</span>
+          `;
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.textContent = 'Restore';
+          btn.addEventListener('click', async () => {
+            if (!confirm(`Restore content from ${when}? Current live version will be saved first.`)) return;
+            btn.disabled = true;
+            try {
+              const restoreRes = await authFetch('/api/admin/content-revisions', {
+                method: 'POST',
+                body: JSON.stringify({ revisionId: rev.id, page }),
+              });
+              const restoreData = await restoreRes.json();
+              if (!restoreRes.ok) throw new Error(restoreData.error || 'Restore failed.');
+              showToast('Version restored and published.', 'success');
+              await loadCmsPage(page);
+            } catch (err) {
+              showToast(err.message || 'Restore failed.', 'error');
+              btn.disabled = false;
+            }
+          });
+          li.appendChild(btn);
+          cmsRevisionsList.appendChild(li);
+        }
+      } catch (err) {
+        cmsRevisionsList.innerHTML = `<li class="cms-meta">${err.message}</li>`;
+      }
+    }
+
+    async function loadCmsAudit(page) {
+      if (!cmsAuditList) return;
+      cmsAuditList.innerHTML = '<li class="cms-meta">Loading…</li>';
+      cmsAuditPanel.hidden = false;
+      try {
+        const res = await authFetch(`/api/admin/content-audit?page=${encodeURIComponent(page)}&limit=20`);
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to load audit log.');
+        if (!data.entries?.length) {
+          cmsAuditList.innerHTML = '<li class="cms-meta">No activity yet.</li>';
+          return;
+        }
+        cmsAuditList.innerHTML = '';
+        for (const entry of data.entries) {
+          const li = document.createElement('li');
+          li.className = 'cms-audit-item';
+          const when = new Date(entry.at).toLocaleString();
+          li.innerHTML = `
+            <span><strong>${actionLabel(entry.action)}</strong> · ${entry.actor} · ${entry.keyCount} keys</span>
+            <time datetime="${entry.at}">${when}</time>
+          `;
+          cmsAuditList.appendChild(li);
+        }
+      } catch (err) {
+        cmsAuditList.innerHTML = `<li class="cms-meta">${err.message}</li>`;
+      }
+    }
+
+    function scrollToCmsKey(form, key) {
+      if (!key || !form) return;
+      const field =
+        form.querySelector(`[data-cms-key="${key}"]`) ||
+        form.querySelector(`[name="${key}"]`) ||
+        form.querySelector(`#cms-${key.replace(/[^a-z0-9]+/gi, '-')}`);
+      if (field) {
+        const section = field.closest('details.cms-section');
+        if (section) section.open = true;
+        field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        field.focus?.();
+      }
+    }
+
+    function switchAdminTab(name) {
+      const isLeads = name === 'leads';
+      tabLeads.classList.toggle('is-active', isLeads);
+      tabContent.classList.toggle('is-active', !isLeads);
+      tabLeads.setAttribute('aria-selected', String(isLeads));
+      tabContent.setAttribute('aria-selected', String(!isLeads));
+      panelLeads.hidden = !isLeads;
+      panelContent.hidden = isLeads;
+    }
+
+    tabLeads.addEventListener('click', () => switchAdminTab('leads'));
+    tabContent.addEventListener('click', () => switchAdminTab('content'));
+
+    function mergeWithSchemaDefaults(page, blocks) {
+      const merged = {};
+      for (const section of cmsSchema?.[page] || []) {
+        for (const field of section.fields) {
+          if (field.default !== undefined) {
+            if (field.type === 'image' || field.type === 'video') {
+              merged[field.key] = { type: field.type, value: field.default };
+            } else if (field.type === 'list') {
+              merged[field.key] = { type: 'list', value: field.default };
+            } else {
+              merged[field.key] = { type: 'text', value: String(field.default) };
+            }
+          }
+        }
+      }
+      return { ...merged, ...blocks };
+    }
+
+    function formatCmsMeta(data) {
+      const lines = [];
+      if (data.updatedAt) {
+        lines.push(
+          `<strong>Live</strong> · ${new Date(data.updatedAt).toLocaleString()}${data.updatedBy ? ` · ${data.updatedBy}` : ''}`
+        );
+      } else {
+        lines.push('<strong>Live</strong> · not published yet (site shows HTML defaults)');
+      }
+      if (data.hasDraft && data.draftUpdatedAt) {
+        lines.push(
+          `<strong>Draft</strong> · ${new Date(data.draftUpdatedAt).toLocaleString()}${data.draftUpdatedBy ? ` · ${data.draftUpdatedBy}` : ''}`
+        );
+      } else if (data.hasDraft) {
+        lines.push('<strong>Draft</strong> · saved (preview to review before publishing)');
+      }
+      return lines.join('<br />');
+    }
+
+    function previewDraftUrl(page) {
+      const base = page === 'contact' ? '/contactus.html' : '/';
+      return `${base}?preview=draft`;
+    }
+
+    async function saveCmsContent(form, page, mode) {
+      const publishBtn = form.querySelector('#cmsPublishBtn');
+      const draftBtn = form.querySelector('#cmsDraftBtn');
+      const activeBtn = mode === 'draft' ? draftBtn : publishBtn;
+      if (publishBtn) publishBtn.disabled = true;
+      if (draftBtn) draftBtn.disabled = true;
+
+      try {
+        const blocks = window.EzCmsEditor.collectBlocksFromForm(form, cmsSchema[page]);
+        const res = await authFetch('/api/admin/content', {
+          method: 'PUT',
+          body: JSON.stringify({ page, blocks, mode }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Save failed.');
+
+        cmsBlocks = mergeWithSchemaDefaults(page, {
+          ...(data.blocks || {}),
+          ...(data.draftBlocks || {}),
+        });
+
+        const footer = form.querySelector('#cmsEditorFooter');
+        const meta = form.querySelector('#cmsMeta');
+        if (footer) footer.innerHTML = formatCmsMeta(data);
+        if (meta) {
+          meta.textContent =
+            mode === 'draft'
+              ? 'Draft saved. Use Preview draft to review, then Publish live when ready.'
+              : 'Published to the live site. Visitors will see changes on next load (up to ~60s cache).';
+        }
+
+        showToast(mode === 'draft' ? 'Draft saved.' : 'Published live.', 'success');
+        await loadCmsRevisions(page);
+        await loadCmsAudit(page);
+        return data;
+      } finally {
+        if (publishBtn) publishBtn.disabled = false;
+        if (draftBtn) draftBtn.disabled = false;
+      }
+    }
+
+    function bindCmsForm(form, page, metaData) {
+      const footer = form.querySelector('#cmsEditorFooter');
+      const meta = form.querySelector('#cmsMeta');
+      const viewLink = form.querySelector('#cmsViewSiteLink');
+      const previewLink = form.querySelector('#cmsPreviewDraftLink');
+
+      if (viewLink) viewLink.href = page === 'contact' ? '/contactus.html' : '/';
+      if (previewLink) previewLink.href = previewDraftUrl(page);
+      if (footer && metaData) footer.innerHTML = formatCmsMeta(metaData);
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        try {
+          await saveCmsContent(form, page, 'publish');
+        } catch (err) {
+          showToast(err.message || 'Publish failed.', 'error');
+        }
+      });
+
+      form.querySelector('#cmsDraftBtn')?.addEventListener('click', async () => {
+        try {
+          await saveCmsContent(form, page, 'draft');
+        } catch (err) {
+          showToast(err.message || 'Draft save failed.', 'error');
+        }
+      });
+
+      form.querySelector('#cmsReloadBtn')?.addEventListener('click', () => loadCmsPage(page));
+    }
+
+    document.addEventListener('ez-cms-toast', (e) => {
+      if (e.detail?.message) showToast(e.detail.message, e.detail.type || 'success');
+    });
+
+    async function loadCmsSchema() {
+      if (cmsSchema) return cmsSchema;
+      const res = await authFetch('/api/admin/content-schema');
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to load schema.');
+      cmsSchema = data.schema;
+      return cmsSchema;
+    }
+
+    async function loadCmsPage(page) {
+      cmsPage = page;
+      if (!cmsEditorHost) return;
+      cmsEditorHost.innerHTML = '<p class="cms-meta">Loading…</p>';
+      try {
+        await loadCmsSchema();
+        const res = await authFetch(`/api/admin/content?page=${encodeURIComponent(page)}`);
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to load content.');
+        cmsBlocks = mergeWithSchemaDefaults(page, {
+          ...(data.blocks || {}),
+          ...(data.draftBlocks || {}),
+        });
+        cmsEditorHost.innerHTML = '';
+        const form = window.EzCmsEditor.renderEditor(cmsEditorHost, page, cmsSchema, cmsBlocks);
+        const meta = form.querySelector('#cmsMeta');
+        if (data.hasDraft) {
+          meta.textContent = 'Editing draft — publish when ready for visitors to see changes.';
+        } else if (data.updatedAt) {
+          meta.textContent = 'Editing live content. Save draft to preview first, or Publish live.';
+        } else {
+          meta.textContent = 'Showing defaults — publish to make content live.';
+        }
+        bindCmsForm(form, page, data);
+        await loadCmsRevisions(page);
+        await loadCmsAudit(page);
+
+        const deepKey = new URLSearchParams(window.location.search).get('key');
+        if (deepKey) scrollToCmsKey(form, deepKey);
+      } catch (err) {
+        cmsEditorHost.innerHTML = '';
+        showToast(err.message || 'Could not load content.', 'error');
+      }
+    }
+
+    let cmsEditorInitialized = false;
+    async function initCmsEditor() {
+      if (!cmsEditorHost || cmsEditorInitialized) return;
+      cmsEditorInitialized = true;
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('page') && cmsPageSelect) cmsPageSelect.value = params.get('page');
+      await loadCmsPage(cmsPageSelect?.value || 'home');
+    }
+
+    cmsPageSelect?.addEventListener('change', () => loadCmsPage(cmsPageSelect.value));
+
+    const cmsAdvanced = document.querySelector('.cms-advanced');
+    cmsAdvanced?.addEventListener('toggle', () => {
+      if (cmsAdvanced.open) initCmsEditor();
+    });
+
+    const initialParams = new URLSearchParams(window.location.search);
+    if (initialParams.get('tab') === 'content') {
+      switchAdminTab('content');
+      if (initialParams.get('key') && cmsAdvanced) {
+        cmsAdvanced.open = true;
+      }
+    }
   </script>
 </body>
 

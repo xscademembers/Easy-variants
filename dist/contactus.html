@@ -273,8 +273,8 @@
     }
 
     .menu-toggle-light__icon {
-      font-size: 1.5rem;
-      line-height: 1;
+      font-size: 1.25rem;
+      line-height: 1.2;
     }
 
     body.mobile-menu-open .menu-toggle-light {
@@ -409,10 +409,10 @@
       }
     }
   </style>
-  <link rel="stylesheet" crossorigin href="/assets/tailwind-2V55oAHi.css">
+  <link rel="stylesheet" crossorigin href="/assets/tailwind-BzPBJE_h.css">
 </head>
 
-<body class="font-body text-on-surface antialiased">
+<body class="font-body text-on-surface antialiased" data-cms-page="contact">
 
   <!-- ═══════════════ NAVBAR ═══════════════ -->
   <nav class="glass-panel fixed top-0 left-0 w-full z-50 shadow-sm overflow-visible">
@@ -477,13 +477,13 @@
         <div class="ez-section-header mb-0">
           <div class="ez-page-badge mb-6">
             <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-            <span class="ez-page-badge-text">Request a Demo</span>
+            <span class="ez-page-badge-text" data-cms-key="contact.badge">Request a Demo</span>
           </div>
           <h1 class="ez-page-title mb-5">
-            Let's Build<br />
-            <span class="text-on-surface">Something Great.</span>
+            <span data-cms-key="contact.title.line1">Let's Build</span><br />
+            <span class="text-on-surface" data-cms-key="contact.title.line2">Something Great</span>
           </h1>
-          <p class="ez-section-desc">
+          <p class="ez-section-desc" data-cms-key="contact.description">
             See how EasyVariants can automate your design workflow, save time, and scale your product variants
             effortlessly.
           </p>
@@ -494,8 +494,8 @@
       <section class="contact-form-grid mb-0 grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-10 reveal" style="transition-delay: 0.15s;">
         <!-- LEFT: FORM CARD -->
         <div class="lg:col-span-3 card-premium card-signature rounded-2xl sm:rounded-[2rem] p-6 sm:p-8 md:p-10 lg:p-14 hover-lift">
-          <h2 class="ez-subsection-title mb-2">Send us a message</h2>
-          <p class="ez-p2 mb-8">Fill out the form and our team will get back to you within 24
+          <h2 class="ez-subsection-title mb-2" data-cms-key="contact.form.title">Send us a message</h2>
+          <p class="ez-p2 mb-8" data-cms-key="contact.form.subtitle">Fill out the form and our team will get back to you within 24
             hours.</p>
 
           <form id="contactForm" class="space-y-5">
@@ -555,8 +555,8 @@
                 <span class="material-symbols-outlined text-primary text-xl">mail</span>
               </div>
               <div>
-                <h3 class="ez-card-title--sm mb-1">Email Us</h3>
-                <p class="ez-p2">hello@easyvariants.com</p>
+                <h3 class="ez-card-title--sm mb-1" data-cms-key="contact.info.0.title">Email Us</h3>
+                <p class="ez-p2" data-cms-key="contact.info.0.description">hello@easyvariants.com</p>
               </div>
             </div>
           </div>
@@ -568,8 +568,8 @@
                 <span class="material-symbols-outlined text-primary text-xl">schedule</span>
               </div>
               <div>
-                <h3 class="ez-card-title--sm mb-1">Response Time</h3>
-                <p class="ez-p2">We typically respond within 24 hours on
+                <h3 class="ez-card-title--sm mb-1" data-cms-key="contact.info.1.title">Response Time</h3>
+                <p class="ez-p2" data-cms-key="contact.info.1.description">We typically respond within 24 hours on
                   business days.</p>
               </div>
             </div>
@@ -582,8 +582,8 @@
                 <span class="material-symbols-outlined text-primary text-xl">devices</span>
               </div>
               <div>
-                <h3 class="ez-card-title--sm mb-1">Live Demo</h3>
-                <p class="ez-p2">Get a personalized walkthrough of the
+                <h3 class="ez-card-title--sm mb-1" data-cms-key="contact.info.2.title">Live Demo</h3>
+                <p class="ez-p2" data-cms-key="contact.info.2.description">Get a personalized walkthrough of the
                   platform, tailored to your use case.</p>
               </div>
             </div>
@@ -596,8 +596,8 @@
                 <span class="material-symbols-outlined text-primary text-xl">support_agent</span>
               </div>
               <div>
-                <h3 class="ez-card-title--sm mb-1">Dedicated Support</h3>
-                <p class="ez-p2">Our team is here to help you every step of
+                <h3 class="ez-card-title--sm mb-1" data-cms-key="contact.info.3.title">Dedicated Support</h3>
+                <p class="ez-p2" data-cms-key="contact.info.3.description">Our team is here to help you every step of
                   the way.</p>
               </div>
             </div>
@@ -607,14 +607,14 @@
           <div class="card-premium rounded-[2rem] p-8 text-center">
             <div class="flex items-center justify-center gap-8">
               <div>
-                <div class="ez-stat-value">500+</div>
-                <div class="ez-h6 text-on-surface-variant mt-1">Teams
+                <div class="ez-stat-value" data-cms-key="contact.stats.0.value">500+</div>
+                <div class="ez-h6 text-on-surface-variant mt-1" data-cms-key="contact.stats.0.label">Teams
                   Served</div>
               </div>
               <div class="w-px h-10 bg-outline-variant/20"></div>
               <div>
-                <div class="ez-stat-value">24hr</div>
-                <div class="ez-h6 text-on-surface-variant mt-1">Avg Reply
+                <div class="ez-stat-value" data-cms-key="contact.stats.1.value">24hr</div>
+                <div class="ez-h6 text-on-surface-variant mt-1" data-cms-key="contact.stats.1.label">Avg Reply
                 </div>
               </div>
             </div>
@@ -800,6 +800,9 @@
       });
     });
   </script>
+
+  <script src="/cms-loader.js" defer></script>
+  <script src="/cms-inline-edit.js" defer></script>
 
 </body>
 

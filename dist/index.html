@@ -96,27 +96,9 @@
             }
         }
 
-        /* Hero: tighter shell padding, 2-line headline, looser line-height (font size unchanged) */
-        .hero-content-wrap.ez-page-shell {
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-
-        @media (min-width: 768px) {
-            .hero-content-wrap.ez-page-shell {
-                padding-left: 1.25rem;
-                padding-right: 1.25rem;
-            }
-        }
-
+        /* Hero uses .ez-page-shell for same horizontal padding as all sections */
         .hero-copy-col {
             min-width: 0;
-        }
-
-        @media (min-width: 1024px) {
-            .hero-copy-col {
-                padding-right: 1.5rem;
-            }
         }
 
         .hero-headline {
@@ -271,7 +253,6 @@
             }
 
             .hero-section .hero-content-wrap {
-                padding-top: 5.5rem;
                 gap: 2.5rem;
             }
 
@@ -321,7 +302,6 @@
             }
 
             .hero-section .hero-content-wrap {
-                padding-top: 6rem;
                 gap: 3rem;
             }
 
@@ -644,6 +624,16 @@
         .solution-format-chip .material-symbols-outlined {
             font-size: 1.125rem;
             color: #3525cd;
+        }
+
+        .solution-feature-card--accent .solution-format-chip {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .solution-feature-card--accent .solution-format-chip .material-symbols-outlined {
+            color: #ffffff;
         }
 
         /* ═══ GRADIENT SEPARATOR (disabled  was read as a gray line between sections) ═══ */
@@ -1359,7 +1349,7 @@
             position: relative;
             opacity: 1;
             z-index: 2;
-            animation: slideInRight 2s cubic-bezier(0.4, 0.2, 0.1, 1) forwards;
+            animation: slideInRight 0.65s cubic-bezier(0.4, 0.2, 0.1, 1) forwards;
             pointer-events: auto;
         }
 
@@ -1368,7 +1358,7 @@
             position: absolute;
             opacity: 1;
             z-index: 1;
-            animation: slideOutLeft 2s cubic-bezier(0.4, 0.2, 0.1, 1) forwards;
+            animation: slideOutLeft 0.65s cubic-bezier(0.4, 0.2, 0.1, 1) forwards;
             pointer-events: none;
         }
     </style>
@@ -1382,10 +1372,10 @@
             }
         }
     </script>
-  <link rel="stylesheet" crossorigin href="/assets/tailwind-2V55oAHi.css">
+  <link rel="stylesheet" crossorigin href="/assets/tailwind-BzPBJE_h.css">
 </head>
 
-<body class="font-body text-on-surface antialiased">
+<body class="font-body text-on-surface antialiased" data-cms-page="home">
 
     <!-- ═══════════════════════ NAVIGATION ═══════════════════════ -->
     <nav class="navbar fixed top-0 w-full z-50 transition-all duration-300 overflow-visible">
@@ -1408,7 +1398,9 @@
 
             <!-- Right: CTA -->
             <div class="flex-1 hidden lg:flex items-center justify-end gap-6">
-                <a href="contactus.html" class="ev-pill-btn ev-pill-btn--sm">Get Your Demo Today</a>
+                <a href="contactus.html" class="ev-pill-btn ev-pill-btn--sm" data-cms-key="header.cta.href">
+                    <span data-cms-key="header.cta.label">Get Your Demo Today</span>
+                </a>
             </div>
 
             <!-- Mobile: Toggle Button -->
@@ -1433,7 +1425,9 @@
         <a class="nav-section-link ez-nav-link" data-section="solution" href="#solution">Our Solution</a>
         <a class="nav-section-link ez-nav-link" data-section="how-it-works" href="#how-it-works">Workflow</a>
         <a class="nav-section-link ez-nav-link" data-section="demos" href="#demos">Demo Videos</a>
-        <a href="contactus.html" class="ev-pill-btn ev-pill-btn--sm">Get Your Demo Today</a>
+        <a href="contactus.html" class="ev-pill-btn ev-pill-btn--sm" data-cms-key="header.cta.href">
+            <span data-cms-key="header.cta.label">Get Your Demo Today</span>
+        </a>
     </div>
 
     <main class="pt-0 pb-0 overflow-x-hidden">
@@ -1450,21 +1444,21 @@
                 </div>
 
                 <!-- Hero Content -->
-                <div class="hero-content-wrap ez-page-shell relative z-10 flex flex-col lg:flex-row lg:items-center pt-20 sm:pt-24 lg:pt-32 pb-14 md:pb-20 gap-10 sm:gap-12 lg:gap-6 xl:gap-8">
+                <div class="hero-content-wrap ez-page-shell relative z-10 flex flex-col lg:flex-row lg:items-center pt-20 sm:pt-24 lg:pt-28 pb-14 md:pb-20 gap-10 sm:gap-12 lg:gap-6 xl:gap-8">
 
                     <!-- Left Side: Copy -->
                     <div class="hero-copy-col flex flex-col items-start w-full lg:w-[65%] xl:w-[58%]">
                         <div class="hero-fade-up hero-fade-up-d1 ez-page-badge mb-8">
                             <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                            <span class="ez-page-badge-text">Design Automation Platform</span>
+                            <span class="ez-page-badge-text" data-cms-key="hero.eyebrow">Design Automation Platform</span>
                         </div>
 
                         <h1 class="hero-fade-up hero-fade-up-d1 ez-page-title hero-headline mb-6 sm:mb-8">
-                            <span class="hero-headline-line1">Speed&nbsp;&amp;&nbsp;Precision</span>
-                            <span class="hero-headline-line2 text-on-surface">10× Amplified.</span>
+                            <span class="hero-headline-line1" data-cms-key="hero.title.line1">Speed&nbsp;&amp;&nbsp;Precision</span>
+                            <span class="hero-headline-line2 text-on-surface" data-cms-key="hero.title.line2">10× Amplified</span>
                         </h1>
 
-                        <p class="hero-fade-up hero-fade-up-d2 mb-8 sm:mb-10 lg:mb-12 ez-p1 max-w-xl font-medium">
+                        <p class="hero-fade-up hero-fade-up-d2 mb-8 sm:mb-10 lg:mb-12 ez-p1 max-w-xl font-medium" data-cms-key="hero.description">
                             Engineered for high-volume manufacturing through automated placement zones, color blocks, and
                             decoration-specific instructions. Standardize complex text contours with optical-fit precision to
                             generate hundreds of variants complete with precise factory application specs from a single template
@@ -1472,13 +1466,13 @@
                         </p>
 
                         <div class="hero-fade-up hero-fade-up-d3 hero-cta-row flex flex-col sm:flex-row items-stretch sm:items-start gap-4 sm:gap-6 w-full">
-                            <a href="contactus.html" class="ev-pill-btn ev-pill-btn--lg">
-                                Request a Demo Today
+                            <a href="contactus.html" class="ev-pill-btn ev-pill-btn--lg" data-cms-key="hero.cta.primary.href">
+                                <span data-cms-key="hero.cta.primary.label">Request a Demo Today</span>
                                 <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
                             </a>
-                            <a href="#demos" class="ev-pill-btn ev-pill-btn--lg">
+                            <a href="#demos" class="ev-pill-btn ev-pill-btn--lg" data-cms-key="hero.cta.secondary.href">
                                 <span class="material-symbols-outlined" aria-hidden="true">play_circle</span>
-                                Watch Explainer
+                                <span data-cms-key="hero.cta.secondary.label">Watch Explainer</span>
                             </a>
                         </div>
                     </div>
@@ -1489,7 +1483,8 @@
                         <div class="hero-showcase-stage w-full">
                             <div class="hero-scale-in relative w-full rounded-2xl border border-slate-200/80 bg-white p-2 shadow-[0_32px_80px_rgba(53,37,205,0.12)] overflow-hidden">
                                 <img src="/assets/EasyVariants%20application.jpg-DjEJEtUq.jpeg" alt="EasyVariants application interface"
-                                    class="w-full h-auto rounded-xl object-cover" loading="eager" />
+                                    class="w-full h-auto rounded-xl object-cover" loading="eager"
+                                    data-cms-key="hero.image" />
                             </div>
 
                             <div class="hero-stats-stack lg:contents">
@@ -1543,9 +1538,9 @@
                 class="mb-0 reveal bg-white ez-section-spacing shadow-sm w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
                     <div class="ez-section-header">
-                            <span class="ez-section-eyebrow">Explore</span>
-                            <h2 class="ez-section-title">Meet EasyVariants.</h2>
-                            <p class="ez-section-desc">Designed for enterprise
+                            <span class="ez-section-eyebrow" data-cms-key="meet.eyebrow">Explore</span>
+                            <h2 class="ez-section-title" data-cms-key="meet.title">Meet EasyVariants</h2>
+                            <p class="ez-section-desc" data-cms-key="meet.description">Designed for enterprise
                                 production teams handling complex assortments. Orchestrate colorways, logo systems, and
                                 placement rules at scale without manual rework.</p>
                     </div>
@@ -1553,7 +1548,7 @@
                     <div class="max-w-4xl mx-auto">
                         <div class="relative overflow-hidden group">
                             <div class="video-showcase aspect-video relative">
-                                <video id="light-meet-vid" src="/assets/YTDown_YouTube_EasyVariants-Explainer-Video_Media_2Zl_BkN9L6w_002_720p-DpmbRMEu.mp4" autoplay loop muted playsinline
+                                <video id="light-meet-vid" data-cms-key="meet.video" src="/assets/YTDown_YouTube_EasyVariants-Explainer-Video_Media_2Zl_BkN9L6w_002_720p-DpmbRMEu.mp4" autoplay loop muted playsinline
                                     preload="auto" class="w-full h-full object-cover rounded-[1.5rem]"
                                     style="will-change: transform; transform: translateZ(0);"></video>
                             </div>
@@ -1570,11 +1565,11 @@
                 <div class="ez-page-shell">
                     <div class="flex flex-col lg:flex-row items-start lg:items-center gap-10 lg:gap-20">
                         <!-- Left: Text Content & Navigation -->
-                        <div class="w-full lg:w-1/2 max-w-lg">
-                            <div class="ez-section-header mb-0 md:mb-0">
-                                <span class="ez-section-eyebrow">The Problem</span>
-                                <h2 class="ez-section-title">The Design<br>Bottleneck.</h2>
-                                <p class="ez-section-desc">
+                        <div class="w-full lg:w-1/2 min-w-0">
+                            <div class="ez-section-header ez-section-header--fluid mb-0 md:mb-0">
+                                <span class="ez-section-eyebrow" data-cms-key="problem.eyebrow">The Problem</span>
+                                <h2 class="ez-section-title ez-section-title--single-line" data-cms-key="problem.title">The Design Bottleneck</h2>
+                                <p class="ez-section-desc max-w-lg" data-cms-key="problem.description">
                                     Manual variant creation isn't just time-consuming  it's a bottleneck that drains your team's creativity and slows your market speed.
                                 </p>
                             </div>
@@ -1592,15 +1587,15 @@
 
                         <!-- Right: Auto-Rotating Card Carousel -->
                         <div class="w-full lg:w-1/2 flex justify-center lg:justify-end">
-                            <div class="problem-card-carousel relative w-full max-w-md" style="min-height: 300px;">
+                            <div id="problem-carousel" class="problem-card-carousel relative w-full max-w-md" style="min-height: 300px;">
 
                                 <!-- Card 1: Repetitive Work -->
                                 <div class="problem-card active bg-white rounded-[1.5rem] p-8 md:p-10 shadow-[0_4px_40px_rgba(0,0,0,0.06)]" data-card="0">
                                     <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-6">
                                         <span class="material-symbols-outlined text-2xl text-red-500">cycle</span>
                                     </div>
-                                    <h3 class="ez-h3 mb-3">Repetitive Work</h3>
-                                    <p class="ez-p2">Duplicating assets across hundreds of styles, regions, and channels. Production teams lose hours on repetitive execution work.</p>
+                                    <h3 class="ez-h3 mb-3" data-cms-key="problem.cards.0.title">Repetitive Work</h3>
+                                    <p class="ez-p2" data-cms-key="problem.cards.0.description">Duplicating assets across hundreds of styles, regions, and channels. Production teams lose hours on repetitive execution work.</p>
                                 </div>
 
                                 <!-- Card 2: Consistency Challenges -->
@@ -1608,8 +1603,8 @@
                                     <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-6">
                                         <span class="material-symbols-outlined text-2xl text-red-500">rule</span>
                                     </div>
-                                    <h3 class="ez-h3 mb-3">Consistency Challenges</h3>
-                                    <p class="ez-p2">Maintaining brand consistency across factories and production lines is difficult when variants are created manually.</p>
+                                    <h3 class="ez-h3 mb-3" data-cms-key="problem.cards.1.title">Consistency Challenges</h3>
+                                    <p class="ez-p2" data-cms-key="problem.cards.1.description">Maintaining brand consistency across factories and production lines is difficult when variants are created manually.</p>
                                 </div>
 
                                 <!-- Card 3: Slow Time-to-Market -->
@@ -1617,8 +1612,8 @@
                                     <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-6">
                                         <span class="material-symbols-outlined text-2xl text-red-500">hourglass_empty</span>
                                     </div>
-                                    <h3 class="ez-h3 mb-3">Slow Time-to-Market</h3>
-                                    <p class="ez-p2">Manual operations delay line launches and replenishment cycles when manufacturing calendars are already compressed.</p>
+                                    <h3 class="ez-h3 mb-3" data-cms-key="problem.cards.2.title">Slow Time-to-Market</h3>
+                                    <p class="ez-p2" data-cms-key="problem.cards.2.description">Manual operations delay line launches and replenishment cycles when manufacturing calendars are already compressed.</p>
                                 </div>
 
                                 <!-- Card 4: Limited Personalization -->
@@ -1626,8 +1621,8 @@
                                     <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mb-6">
                                         <span class="material-symbols-outlined text-2xl text-red-500">block</span>
                                     </div>
-                                    <h3 class="ez-h3 mb-3">Limited Personalization</h3>
-                                    <p class="ez-p2">Variant expansion becomes expensive and risky when every SKU requires individual manual intervention.</p>
+                                    <h3 class="ez-h3 mb-3" data-cms-key="problem.cards.3.title">Limited Personalization</h3>
+                                    <p class="ez-p2" data-cms-key="problem.cards.3.description">Variant expansion becomes expensive and risky when every SKU requires individual manual intervention.</p>
                                 </div>
                             </div>
                         </div>
@@ -1640,10 +1635,10 @@
 
             <section id="advantage" class="mb-0 reveal ez-section-spacing w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
-                    <div class="ez-section-header">
-                        <span class="ez-section-eyebrow">The EasyVariants Advantage</span>
-                        <h2 class="ez-section-title">10X Speed, Guarantee Brand Consistency.</h2>
-                        <p class="ez-section-desc">
+                    <div class="ez-section-header ez-section-header--fluid">
+                        <span class="ez-section-eyebrow" data-cms-key="advantage.eyebrow">The EasyVariants Advantage</span>
+                        <h2 class="ez-section-title ez-section-title--single-line" data-cms-key="advantage.title">10X Speed, Guarantee Brand Consistency</h2>
+                        <p class="ez-section-desc" data-cms-key="advantage.description">
                             Generate hundreds, even thousands, of error-free design variants in minutes  not hours or days. Fuel your innovation.
                         </p>
                     </div>
@@ -1655,8 +1650,8 @@
                             <div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 mb-6">
                                 <span class="material-symbols-outlined">rocket_launch</span>
                             </div>
-                            <h3 class="ez-h4 mb-3">Boost Output 10X</h3>
-                            <p class="ez-p2">Free your designers from repetitive drudgery, allowing them to focus on pure innovation.</p>
+                            <h3 class="ez-h4 mb-3" data-cms-key="advantage.cards.0.title">Boost Output 10X</h3>
+                            <p class="ez-p2" data-cms-key="advantage.cards.0.description">Free your designers from repetitive drudgery, allowing them to focus on pure innovation.</p>
                         </div>
 
                         <!-- Card 2 -->
@@ -1664,8 +1659,8 @@
                             <div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 mb-6">
                                 <span class="material-symbols-outlined">verified</span>
                             </div>
-                            <h3 class="ez-h4 mb-3">Guaranteed Consistency</h3>
-                            <p class="ez-p2">Eliminate human error and ensure every variant perfectly aligns with your brand standards.</p>
+                            <h3 class="ez-h4 mb-3" data-cms-key="advantage.cards.1.title">Guaranteed Consistency</h3>
+                            <p class="ez-p2" data-cms-key="advantage.cards.1.description">Eliminate human error and ensure every variant perfectly aligns with your brand standards.</p>
                         </div>
 
                         <!-- Card 3 -->
@@ -1673,8 +1668,8 @@
                             <div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 mb-6">
                                 <span class="material-symbols-outlined">trending_up</span>
                             </div>
-                            <h3 class="ez-h4 mb-3">Faster Time-to-Market</h3>
-                            <p class="ez-p2">Rapidly customize and deploy new collections, gaining a critical competitive edge.</p>
+                            <h3 class="ez-h4 mb-3" data-cms-key="advantage.cards.2.title">Faster Time-to-Market</h3>
+                            <p class="ez-p2" data-cms-key="advantage.cards.2.description">Rapidly customize and deploy new collections, gaining a critical competitive edge.</p>
                         </div>
 
                         <!-- Card 4 -->
@@ -1682,8 +1677,8 @@
                             <div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-lg shadow-primary/20 mb-6">
                                 <span class="material-symbols-outlined">tune</span>
                             </div>
-                            <h3 class="ez-h4 mb-3">Scalable Personalization</h3>
-                            <p class="ez-p2">Offer extensive personalization without fear of an unmanageable design workload.</p>
+                            <h3 class="ez-h4 mb-3" data-cms-key="advantage.cards.3.title">Scalable Personalization</h3>
+                            <p class="ez-p2" data-cms-key="advantage.cards.3.description">Offer extensive personalization without fear of an unmanageable design workload.</p>
                         </div>
                     </div>
                 </div>
@@ -1700,9 +1695,9 @@
                         <!-- LEFT: Content -->
                         <div class="lg:col-span-5 space-y-12">
                             <div class="ez-section-header mb-0">
-                                <span class="ez-section-eyebrow">Inside EasyVariants</span>
-                                <h2 class="ez-section-title">Generate Team Variants Faster Inside Illustrator</h2>
-                                <p class="ez-section-desc max-w-lg mb-2">
+                                <span class="ez-section-eyebrow" data-cms-key="inside.eyebrow">Inside EasyVariants</span>
+                                <h2 class="ez-section-title" data-cms-key="inside.title">Generate Team Variants Faster Inside Illustrator</h2>
+                                <p class="ez-section-desc max-w-lg mb-2" data-cms-key="inside.description">
                                     EasyVariants helps designers automate team-based product variants using smart placement zones, 
                                     color blocks, dynamic text variables, and centralized team assets  all directly inside Adobe Illustrator.
                                 </p>
@@ -1713,43 +1708,43 @@
                                     <div class="w-5 h-5 flex items-center justify-center rounded-full bg-surface-container-low border border-outline-variant/20">
                                         <svg class="w-3 h-3 text-on-surface-variant" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                                     </div>
-                                    <span class="ez-h5 text-on-surface-variant">Placement Zones</span>
+                                    <span class="ez-h5 text-on-surface-variant" data-cms-key="inside.features.0">Placement Zones</span>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <div class="w-5 h-5 flex items-center justify-center rounded-full bg-surface-container-low border border-outline-variant/20">
                                         <svg class="w-3 h-3 text-on-surface-variant" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                                     </div>
-                                    <span class="ez-h5 text-on-surface-variant">Color Blocks</span>
+                                    <span class="ez-h5 text-on-surface-variant" data-cms-key="inside.features.1">Color Blocks</span>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <div class="w-5 h-5 flex items-center justify-center rounded-full bg-surface-container-low border border-outline-variant/20">
                                         <svg class="w-3 h-3 text-on-surface-variant" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                                     </div>
-                                    <span class="ez-h5 text-on-surface-variant">Team Asset Mapping</span>
+                                    <span class="ez-h5 text-on-surface-variant" data-cms-key="inside.features.2">Team Asset Mapping</span>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <div class="w-5 h-5 flex items-center justify-center rounded-full bg-surface-container-low border border-outline-variant/20">
                                         <svg class="w-3 h-3 text-on-surface-variant" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                                     </div>
-                                    <span class="ez-h5 text-on-surface-variant">Embroidery Support</span>
+                                    <span class="ez-h5 text-on-surface-variant" data-cms-key="inside.features.3">Embroidery Support</span>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <div class="w-5 h-5 flex items-center justify-center rounded-full bg-surface-container-low border border-outline-variant/20">
                                         <svg class="w-3 h-3 text-on-surface-variant" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                                     </div>
-                                    <span class="ez-h5 text-on-surface-variant">Template Versioning</span>
+                                    <span class="ez-h5 text-on-surface-variant" data-cms-key="inside.features.4">Template Versioning</span>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <div class="w-5 h-5 flex items-center justify-center rounded-full bg-surface-container-low border border-outline-variant/20">
                                         <svg class="w-3 h-3 text-on-surface-variant" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                                     </div>
-                                    <span class="ez-h5 text-on-surface-variant">Variant Generation</span>
+                                    <span class="ez-h5 text-on-surface-variant" data-cms-key="inside.features.5">Variant Generation</span>
                                 </div>
                             </div>
 
                             <div class="pt-4">
-                                <a href="#how-it-works" class="ev-pill-btn ev-pill-btn--dark">
-                                    Explore Workflow
+                                <a href="#how-it-works" class="ev-pill-btn ev-pill-btn--dark" data-cms-key="inside.cta.href">
+                                    <span data-cms-key="inside.cta.label">Explore Workflow</span>
                                 </a>
                             </div>
                         </div>
@@ -1759,11 +1754,11 @@
                             <div class="relative w-full inside-ez-media pb-6 sm:pb-10 lg:pb-0">
                                 <!-- Main large image -->
                                 <div class="relative z-10 w-full overflow-hidden rounded-2xl shadow-2xl ring-1 ring-outline-variant/10">
-                                    <img src="/assets/EasyVariants.jpg-CnNUV02v.jpeg" alt="EasyVariants Plugin Interface" class="w-full h-auto object-cover" />
+                                    <img src="/assets/EasyVariants.jpg-CnNUV02v.jpeg" alt="EasyVariants Plugin Interface" class="w-full h-auto object-cover" data-cms-key="inside.image.main" />
                                 </div>
                                 <!-- Overlapping smaller image (desktop only) -->
                                 <div class="inside-ez-overlap absolute -bottom-12 -right-6 z-20 w-[45%] max-w-[220px] overflow-hidden rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-outline-variant/20 hidden lg:block">
-                                    <img src="/assets/EasyVariants%20application.jpg-DjEJEtUq.jpeg" alt="EasyVariants Application" class="w-full h-auto object-cover" />
+                                    <img src="/assets/EasyVariants%20application.jpg-DjEJEtUq.jpeg" alt="EasyVariants Application" class="w-full h-auto object-cover" data-cms-key="inside.image.overlap" />
                                 </div>
                             </div>
                         </div>
@@ -1779,22 +1774,22 @@
                 <div class="ez-page-shell">
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-end mb-10 md:mb-14">
                         <div class="lg:col-span-7 ez-section-header mb-0 max-w-3xl">
-                            <span class="ez-section-eyebrow">Our Solution</span>
-                            <h2 class="ez-section-title">Smart Automation System.</h2>
-                            <p class="ez-section-desc">One Illustrator template powers unlimited variants. Define rules once, map your data, and ship production-ready outputs at scale.</p>
+                            <span class="ez-section-eyebrow" data-cms-key="solution.eyebrow">Our Solution</span>
+                            <h2 class="ez-section-title" data-cms-key="solution.title">Smart Automation System</h2>
+                            <p class="ez-section-desc" data-cms-key="solution.description">One Illustrator template powers unlimited variants. Define rules once, map your data, and ship production-ready outputs at scale.</p>
                         </div>
                         <div class="lg:col-span-5 grid grid-cols-1 min-[400px]:grid-cols-3 gap-3 sm:gap-4 w-full">
                             <div class="solution-stat-pill">
-                                <span class="solution-stat-pill__value">10,000+</span>
-                                <span class="solution-stat-pill__label">Variants</span>
+                                <span class="solution-stat-pill__value" data-cms-key="solution.stats.0.value">10,000+</span>
+                                <span class="solution-stat-pill__label" data-cms-key="solution.stats.0.label">Variants</span>
                             </div>
                             <div class="solution-stat-pill">
-                                <span class="solution-stat-pill__value">Seconds</span>
-                                <span class="solution-stat-pill__label">Generation</span>
+                                <span class="solution-stat-pill__value" data-cms-key="solution.stats.1.value">Seconds</span>
+                                <span class="solution-stat-pill__label" data-cms-key="solution.stats.1.label">Generation</span>
                             </div>
                             <div class="solution-stat-pill">
-                                <span class="solution-stat-pill__value">1-Click</span>
-                                <span class="solution-stat-pill__label">Export</span>
+                                <span class="solution-stat-pill__value" data-cms-key="solution.stats.2.value">1-Click</span>
+                                <span class="solution-stat-pill__label" data-cms-key="solution.stats.2.label">Export</span>
                             </div>
                         </div>
                     </div>
@@ -1805,8 +1800,8 @@
                             <div class="solution-feature-card__icon">
                                 <span class="material-symbols-outlined text-2xl">tune</span>
                             </div>
-                            <h3 class="ez-h3 mb-3">Variable Control</h3>
-                            <p class="ez-p2 opacity-95">Define text, colors, and images once. Reuse everywhere instantly with smart templates and dynamic layers that scale without limits.</p>
+                            <h3 class="ez-h3 mb-3" data-cms-key="solution.cards.0.title">Variable Control</h3>
+                            <p class="ez-p2 opacity-95" data-cms-key="solution.cards.0.description">Define text, colors, and images once. Reuse everywhere instantly with smart templates and dynamic layers that scale without limits.</p>
                         </article>
 
                         <article class="solution-feature-card hover-lift reveal reveal-right">
@@ -1814,8 +1809,8 @@
                             <div class="solution-feature-card__icon">
                                 <span class="material-symbols-outlined text-2xl">auto_awesome</span>
                             </div>
-                            <h3 class="ez-h3 mb-3">Intelligent Generation</h3>
-                            <p class="ez-p2">Automatically create hundreds of design variations in seconds with an AI-powered layout engine built for production teams.</p>
+                            <h3 class="ez-h3 mb-3" data-cms-key="solution.cards.1.title">Intelligent Generation</h3>
+                            <p class="ez-p2" data-cms-key="solution.cards.1.description">Automatically create hundreds of design variations in seconds with an AI-powered layout engine built for production teams.</p>
                         </article>
 
                         <article class="solution-feature-card hover-lift reveal reveal-left">
@@ -1823,17 +1818,17 @@
                             <div class="solution-feature-card__icon">
                                 <span class="material-symbols-outlined text-2xl">layers</span>
                             </div>
-                            <h3 class="ez-h3 mb-3">Layer Management</h3>
-                            <p class="ez-p2">Organize static and dynamic elements with precision control. Full layer hierarchy and placement rules at your fingertips.</p>
+                            <h3 class="ez-h3 mb-3" data-cms-key="solution.cards.2.title">Layer Management</h3>
+                            <p class="ez-p2" data-cms-key="solution.cards.2.description">Organize static and dynamic elements with precision control. Full layer hierarchy and placement rules at your fingertips.</p>
                         </article>
 
-                        <article class="solution-feature-card hover-lift reveal reveal-right">
+                        <article class="solution-feature-card solution-feature-card--accent hover-lift reveal reveal-right">
                             <span class="solution-feature-card__index" aria-hidden="true">04</span>
                             <div class="solution-feature-card__icon">
                                 <span class="material-symbols-outlined text-2xl">ios_share</span>
                             </div>
-                            <h3 class="ez-h3 mb-3">Export Anywhere</h3>
-                            <p class="ez-p2 mb-5">Download assets in multiple formats, ready for any platform. Production-ready outputs in a single click.</p>
+                            <h3 class="ez-h3 mb-3" data-cms-key="solution.cards.3.title">Export Anywhere</h3>
+                            <p class="ez-p2 mb-5 opacity-95" data-cms-key="solution.cards.3.description">Download assets in multiple formats, ready for any platform. Production-ready outputs in a single click.</p>
                             <div class="flex flex-wrap gap-2 mt-auto">
                                 <span class="solution-format-chip"><span class="material-symbols-outlined">image</span> PNG</span>
                                 <span class="solution-format-chip"><span class="material-symbols-outlined">picture_as_pdf</span> PDF</span>
@@ -1851,9 +1846,9 @@
                 class="workflow-steps-section ez-section-spacing mb-0 reveal bg-white shadow-sm w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
                     <div class="ez-section-header max-w-4xl">
-                        <span class="ez-section-eyebrow">Workflow</span>
-                        <h2 class="ez-section-title">Automate in 5 Steps.</h2>
-                        <p class="ez-section-desc">Streamlined workflow that turns raw inputs into hundreds of production-ready variants.</p>
+                        <span class="ez-section-eyebrow" data-cms-key="workflow.eyebrow">Workflow</span>
+                        <h2 class="ez-section-title" data-cms-key="workflow.title">Automate in 5 Steps</h2>
+                        <p class="ez-section-desc" data-cms-key="workflow.description">Streamlined workflow that turns raw inputs into hundreds of production-ready variants.</p>
                     </div>
 
                     <!-- Progress Bar -->
@@ -1882,8 +1877,8 @@
                                 </div>
                                 <span class="ez-h6 text-primary/60 tracking-widest">Step 1</span>
                             </div>
-                            <h3 class="ez-h4 mb-2">Upload PLM Colorways</h3>
-                            <p class="ez-p2 grow">Bring in approved colorway data from your PLM and set the foundation for automated outputs.</p>
+                            <h3 class="ez-h4 mb-2" data-cms-key="workflow.steps.0.title">Upload PLM Colorways</h3>
+                            <p class="ez-p2 grow" data-cms-key="workflow.steps.0.description">Bring in approved colorway data from your PLM and set the foundation for automated outputs.</p>
                         </div>
 
                         <div id="step-card-2" class="step-card relative rounded-2xl p-6 flex flex-col border-2 border-transparent bg-surface-container-lowest transition-all duration-500 overflow-hidden">
@@ -1894,8 +1889,8 @@
                                 </div>
                                 <span class="ez-h6 text-primary/60 tracking-widest">Step 2</span>
                             </div>
-                            <h3 class="ez-h4 mb-2">Load Ai Template</h3>
-                            <p class="ez-p2 grow">Load your Illustrator template so structure and artwork layers are ready for mapping.</p>
+                            <h3 class="ez-h4 mb-2" data-cms-key="workflow.steps.1.title">Load Ai Template</h3>
+                            <p class="ez-p2 grow" data-cms-key="workflow.steps.1.description">Load your Illustrator template so structure and artwork layers are ready for mapping.</p>
                         </div>
 
                         <div id="step-card-3" class="step-card relative rounded-2xl p-6 flex flex-col border-2 border-transparent bg-surface-container-lowest transition-all duration-500 overflow-hidden">
@@ -1906,8 +1901,8 @@
                                 </div>
                                 <span class="ez-h6 text-primary/60 tracking-widest">Step 3</span>
                             </div>
-                            <h3 class="ez-h4 mb-2">Define Variables</h3>
-                            <p class="ez-p2 grow">Define variable inputs like colors, names, codes, and artwork references for each variant.</p>
+                            <h3 class="ez-h4 mb-2" data-cms-key="workflow.steps.2.title">Define Variables</h3>
+                            <p class="ez-p2 grow" data-cms-key="workflow.steps.2.description">Define variable inputs like colors, names, codes, and artwork references for each variant.</p>
                         </div>
 
                         <div id="step-card-4" class="step-card relative rounded-2xl p-6 flex flex-col border-2 border-transparent bg-surface-container-lowest transition-all duration-500 overflow-hidden">
@@ -1918,8 +1913,8 @@
                                 </div>
                                 <span class="ez-h6 text-primary/60 tracking-widest">Step 4</span>
                             </div>
-                            <h3 class="ez-h4 mb-2">Map Elements</h3>
-                            <p class="ez-p2 grow">Map template elements to variable data so every layer updates accurately across outputs.</p>
+                            <h3 class="ez-h4 mb-2" data-cms-key="workflow.steps.3.title">Map Elements</h3>
+                            <p class="ez-p2 grow" data-cms-key="workflow.steps.3.description">Map template elements to variable data so every layer updates accurately across outputs.</p>
                         </div>
 
                         <div id="step-card-5" class="step-card relative rounded-2xl p-6 flex flex-col border-2 border-transparent bg-surface-container-lowest transition-all duration-500 overflow-hidden">
@@ -1930,8 +1925,8 @@
                                 </div>
                                 <span class="ez-h6 text-primary/60 tracking-widest">Step 5</span>
                             </div>
-                            <h3 class="ez-h4 mb-2">Generate Variants</h3>
-                            <p class="ez-p2 grow">Run generation to produce final, production-ready variants at scale in minutes.</p>
+                            <h3 class="ez-h4 mb-2" data-cms-key="workflow.steps.4.title">Generate Variants</h3>
+                            <p class="ez-p2 grow" data-cms-key="workflow.steps.4.description">Run generation to produce final, production-ready variants at scale in minutes.</p>
                         </div>
                     </div>
                 </div>
@@ -2046,9 +2041,9 @@
             <section id="demos" class="demo-videos-section mb-0 reveal ez-section-spacing w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
                     <div class="ez-section-header max-w-4xl">
-                        <span class="ez-section-eyebrow">Seeing is Believing</span>
-                        <h2 class="ez-section-title">Demo Videos.</h2>
-                        <p class="ez-section-desc">Explore enterprise-ready design automation flows built for high-volume manufacturing environments.</p>
+                        <span class="ez-section-eyebrow" data-cms-key="demos.eyebrow">Seeing is Believing</span>
+                        <h2 class="ez-section-title" data-cms-key="demos.title">Demo Videos</h2>
+                        <p class="ez-section-desc" data-cms-key="demos.description">Explore enterprise-ready design automation flows built for high-volume manufacturing environments.</p>
                     </div>
 
                     <div class="demo-showcase">
@@ -2088,16 +2083,16 @@
                         class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
                     </div>
                     <div class="relative z-10">
-                        <h2 class="ez-cta-title mb-6 group-hover:scale-105 transition-transform duration-700">
+                        <h2 class="ez-cta-title mb-6 group-hover:scale-105 transition-transform duration-700" data-cms-key="cta.title">
                             Ready to Design Smarter?</h2>
-                        <p class="ez-p1 text-white/80 mb-12 max-w-2xl mx-auto font-light">
+                        <p class="ez-p1 text-white/80 mb-12 max-w-2xl mx-auto font-light" data-cms-key="cta.description">
                             Reduce production-cycle bottlenecks, scale variant output across factories, and enforce
                             brand consistency across every product line.
                         </p>
-                        <a href="contactus.html" class="ev-pill-btn ev-pill-btn--lg">
-                            Request a Demo Today
+                        <a href="contactus.html" class="ev-pill-btn ev-pill-btn--lg" data-cms-key="cta.button.href">
+                            <span data-cms-key="cta.button.label">Request a Demo Today</span>
                         </a>
-                        <p class="mt-8 ez-h6 text-white/50 tracking-widest">Let's automate
+                        <p class="mt-8 ez-h6 text-white/50 tracking-widest" data-cms-key="cta.footer">Let's automate
                             your product variants.</p>
                     </div>
                 </div>
@@ -2115,7 +2110,7 @@
                 <div class="xl:col-span-4 flex flex-col gap-5">
                     <img src="/assets/logo-C015aalk.png" alt="EasyVariants"
                         class="brand-logo-img h-20 w-auto max-w-[min(100%,280px)] sm:h-24 object-contain self-start" />
-                    <p class="ez-p2 text-on-surface font-semibold max-w-md">
+                    <p class="ez-p2 text-on-surface font-semibold max-w-md" data-cms-key="footer.brand.description">
                         Enterprise design automation for large manufacturers. Scale product variants across global
                         operations with controlled, repeatable workflows.
                     </p>
@@ -2124,19 +2119,19 @@
                 <!-- Menu -->
                 <div class="xl:col-span-2 footer-link-col">
                     <h4 class="ez-footer-title mb-1">Menu</h4>
-                    <a href="#home">Home</a>
-                    <a href="#solution">Our Solution</a>
-                    <a href="#how-it-works">Workflow</a>
-                    <a href="#demos">Demo Videos</a>
+                    <a href="#home" data-cms-key="footer.menu.0.href"><span data-cms-key="footer.menu.0.label">Home</span></a>
+                    <a href="#solution" data-cms-key="footer.menu.1.href"><span data-cms-key="footer.menu.1.label">Our Solution</span></a>
+                    <a href="#how-it-works" data-cms-key="footer.menu.2.href"><span data-cms-key="footer.menu.2.label">Workflow</span></a>
+                    <a href="#demos" data-cms-key="footer.menu.3.href"><span data-cms-key="footer.menu.3.label">Demo Videos</span></a>
                 </div>
 
                 <!-- Quick Links -->
                 <div class="xl:col-span-2 footer-link-col">
                     <h4 class="ez-footer-title mb-1">Quick Links</h4>
-                    <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
-                    <a href="#" target="_blank" rel="noopener noreferrer">Youtube</a>
-                    <a href="#" target="_blank" rel="noopener noreferrer">facebook</a>
-                    <a href="#" target="_blank" rel="noopener noreferrer">Twitter</a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" data-cms-key="footer.social.0.href"><span data-cms-key="footer.social.0.label">Instagram</span></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" data-cms-key="footer.social.1.href"><span data-cms-key="footer.social.1.label">Youtube</span></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" data-cms-key="footer.social.2.href"><span data-cms-key="footer.social.2.label">facebook</span></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" data-cms-key="footer.social.3.href"><span data-cms-key="footer.social.3.label">Twitter</span></a>
                 </div>
 
                 <!-- Mini cards -->
@@ -2157,8 +2152,8 @@
                             <span class="material-symbols-outlined text-primary text-xl">support_agent</span>
                         </div>
                         <div>
-                            <p class="footer-mini-card__title">Dedicated Support</p>
-                            <p class="footer-mini-card__text">Our team is here to help you every step of the way.</p>
+                            <p class="footer-mini-card__title" data-cms-key="footer.support.title">Dedicated Support</p>
+                            <p class="footer-mini-card__text" data-cms-key="footer.support.text">Our team is here to help you every step of the way.</p>
                         </div>
                     </div>
                 </div>
@@ -2167,9 +2162,9 @@
             <div class="footer-divider"></div>
 
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
-                <p class="ez-p3-legal">© 2026 EasyVariants. All
+                <p class="ez-p3-legal" data-cms-key="footer.copyright">© 2026 EasyVariants. All
                     Rights Reserved.</p>
-                <p class="ez-p3-legal">
+                <p class="ez-p3-legal" data-cms-key="footer.disclaimer">
                     Adobe Illustrator® is a trademark of Adobe Inc. EasyVariants is not affiliated.
                 </p>
             </div>
@@ -2359,7 +2354,7 @@
             }, { once: true });
 
             /* ═══ DEMO VIDEO GLIDER (YouTube) ═══ */
-            const demoVideos = [
+            const defaultDemoVideos = [
                 { id: "Mrj4YI_RQzA", title: "EasyVariants Demo  Product Variants", label: "Product Variants" },
                 { id: "Kd0Olg1cE-s", title: "EasyVariants Demo  Cap Variants", label: "Cap Variants" },
                 { id: "2Zl_BkN9L6w", title: "EasyVariants Explainer Video", label: "Explainer Video" },
@@ -2367,18 +2362,40 @@
                 { id: "l5tyQAdNiEY", title: "EasyVariants Demo  Shoe Variants", label: "Shoe Variants" },
             ];
 
+            function getDemoVideosFromCms() {
+                const cms = window.__EZ_CMS__?.blocks?.['demos.videos'];
+                if (cms?.type === 'list' && Array.isArray(cms.value) && cms.value.length) {
+                    return cms.value.map((v) => ({
+                        id: v.youtubeId,
+                        title: v.title,
+                        label: v.label || v.title,
+                    }));
+                }
+                return defaultDemoVideos;
+            }
+
             const youtubeEmbedUrl = (videoId) =>
                 `https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1`;
 
-            const lightSlideshow = document.getElementById('light-slideshow');
-            const demoVideoTitle = document.getElementById('demo-video-current-title');
-            const demoVideoCounter = document.getElementById('demo-video-counter');
-            const lightPrev = document.getElementById('light-prev');
-            const lightNext = document.getElementById('light-next');
+            let demoGliderTimer = null;
 
-            if (lightSlideshow) {
+            function initDemoGlider() {
+                const lightSlideshow = document.getElementById('light-slideshow');
+                const demoVideoTitle = document.getElementById('demo-video-current-title');
+                const demoVideoCounter = document.getElementById('demo-video-counter');
+                const lightPrev = document.getElementById('light-prev');
+                const lightNext = document.getElementById('light-next');
+                if (!lightSlideshow) return;
+
+                if (demoGliderTimer) {
+                    clearInterval(demoGliderTimer);
+                    demoGliderTimer = null;
+                }
+
+                const demoVideos = getDemoVideosFromCms();
+                lightSlideshow.innerHTML = '';
+
                 let currentSlide = 0;
-                let autoSlideTimer = null;
 
                 const activateSlide = (slide) => {
                     const iframe = slide?.querySelector("iframe");
@@ -2391,7 +2408,7 @@
                     if (iframe) iframe.removeAttribute("src");
                 };
 
-                const slides = demoVideos.map((video, index) => {
+                const slides = demoVideos.map((video) => {
                     const slide = document.createElement('div');
                     slide.className = 'demo-slide';
                     slide.style.position = 'absolute';
@@ -2425,14 +2442,9 @@
                     if (demoVideoCounter) demoVideoCounter.textContent = `${currentSlide + 1} / ${demoVideos.length}`;
                 };
 
-                const goToSlide = (i) => {
-                    currentSlide = i;
-                    updateSlides();
-                };
-
                 const startAutoSlide = () => {
-                    if (autoSlideTimer) clearInterval(autoSlideTimer);
-                    autoSlideTimer = setInterval(() => {
+                    if (demoGliderTimer) clearInterval(demoGliderTimer);
+                    demoGliderTimer = setInterval(() => {
                         if (document.visibilityState === 'visible') {
                             currentSlide = (currentSlide === slides.length - 1) ? 0 : currentSlide + 1;
                             updateSlides();
@@ -2440,81 +2452,132 @@
                     }, 8000);
                 };
 
-                lightPrev.addEventListener('click', () => {
+                lightPrev.onclick = () => {
                     currentSlide = (currentSlide === 0) ? slides.length - 1 : currentSlide - 1;
                     updateSlides();
-                });
-                lightNext.addEventListener('click', () => {
+                };
+                lightNext.onclick = () => {
                     currentSlide = (currentSlide === slides.length - 1) ? 0 : currentSlide + 1;
                     updateSlides();
-                });
+                };
 
-                lightSlideshow.addEventListener('mouseenter', () => {
-                    if (autoSlideTimer) clearInterval(autoSlideTimer);
-                });
-                lightSlideshow.addEventListener('mouseleave', startAutoSlide);
+                lightSlideshow.onmouseenter = () => {
+                    if (demoGliderTimer) clearInterval(demoGliderTimer);
+                };
+                lightSlideshow.onmouseleave = startAutoSlide;
 
                 updateSlides();
                 startAutoSlide();
             }
 
+            initDemoGlider();
+            document.addEventListener('ez-cms-loaded', initDemoGlider);
+
             /* ═══ PROBLEM CARD CAROUSEL ═══ */
-            const problemCards = document.querySelectorAll('.problem-card');
+            const problemCarouselEl = document.getElementById('problem-carousel');
+            const problemCards = problemCarouselEl
+                ? problemCarouselEl.querySelectorAll('.problem-card')
+                : [];
             const problemPrev = document.getElementById('problem-prev');
             const problemNext = document.getElementById('problem-next');
+            const PROBLEM_TRANSITION_MS = 650;
+            const PROBLEM_AUTO_MS = 8000;
             let currentProblemCard = 0;
-            let problemInterval;
+            let problemInterval = null;
+            let problemTransitionTimer = null;
             let isProblemTransitioning = false;
+            let problemCarouselActive = false;
+
+            const normalizeProblemIndex = (index) => {
+                const total = problemCards.length;
+                if (!total) return 0;
+                return ((index % total) + total) % total;
+            };
+
+            const finishProblemTransition = () => {
+                problemCards.forEach((card) => card.classList.remove('exit'));
+                isProblemTransitioning = false;
+                problemTransitionTimer = null;
+            };
 
             const updateProblemCards = (nextIndex) => {
+                if (!problemCards.length) return;
+
+                const targetIndex = normalizeProblemIndex(nextIndex);
+                if (targetIndex === currentProblemCard && !isProblemTransitioning) return;
+
+                if (problemTransitionTimer) {
+                    clearTimeout(problemTransitionTimer);
+                    problemTransitionTimer = null;
+                }
+
                 const prevIndex = currentProblemCard;
-                if (isProblemTransitioning || nextIndex === prevIndex) return;
+                const prevCard = problemCards[prevIndex];
+                const nextCard = problemCards[targetIndex];
+
                 isProblemTransitioning = true;
 
-                const prevCard = problemCards[prevIndex];
-                const nextCard = problemCards[nextIndex];
+                problemCards.forEach((card, i) => {
+                    if (i !== prevIndex && i !== targetIndex) {
+                        card.classList.remove('active', 'exit');
+                    }
+                });
 
-                // Previous card exits
-                prevCard.classList.remove('active');
-                prevCard.classList.add('exit');
+                if (prevCard && prevCard !== nextCard) {
+                    prevCard.classList.remove('active');
+                    prevCard.classList.add('exit');
+                }
 
-                // Next card enters
+                nextCard.classList.remove('exit');
+                nextCard.classList.remove('active');
+                void nextCard.offsetWidth;
                 nextCard.classList.add('active');
 
-                currentProblemCard = nextIndex;
+                currentProblemCard = targetIndex;
 
-                // Cleanup after transition
-                setTimeout(() => {
-                    prevCard.classList.remove('exit');
-                    isProblemTransitioning = false;
-                }, 2000);
+                problemTransitionTimer = setTimeout(finishProblemTransition, PROBLEM_TRANSITION_MS);
+            };
+
+            const stopProblemCycle = () => {
+                if (problemInterval) {
+                    clearInterval(problemInterval);
+                    problemInterval = null;
+                }
             };
 
             const startProblemCycle = () => {
-                if (problemInterval) clearInterval(problemInterval);
+                stopProblemCycle();
+                if (!problemCards.length || !problemCarouselActive) return;
                 problemInterval = setInterval(() => {
-                    updateProblemCards((currentProblemCard + 1) % problemCards.length);
-                }, 2000); // 2 seconds per card
+                    if (!isProblemTransitioning) {
+                        updateProblemCards(currentProblemCard + 1);
+                    }
+                }, PROBLEM_AUTO_MS);
             };
 
-            if (problemPrev && problemNext) {
-                problemPrev.addEventListener('click', () => {
-                    let next = (currentProblemCard - 1 + problemCards.length) % problemCards.length;
-                    updateProblemCards(next);
+            if (problemPrev && problemNext && problemCards.length) {
+                problemPrev.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    stopProblemCycle();
+                    updateProblemCards(currentProblemCard - 1);
                     startProblemCycle();
                 });
-                problemNext.addEventListener('click', () => {
-                    let next = (currentProblemCard + 1) % problemCards.length;
-                    updateProblemCards(next);
+                problemNext.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    stopProblemCycle();
+                    updateProblemCards(currentProblemCard + 1);
                     startProblemCycle();
                 });
             }
 
-            // Start Problem carousel when in view
             const problemSection = document.getElementById('problem');
-            if (problemSection) {
+            if (problemSection && problemCards.length) {
+                problemSection.addEventListener('mouseenter', stopProblemCycle);
+                problemSection.addEventListener('mouseleave', startProblemCycle);
+
                 const probObserver = new IntersectionObserver((entries) => {
                     if (entries[0].isIntersecting) {
+                        problemCarouselActive = true;
                         startProblemCycle();
                         probObserver.unobserve(problemSection);
                     }
@@ -2524,6 +2587,9 @@
 
         });
     </script>
+
+    <script src="/cms-loader.js" defer></script>
+    <script src="/cms-inline-edit.js" defer></script>
 
 </body>
 

@@ -1,6 +1,10 @@
 node_modules/
 .env
 
+# Local CMS uploads (dev fallback when BLOB_READ_WRITE_TOKEN is unset)
+public/uploads/cms/*
+!public/uploads/cms/.gitkeep
+
 # Playwright
 /test-results/
 /playwright-report/

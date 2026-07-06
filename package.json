@@ -24,7 +24,9 @@
   },
   "homepage": "https://github.com/MDJ1209/Easy-variants_#readme",
   "dependencies": {
+    "@vercel/blob": "^2.4.1",
     "bcryptjs": "^3.0.3",
+    "busboy": "^1.6.0",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.6.2",
     "three": "^0.183.2"
