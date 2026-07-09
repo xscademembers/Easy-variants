@@ -656,6 +656,14 @@
         const altInput = pop.querySelector('[data-field="alt"]');
         const file = fileInput.files?.[0];
 
+        if (file) {
+          const maxMB = 4.5;
+          if (file.size > maxMB * 1024 * 1024) {
+            toast(`Image exceeds Vercel's ${maxMB} MB upload limit. Please paste a link or optimize the file.`, 'error');
+            return;
+          }
+        }
+
         try {
           if (file) {
             toast('Uploading image…', 'success');
@@ -681,7 +689,7 @@
 
   function editVideo(container, key) {
     const defaultVal = {
-      src: 'images/YTDown_YouTube_EasyVariants-Explainer-Video_Media_2Zl_BkN9L6w_002_720p.mp4',
+      src: '/images/YTDown_YouTube_EasyVariants-Explainer-Video_Media_2Zl_BkN9L6w_002_720p.mp4',
       poster: ''
     };
     const current = (state.publishedBlocks[key]?.value && state.publishedBlocks[key]?.value.src)
@@ -716,6 +724,16 @@
 
         const file = fileInput.files?.[0];
         const posterFile = posterFileInput.files?.[0];
+        const maxMB = 4.5;
+
+        if (file && file.size > maxMB * 1024 * 1024) {
+          toast(`Video exceeds Vercel's ${maxMB} MB upload limit. Please paste a YouTube link or host it externally.`, 'error');
+          return;
+        }
+        if (posterFile && posterFile.size > maxMB * 1024 * 1024) {
+          toast(`Poster exceeds Vercel's ${maxMB} MB upload limit. Please optimize the image.`, 'error');
+          return;
+        }
 
         try {
           if (file) {
