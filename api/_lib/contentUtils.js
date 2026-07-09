@@ -15,7 +15,7 @@ function isOptionalString(value, maxLen = TEXT_MAX) {
 function isUrlLike(value) {
   if (typeof value !== 'string' || !value.trim()) return false;
   if (value.length > URL_MAX) return false;
-  if (value.startsWith('/')) return true;
+  if (value.startsWith('/') || value.startsWith('./') || value.startsWith('images/') || value.startsWith('assets/')) return true;
   try {
     const u = new URL(value);
     return u.protocol === 'http:' || u.protocol === 'https:';

@@ -87,13 +87,66 @@
     if (value.alt != null) el.alt = String(value.alt);
   }
 
-  function applyVideo(el, value) {
+  function getYouTubeId(url) {
+    if (!url) return null;
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+  }
+
+  function applyVideo(container, value) {
     if (!value || typeof value !== 'object') return;
-    if (value.src) {
-      el.src = value.src;
-      if (typeof el.load === 'function') el.load();
+    const el = container.tagName === 'DIV' ? container.querySelector('video, iframe') : container;
+    if (!el) return;
+    const ytId = getYouTubeId(value.src);
+    if (ytId) {
+      if (el.tagName === 'IFRAME') {
+        const expectedSrc = `https://www.youtube-nocookie.com/embed/${ytId}?rel=0&modestbranding=1`;
+        if (el.src !== expectedSrc) el.src = expectedSrc;
+      } else {
+        const iframe = document.createElement('iframe');
+        iframe.className = el.className;
+        iframe.id = el.id;
+        iframe.src = `https://www.youtube-nocookie.com/embed/${ytId}?rel=0&modestbranding=1`;
+        iframe.title = 'Explainer video';
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+        iframe.setAttribute('allowfullscreen', 'true');
+        iframe.style.cssText = el.style.cssText;
+        for (const attr of el.attributes) {
+          if (attr.name.startsWith('data-')) {
+            iframe.setAttribute(attr.name, attr.value);
+          }
+        }
+        el.parentNode.replaceChild(iframe, el);
+      }
+    } else {
+      if (el.tagName === 'IFRAME') {
+        const video = document.createElement('video');
+        video.className = el.className;
+        video.id = el.id;
+        video.autoplay = true;
+        video.loop = true;
+        video.muted = true;
+        video.setAttribute('playsinline', 'true');
+        video.style.cssText = el.style.cssText;
+        for (const attr of el.attributes) {
+          if (attr.name.startsWith('data-')) {
+            video.setAttribute(attr.name, attr.value);
+          }
+        }
+        video.src = value.src;
+        if (value.poster) video.poster = value.poster;
+        el.parentNode.replaceChild(video, el);
+        if (typeof video.load === 'function') video.load();
+      } else {
+        if (value.src) {
+          el.src = value.src;
+          if (typeof el.load === 'function') el.load();
+        }
+        if (value.poster) el.poster = value.poster;
+        else el.removeAttribute('poster');
+      }
     }
-    if (value.poster) el.poster = value.poster;
   }
 
   function applyBlock(el, block, key) {
@@ -109,7 +162,7 @@
       return;
     }
 
-    if (block.type === 'video' && el.tagName === 'VIDEO') {
+    if (block.type === 'video' && (el.tagName === 'VIDEO' || el.tagName === 'IFRAME' || el.tagName === 'DIV')) {
       applyVideo(el, block.value);
     }
   }

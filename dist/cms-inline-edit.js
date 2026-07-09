@@ -78,7 +78,8 @@
     const style = document.createElement('style');
     style.id = 'ez-cms-edit-styles';
     style.textContent = `
-      body.ez-cms-edit-mode { padding-top: 64px; }
+      body.ez-cms-edit-mode { padding-top: 48px; }
+      body.ez-cms-edit-mode nav.fixed { top: 48px !important; }
 
       #ez-cms-edit-bar {
         position: fixed;
@@ -200,6 +201,10 @@
         box-shadow: 0 16px 48px rgba(15, 12, 41, 0.25);
         padding: 14px;
         min-width: 320px;
+        max-width: 360px;
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
         font-family: Manrope, Inter, system-ui, sans-serif;
         font-size: 0.875rem;
         color: #1a1c1d;
@@ -230,8 +235,11 @@
       .ez-edit-popover .ez-edit-popover-actions {
         display: flex;
         gap: 6px;
-        margin-top: 12px;
+        margin-top: auto;
+        padding-top: 8px;
+        border-top: 1px solid rgba(199, 196, 216, 0.3);
         flex-wrap: wrap;
+        flex-shrink: 0;
       }
       .ez-edit-popover .ez-edit-popover-actions button {
         border: none;
@@ -244,6 +252,41 @@
       }
       .ez-edit-popover .primary { background: #3525cd; color: #fff; }
       .ez-edit-popover .ghost { background: #f3f2f8; color: #464555; }
+
+      .ez-edit-popover-scroll-body {
+        max-height: 45vh;
+        overflow-y: auto;
+        padding-right: 4px;
+        margin-bottom: 8px;
+      }
+      .ez-list-item-edit-card {
+        border: 1px solid rgba(199, 196, 216, 0.4);
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 8px;
+        background: #fcfbfe;
+      }
+      .ez-list-item-edit-card-title {
+        font-weight: 700;
+        font-size: 0.75rem;
+        color: #3525cd;
+        margin: 0 0 6px;
+      }
+
+      body.ez-cms-edit-mode [data-cms-key="meet.video"]::after,
+      body.ez-cms-edit-mode [data-cms-key="demos.videos"]::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 99;
+        background: rgba(53, 37, 205, 0.03);
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+      }
+      body.ez-cms-edit-mode [data-cms-key="meet.video"]:hover::after,
+      body.ez-cms-edit-mode [data-cms-key="demos.videos"]:hover::after {
+        background: rgba(53, 37, 205, 0.08);
+      }
 
       .ez-edit-toast {
         position: fixed;
@@ -502,8 +545,22 @@
     activePopover = pop;
 
     const rect = anchorEl.getBoundingClientRect();
-    const top = Math.min(window.innerHeight - 320, Math.max(80, rect.bottom + 8));
-    const left = Math.min(window.innerWidth - 360, Math.max(16, rect.left));
+    const popHeight = pop.offsetHeight;
+    const popWidth = pop.offsetWidth;
+
+    let top = rect.bottom + 8;
+    if (top + popHeight > window.innerHeight - 16) {
+      top = rect.top - popHeight - 8;
+    }
+    if (top < 16) {
+      top = Math.max(16, window.innerHeight - popHeight - 16);
+    }
+
+    let left = rect.left;
+    if (left + popWidth > window.innerWidth - 16) {
+      left = Math.max(16, window.innerWidth - popWidth - 16);
+    }
+
     pop.style.top = `${top}px`;
     pop.style.left = `${left}px`;
 
@@ -622,6 +679,207 @@
     });
   }
 
+  function editVideo(container, key) {
+    const defaultVal = {
+      src: 'images/YTDown_YouTube_EasyVariants-Explainer-Video_Media_2Zl_BkN9L6w_002_720p.mp4',
+      poster: ''
+    };
+    const current = (state.publishedBlocks[key]?.value && state.publishedBlocks[key]?.value.src)
+      ? state.publishedBlocks[key].value
+      : defaultVal;
+
+    openPopover({
+      anchorEl: container,
+      html: `
+        <h4>${humanLabel(key)}</h4>
+        <div class="ez-edit-popover-scroll-body">
+          <label>Upload new video</label>
+          <input data-field="file" type="file" accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov" />
+          <label>Video URL or path</label>
+          <input data-field="src" type="text" value="${escapeAttr(current.src || '')}" />
+          
+          <label>Upload poster image (optional)</label>
+          <input data-field="poster-file" type="file" accept="image/jpeg,image/png,image/webp,image/gif" />
+          <label>Poster URL or path</label>
+          <input data-field="poster" type="text" value="${escapeAttr(current.poster || '')}" />
+        </div>
+        <div class="ez-edit-popover-actions">
+          <button class="primary" data-action="confirm" type="button">Apply</button>
+          <button class="ghost" data-action="cancel" type="button">Cancel</button>
+        </div>
+      `,
+      onConfirm: async (pop) => {
+        const fileInput = pop.querySelector('[data-field="file"]');
+        const srcInput = pop.querySelector('[data-field="src"]');
+        const posterFileInput = pop.querySelector('[data-field="poster-file"]');
+        const posterInput = pop.querySelector('[data-field="poster"]');
+
+        const file = fileInput.files?.[0];
+        const posterFile = posterFileInput.files?.[0];
+
+        try {
+          if (file) {
+            toast('Uploading video…', 'success');
+            const up = await uploadFile(file, 'video');
+            srcInput.value = up.src;
+          }
+          if (posterFile) {
+            toast('Uploading poster…', 'success');
+            const up = await uploadFile(posterFile, 'poster');
+            posterInput.value = up.src;
+          }
+
+          const next = {
+            src: srcInput.value.trim(),
+            poster: posterInput.value.trim(),
+          };
+
+          if (next.src !== current.src || next.poster !== current.poster) {
+            let el = container.tagName === 'DIV' ? container.querySelector('video, iframe') : container;
+            if (el) {
+              const ytId = getYouTubeId(next.src);
+              if (ytId) {
+                if (el.tagName === 'IFRAME') {
+                  const expectedSrc = `https://www.youtube-nocookie.com/embed/${ytId}?rel=0&modestbranding=1`;
+                  if (el.src !== expectedSrc) el.src = expectedSrc;
+                } else {
+                  const iframe = document.createElement('iframe');
+                  iframe.className = el.className;
+                  iframe.id = el.id;
+                  iframe.src = `https://www.youtube-nocookie.com/embed/${ytId}?rel=0&modestbranding=1`;
+                  iframe.title = 'Explainer video';
+                  iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+                  iframe.setAttribute('allowfullscreen', 'true');
+                  iframe.style.cssText = el.style.cssText;
+                  el.parentNode.replaceChild(iframe, el);
+                }
+              } else {
+                if (el.tagName === 'IFRAME') {
+                  const video = document.createElement('video');
+                  video.className = el.className;
+                  video.id = el.id;
+                  video.autoplay = true;
+                  video.loop = true;
+                  video.muted = true;
+                  video.setAttribute('playsinline', 'true');
+                  video.style.cssText = el.style.cssText;
+                  video.src = next.src;
+                  if (next.poster) video.poster = next.poster;
+                  el.parentNode.replaceChild(video, el);
+                  if (typeof video.load === 'function') video.load();
+                } else {
+                  if (next.src) el.src = next.src;
+                  if (next.poster) el.poster = next.poster;
+                  else el.removeAttribute('poster');
+                  if (typeof el.load === 'function') el.load();
+                }
+              }
+            }
+
+            markDirty(key, { type: 'video', value: next });
+          }
+          closePopover();
+        } catch (err) {
+          toast(err.message || 'Upload failed.', 'error');
+        }
+      },
+    });
+  }
+
+  function getYouTubeId(url) {
+    if (!url) return null;
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+  }
+
+  function editVideoList(el, key) {
+    const defaultDemos = [
+      { youtubeId: 'Mrj4YI_RQzA', title: 'EasyVariants Demo  Product Variants', label: 'Product Variants' },
+      { youtubeId: 'Kd0Olg1cE-s', title: 'EasyVariants Demo  Cap Variants', label: 'Cap Variants' },
+      { youtubeId: '2Zl_BkN9L6w', title: 'EasyVariants Explainer Video', label: 'Explainer Video' },
+      { youtubeId: 'ETiWWJaoaZM', title: 'EasyVariants Demo  Sweatshirt Variants', label: 'Sweatshirt Variants' },
+      { youtubeId: 'l5tyQAdNiEY', title: 'EasyVariants Demo  Shoe Variants', label: 'Shoe Variants' },
+    ];
+    const listBlock = state.publishedBlocks[key];
+    const items = (listBlock && Array.isArray(listBlock.value) && listBlock.value.length > 0)
+      ? listBlock.value
+      : defaultDemos;
+
+    let listHtml = '';
+    items.forEach((item, index) => {
+      listHtml += `
+        <div class="ez-list-item-edit-card" data-index="${index}">
+          <p class="ez-list-item-edit-card-title">Video ${index + 1}</p>
+          <label>Title</label>
+          <input data-field="title" type="text" value="${escapeAttr(item.title || '')}" />
+          <label>YouTube video ID or URL</label>
+          <input data-field="youtubeId" type="text" value="${escapeAttr(item.youtubeId || '')}" />
+          <label>Short label</label>
+          <input data-field="label" type="text" value="${escapeAttr(item.label || '')}" />
+        </div>
+      `;
+    });
+
+    openPopover({
+      anchorEl: el,
+      html: `
+        <h4>${humanLabel(key)}</h4>
+        <div class="ez-edit-popover-scroll-body" style="max-height: 45vh;">
+          ${listHtml}
+        </div>
+        <div class="ez-edit-popover-actions">
+          <button class="primary" data-action="confirm" type="button">Apply</button>
+          <button class="ghost" data-action="cancel" type="button">Cancel</button>
+        </div>
+      `,
+      onConfirm: (pop) => {
+        const itemCards = pop.querySelectorAll('.ez-list-item-edit-card');
+        const nextValue = [];
+
+        itemCards.forEach((card) => {
+          const index = Number(card.dataset.index);
+          const title = card.querySelector('[data-field="title"]').value.trim();
+          let youtubeId = card.querySelector('[data-field="youtubeId"]').value.trim();
+          const label = card.querySelector('[data-field="label"]').value.trim();
+
+          const parsedId = getYouTubeId(youtubeId);
+          if (parsedId) {
+            youtubeId = parsedId;
+          }
+
+          nextValue.push({ title, youtubeId, label });
+        });
+
+        let changed = false;
+        if (nextValue.length !== items.length) {
+          changed = true;
+        } else {
+          for (let i = 0; i < items.length; i++) {
+            if (
+              nextValue[i].title !== items[i].title ||
+              nextValue[i].youtubeId !== items[i].youtubeId ||
+              nextValue[i].label !== items[i].label
+            ) {
+              changed = true;
+              break;
+            }
+          }
+        }
+
+        if (changed) {
+          if (window.__EZ_CMS__?.blocks) {
+            window.__EZ_CMS__.blocks[key] = { type: 'list', value: nextValue };
+          }
+          markDirty(key, { type: 'list', value: nextValue });
+          document.dispatchEvent(new CustomEvent('ez-cms-loaded', { detail: window.__EZ_CMS__ }));
+        }
+
+        closePopover();
+      },
+    });
+  }
+
   function editComplex(el, key) {
     openPopover({
       anchorEl: el,
@@ -685,8 +943,13 @@
           return;
         }
 
-        if (el.tagName === 'VIDEO') {
-          editComplex(el, key);
+        if (key === 'meet.video') {
+          editVideo(el, key);
+          return;
+        }
+
+        if (key === 'demos.videos') {
+          editVideoList(el, key);
           return;
         }
 
