@@ -200,7 +200,7 @@ export const CMS_SCHEMA = {
     sectionHeader('deepdive', 'Platform Deep Dive', {
       eyebrow: 'Platform',
       title: 'The System Behind the Scale',
-      description: 'Explore variables, craft, and workflow — one topic at a time.',
+      description: 'Variables, craft, and workflow — how EasyVariants turns one hero design into a full league.',
     }),
     {
       section: 'Platform Deep Dive · Tab labels',
