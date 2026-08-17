@@ -17,6 +17,8 @@
     inside: 'Inside EasyVariants',
     solution: 'Our Solution',
     workflow: 'Workflow',
+    craft: 'Craft That Scales',
+    buildingblocks: 'Building Blocks',
     deepdive: 'Platform Deep Dive',
     demos: 'Demo Videos',
     fits: 'Where It Fits',

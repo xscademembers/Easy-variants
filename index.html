@@ -1421,16 +1421,16 @@
             transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, transform 0.3s ease;
         }
 
-        .workflow-timeline__item.step-active {
+        .workflow-timeline__item:hover {
             border-color: rgba(53, 37, 205, 0.28);
             background: #ffffff;
             box-shadow: 0 8px 28px rgba(53, 37, 205, 0.1);
             transform: translateX(4px);
         }
 
-        .workflow-timeline__item.step-done {
-            border-color: rgba(53, 37, 205, 0.12);
-            background: #ffffff;
+        .workflow-timeline__item:hover .workflow-timeline__icon {
+            background: #3525cd;
+            color: #ffffff;
         }
 
         .workflow-timeline__icon {
@@ -1447,11 +1447,6 @@
 
         .workflow-timeline__icon .material-symbols-outlined {
             font-size: 1.125rem;
-        }
-
-        .workflow-timeline__item.step-active .workflow-timeline__icon {
-            background: #3525cd;
-            color: #ffffff;
         }
 
         .workflow-timeline__body {
@@ -2846,66 +2841,6 @@
                     }
                 </style>
 
-                <script>
-                    document.addEventListener('DOMContentLoaded', () => {
-                        const container = document.getElementById('how-it-works');
-                        if (!container) return;
-
-                        const setupTimelineHighlight = (panelSelector, cardSelector) => {
-                            const panel = container.querySelector(panelSelector);
-                            const cards = Array.from(container.querySelectorAll(cardSelector));
-                            if (!panel || !cards.length) return null;
-
-                            return () => {
-                                const rect = panel.getBoundingClientRect();
-                                const vh = window.innerHeight;
-                                const h = Math.max(rect.height, 1);
-                                const scrolled = vh * 0.55 - rect.top;
-                                const denom = h * 0.85 + vh * 0.1;
-                                let progress = scrolled / denom;
-                                progress = Math.max(0, Math.min(1, progress));
-
-                                const n = cards.length;
-                                let activeIndex = -1;
-
-                                for (let i = n - 1; i >= 0; i--) {
-                                    const threshold = (i + 0.45) / n;
-                                    if (progress >= threshold * 0.9) {
-                                        activeIndex = i;
-                                        break;
-                                    }
-                                }
-
-                                cards.forEach((card, i) => {
-                                    card.classList.remove('step-active', 'step-done');
-                                    if (i === activeIndex) {
-                                        card.classList.add('step-active');
-                                    } else if (i < activeIndex) {
-                                        card.classList.add('step-done');
-                                    }
-                                });
-                            };
-                        };
-
-                        const updateLeft = setupTimelineHighlight('.workflow-split__left', '#step-card-1, #step-card-2, #step-card-3, #step-card-4, #step-card-5');
-                        const updateRight = setupTimelineHighlight('.workflow-split__right', '.ev-step-card');
-
-                        let ticking = false;
-                        const onScroll = () => {
-                            if (ticking) return;
-                            ticking = true;
-                            window.requestAnimationFrame(() => {
-                                if (updateLeft) updateLeft();
-                                if (updateRight) updateRight();
-                                ticking = false;
-                            });
-                        };
-
-                        window.addEventListener('scroll', onScroll, { passive: true });
-                        window.addEventListener('resize', onScroll, { passive: true });
-                        onScroll();
-                    });
-                </script>
             </section>
 
             <!-- ═══════════════════════ CRAFT THAT SCALES ═══════════════════════ -->
@@ -3301,10 +3236,10 @@
                 <!-- Quick Links -->
                 <div class="xl:col-span-2 footer-link-col">
                     <h4 class="ez-footer-title mb-1">Quick Links</h4>
-                    <a href="#" target="_blank" rel="noopener noreferrer" data-cms-key="footer.social.0.href"><span data-cms-key="footer.social.0.label">Instagram</span></a>
-                    <a href="#" target="_blank" rel="noopener noreferrer" data-cms-key="footer.social.1.href"><span data-cms-key="footer.social.1.label">Youtube</span></a>
-                    <a href="#" target="_blank" rel="noopener noreferrer" data-cms-key="footer.social.2.href"><span data-cms-key="footer.social.2.label">facebook</span></a>
-                    <a href="#" target="_blank" rel="noopener noreferrer" data-cms-key="footer.social.3.href"><span data-cms-key="footer.social.3.label">Twitter</span></a>
+                    <a href="https://www.linkedin.com/company/xinthe-technologies/" target="_blank" rel="noopener noreferrer" data-cms-key="footer.social.0.href"><span data-cms-key="footer.social.0.label">LinkedIn</span></a>
+                    <a href="https://www.youtube.com/@xinthetechnologies6321" target="_blank" rel="noopener noreferrer" data-cms-key="footer.social.1.href"><span data-cms-key="footer.social.1.label">Youtube</span></a>
+                    <a href="https://facebook.com/xintheemployees" target="_blank" rel="noopener noreferrer" data-cms-key="footer.social.2.href"><span data-cms-key="footer.social.2.label">facebook</span></a>
+                    <a href="https://x.com/xinthetech" target="_blank" rel="noopener noreferrer" data-cms-key="footer.social.3.href"><span data-cms-key="footer.social.3.label">X</span></a>
                 </div>
 
                 <!-- Mini cards -->

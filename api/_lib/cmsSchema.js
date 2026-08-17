@@ -417,10 +417,10 @@ export const CMS_SCHEMA = {
     {
       section: 'Footer · Social links',
       fields: linkFields('footer.social', [
-        { label: 'Instagram', href: '#' },
-        { label: 'Youtube', href: '#' },
-        { label: 'facebook', href: '#' },
-        { label: 'Twitter', href: '#' },
+        { label: 'LinkedIn', href: 'https://www.linkedin.com/company/xinthe-technologies/' },
+        { label: 'Youtube', href: 'https://www.youtube.com/@xinthetechnologies6321' },
+        { label: 'facebook', href: 'https://facebook.com/xintheemployees' },
+        { label: 'X', href: 'https://x.com/xinthetech' },
       ]),
     },
   ],
