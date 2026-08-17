@@ -17,7 +17,9 @@
     inside: 'Inside EasyVariants',
     solution: 'Our Solution',
     workflow: 'Workflow',
+    deepdive: 'Platform Deep Dive',
     demos: 'Demo Videos',
+    fits: 'Where It Fits',
     cta: 'Final CTA',
     footer: 'Footer',
     contact: 'Contact page',
@@ -185,7 +187,9 @@
       }
       /* Keep text visible on dark/coloured cards (e.g. solution accent cards) */
       body.ez-cms-edit-mode .solution-feature-card--accent [data-cms-key][data-ez-editing="1"],
-      body.ez-cms-edit-mode .solution-feature-card--accent [contenteditable="true"] {
+      body.ez-cms-edit-mode .solution-feature-card--accent [contenteditable="true"],
+      body.ez-cms-edit-mode .fit-usecase-card [data-cms-key][data-ez-editing="1"],
+      body.ez-cms-edit-mode .fit-usecase-card [contenteditable="true"] {
         color: rgba(255, 255, 255, 0.92);
         -webkit-text-fill-color: rgba(255, 255, 255, 0.92);
       }

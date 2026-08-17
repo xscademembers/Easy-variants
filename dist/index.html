@@ -13,7 +13,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;600;700;800&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet" />
+        rel="stylesheet" />
     <style>
         /* ═══ BASE ═══ */
         :root {
@@ -1329,6 +1329,404 @@
             background: #0f0f0f;
         }
 
+        /* ═══ DEEP DIVE TABS SECTION ═══ */
+        .deep-dive-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0.35rem;
+            border-radius: 9999px;
+            background: rgba(248, 248, 252, 0.95);
+            border: 1px solid rgba(199, 196, 216, 0.35);
+            margin-bottom: 2.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .deep-dive-tabs {
+                margin-bottom: 3rem;
+            }
+        }
+
+        .deep-dive-tab {
+            flex: 1 1 auto;
+            min-width: 0;
+            padding: 0.75rem 1rem;
+            border-radius: 9999px;
+            border: none;
+            background: transparent;
+            font-family: Manrope, Inter, system-ui, sans-serif;
+            font-size: 0.8125rem;
+            font-weight: 700;
+            color: #464555;
+            cursor: pointer;
+            transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        @media (min-width: 640px) {
+            .deep-dive-tab {
+                font-size: 0.875rem;
+                padding: 0.85rem 1.25rem;
+            }
+        }
+
+        .deep-dive-tab:hover {
+            color: #1a1c1d;
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .deep-dive-tab[aria-selected="true"] {
+            background: #3525cd;
+            color: #ffffff;
+            box-shadow: 0 4px 16px rgba(53, 37, 205, 0.25);
+        }
+
+        .deep-dive-tab__sub {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            opacity: 0.75;
+            margin-top: 0.15rem;
+        }
+
+        .deep-dive-panel {
+            display: none;
+            animation: deepDiveFadeIn 0.35s ease;
+        }
+
+        .deep-dive-panel[aria-hidden="false"] {
+            display: block;
+        }
+
+        @keyframes deepDiveFadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .variable-intro {
+            max-width: 52rem;
+            margin: 0 0 2rem;
+            font-size: 1.0625rem;
+            line-height: 1.75;
+            color: #464555;
+        }
+
+        .variable-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 1.5rem 1.75rem;
+            border-radius: 1.5rem;
+            background: #ffffff;
+            border: 1px solid rgba(199, 196, 216, 0.2);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 8px 28px rgba(53, 37, 205, 0.04);
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+
+        .variable-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(53, 37, 205, 0.18);
+            box-shadow: 0 12px 36px rgba(53, 37, 205, 0.08);
+        }
+
+        .variable-card__head {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .variable-card__icon {
+            width: 2.75rem;
+            height: 2.75rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(53, 37, 205, 0.08);
+            border: 1px solid rgba(53, 37, 205, 0.12);
+            color: #3525cd;
+            flex-shrink: 0;
+        }
+
+        .variable-card__body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .variable-card__list {
+            margin: 0.75rem 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .variable-card__list li {
+            position: relative;
+            padding-left: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            color: #464555;
+        }
+
+        .variable-card__list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.55em;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #3525cd;
+        }
+
+        .variable-card__list li strong {
+            color: #1a1c1d;
+            font-weight: 700;
+        }
+
+        .why-matters {
+            margin-top: auto;
+            padding-top: 1rem;
+            margin-top: 1.25rem;
+            border-top: 1px solid rgba(199, 196, 216, 0.25);
+        }
+
+        .why-matters__label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.6875rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #3525cd;
+            margin-bottom: 0.5rem;
+        }
+
+        .why-matters__label .material-symbols-outlined {
+            font-size: 0.95rem;
+        }
+
+        .why-matters p {
+            margin: 0;
+            font-size: 0.9375rem;
+            line-height: 1.65;
+            color: #464555;
+        }
+
+        .craft-prose {
+            max-width: 48rem;
+            margin: 0 auto;
+        }
+
+        .craft-prose p {
+            font-size: 1.0625rem;
+            line-height: 1.8;
+            color: #464555;
+            margin-bottom: 1.5rem;
+        }
+
+        .craft-prose p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .craft-tagline {
+            margin-top: 2.5rem;
+            padding: 2rem 2.25rem;
+            border-radius: 1.5rem;
+            background: linear-gradient(135deg, #3525cd 0%, #4f46e5 100%);
+            color: #ffffff;
+            text-align: center;
+            box-shadow: 0 12px 40px rgba(53, 37, 205, 0.2);
+        }
+
+        .craft-tagline p {
+            margin: 0;
+            font-family: Manrope, Inter, system-ui, sans-serif;
+            font-size: 1.375rem;
+            font-weight: 700;
+            line-height: 1.45;
+            color: #ffffff;
+        }
+
+        .four-steps-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+
+        @media (min-width: 640px) {
+            .four-steps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .four-steps-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .four-step-card {
+            position: relative;
+            padding: 1.75rem 1.5rem;
+            border-radius: 1.5rem;
+            background: #ffffff;
+            border: 1px solid rgba(199, 196, 216, 0.2);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 8px 28px rgba(53, 37, 205, 0.04);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .four-step-card__num {
+            font-size: 0.6875rem;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #3525cd;
+            opacity: 0.7;
+            margin-bottom: 0.75rem;
+        }
+
+        .four-step-card__icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(53, 37, 205, 0.08);
+            color: #3525cd;
+            margin-bottom: 1rem;
+        }
+
+        .four-step-card ul {
+            margin: 0.75rem 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .four-step-card ul li {
+            position: relative;
+            padding-left: 1rem;
+            margin-bottom: 0.4rem;
+            font-size: 0.875rem;
+            line-height: 1.55;
+            color: #464555;
+        }
+
+        .four-step-card ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #3525cd;
+            font-weight: 700;
+        }
+
+        .four-step-card--wide {
+            grid-column: 1 / -1;
+        }
+
+        @media (min-width: 1024px) {
+            .four-step-card--wide {
+                grid-column: span 2;
+            }
+        }
+
+        /* ═══ WHERE IT FITS SECTION ═══ */
+        .fit-subsection-title {
+            font-family: Manrope, Inter, system-ui, sans-serif;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #3525cd;
+            margin: 0 0 1.25rem;
+        }
+
+        .fit-product-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 1.5rem 1.75rem;
+            border-radius: 1.5rem;
+            background: #ffffff;
+            border: 1px solid rgba(199, 196, 216, 0.2);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 8px 28px rgba(53, 37, 205, 0.04);
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease;
+        }
+
+        @media (min-width: 768px) {
+            .fit-product-card {
+                padding: 1.75rem 2rem;
+            }
+        }
+
+        .fit-product-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(53, 37, 205, 0.2);
+            box-shadow: 0 16px 40px rgba(53, 37, 205, 0.08), 0 6px 16px rgba(0, 0, 0, 0.03);
+        }
+
+        .fit-product-card__icon {
+            width: 2.75rem;
+            height: 2.75rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(53, 37, 205, 0.08);
+            border: 1px solid rgba(53, 37, 205, 0.12);
+            color: #3525cd;
+            margin-bottom: 1rem;
+            flex-shrink: 0;
+        }
+
+        .fit-usecase-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 1.75rem 2rem;
+            border-radius: 1.5rem;
+            background: linear-gradient(145deg, #3525cd 0%, #4f46e5 55%, #5b52e8 100%);
+            border: 1px solid transparent;
+            color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 8px 28px rgba(53, 37, 205, 0.12);
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .fit-usecase-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 40px rgba(53, 37, 205, 0.22);
+        }
+
+        .fit-usecase-card .ez-h4,
+        .fit-usecase-card .ez-p2 {
+            color: #ffffff;
+        }
+
+        .fit-usecase-card .ez-p2 {
+            opacity: 0.92;
+        }
+
+        .fit-usecase-card__icon {
+            width: 2.75rem;
+            height: 2.75rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
         /* ═══ PROBLEM CARD CAROUSEL ═══ */
         .problem-card-carousel {
             position: relative;
@@ -1372,7 +1770,7 @@
             }
         }
     </script>
-  <link rel="stylesheet" crossorigin href="/assets/tailwind-BzPBJE_h.css">
+  <link rel="stylesheet" crossorigin href="/assets/tailwind-CxAFHoUg.css">
 </head>
 
 <body class="font-body text-on-surface antialiased" data-cms-page="home">
@@ -2037,6 +2435,260 @@
                 </script>
             </section>
 
+            <!-- ═══════════════════════ DEEP DIVE TABS ═══════════════════════ -->
+            <div class="gradient-sep"></div>
+
+            <section id="deep-dive"
+                class="deep-dive-section mb-0 reveal ez-section-spacing bg-[#f8f8f8] w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+                <div class="ez-page-shell">
+                    <div class="ez-section-header max-w-4xl">
+                        <span class="ez-section-eyebrow" data-cms-key="deepdive.eyebrow">Platform</span>
+                        <h2 class="ez-section-title" data-cms-key="deepdive.title">The System Behind the Scale</h2>
+                        <p class="ez-section-desc" data-cms-key="deepdive.description">Variables, craft, and workflow — how EasyVariants turns one hero design into a full league.</p>
+                    </div>
+
+                    <div class="deep-dive-tabs" role="tablist" aria-label="Platform deep dive">
+                        <button type="button" class="deep-dive-tab" role="tab" id="deep-tab-1" aria-selected="true" aria-controls="deep-panel-1" data-deep-tab="1">
+                            Building Blocks
+                            <span class="deep-dive-tab__sub">The Variable System</span>
+                        </button>
+                        <button type="button" class="deep-dive-tab" role="tab" id="deep-tab-2" aria-selected="false" aria-controls="deep-panel-2" data-deep-tab="2" tabindex="-1">
+                            Craft That Scales
+                        </button>
+                        <button type="button" class="deep-dive-tab" role="tab" id="deep-tab-3" aria-selected="false" aria-controls="deep-panel-3" data-deep-tab="3" tabindex="-1">
+                            Four Steps
+                            <span class="deep-dive-tab__sub">How It Works</span>
+                        </button>
+                    </div>
+
+                    <!-- Tab 1: The Variable System -->
+                    <div id="deep-panel-1" class="deep-dive-panel" role="tabpanel" aria-labelledby="deep-tab-1" aria-hidden="false">
+                        <p class="variable-intro" data-cms-key="deepdive.variables.intro">Designers already think "the front logo goes here" and "the crown is the primary color." EasyVariants gives those existing concepts a home in the interface — rather than forcing a new abstraction on them. Variable types cover everything that changes from team to team; treatments such as effects run across all of them.</p>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-6">
+                            <!-- Placement Zones -->
+                            <article class="variable-card hover-lift">
+                                <div class="variable-card__head">
+                                    <div class="variable-card__icon"><span class="material-symbols-outlined">place</span></div>
+                                    <div class="variable-card__body">
+                                        <h3 class="ez-h4 mb-2" data-cms-key="deepdive.variables.0.title">Placement Zones — Where art lands</h3>
+                                        <p class="ez-p2 text-on-surface-variant" data-cms-key="deepdive.variables.0.description">A Placement Zone doesn't record coordinates. It records intent. You tell the template "the primary logo belongs here, treated this way," and every team's art arrives correctly sized and positioned — even though no two teams' logos share the same shape, ratio or dimensions.</p>
+                                    </div>
+                                </div>
+                                <p class="ez-p2 text-on-surface-variant mb-2">Because art behaves differently depending on where it sits, the zone declares how it should land:</p>
+                                <ul class="variable-card__list">
+                                    <li><strong>Standard Size</strong> — Art places at its own true dimensions, straight from the library. The spec is authoritative; the zone doesn't touch it.</li>
+                                    <li><strong>Fitted</strong> — Art scales to the bounds of the zone. Use it where the space rules, not the asset.</li>
+                                    <li><strong>Enveloped</strong> — Art warps to a contoured surface rather than sitting flat on it — a curved panel, a shaped seam, a sleeve.</li>
+                                    <li><strong>Proxy</strong> — A stand-in that holds the position while the real asset is still in approval. The layout is finished before the art is.</li>
+                                    <li><strong>LineArt</strong> — The line-drawing rendition of the placement, for the tech-pack views that need outline rather than render.</li>
+                                </ul>
+                                <div class="why-matters">
+                                    <span class="why-matters__label"><span class="material-symbols-outlined">lightbulb</span> Why it matters</span>
+                                    <p data-cms-key="deepdive.variables.0.why">The zone is the contract. It survives every asset that lands in it.</p>
+                                </div>
+                            </article>
+
+                            <!-- Color Blocks -->
+                            <article class="variable-card hover-lift">
+                                <div class="variable-card__head">
+                                    <div class="variable-card__icon"><span class="material-symbols-outlined">palette</span></div>
+                                    <div class="variable-card__body">
+                                        <h3 class="ez-h4 mb-2" data-cms-key="deepdive.variables.1.title">Color Blocks — Every fill that changes by team</h3>
+                                        <p class="ez-p2 text-on-surface-variant" data-cms-key="deepdive.variables.1.description">A Color Block is any area of a design whose color is determined by the team, not the artwork itself. Instead of assigning a fixed color, you link the block to a team attribute, such as Primary Color, Secondary Color, or Accent Color. When the team colors change, every linked Color Block updates automatically across the entire program.</p>
+                                    </div>
+                                </div>
+                                <p class="ez-p2 text-on-surface-variant">The key idea is that a Color Block doesn't store a color value — it stores a reference. Its role is simply to identify what the area represents ("this is the Secondary Color"), while the team data supplies the actual color value. It can include the exact production values required for printing, embroidery, or thread matching — not just an on-screen color approximation.</p>
+                                <div class="why-matters">
+                                    <span class="why-matters__label"><span class="material-symbols-outlined">lightbulb</span> Why it matters</span>
+                                    <p data-cms-key="deepdive.variables.1.why">Recoloring is one of the most common sources of manual errors. A missed swatch looks fine on screen but results in incorrect production output. Because Color Blocks are linked to team data, updates happen automatically, making those mistakes far less likely and ensuring consistency across every design variation.</p>
+                                </div>
+                            </article>
+
+                            <!-- Embroidery Zones -->
+                            <article class="variable-card hover-lift">
+                                <div class="variable-card__head">
+                                    <div class="variable-card__icon"><span class="material-symbols-outlined">draw</span></div>
+                                    <div class="variable-card__body">
+                                        <h3 class="ez-h4 mb-2" data-cms-key="deepdive.variables.2.title">Embroidery Zones — Where production data comes through</h3>
+                                        <p class="ez-p2 text-on-surface-variant" data-cms-key="deepdive.variables.2.description">The Embroidery Zone is the bridge between artwork and manufacturing. It carries the exact color chip, the swatch name, and — wherever applicable — the PMS thread code required for the embroidered look. Nothing gets retyped, which means nothing gets mistyped.</p>
+                                    </div>
+                                </div>
+                                <p class="ez-p2 text-on-surface-variant mb-2">Zones come in the forms production needs:</p>
+                                <ul class="variable-card__list">
+                                    <li><strong>Logo</strong> — The embroidered logo application, with its technique carried from the library.</li>
+                                    <li><strong>Color</strong> — The thread color callout itself, resolved per team.</li>
+                                    <li><strong>LineArt</strong> — The outline rendition for spec views.</li>
+                                </ul>
+                                <p class="ez-p2 text-on-surface-variant mt-2">Because embroidery output is colour-critical, these zones work in CMYK — the color mode the downstream process expects.</p>
+                                <div class="why-matters">
+                                    <span class="why-matters__label"><span class="material-symbols-outlined">lightbulb</span> Why it matters</span>
+                                    <p data-cms-key="deepdive.variables.2.why">This is the variable where an error costs money. A stale PMS value doesn't get caught in review; it gets caught in production.</p>
+                                </div>
+                            </article>
+
+                            <!-- Dimensions -->
+                            <article class="variable-card hover-lift">
+                                <div class="variable-card__head">
+                                    <div class="variable-card__icon"><span class="material-symbols-outlined">straighten</span></div>
+                                    <div class="variable-card__body">
+                                        <h3 class="ez-h4 mb-2" data-cms-key="deepdive.variables.3.title">Dimensions — One design, many bodies</h3>
+                                        <p class="ez-p2 text-on-surface-variant" data-cms-key="deepdive.variables.3.description">The same design doesn't carry the same measurements. A style runs across men's, women's, youth and infant, and each carries its own dimension set — logo heights, placement drops, callout values. Historically, that meant maintaining several near-identical spec sheets by hand and hoping they stayed in sync.</p>
+                                    </div>
+                                </div>
+                                <p class="ez-p2 text-on-surface-variant">Dimensions are variables here, so they resolve per size class automatically; and one set can be designated the Master Dimension — the reference the others derive from. Change the Master, and the dependent dimensions follow. You maintain one relationship instead of four separate truths.</p>
+                                <div class="why-matters">
+                                    <span class="why-matters__label"><span class="material-symbols-outlined">lightbulb</span> Why it matters</span>
+                                    <p data-cms-key="deepdive.variables.3.why">Dimension drift is the quietest failure in a tech pack — the artwork says one thing, the callout says another, and nobody notices until it's cut.</p>
+                                </div>
+                            </article>
+
+                            <!-- Text -->
+                            <article class="variable-card hover-lift">
+                                <div class="variable-card__head">
+                                    <div class="variable-card__icon"><span class="material-symbols-outlined">text_fields</span></div>
+                                    <div class="variable-card__body">
+                                        <h3 class="ez-h4 mb-2" data-cms-key="deepdive.variables.4.title">Text — Text on licensed product isn't typing. It's construction.</h3>
+                                        <p class="ez-p2 text-on-surface-variant">Each kind behaves differently, so each is its own variable:</p>
+                                    </div>
+                                </div>
+                                <ul class="variable-card__list">
+                                    <li><strong>Text Spec</strong> — Production text. Callouts, colorway names, values. Linked, resolved per team, never retyped. Segmentation detects and segments words, letters, and numbers within artwork, enabling precise processing of design elements commonly used in apparel graphics, jersey numbering, vehicle/cab branding, decals, and custom signage.</li>
+                                    <li><strong>Linear Graphic</strong> — A straight wordmark. Set on a baseline, styled, swapped per team.</li>
+                                    <li><strong>Contour Graphic</strong> — Text that follows a path — an arc across a crown, a curve along a seam. The path stays; the team's word flows into it.</li>
+                                    <li><strong>Envelope Graphic</strong> — Text distorted into a shape. The envelope is the design decision; the wordmark inside it is the variable.</li>
+                                </ul>
+                                <div class="why-matters">
+                                    <span class="why-matters__label"><span class="material-symbols-outlined">lightbulb</span> Why it matters</span>
+                                    <p data-cms-key="deepdive.variables.4.why">Every team's name is a different length. A system that only swaps characters breaks the moment the word gets longer. These variables hold the construction, so the swap survives.</p>
+                                </div>
+                            </article>
+
+                            <!-- Treatments & Effects -->
+                            <article class="variable-card hover-lift">
+                                <div class="variable-card__head">
+                                    <div class="variable-card__icon"><span class="material-symbols-outlined">auto_fix_high</span></div>
+                                    <div class="variable-card__body">
+                                        <h3 class="ez-h4 mb-2" data-cms-key="deepdive.variables.5.title">Treatments &amp; Effects — The layer that runs across everything</h3>
+                                        <p class="ez-p2 text-on-surface-variant" data-cms-key="deepdive.variables.5.description">Apparel is not flat color. A region can carry a mask, several fills stacked on one object, several strokes, and a full stack of treatment on top:</p>
+                                    </div>
+                                </div>
+                                <ul class="variable-card__list">
+                                    <li><strong>Masks</strong> — Uploaded and applied to any region, sized against the content that lands in them. Upload any image and use it as a mask for your text or logo — then choose how the mask behaves: resize to fit, keep original size, or repeat as a tiled pattern.</li>
+                                    <li><strong>Multiple fills on one object</strong> — Build layered construction without shredding the object into pieces.</li>
+                                    <li><strong>Multiple strokes</strong> — Add and manage stacked outlines with independent control.</li>
+                                    <li><strong>Textures and pattern fills</strong> — Seamlessly integrate surface treatments into your design.</li>
+                                    <li><strong>Shadows, blur, and fade</strong> — Preserve depth, dimension, and softness across edits.</li>
+                                    <li><strong>Washed and distressed</strong> — Achieve authentic vintage and garment-worn finishes.</li>
+                                    <li><strong>Glitter and specialty</strong> — Apply premium effects that stay attached to each layer.</li>
+                                </ul>
+                                <p class="ez-p2 text-on-surface-variant mt-2">Effects target the layer you point them at — a specific fill, a specific stroke, or the whole object. Set up a masked, textured, distressed wordmark once, and every team's variant inherits the entire treatment — while each fill and stroke still resolves to that team's correct color.</p>
+                                <div class="why-matters">
+                                    <span class="why-matters__label"><span class="material-symbols-outlined">lightbulb</span> Why it matters</span>
+                                    <p data-cms-key="deepdive.variables.5.why">This is the line between a script that duplicates artwork and a tool that reproduces design.</p>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Craft That Scales -->
+                    <div id="deep-panel-2" class="deep-dive-panel" role="tabpanel" aria-labelledby="deep-tab-2" aria-hidden="true" hidden>
+                        <div class="craft-prose">
+                            <p data-cms-key="deepdive.craft.p1">Licensed apparel doesn't win on color alone; it wins on finish. The wash on a vintage tee, the stitch, the weathered edge of a heritage crest, and the way a texture sits inside a wordmark instead of behind it — these are the details that separate a real licensed program from a printed logo. They are also, until now, what made scale impossible, because every finish had to be rebuilt by hand, one team at a time.</p>
+                            <p data-cms-key="deepdive.craft.p2">EasyVariants changes the economics of craft. You author the finish once, on the hero, and it travels across the whole program exactly as you made it.</p>
+                            <p data-cms-key="deepdive.craft.p3">It starts with masking. Upload any image and it becomes a mask for a logo, a wordmark, or a fill. Then you make one decision about how it should behave. Fit it, and the mask locks to the exact bounds of whatever lands inside. Scale it, and it resizes as the content changes, covering a four-letter city as cleanly as a twelve-letter one. Tile it, and the mask repeats across the shape, so a pattern or print fills the letterform edge to edge at any size. One choice on the template, and every variant gets the right result.</p>
+                            <p data-cms-key="deepdive.craft.p4">Texture layers on top of that. Any surface a brand can picture — whether it's a canvas weave, a cracked vintage print, a woven twill, or a soft grain — can be applied to any region and carried as part of the design itself. It isn't pasted onto one team's artwork; it's built into the slot, so it reproduces with the same fidelity across the entire roster while every element still resolves to its own team color.</p>
+                            <p data-cms-key="deepdive.craft.p5">Change the font on the fly and every variant follows. Split a wordmark into parts — whether that's an established year set as 19 and 69 on either side of a crest, a two-letter city broken and placed apart, or a team name divided across the chest — and each fragment becomes its own placement with its own position, size, and treatment. The name stops being a fixed string; it becomes a system that reflows for every team, whatever the length and whatever the shape.</p>
+                            <p data-cms-key="deepdive.craft.p6">Then come the effects. Once the type is set, the mask applied, and the texture chosen, the full depth of the appearance stack is yours on any layer. A drop shadow for dimension. A grain for wear. A zig-zag for a torn edge, a blur for a fade, a warp for a contoured surface. Each effect targets exactly the layer you point it at, whether that's a single fill or the whole object, and it holds its place while the color underneath changes from one team to the next. Stack them, save the look, and the whole treatment travels together: mask, texture, type, and effect as one.</p>
+                            <p data-cms-key="deepdive.craft.p7">This is the difference between a tool that copies artwork and a platform that reproduces design. A designer sets the intent once — from the mask behavior to the texture, to the type system, to the finish — and EasyVariants carries that intent faithfully across the full breadth of a license. The craft stays in the designer's hands; the multiplication becomes the machine's.</p>
+                        </div>
+                        <div class="craft-tagline">
+                            <p data-cms-key="deepdive.craft.tagline">Build it once, at full craft. Ship it to the whole league!</p>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: How EasyVariants Works — Four Steps -->
+                    <div id="deep-panel-3" class="deep-dive-panel" role="tabpanel" aria-labelledby="deep-tab-3" aria-hidden="true" hidden>
+                        <p class="variable-intro mb-8" data-cms-key="deepdive.steps.intro">From hero artwork to a full league.</p>
+
+                        <div class="four-steps-grid">
+                            <article class="four-step-card">
+                                <span class="four-step-card__num">Step 01</span>
+                                <div class="four-step-card__icon"><span class="material-symbols-outlined">folder_open</span></div>
+                                <h3 class="ez-h4 mb-3" data-cms-key="deepdive.steps.0.title">Migrate the Logo Library</h3>
+                                <p class="ez-p2 text-on-surface-variant grow" data-cms-key="deepdive.steps.0.description">Team's logos live as an Illustrator file, organized by silhouette: a complete collection of team logos, wordmarks, and fashion logos; each carrying its precise dimensions, exact colors, thread specifications, and embroidery application techniques. EasyVariants migrates these into a local repository backed by a database — the single source of truth every variant is generated from.</p>
+                            </article>
+
+                            <article class="four-step-card">
+                                <span class="four-step-card__num">Step 02</span>
+                                <div class="four-step-card__icon"><span class="material-symbols-outlined">brush</span></div>
+                                <h3 class="ez-h4 mb-3" data-cms-key="deepdive.steps.1.title">Start From the Hero</h3>
+                                <p class="ez-p2 text-on-surface-variant grow" data-cms-key="deepdive.steps.1.description">A designer creates the sample artwork — the hero. One design, done properly, at full craft. This is the only artwork anyone draws manually.</p>
+                            </article>
+
+                            <article class="four-step-card four-step-card--wide">
+                                <span class="four-step-card__num">Step 03</span>
+                                <div class="four-step-card__icon"><span class="material-symbols-outlined">grid_view</span></div>
+                                <h3 class="ez-h4 mb-3" data-cms-key="deepdive.steps.2.title">Turn the Hero Into a Template</h3>
+                                <p class="ez-p2 text-on-surface-variant" data-cms-key="deepdive.steps.2.description">Go through the hero and mark every region that changes from one team to the next. Logo positions become Placement Zones. Recolorable panels become Color Blocks. Stitched areas become Embroidery Zones. Callouts become Dimensions and Text.</p>
+                                <p class="ez-p2 text-on-surface-variant mt-3">Marking a region lifts the team-specific content out of it and leaves a named, empty slot behind. Everything that doesn't change stays exactly as drawn — the silhouette, the construction, the placements, and the spec layout.</p>
+                                <p class="ez-p2 text-on-surface-variant mt-3">Apparel isn't flat color — a region can carry a texture or pattern fill, a mask, multiple fills stacked on one object, a stroke, and effects applied to any of them. All of that is part of the slot's setup, not something you rebuild per team. Mark a masked, textured wordmark once, and the treatment survives every swap.</p>
+                                <p class="ez-p2 text-on-surface-variant mt-3">What you're left with is a blank template — the hero artwork, with its team identity removed. Same design, no team. Just labelled slots, waiting to be filled.</p>
+                            </article>
+
+                            <article class="four-step-card four-step-card--wide">
+                                <span class="four-step-card__num">Step 04</span>
+                                <div class="four-step-card__icon"><span class="material-symbols-outlined">link</span></div>
+                                <h3 class="ez-h4 mb-3" data-cms-key="deepdive.steps.3.title">Link and Generate</h3>
+                                <p class="ez-p2 text-on-surface-variant">Now point each slot at a team attribute. Instead of "put this logo here," you say "put the team's primary logo here."</p>
+                                <ul>
+                                    <li>Front logo slot → the team's primary logo</li>
+                                    <li>Body or panel fill → the team's secondary color</li>
+                                    <li>Embroidery zone → the team's thread color and PMS code</li>
+                                </ul>
+                                <p class="ez-p2 text-on-surface-variant mt-3" data-cms-key="deepdive.steps.3.description">Do that once. The template stops describing one team's product and starts describing the rule for all of them. Run it, and the plugin fills every slot for every team in the program — seconds, not days!</p>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const tabs = document.querySelectorAll('.deep-dive-tab');
+                        const panels = document.querySelectorAll('.deep-dive-panel');
+
+                        const activateTab = (tabId) => {
+                            tabs.forEach((tab) => {
+                                const isActive = tab.dataset.deepTab === tabId;
+                                tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                                tab.tabIndex = isActive ? 0 : -1;
+                            });
+                            panels.forEach((panel) => {
+                                const isActive = panel.id === `deep-panel-${tabId}`;
+                                panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+                                panel.hidden = !isActive;
+                            });
+                        };
+
+                        tabs.forEach((tab) => {
+                            tab.addEventListener('click', () => activateTab(tab.dataset.deepTab));
+                            tab.addEventListener('keydown', (e) => {
+                                const idx = Array.from(tabs).indexOf(tab);
+                                let next = idx;
+                                if (e.key === 'ArrowRight') next = (idx + 1) % tabs.length;
+                                else if (e.key === 'ArrowLeft') next = (idx - 1 + tabs.length) % tabs.length;
+                                else if (e.key === 'Home') next = 0;
+                                else if (e.key === 'End') next = tabs.length - 1;
+                                else return;
+                                e.preventDefault();
+                                tabs[next].focus();
+                                activateTab(tabs[next].dataset.deepTab);
+                            });
+                        });
+                    });
+                </script>
+            </section>
+
             <!-- ═══════════════════════ DEMO VIDEOS ═══════════════════════ -->
             <section id="demos" class="demo-videos-section mb-0 reveal ez-section-spacing w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
@@ -2066,6 +2718,103 @@
                             <div id="light-slideshow" class="demo-showcase__stage" role="region" aria-label="Demo video player">
                                 <!-- Slides injected by JS -->
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════ WHERE IT FITS ═══════════════════════ -->
+            <div class="gradient-sep"></div>
+
+            <section id="where-it-fits" class="where-it-fits-section mb-0 reveal ez-section-spacing bg-[#f8f8f8] w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+                <div class="ez-page-shell">
+                    <div class="ez-section-header max-w-4xl">
+                        <span class="ez-section-eyebrow" data-cms-key="fits.eyebrow">Applications</span>
+                        <h2 class="ez-section-title" data-cms-key="fits.title">Where EasyVariants Fits</h2>
+                        <p class="ez-section-desc" data-cms-key="fits.description">EasyVariants was born in headwear, but the variable system doesn't care what the silhouette is. Anywhere a single approved design has to be reproduced across a roster of teams – with team logos, team colors, team-specific text and production-accurate embroidery – the same engine applies.</p>
+                    </div>
+
+                    <!-- By Product Type -->
+                    <div class="mt-12 md:mt-16">
+                        <h3 class="fit-subsection-title">By Product Type</h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+                            <article class="fit-product-card hover-lift">
+                                <div class="fit-product-card__icon">
+                                    <span class="material-symbols-outlined text-xl">checkroom</span>
+                                </div>
+                                <h4 class="ez-h4 mb-3" data-cms-key="fits.products.0.title">Headwear</h4>
+                                <p class="ez-p2 text-on-surface-variant" data-cms-key="fits.products.0.description">Where it started, and is still the densest test of the system. Fitted, snapback, trucker, and dad-cap silhouettes, each with front logo, side hit, back closure, and undervisor placements. Multiple embroidery zones per cap, precise thread and PMS callouts, and crown-panel recolors that all have to stay in register across a full team roster.</p>
+                            </article>
+
+                            <article class="fit-product-card hover-lift">
+                                <div class="fit-product-card__icon">
+                                    <span class="material-symbols-outlined text-xl">sports_soccer</span>
+                                </div>
+                                <h4 class="ez-h4 mb-3" data-cms-key="fits.products.1.title">Jerseys</h4>
+                                <p class="ez-p2 text-on-surface-variant" data-cms-key="fits.products.1.description">Chest crest, sleeve numbers, nameplate, and manufacturer marks – each its own placement, each resolving per team. Nameplate text splits and reflows for names of every length, and the twill and applique construction rides along as treatment on the fill.</p>
+                            </article>
+
+                            <article class="fit-product-card hover-lift">
+                                <div class="fit-product-card__icon">
+                                    <span class="material-symbols-outlined text-xl">styler</span>
+                                </div>
+                                <h4 class="ez-h4 mb-3" data-cms-key="fits.products.2.title">T-shirts &amp; Tees</h4>
+                                <p class="ez-p2 text-on-surface-variant" data-cms-key="fits.products.2.description">Front graphic, back print, sleeve hit, and left-chest logo. Screenprint and distressed-finish treatments – grain, wash, fade – carried as effects that reproduce identically on every team's version.</p>
+                            </article>
+
+                            <article class="fit-product-card hover-lift">
+                                <div class="fit-product-card__icon">
+                                    <span class="material-symbols-outlined text-xl">dry_cleaning</span>
+                                </div>
+                                <h4 class="ez-h4 mb-3" data-cms-key="fits.products.3.title">Polos &amp; Performance</h4>
+                                <p class="ez-p2 text-on-surface-variant" data-cms-key="fits.products.3.description">Clean, embroidery-first layouts. Left-chest logo, sleeve mark, and collar detail – the zone where thread color and PMS accuracy matter most, and where a stale swatch is most visible.</p>
+                            </article>
+
+                            <article class="fit-product-card hover-lift">
+                                <div class="fit-product-card__icon">
+                                    <span class="material-symbols-outlined text-xl">apparel</span>
+                                </div>
+                                <h4 class="ez-h4 mb-3" data-cms-key="fits.products.4.title">Jackets &amp; Outerwear</h4>
+                                <p class="ez-p2 text-on-surface-variant" data-cms-key="fits.products.4.description">Back panels, chest crests, sleeve wordmarks, and zip-placket detailing. Multiple large placements per piece, often mixing embroidery, applique, and print in a single garment – exactly the multi-treatment case the appearance stack is built for.</p>
+                            </article>
+
+                            <article class="fit-product-card hover-lift">
+                                <div class="fit-product-card__icon">
+                                    <span class="material-symbols-outlined text-xl">shopping_bag</span>
+                                </div>
+                                <h4 class="ez-h4 mb-3" data-cms-key="fits.products.5.title">Accessories</h4>
+                                <p class="ez-p2 text-on-surface-variant" data-cms-key="fits.products.5.description">Bags, beanies, scarves, and patches. Small formats where a single logo or wordmark carries the whole design, and where volume across a league still makes manual replication expensive.</p>
+                            </article>
+                        </div>
+                    </div>
+
+                    <!-- Use Cases -->
+                    <div class="mt-14 md:mt-20">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+                            <article class="fit-usecase-card hover-lift">
+                                <div class="fit-usecase-card__icon">
+                                    <span class="material-symbols-outlined text-xl">calendar_month</span>
+                                </div>
+                                <h4 class="ez-h4 mb-3" data-cms-key="fits.usecases.0.title">Seasonal Lines</h4>
+                                <p class="ez-p2" data-cms-key="fits.usecases.0.description">Product that changes regularly, where the cost of manual replication compounds with every new style.</p>
+                            </article>
+
+                            <article class="fit-usecase-card hover-lift">
+                                <div class="fit-usecase-card__icon">
+                                    <span class="material-symbols-outlined text-xl">autorenew</span>
+                                </div>
+                                <h4 class="ez-h4 mb-3" data-cms-key="fits.usecases.1.title">Evergreen Product</h4>
+                                <p class="ez-p2" data-cms-key="fits.usecases.1.description">The designs that relaunch season after season, where a template built once keeps paying out.</p>
+                            </article>
+
+                            <article class="fit-usecase-card hover-lift">
+                                <div class="fit-usecase-card__icon">
+                                    <span class="material-symbols-outlined text-xl">science</span>
+                                </div>
+                                <h4 class="ez-h4 mb-3" data-cms-key="fits.usecases.2.title">Prototypes &amp; Customs</h4>
+                                <p class="ez-p2" data-cms-key="fits.usecases.2.description">Even a simple, single-color piece needs a prototype before an order lands. EasyVariants makes it cheap enough to produce one.</p>
+                            </article>
                         </div>
                     </div>
                 </div>

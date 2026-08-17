@@ -197,6 +197,122 @@ export const CMS_SCHEMA = {
         'Generate Variants',
       ]),
     },
+    sectionHeader('deepdive', 'Platform Deep Dive', {
+      eyebrow: 'Platform',
+      title: 'The System Behind the Scale',
+      description: 'Explore variables, craft, and workflow — one topic at a time.',
+    }),
+    {
+      section: 'Platform Deep Dive · Tab labels',
+      fields: [
+        { key: 'deepdive.tabs.0.label', label: 'Tab 1 label', type: 'text', default: 'Building Blocks' },
+        { key: 'deepdive.tabs.0.sub', label: 'Tab 1 subtitle', type: 'text', default: 'The Variable System' },
+        { key: 'deepdive.tabs.1.label', label: 'Tab 2 label', type: 'text', default: 'Craft That Scales' },
+        { key: 'deepdive.tabs.2.label', label: 'Tab 3 label', type: 'text', default: 'Four Steps' },
+        { key: 'deepdive.tabs.2.sub', label: 'Tab 3 subtitle', type: 'text', default: 'How It Works' },
+      ],
+    },
+    {
+      section: 'Platform Deep Dive · Variable System intro',
+      fields: [
+        {
+          key: 'deepdive.variables.intro',
+          label: 'Variable system intro',
+          type: 'textarea',
+          default:
+            'Designers already think "the front logo goes here" and "the crown is the primary color." EasyVariants gives those existing concepts a home in the interface — rather than forcing a new abstraction on them. Variable types cover everything that changes from team to team; treatments such as effects run across all of them.',
+        },
+      ],
+    },
+    {
+      section: 'Platform Deep Dive · Variable cards',
+      fields: [
+        ...['Placement Zones', 'Color Blocks', 'Embroidery Zones', 'Dimensions', 'Text', 'Treatments & Effects'].flatMap(
+          (label, i) => [
+            { key: `deepdive.variables.${i}.title`, label: `${label} — title`, type: 'text' },
+            { key: `deepdive.variables.${i}.description`, label: `${label} — description`, type: 'textarea' },
+            { key: `deepdive.variables.${i}.why`, label: `${label} — why it matters`, type: 'textarea' },
+          ]
+        ),
+      ],
+    },
+    {
+      section: 'Platform Deep Dive · Craft That Scales',
+      fields: [
+        {
+          key: 'deepdive.craft.p1',
+          label: 'Paragraph 1',
+          type: 'textarea',
+          default:
+            "Licensed apparel doesn't win on color alone; it wins on finish. The wash on a vintage tee, the stitch, the weathered edge of a heritage crest, and the way a texture sits inside a wordmark instead of behind it — these are the details that separate a real licensed program from a printed logo. They are also, until now, what made scale impossible, because every finish had to be rebuilt by hand, one team at a time.",
+        },
+        {
+          key: 'deepdive.craft.p2',
+          label: 'Paragraph 2',
+          type: 'textarea',
+          default:
+            'EasyVariants changes the economics of craft. You author the finish once, on the hero, and it travels across the whole program exactly as you made it.',
+        },
+        {
+          key: 'deepdive.craft.p3',
+          label: 'Paragraph 3 (masking)',
+          type: 'textarea',
+          default:
+            'It starts with masking. Upload any image and it becomes a mask for a logo, a wordmark, or a fill. Then you make one decision about how it should behave. Fit it, and the mask locks to the exact bounds of whatever lands inside. Scale it, and it resizes as the content changes, covering a four-letter city as cleanly as a twelve-letter one. Tile it, and the mask repeats across the shape, so a pattern or print fills the letterform edge to edge at any size. One choice on the template, and every variant gets the right result.',
+        },
+        {
+          key: 'deepdive.craft.p4',
+          label: 'Paragraph 4 (texture)',
+          type: 'textarea',
+          default:
+            "Texture layers on top of that. Any surface a brand can picture — whether it's a canvas weave, a cracked vintage print, a woven twill, or a soft grain — can be applied to any region and carried as part of the design itself. It isn't pasted onto one team's artwork; it's built into the slot, so it reproduces with the same fidelity across the entire roster while every element still resolves to its own team color.",
+        },
+        {
+          key: 'deepdive.craft.p5',
+          label: 'Paragraph 5 (type)',
+          type: 'textarea',
+          default:
+            "Change the font on the fly and every variant follows. Split a wordmark into parts — whether that's an established year set as 19 and 69 on either side of a crest, a two-letter city broken and placed apart, or a team name divided across the chest — and each fragment becomes its own placement with its own position, size, and treatment. The name stops being a fixed string; it becomes a system that reflows for every team, whatever the length and whatever the shape.",
+        },
+        {
+          key: 'deepdive.craft.p6',
+          label: 'Paragraph 6 (effects)',
+          type: 'textarea',
+          default:
+            "Then come the effects. Once the type is set, the mask applied, and the texture chosen, the full depth of the appearance stack is yours on any layer. A drop shadow for dimension. A grain for wear. A zig-zag for a torn edge, a blur for a fade, a warp for a contoured surface. Each effect targets exactly the layer you point it at, whether that's a single fill or the whole object, and it holds its place while the color underneath changes from one team to the next. Stack them, save the look, and the whole treatment travels together: mask, texture, type, and effect as one.",
+        },
+        {
+          key: 'deepdive.craft.p7',
+          label: 'Paragraph 7 (closing)',
+          type: 'textarea',
+          default:
+            "This is the difference between a tool that copies artwork and a platform that reproduces design. A designer sets the intent once — from the mask behavior to the texture, to the type system, to the finish — and EasyVariants carries that intent faithfully across the full breadth of a license. The craft stays in the designer's hands; the multiplication becomes the machine's.",
+        },
+        {
+          key: 'deepdive.craft.tagline',
+          label: 'Tagline',
+          type: 'text',
+          default: 'Build it once, at full craft. Ship it to the whole league!',
+        },
+      ],
+    },
+    {
+      section: 'Platform Deep Dive · Four Steps',
+      fields: [
+        {
+          key: 'deepdive.steps.intro',
+          label: 'Steps intro',
+          type: 'text',
+          default: 'From hero artwork to a full league.',
+        },
+        ...cardFields('deepdive.steps', 4, [
+          'Migrate the Logo Library',
+          'Start From the Hero',
+          'Turn the Hero Into a Template',
+          'Link and Generate',
+        ]),
+      ],
+    },
     sectionHeader('demos', 'Demo Videos', {
       eyebrow: 'Seeing is Believing',
       title: 'Demo Videos',
@@ -225,6 +341,27 @@ export const CMS_SCHEMA = {
           ],
         },
       ],
+    },
+    sectionHeader('fits', 'Where It Fits', {
+      eyebrow: 'Applications',
+      title: 'Where EasyVariants Fits',
+      description:
+        "EasyVariants was born in headwear, but the variable system doesn't care what the silhouette is. Anywhere a single approved design has to be reproduced across a roster of teams – with team logos, team colors, team-specific text and production-accurate embroidery – the same engine applies.",
+    }),
+    {
+      section: 'Where It Fits · Product types',
+      fields: cardFields('fits.products', 6, [
+        'Headwear',
+        'Jerseys',
+        'T-shirts & Tees',
+        'Polos & Performance',
+        'Jackets & Outerwear',
+        'Accessories',
+      ]),
+    },
+    {
+      section: 'Where It Fits · Use cases',
+      fields: cardFields('fits.usecases', 3, ['Seasonal Lines', 'Evergreen Product', 'Prototypes & Customs']),
     },
     {
       section: 'Final CTA',
