@@ -1330,30 +1330,7 @@
             background: #0f0f0f;
         }
 
-        /* ═══ WORKFLOW SPLIT (LEFT / RIGHT) ═══ */
-        .workflow-split {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        @media (min-width: 1024px) {
-            .workflow-split {
-                grid-template-columns: 1fr 1fr;
-                gap: 0;
-                align-items: stretch;
-            }
-
-            .workflow-split__left {
-                padding-right: 2rem;
-                border-right: 1px solid rgba(199, 196, 216, 0.35);
-            }
-
-            .workflow-split__right {
-                padding-left: 2rem;
-            }
-        }
-
+        /* ═══ WORKFLOW PANEL + TIMELINE ═══ */
         .workflow-panel {
             display: flex;
             flex-direction: column;
@@ -1906,24 +1883,24 @@
 
         .craft-tagline {
             margin-top: 1.25rem;
-            padding: 1rem 1.25rem;
-            border-radius: 1rem;
-            background: linear-gradient(135deg, #3525cd 0%, #4f46e5 100%);
+            padding-top: 1rem;
+            border-top: 1px solid rgba(199, 196, 216, 0.35);
             text-align: center;
         }
 
         .craft-tagline p {
             margin: 0;
             font-family: Manrope, Inter, system-ui, sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            line-height: 1.4;
-            color: #ffffff;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            line-height: 1.55;
+            color: #646374;
+            letter-spacing: 0.01em;
         }
 
         @media (min-width: 640px) {
             .craft-tagline p {
-                font-size: 1.125rem;
+                font-size: 1rem;
             }
         }
 
@@ -2690,132 +2667,126 @@
             <section id="how-it-works"
                 class="workflow-steps-section ez-section-spacing mb-0 reveal bg-white shadow-sm w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
-                    <div class="ez-section-header max-w-4xl mb-10 md:mb-12">
+                    <div id="automate-five-steps">
+                    <div class="ez-section-header max-w-4xl">
                         <span class="ez-section-eyebrow" data-cms-key="workflow.eyebrow">Workflow</span>
-                        <h2 class="ez-section-title">Two Paths to Scale</h2>
-                        <p class="ez-section-desc">Operational automation on the left — hero-to-roster generation on the right.</p>
+                        <h2 class="ez-section-title" data-cms-key="workflow.title">Automate in 5 Steps</h2>
+                        <p class="ez-section-desc" data-cms-key="workflow.description">Streamlined workflow that turns raw inputs into hundreds of production-ready variants.</p>
                     </div>
 
-                    <div class="workflow-split">
-                        <!-- LEFT: Automate in 5 Steps -->
-                        <div class="workflow-split__left workflow-panel">
-                            <div class="workflow-panel__head">
-                                <span class="workflow-panel__eyebrow">Operations</span>
-                                <h3 class="workflow-panel__title" data-cms-key="workflow.title">Automate in 5 Steps</h3>
-                                <p class="workflow-panel__desc" data-cms-key="workflow.description">Streamlined workflow that turns raw inputs into hundreds of production-ready variants.</p>
+                    <!-- Progress Bar -->
+                    <div class="relative mb-8 md:mb-12 mx-0 md:mx-8 lg:mx-12 hidden md:block">
+                        <div class="h-1.5 bg-surface-container-highest/50 rounded-full" id="step-progress-container">
+                            <div class="absolute top-0 left-0 h-1.5 bg-gradient-to-r from-primary to-primary-container rounded-full transition-[width] duration-300 ease-out shadow-[0_0_12px_rgba(53,37,205,0.3)]"
+                                id="step-progress-fill" style="width: 0%;"></div>
+                        </div>
+                        <div class="workflow-progress-dots absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between pointer-events-none">
+                            <div class="w-3.5 h-3.5 rounded-full bg-white border-2 border-primary shadow-md step-dot" data-step="1"></div>
+                            <div class="w-3.5 h-3.5 rounded-full bg-white border-2 border-outline-variant/40 shadow-sm step-dot" data-step="2"></div>
+                            <div class="w-3.5 h-3.5 rounded-full bg-white border-2 border-outline-variant/40 shadow-sm step-dot" data-step="3"></div>
+                            <div class="w-3.5 h-3.5 rounded-full bg-white border-2 border-outline-variant/40 shadow-sm step-dot" data-step="4"></div>
+                            <div class="w-3.5 h-3.5 rounded-full bg-white border-2 border-outline-variant/40 shadow-sm step-dot" data-step="5"></div>
+                        </div>
+                    </div>
+
+                    <!-- Step Cards -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 relative z-10">
+                        <div id="step-card-1" class="step-card relative rounded-2xl p-6 flex flex-col border-2 border-transparent bg-surface-container-lowest transition-all duration-500 overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-transparent transition-all duration-500 step-top-bar"></div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                                    <span class="material-symbols-outlined text-xl text-primary">palette</span>
+                                </div>
+                                <span class="ez-h6 text-primary/60 tracking-widest">Step 1</span>
                             </div>
-
-                            <div class="workflow-timeline">
-                                <div id="step-card-1" class="workflow-timeline__item step-card">
-                                    <div class="workflow-timeline__icon"><span class="material-symbols-outlined">palette</span></div>
-                                    <div class="workflow-timeline__body">
-                                        <span class="workflow-timeline__step">Step 1</span>
-                                        <h4 class="workflow-timeline__title" data-cms-key="workflow.steps.0.title">Upload PLM Colorways</h4>
-                                        <p class="workflow-timeline__text" data-cms-key="workflow.steps.0.description">Bring in approved colorway data from your PLM and set the foundation for automated outputs.</p>
-                                    </div>
-                                </div>
-
-                                <div id="step-card-2" class="workflow-timeline__item step-card">
-                                    <div class="workflow-timeline__icon"><span class="material-symbols-outlined">upload_file</span></div>
-                                    <div class="workflow-timeline__body">
-                                        <span class="workflow-timeline__step">Step 2</span>
-                                        <h4 class="workflow-timeline__title" data-cms-key="workflow.steps.1.title">Load Ai Template</h4>
-                                        <p class="workflow-timeline__text" data-cms-key="workflow.steps.1.description">Load your Illustrator template so structure and artwork layers are ready for mapping.</p>
-                                    </div>
-                                </div>
-
-                                <div id="step-card-3" class="workflow-timeline__item step-card">
-                                    <div class="workflow-timeline__icon"><span class="material-symbols-outlined">data_object</span></div>
-                                    <div class="workflow-timeline__body">
-                                        <span class="workflow-timeline__step">Step 3</span>
-                                        <h4 class="workflow-timeline__title" data-cms-key="workflow.steps.2.title">Define Variables</h4>
-                                        <p class="workflow-timeline__text" data-cms-key="workflow.steps.2.description">Define variable inputs like colors, names, codes, and artwork references for each variant.</p>
-                                        <button type="button" class="step-card-more-btn" data-scroll-target="building-blocks">
-                                            More details
-                                            <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div id="step-card-4" class="workflow-timeline__item step-card">
-                                    <div class="workflow-timeline__icon"><span class="material-symbols-outlined">rule_settings</span></div>
-                                    <div class="workflow-timeline__body">
-                                        <span class="workflow-timeline__step">Step 4</span>
-                                        <h4 class="workflow-timeline__title" data-cms-key="workflow.steps.3.title">Map Elements</h4>
-                                        <p class="workflow-timeline__text" data-cms-key="workflow.steps.3.description">Map template elements to variable data so every layer updates accurately across outputs.</p>
-                                    </div>
-                                </div>
-
-                                <div id="step-card-5" class="workflow-timeline__item step-card">
-                                    <div class="workflow-timeline__icon"><span class="material-symbols-outlined">auto_awesome_motion</span></div>
-                                    <div class="workflow-timeline__body">
-                                        <span class="workflow-timeline__step">Step 5</span>
-                                        <h4 class="workflow-timeline__title" data-cms-key="workflow.steps.4.title">Generate Variants</h4>
-                                        <p class="workflow-timeline__text" data-cms-key="workflow.steps.4.description">Run generation to produce final, production-ready variants at scale in minutes.</p>
-                                    </div>
-                                </div>
-                            </div>
+                            <h3 class="ez-h4 mb-2" data-cms-key="workflow.steps.0.title">Upload PLM Colorways</h3>
+                            <p class="ez-p2 grow" data-cms-key="workflow.steps.0.description">Bring in approved colorway data from your PLM and set the foundation for automated outputs.</p>
                         </div>
 
-                        <!-- RIGHT: How EasyVariants Works -->
-                        <div class="workflow-split__right workflow-panel">
-                            <div class="workflow-panel__head">
-                                <span class="workflow-panel__eyebrow">How It Works</span>
-                                <h3 class="workflow-panel__title">How EasyVariants Works — Four Steps</h3>
-                                <p class="workflow-panel__desc" data-cms-key="deepdive.steps.intro">From hero artwork to a full league.</p>
+                        <div id="step-card-2" class="step-card relative rounded-2xl p-6 flex flex-col border-2 border-transparent bg-surface-container-lowest transition-all duration-500 overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-transparent transition-all duration-500 step-top-bar"></div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                                    <span class="material-symbols-outlined text-xl text-primary">upload_file</span>
+                                </div>
+                                <span class="ez-h6 text-primary/60 tracking-widest">Step 2</span>
                             </div>
-
-                            <div id="how-easyvariants-works" class="workflow-timeline">
-                                <div id="ev-step-card-1" class="workflow-timeline__item ev-step-card">
-                                    <div class="workflow-timeline__icon"><span class="material-symbols-outlined">folder_open</span></div>
-                                    <div class="workflow-timeline__body">
-                                        <span class="workflow-timeline__step">Step 1</span>
-                                        <h4 class="workflow-timeline__title" data-cms-key="deepdive.steps.0.title">Migrate the Logo Library</h4>
-                                        <p class="workflow-timeline__text" data-cms-key="deepdive.steps.0.description">Team's logos live as an Illustrator file, organized by silhouette: a complete collection of team logos, wordmarks, and fashion logos; each carrying its precise dimensions, exact colors, thread specifications, and embroidery application techniques. EasyVariants migrates these into a local repository backed by a database — the single source of truth every variant is generated from.</p>
-                                    </div>
-                                </div>
-
-                                <div id="ev-step-card-2" class="workflow-timeline__item ev-step-card">
-                                    <div class="workflow-timeline__icon"><span class="material-symbols-outlined">brush</span></div>
-                                    <div class="workflow-timeline__body">
-                                        <span class="workflow-timeline__step">Step 2</span>
-                                        <h4 class="workflow-timeline__title" data-cms-key="deepdive.steps.1.title">Start From the Hero</h4>
-                                        <p class="workflow-timeline__text" data-cms-key="deepdive.steps.1.description">A designer creates the sample artwork — the hero. One design, done properly, at full craft. This is the only artwork anyone draws manually.</p>
-                                    </div>
-                                </div>
-
-                                <div id="ev-step-card-3" class="workflow-timeline__item ev-step-card">
-                                    <div class="workflow-timeline__icon"><span class="material-symbols-outlined">grid_view</span></div>
-                                    <div class="workflow-timeline__body">
-                                        <span class="workflow-timeline__step">Step 3</span>
-                                        <h4 class="workflow-timeline__title" data-cms-key="deepdive.steps.2.title">Turn the Hero Into a Template</h4>
-                                        <p class="workflow-timeline__text" data-cms-key="deepdive.steps.2.description">Go through the hero and mark every region that changes from one team to the next. Logo positions become Placement Zones. Recolorable panels become Color Blocks. Stitched areas become Embroidery Zones. Callouts become Dimensions and Text.</p>
-                                        <p class="workflow-timeline__text">Marking a region lifts the team-specific content out of it and leaves a named, empty slot behind. Everything that doesn't change stays exactly as drawn — the silhouette, the construction, the placements, and the spec layout.</p>
-                                        <p class="workflow-timeline__text">Apparel isn't flat color — a region can carry a texture or pattern fill, a mask, multiple fills stacked on one object, a stroke, and effects applied to any of them. All of that is part of the slot's setup, not something you rebuild per team. Mark a masked, textured wordmark once, and the treatment survives every swap.</p>
-                                        <p class="workflow-timeline__text">What you're left with is a blank template, the hero artwork, with its team identity removed. Same design, no team. Just labelled slots, waiting to be filled.</p>
-                                    </div>
-                                </div>
-
-                                <div id="ev-step-card-4" class="workflow-timeline__item ev-step-card">
-                                    <div class="workflow-timeline__icon"><span class="material-symbols-outlined">link</span></div>
-                                    <div class="workflow-timeline__body">
-                                        <span class="workflow-timeline__step">Step 4</span>
-                                        <h4 class="workflow-timeline__title" data-cms-key="deepdive.steps.3.title">Link and Generate</h4>
-                                        <p class="workflow-timeline__text">Now point each slot at a team attribute. Instead of "put this logo here," you say "put the team's primary logo here."</p>
-                                        <ul class="var-detail-list">
-                                            <li>Front logo slot → the team's primary logo</li>
-                                            <li>Body or panel fill → the team's secondary color</li>
-                                            <li>Embroidery zone → the team's thread color and PMS code</li>
-                                        </ul>
-                                        <p class="workflow-timeline__text" data-cms-key="deepdive.steps.3.description">Do that once. The template stops describing one team's product and starts describing the rule for all of them. Run it, and the plugin fills every slot for every team in the program – Seconds, not days!</p>
-                                    </div>
-                                </div>
-                            </div>
+                            <h3 class="ez-h4 mb-2" data-cms-key="workflow.steps.1.title">Load Ai Template</h3>
+                            <p class="ez-p2 grow" data-cms-key="workflow.steps.1.description">Load your Illustrator template so structure and artwork layers are ready for mapping.</p>
                         </div>
+
+                        <div id="step-card-3" class="step-card relative rounded-2xl p-6 flex flex-col border-2 border-transparent bg-surface-container-lowest transition-all duration-500 overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-transparent transition-all duration-500 step-top-bar"></div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                                    <span class="material-symbols-outlined text-xl text-primary">data_object</span>
+                                </div>
+                                <span class="ez-h6 text-primary/60 tracking-widest">Step 3</span>
+                            </div>
+                            <h3 class="ez-h4 mb-2" data-cms-key="workflow.steps.2.title">Define Variables</h3>
+                            <p class="ez-p2 grow" data-cms-key="workflow.steps.2.description">Define variable inputs like colors, names, codes, and artwork references for each variant.</p>
+                            <button type="button" class="step-card-more-btn" data-scroll-target="building-blocks">
+                                More details
+                                <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                            </button>
+                        </div>
+
+                        <div id="step-card-4" class="step-card relative rounded-2xl p-6 flex flex-col border-2 border-transparent bg-surface-container-lowest transition-all duration-500 overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-transparent transition-all duration-500 step-top-bar"></div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                                    <span class="material-symbols-outlined text-xl text-primary">rule_settings</span>
+                                </div>
+                                <span class="ez-h6 text-primary/60 tracking-widest">Step 4</span>
+                            </div>
+                            <h3 class="ez-h4 mb-2" data-cms-key="workflow.steps.3.title">Map Elements</h3>
+                            <p class="ez-p2 grow" data-cms-key="workflow.steps.3.description">Map template elements to variable data so every layer updates accurately across outputs.</p>
+                        </div>
+
+                        <div id="step-card-5" class="step-card relative rounded-2xl p-6 flex flex-col border-2 border-transparent bg-surface-container-lowest transition-all duration-500 overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-transparent transition-all duration-500 step-top-bar"></div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                                    <span class="material-symbols-outlined text-xl text-primary">auto_awesome_motion</span>
+                                </div>
+                                <span class="ez-h6 text-primary/60 tracking-widest">Step 5</span>
+                            </div>
+                            <h3 class="ez-h4 mb-2" data-cms-key="workflow.steps.4.title">Generate Variants</h3>
+                            <p class="ez-p2 grow" data-cms-key="workflow.steps.4.description">Run generation to produce final, production-ready variants at scale in minutes.</p>
+                        </div>
+                    </div>
                     </div>
                 </div>
 
                 <style>
+                    .step-card.step-active {
+                        border-color: rgba(53, 37, 205, 0.2);
+                        background: white;
+                        box-shadow: 0 8px 32px rgba(53, 37, 205, 0.08), 0 2px 8px rgba(0,0,0,0.04);
+                        transform: translateY(-6px) scale(1.03);
+                    }
+                    .step-card.step-active .step-top-bar {
+                        background: linear-gradient(90deg, #3525cd, #4f46e5) !important;
+                    }
+                    .step-card.step-done {
+                        background: white;
+                        border-color: rgba(53, 37, 205, 0.08);
+                    }
+                    .step-card.step-done .step-top-bar {
+                        background: rgba(53, 37, 205, 0.15) !important;
+                    }
+                    .step-dot.dot-active {
+                        border-color: #3525cd !important;
+                        background: #3525cd !important;
+                        box-shadow: 0 0 0 4px rgba(53, 37, 205, 0.15), 0 2px 8px rgba(53, 37, 205, 0.3) !important;
+                        transform: scale(1.3);
+                        transition: all 0.3s ease;
+                    }
+                    .step-dot.dot-done {
+                        border-color: #3525cd !important;
+                        background: #3525cd !important;
+                        transition: all 0.3s ease;
+                    }
                     .step-card-more-btn {
                         display: inline-flex;
                         align-items: center;
@@ -2839,74 +2810,93 @@
                         gap: 0.5rem;
                         opacity: 0.85;
                     }
+                    .step-detail-panel .var-detail-list {
+                        margin: 0.75rem 0;
+                    }
                 </style>
 
+                <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const container = document.getElementById('automate-five-steps');
+                        const fillLine = document.getElementById('step-progress-fill');
+                        const stepCards = [
+                            document.getElementById('step-card-1'),
+                            document.getElementById('step-card-2'),
+                            document.getElementById('step-card-3'),
+                            document.getElementById('step-card-4'),
+                            document.getElementById('step-card-5')
+                        ];
+                        const stepDots = container ? container.querySelectorAll('.step-dot') : [];
+
+                        if (!container || !fillLine || !stepCards.length) return;
+
+                        let ticking = false;
+
+                        const updateWorkflowProgress = () => {
+                            const rect = container.getBoundingClientRect();
+                            const vh = window.innerHeight;
+                            const h = Math.max(rect.height, 1);
+
+                            const scrolled = vh * 0.48 - rect.top;
+                            const denom = h * 0.72 + vh * 0.15;
+                            let progress = scrolled / denom;
+                            progress = Math.max(0, Math.min(1, progress));
+
+                            fillLine.style.width = `${progress * 100}%`;
+
+                            const n = stepCards.length;
+                            let activeIndex = -1;
+
+                            for (let i = n - 1; i >= 0; i--) {
+                                const threshold = (i + 0.5) / n;
+                                if (progress >= threshold * 0.85) {
+                                    activeIndex = i;
+                                    break;
+                                }
+                            }
+
+                            stepCards.forEach((card, i) => {
+                                if (!card) return;
+                                card.classList.remove('step-active', 'step-done');
+                                if (i === activeIndex) {
+                                    card.classList.add('step-active');
+                                } else if (i < activeIndex) {
+                                    card.classList.add('step-done');
+                                }
+                            });
+
+                            stepDots.forEach((dot, i) => {
+                                dot.classList.remove('dot-active', 'dot-done');
+                                if (i === activeIndex) {
+                                    dot.classList.add('dot-active');
+                                } else if (i < activeIndex) {
+                                    dot.classList.add('dot-done');
+                                }
+                            });
+                        };
+
+                        const onScroll = () => {
+                            if (ticking) return;
+                            ticking = true;
+                            window.requestAnimationFrame(() => {
+                                updateWorkflowProgress();
+                                ticking = false;
+                            });
+                        };
+
+                        window.addEventListener('scroll', onScroll, { passive: true });
+                        window.addEventListener('resize', onScroll, { passive: true });
+                        updateWorkflowProgress();
+                    });
+                </script>
+
             </section>
 
-            <!-- ═══════════════════════ CRAFT THAT SCALES ═══════════════════════ -->
-            <div class="gradient-sep"></div>
-
-            <section id="craft-that-scales"
-                class="mb-0 reveal ez-section-spacing bg-[#f8f8f8] w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
-                <div class="ez-page-shell">
-                    <div class="ez-section-header max-w-4xl">
-                        <span class="ez-section-eyebrow">Platform</span>
-                        <h2 class="ez-section-title">Craft That Scales</h2>
-                    </div>
-
-                    <div class="deep-dive-shell">
-                        <div class="deep-dive-body">
-                            <div class="var-explorer">
-                                <nav class="var-nav" role="tablist" aria-label="Craft topics">
-                                    <button type="button" class="var-nav__btn" role="tab" data-craft="0" aria-selected="true" aria-controls="craft-panel-0"><span class="material-symbols-outlined">info</span>Overview</button>
-                                    <button type="button" class="var-nav__btn" role="tab" data-craft="1" aria-selected="false" aria-controls="craft-panel-1" tabindex="-1"><span class="material-symbols-outlined">texture</span>Masking</button>
-                                    <button type="button" class="var-nav__btn" role="tab" data-craft="2" aria-selected="false" aria-controls="craft-panel-2" tabindex="-1"><span class="material-symbols-outlined">grid_on</span>Texture</button>
-                                    <button type="button" class="var-nav__btn" role="tab" data-craft="3" aria-selected="false" aria-controls="craft-panel-3" tabindex="-1"><span class="material-symbols-outlined">format_letter_spacing</span>Type System</button>
-                                    <button type="button" class="var-nav__btn" role="tab" data-craft="4" aria-selected="false" aria-controls="craft-panel-4" tabindex="-1"><span class="material-symbols-outlined">blur_on</span>Effects</button>
-                                    <button type="button" class="var-nav__btn" role="tab" data-craft="5" aria-selected="false" aria-controls="craft-panel-5" tabindex="-1"><span class="material-symbols-outlined">verified</span>Summary</button>
-                                </nav>
-
-                                <div class="var-detail">
-                                    <div id="craft-panel-0" class="var-detail-panel" role="tabpanel" aria-hidden="false">
-                                        <h3>Craft That Scales</h3>
-                                        <p data-cms-key="deepdive.craft.p1">Licensed apparel doesn't win on color alone; it wins on finish. The wash on a vintage tee, the stitch, the weathered edge of a heritage crest, and the way a texture sits inside a wordmark instead of behind it; these are the details that separate a real licensed program from a printed logo. They are also, until now, what made scale impossible, because every finish had to be rebuilt by hand, one team at a time.</p>
-                                        <p data-cms-key="deepdive.craft.p2">EasyVariants changes the economics of craft. You author the finish once, on the hero, and it travels across the whole program exactly as you made it.</p>
-                                    </div>
-                                    <div id="craft-panel-1" class="var-detail-panel" role="tabpanel" aria-hidden="true" hidden>
-                                        <h3>Masking</h3>
-                                        <p data-cms-key="deepdive.craft.p3">It starts with masking. Upload any image and it becomes a mask for a logo, a wordmark, or a fill. Then you make one decision about how it should behave. Fit it, and the mask locks to the exact bounds of whatever lands inside. Scale it, and it resizes as the content changes, covering a four-letter city as cleanly as a twelve-letter one. Tile it, and the mask repeats across the shape, so a pattern or print fills the letterform edge to edge at any size. One choice on the template, and every variant gets the right result.</p>
-                                    </div>
-                                    <div id="craft-panel-2" class="var-detail-panel" role="tabpanel" aria-hidden="true" hidden>
-                                        <h3>Texture</h3>
-                                        <p data-cms-key="deepdive.craft.p4">Texture layers on top of that. Any surface a brand can picture, whether it's a canvas weave, a cracked vintage print, a woven twill, or a soft grain, can be applied to any region and carried as part of the design itself. It isn't pasted onto one team's artwork; it's built into the slot, so it reproduces with the same fidelity across the entire roster while every element still resolves to its own team color.</p>
-                                    </div>
-                                    <div id="craft-panel-3" class="var-detail-panel" role="tabpanel" aria-hidden="true" hidden>
-                                        <h3>Type System</h3>
-                                        <p data-cms-key="deepdive.craft.p5">Change the font on the fly and every variant follows. Split a wordmark into parts, whether that's an established year set as 19 and 69 on either side of a crest, a two-letter city broken and placed apart, or a team name divided across the chest, and each fragment becomes its own placement with its own position, size, and treatment. The name stops being a fixed string; it becomes a system that reflows for every team, whatever the length and whatever the shape.</p>
-                                    </div>
-                                    <div id="craft-panel-4" class="var-detail-panel" role="tabpanel" aria-hidden="true" hidden>
-                                        <h3>Effects Stack</h3>
-                                        <p data-cms-key="deepdive.craft.p6">Then come the effects. Once the type is set, the mask applied, and the texture chosen, the full depth of the appearance stack is yours on any layer. A drop shadow for dimension. A grain for wear. A zig-zag for a torn edge, a blur for a fade, a warp for a contoured surface. Each effect targets exactly the layer you point it at, whether that's a single fill or the whole object, and it holds its place while the color underneath changes from one team to the next. Stack them, save the look, and the whole treatment travels together: mask, texture, type, and effect as one.</p>
-                                    </div>
-                                    <div id="craft-panel-5" class="var-detail-panel" role="tabpanel" aria-hidden="true" hidden>
-                                        <h3>The Platform Difference</h3>
-                                        <p data-cms-key="deepdive.craft.p7">This is the difference between a tool that copies artwork and a platform that reproduces design. A designer sets the intent once, from the mask behavior to the texture, to the type system, to the finish, and EasyVariants carries that intent faithfully across the full breadth of a license. The craft stays in the designer's hands; the multiplication becomes the machine's.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="craft-tagline">
-                                <p data-cms-key="deepdive.craft.tagline">Build it once, at full craft. Ship it to the whole league!</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ═══════════════════════ BUILDING BLOCKS — VARIABLE SYSTEM ═══════════════════════ -->
+            <!-- ═══════════════════════ DEFINE VARIABLES — BUILDING BLOCKS ═══════════════════════ -->
             <div class="gradient-sep"></div>
 
             <section id="building-blocks"
-                class="mb-0 reveal ez-section-spacing bg-white shadow-sm w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+                class="mb-0 reveal ez-section-spacing bg-[#f8f8f8] w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
                 <div class="ez-page-shell">
                     <div class="ez-section-header max-w-4xl">
                         <span class="ez-section-eyebrow">Platform</span>
@@ -3002,6 +2992,134 @@
                 </div>
             </section>
 
+            <!-- ═══════════════════════ HOW EASYVARIANTS WORKS ═══════════════════════ -->
+            <div class="gradient-sep"></div>
+
+            <section id="how-easyvariants-works"
+                class="mb-0 reveal ez-section-spacing bg-white shadow-sm w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+                <div class="ez-page-shell">
+                    <div class="ez-section-header max-w-4xl mb-8 md:mb-10">
+                        <span class="ez-section-eyebrow">How It Works</span>
+                        <h2 class="ez-section-title">How EasyVariants Works — Four Steps</h2>
+                        <p class="ez-section-desc" data-cms-key="deepdive.steps.intro">From hero artwork to a full league.</p>
+                    </div>
+
+                    <div class="deep-dive-shell">
+                        <div class="deep-dive-body">
+                            <div class="steps-picker" role="tablist" aria-label="How EasyVariants works">
+                                <button type="button" class="steps-picker__btn" role="tab" data-evstep="0" aria-selected="true" aria-controls="ev-step-panel-0">
+                                    <span class="steps-picker__num">01</span>
+                                    <span class="steps-picker__icon"><span class="material-symbols-outlined">folder_open</span></span>
+                                    <span class="steps-picker__label">Logo Library</span>
+                                </button>
+                                <button type="button" class="steps-picker__btn" role="tab" data-evstep="1" aria-selected="false" aria-controls="ev-step-panel-1" tabindex="-1">
+                                    <span class="steps-picker__num">02</span>
+                                    <span class="steps-picker__icon"><span class="material-symbols-outlined">brush</span></span>
+                                    <span class="steps-picker__label">The Hero</span>
+                                </button>
+                                <button type="button" class="steps-picker__btn" role="tab" data-evstep="2" aria-selected="false" aria-controls="ev-step-panel-2" tabindex="-1">
+                                    <span class="steps-picker__num">03</span>
+                                    <span class="steps-picker__icon"><span class="material-symbols-outlined">grid_view</span></span>
+                                    <span class="steps-picker__label">Template</span>
+                                </button>
+                                <button type="button" class="steps-picker__btn" role="tab" data-evstep="3" aria-selected="false" aria-controls="ev-step-panel-3" tabindex="-1">
+                                    <span class="steps-picker__num">04</span>
+                                    <span class="steps-picker__icon"><span class="material-symbols-outlined">link</span></span>
+                                    <span class="steps-picker__label">Generate</span>
+                                </button>
+                            </div>
+
+                            <div class="step-detail">
+                                <div id="ev-step-panel-0" class="step-detail-panel" role="tabpanel" aria-hidden="false">
+                                    <h3 data-cms-key="deepdive.steps.0.title">Migrate the Logo Library</h3>
+                                    <p data-cms-key="deepdive.steps.0.description">Team's logos live as an Illustrator file, organized by silhouette: a complete collection of team logos, wordmarks, and fashion logos; each carrying its precise dimensions, exact colors, thread specifications, and embroidery application techniques. EasyVariants migrates these into a local repository backed by a database — the single source of truth every variant is generated from.</p>
+                                </div>
+                                <div id="ev-step-panel-1" class="step-detail-panel" role="tabpanel" aria-hidden="true" hidden>
+                                    <h3 data-cms-key="deepdive.steps.1.title">Start From the Hero</h3>
+                                    <p data-cms-key="deepdive.steps.1.description">A designer creates the sample artwork — the hero. One design, done properly, at full craft. This is the only artwork anyone draws manually.</p>
+                                </div>
+                                <div id="ev-step-panel-2" class="step-detail-panel" role="tabpanel" aria-hidden="true" hidden>
+                                    <h3 data-cms-key="deepdive.steps.2.title">Turn the Hero Into a Template</h3>
+                                    <p data-cms-key="deepdive.steps.2.description">Go through the hero and mark every region that changes from one team to the next. Logo positions become Placement Zones. Recolorable panels become Color Blocks. Stitched areas become Embroidery Zones. Callouts become Dimensions and Text.</p>
+                                    <p>Marking a region lifts the team-specific content out of it and leaves a named, empty slot behind. Everything that doesn't change stays exactly as drawn — the silhouette, the construction, the placements, and the spec layout.</p>
+                                    <p>Apparel isn't flat color — a region can carry a texture or pattern fill, a mask, multiple fills stacked on one object, a stroke, and effects applied to any of them. All of that is part of the slot's setup, not something you rebuild per team. Mark a masked, textured wordmark once, and the treatment survives every swap.</p>
+                                    <p>What you're left with is a blank template, the hero artwork, with its team identity removed. Same design, no team. Just labelled slots, waiting to be filled.</p>
+                                </div>
+                                <div id="ev-step-panel-3" class="step-detail-panel" role="tabpanel" aria-hidden="true" hidden>
+                                    <h3 data-cms-key="deepdive.steps.3.title">Link and Generate</h3>
+                                    <p>Now point each slot at a team attribute. Instead of "put this logo here," you say "put the team's primary logo here."</p>
+                                    <ul class="var-detail-list">
+                                        <li>Front logo slot → the team's primary logo</li>
+                                        <li>Body or panel fill → the team's secondary color</li>
+                                        <li>Embroidery zone → the team's thread color and PMS code</li>
+                                    </ul>
+                                    <p data-cms-key="deepdive.steps.3.description">Do that once. The template stops describing one team's product and starts describing the rule for all of them. Run it, and the plugin fills every slot for every team in the program – Seconds, not days!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════ CRAFT THAT SCALES ═══════════════════════ -->
+            <div class="gradient-sep"></div>
+
+            <section id="craft-that-scales"
+                class="mb-0 reveal ez-section-spacing bg-[#f8f8f8] w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+                <div class="ez-page-shell">
+                    <div class="ez-section-header max-w-4xl">
+                        <span class="ez-section-eyebrow">Platform</span>
+                        <h2 class="ez-section-title">Craft That Scales</h2>
+                    </div>
+
+                    <div class="deep-dive-shell">
+                        <div class="deep-dive-body">
+                            <div class="var-explorer">
+                                <nav class="var-nav" role="tablist" aria-label="Craft topics">
+                                    <button type="button" class="var-nav__btn" role="tab" data-craft="0" aria-selected="true" aria-controls="craft-panel-0"><span class="material-symbols-outlined">info</span>Overview</button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-craft="1" aria-selected="false" aria-controls="craft-panel-1" tabindex="-1"><span class="material-symbols-outlined">texture</span>Masking</button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-craft="2" aria-selected="false" aria-controls="craft-panel-2" tabindex="-1"><span class="material-symbols-outlined">grid_on</span>Texture</button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-craft="3" aria-selected="false" aria-controls="craft-panel-3" tabindex="-1"><span class="material-symbols-outlined">format_letter_spacing</span>Type System</button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-craft="4" aria-selected="false" aria-controls="craft-panel-4" tabindex="-1"><span class="material-symbols-outlined">blur_on</span>Effects</button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-craft="5" aria-selected="false" aria-controls="craft-panel-5" tabindex="-1"><span class="material-symbols-outlined">verified</span>Summary</button>
+                                </nav>
+
+                                <div class="var-detail">
+                                    <div id="craft-panel-0" class="var-detail-panel" role="tabpanel" aria-hidden="false">
+                                        <h3>Craft That Scales</h3>
+                                        <p data-cms-key="deepdive.craft.p1">Licensed apparel doesn't win on color alone; it wins on finish. The wash on a vintage tee, the stitch, the weathered edge of a heritage crest, and the way a texture sits inside a wordmark instead of behind it; these are the details that separate a real licensed program from a printed logo. They are also, until now, what made scale impossible, because every finish had to be rebuilt by hand, one team at a time.</p>
+                                        <p data-cms-key="deepdive.craft.p2">EasyVariants changes the economics of craft. You author the finish once, on the hero, and it travels across the whole program exactly as you made it.</p>
+                                    </div>
+                                    <div id="craft-panel-1" class="var-detail-panel" role="tabpanel" aria-hidden="true" hidden>
+                                        <h3>Masking</h3>
+                                        <p data-cms-key="deepdive.craft.p3">It starts with masking. Upload any image and it becomes a mask for a logo, a wordmark, or a fill. Then you make one decision about how it should behave. Fit it, and the mask locks to the exact bounds of whatever lands inside. Scale it, and it resizes as the content changes, covering a four-letter city as cleanly as a twelve-letter one. Tile it, and the mask repeats across the shape, so a pattern or print fills the letterform edge to edge at any size. One choice on the template, and every variant gets the right result.</p>
+                                    </div>
+                                    <div id="craft-panel-2" class="var-detail-panel" role="tabpanel" aria-hidden="true" hidden>
+                                        <h3>Texture</h3>
+                                        <p data-cms-key="deepdive.craft.p4">Texture layers on top of that. Any surface a brand can picture, whether it's a canvas weave, a cracked vintage print, a woven twill, or a soft grain, can be applied to any region and carried as part of the design itself. It isn't pasted onto one team's artwork; it's built into the slot, so it reproduces with the same fidelity across the entire roster while every element still resolves to its own team color.</p>
+                                    </div>
+                                    <div id="craft-panel-3" class="var-detail-panel" role="tabpanel" aria-hidden="true" hidden>
+                                        <h3>Type System</h3>
+                                        <p data-cms-key="deepdive.craft.p5">Change the font on the fly and every variant follows. Split a wordmark into parts, whether that's an established year set as 19 and 69 on either side of a crest, a two-letter city broken and placed apart, or a team name divided across the chest, and each fragment becomes its own placement with its own position, size, and treatment. The name stops being a fixed string; it becomes a system that reflows for every team, whatever the length and whatever the shape.</p>
+                                    </div>
+                                    <div id="craft-panel-4" class="var-detail-panel" role="tabpanel" aria-hidden="true" hidden>
+                                        <h3>Effects Stack</h3>
+                                        <p data-cms-key="deepdive.craft.p6">Then come the effects. Once the type is set, the mask applied, and the texture chosen, the full depth of the appearance stack is yours on any layer. A drop shadow for dimension. A grain for wear. A zig-zag for a torn edge, a blur for a fade, a warp for a contoured surface. Each effect targets exactly the layer you point it at, whether that's a single fill or the whole object, and it holds its place while the color underneath changes from one team to the next. Stack them, save the look, and the whole treatment travels together: mask, texture, type, and effect as one.</p>
+                                    </div>
+                                    <div id="craft-panel-5" class="var-detail-panel" role="tabpanel" aria-hidden="true" hidden>
+                                        <h3>The Platform Difference</h3>
+                                        <p data-cms-key="deepdive.craft.p7">This is the difference between a tool that copies artwork and a platform that reproduces design. A designer sets the intent once, from the mask behavior to the texture, to the type system, to the finish, and EasyVariants carries that intent faithfully across the full breadth of a license. The craft stays in the designer's hands; the multiplication becomes the machine's.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="craft-tagline">
+                                <p data-cms-key="deepdive.craft.tagline">Build it once, at full craft. Ship it to the whole league!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <script>
                 document.addEventListener('DOMContentLoaded', () => {
                     const activateGroup = (buttons, panels, activeId, idPrefix, attr) => {
@@ -3030,6 +3148,7 @@
 
                     bindPicker('#craft-that-scales', '[data-craft]', '.var-detail-panel', 'craft', 'craft-panel-');
                     bindPicker('#building-blocks', '[data-var]', '.var-detail-panel', 'var', 'var-panel-');
+                    bindPicker('#how-easyvariants-works', '[data-evstep]', '.step-detail-panel', 'evstep', 'ev-step-panel-');
 
                     document.querySelectorAll('[data-scroll-target]').forEach((btn) => {
                         btn.addEventListener('click', () => {
