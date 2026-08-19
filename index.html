@@ -1881,6 +1881,21 @@
             color: #464555;
         }
 
+        #craft-that-scales .var-explorer {
+            min-height: auto;
+        }
+
+        #craft-that-scales .var-detail {
+            min-height: auto;
+            max-height: none;
+        }
+
+        @media (min-width: 768px) {
+            #craft-that-scales .var-nav {
+                max-height: none;
+            }
+        }
+
         .craft-tagline {
             margin-top: 1.25rem;
             padding-top: 1rem;
@@ -1907,12 +1922,18 @@
         /* Tab 3: Step picker */
         .steps-picker {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.5rem;
+            grid-template-columns: 1fr;
+            gap: 0.625rem;
             margin-bottom: 1.25rem;
         }
 
         @media (min-width: 640px) {
+            .steps-picker {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
             .steps-picker {
                 grid-template-columns: repeat(4, 1fr);
             }
@@ -1920,47 +1941,38 @@
 
         .steps-picker__btn {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
-            gap: 0.4rem;
-            padding: 0.85rem 0.5rem;
+            gap: 0.85rem;
+            padding: 0.95rem 1rem;
             border-radius: 1rem;
             border: 1px solid rgba(199, 196, 216, 0.25);
             background: rgba(248, 248, 252, 0.7);
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
             font-family: inherit;
-            text-align: center;
+            text-align: left;
+            min-height: 4.5rem;
         }
 
         .steps-picker__btn:hover {
             border-color: rgba(53, 37, 205, 0.2);
             background: #ffffff;
+            box-shadow: 0 4px 14px rgba(53, 37, 205, 0.06);
         }
 
         .steps-picker__btn[aria-selected="true"] {
             background: #3525cd;
             border-color: #3525cd;
             color: #ffffff;
-            box-shadow: 0 4px 16px rgba(53, 37, 205, 0.22);
-        }
-
-        .steps-picker__num {
-            font-size: 0.625rem;
-            font-weight: 800;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            opacity: 0.7;
-        }
-
-        .steps-picker__btn[aria-selected="true"] .steps-picker__num {
-            opacity: 0.85;
+            box-shadow: 0 6px 20px rgba(53, 37, 205, 0.24);
         }
 
         .steps-picker__icon {
-            width: 2rem;
-            height: 2rem;
-            border-radius: 0.5rem;
+            flex-shrink: 0;
+            width: 2.75rem;
+            height: 2.75rem;
+            border-radius: 0.75rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1969,19 +1981,43 @@
         }
 
         .steps-picker__btn[aria-selected="true"] .steps-picker__icon {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.18);
             color: #ffffff;
         }
 
         .steps-picker__icon .material-symbols-outlined {
-            font-size: 1.125rem;
+            font-size: 1.35rem;
+        }
+
+        .steps-picker__text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            min-width: 0;
+        }
+
+        .steps-picker__num {
+            font-size: 0.625rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(53, 37, 205, 0.65);
+            line-height: 1;
+        }
+
+        .steps-picker__btn[aria-selected="true"] .steps-picker__num {
+            color: rgba(255, 255, 255, 0.75);
         }
 
         .steps-picker__label {
-            font-size: 0.75rem;
+            font-size: 0.875rem;
             font-weight: 700;
             line-height: 1.25;
-            color: inherit;
+            color: #1a1c1d;
+        }
+
+        .steps-picker__btn[aria-selected="true"] .steps-picker__label {
+            color: #ffffff;
         }
 
         .step-detail {
@@ -3008,24 +3044,32 @@
                         <div class="deep-dive-body">
                             <div class="steps-picker" role="tablist" aria-label="How EasyVariants works">
                                 <button type="button" class="steps-picker__btn" role="tab" data-evstep="0" aria-selected="true" aria-controls="ev-step-panel-0">
-                                    <span class="steps-picker__num">01</span>
                                     <span class="steps-picker__icon"><span class="material-symbols-outlined">folder_open</span></span>
-                                    <span class="steps-picker__label">Logo Library</span>
+                                    <span class="steps-picker__text">
+                                        <span class="steps-picker__num">Step 01</span>
+                                        <span class="steps-picker__label">Logo Library</span>
+                                    </span>
                                 </button>
                                 <button type="button" class="steps-picker__btn" role="tab" data-evstep="1" aria-selected="false" aria-controls="ev-step-panel-1" tabindex="-1">
-                                    <span class="steps-picker__num">02</span>
                                     <span class="steps-picker__icon"><span class="material-symbols-outlined">brush</span></span>
-                                    <span class="steps-picker__label">The Hero</span>
+                                    <span class="steps-picker__text">
+                                        <span class="steps-picker__num">Step 02</span>
+                                        <span class="steps-picker__label">The Hero</span>
+                                    </span>
                                 </button>
                                 <button type="button" class="steps-picker__btn" role="tab" data-evstep="2" aria-selected="false" aria-controls="ev-step-panel-2" tabindex="-1">
-                                    <span class="steps-picker__num">03</span>
                                     <span class="steps-picker__icon"><span class="material-symbols-outlined">grid_view</span></span>
-                                    <span class="steps-picker__label">Template</span>
+                                    <span class="steps-picker__text">
+                                        <span class="steps-picker__num">Step 03</span>
+                                        <span class="steps-picker__label">Template</span>
+                                    </span>
                                 </button>
                                 <button type="button" class="steps-picker__btn" role="tab" data-evstep="3" aria-selected="false" aria-controls="ev-step-panel-3" tabindex="-1">
-                                    <span class="steps-picker__num">04</span>
                                     <span class="steps-picker__icon"><span class="material-symbols-outlined">link</span></span>
-                                    <span class="steps-picker__label">Generate</span>
+                                    <span class="steps-picker__text">
+                                        <span class="steps-picker__num">Step 04</span>
+                                        <span class="steps-picker__label">Generate</span>
+                                    </span>
                                 </button>
                             </div>
 
@@ -3070,43 +3114,39 @@
                     <div class="ez-section-header max-w-4xl">
                         <span class="ez-section-eyebrow">Platform</span>
                         <h2 class="ez-section-title">Craft That Scales</h2>
+                        <p class="deep-dive-lead" data-cms-key="deepdive.craft.p1">Licensed apparel doesn't win on color alone; it wins on finish. The wash on a vintage tee, the stitch, the weathered edge of a heritage crest, and the way a texture sits inside a wordmark instead of behind it; these are the details that separate a real licensed program from a printed logo. They are also, until now, what made scale impossible, because every finish had to be rebuilt by hand, one team at a time.</p>
+                        <p class="deep-dive-lead mb-0" data-cms-key="deepdive.craft.p2">EasyVariants changes the economics of craft. You author the finish once, on the hero, and it travels across the whole program exactly as you made it.</p>
                     </div>
 
-                    <div class="deep-dive-shell">
+                    <div class="deep-dive-shell mt-8 md:mt-10">
                         <div class="deep-dive-body">
                             <div class="var-explorer">
                                 <nav class="var-nav" role="tablist" aria-label="Craft topics">
-                                    <button type="button" class="var-nav__btn" role="tab" data-craft="0" aria-selected="true" aria-controls="craft-panel-0"><span class="material-symbols-outlined">info</span>Overview</button>
-                                    <button type="button" class="var-nav__btn" role="tab" data-craft="1" aria-selected="false" aria-controls="craft-panel-1" tabindex="-1"><span class="material-symbols-outlined">texture</span>Masking</button>
-                                    <button type="button" class="var-nav__btn" role="tab" data-craft="2" aria-selected="false" aria-controls="craft-panel-2" tabindex="-1"><span class="material-symbols-outlined">grid_on</span>Texture</button>
-                                    <button type="button" class="var-nav__btn" role="tab" data-craft="3" aria-selected="false" aria-controls="craft-panel-3" tabindex="-1"><span class="material-symbols-outlined">format_letter_spacing</span>Type System</button>
-                                    <button type="button" class="var-nav__btn" role="tab" data-craft="4" aria-selected="false" aria-controls="craft-panel-4" tabindex="-1"><span class="material-symbols-outlined">blur_on</span>Effects</button>
-                                    <button type="button" class="var-nav__btn" role="tab" data-craft="5" aria-selected="false" aria-controls="craft-panel-5" tabindex="-1"><span class="material-symbols-outlined">verified</span>Summary</button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-craft="0" aria-selected="true" aria-controls="craft-panel-0"><span class="material-symbols-outlined">texture</span>Masking</button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-craft="1" aria-selected="false" aria-controls="craft-panel-1" tabindex="-1"><span class="material-symbols-outlined">grid_on</span>Texture</button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-craft="2" aria-selected="false" aria-controls="craft-panel-2" tabindex="-1"><span class="material-symbols-outlined">format_letter_spacing</span>Type System</button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-craft="3" aria-selected="false" aria-controls="craft-panel-3" tabindex="-1"><span class="material-symbols-outlined">blur_on</span>Effects</button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-craft="4" aria-selected="false" aria-controls="craft-panel-4" tabindex="-1"><span class="material-symbols-outlined">verified</span>Summary</button>
                                 </nav>
 
                                 <div class="var-detail">
                                     <div id="craft-panel-0" class="var-detail-panel" role="tabpanel" aria-hidden="false">
-                                        <h3>Craft That Scales</h3>
-                                        <p data-cms-key="deepdive.craft.p1">Licensed apparel doesn't win on color alone; it wins on finish. The wash on a vintage tee, the stitch, the weathered edge of a heritage crest, and the way a texture sits inside a wordmark instead of behind it; these are the details that separate a real licensed program from a printed logo. They are also, until now, what made scale impossible, because every finish had to be rebuilt by hand, one team at a time.</p>
-                                        <p data-cms-key="deepdive.craft.p2">EasyVariants changes the economics of craft. You author the finish once, on the hero, and it travels across the whole program exactly as you made it.</p>
-                                    </div>
-                                    <div id="craft-panel-1" class="var-detail-panel" role="tabpanel" aria-hidden="true" hidden>
                                         <h3>Masking</h3>
                                         <p data-cms-key="deepdive.craft.p3">It starts with masking. Upload any image and it becomes a mask for a logo, a wordmark, or a fill. Then you make one decision about how it should behave. Fit it, and the mask locks to the exact bounds of whatever lands inside. Scale it, and it resizes as the content changes, covering a four-letter city as cleanly as a twelve-letter one. Tile it, and the mask repeats across the shape, so a pattern or print fills the letterform edge to edge at any size. One choice on the template, and every variant gets the right result.</p>
                                     </div>
-                                    <div id="craft-panel-2" class="var-detail-panel" role="tabpanel" aria-hidden="true" hidden>
+                                    <div id="craft-panel-1" class="var-detail-panel" role="tabpanel" aria-hidden="true" hidden>
                                         <h3>Texture</h3>
                                         <p data-cms-key="deepdive.craft.p4">Texture layers on top of that. Any surface a brand can picture, whether it's a canvas weave, a cracked vintage print, a woven twill, or a soft grain, can be applied to any region and carried as part of the design itself. It isn't pasted onto one team's artwork; it's built into the slot, so it reproduces with the same fidelity across the entire roster while every element still resolves to its own team color.</p>
                                     </div>
-                                    <div id="craft-panel-3" class="var-detail-panel" role="tabpanel" aria-hidden="true" hidden>
+                                    <div id="craft-panel-2" class="var-detail-panel" role="tabpanel" aria-hidden="true" hidden>
                                         <h3>Type System</h3>
                                         <p data-cms-key="deepdive.craft.p5">Change the font on the fly and every variant follows. Split a wordmark into parts, whether that's an established year set as 19 and 69 on either side of a crest, a two-letter city broken and placed apart, or a team name divided across the chest, and each fragment becomes its own placement with its own position, size, and treatment. The name stops being a fixed string; it becomes a system that reflows for every team, whatever the length and whatever the shape.</p>
                                     </div>
-                                    <div id="craft-panel-4" class="var-detail-panel" role="tabpanel" aria-hidden="true" hidden>
+                                    <div id="craft-panel-3" class="var-detail-panel" role="tabpanel" aria-hidden="true" hidden>
                                         <h3>Effects Stack</h3>
                                         <p data-cms-key="deepdive.craft.p6">Then come the effects. Once the type is set, the mask applied, and the texture chosen, the full depth of the appearance stack is yours on any layer. A drop shadow for dimension. A grain for wear. A zig-zag for a torn edge, a blur for a fade, a warp for a contoured surface. Each effect targets exactly the layer you point it at, whether that's a single fill or the whole object, and it holds its place while the color underneath changes from one team to the next. Stack them, save the look, and the whole treatment travels together: mask, texture, type, and effect as one.</p>
                                     </div>
-                                    <div id="craft-panel-5" class="var-detail-panel" role="tabpanel" aria-hidden="true" hidden>
+                                    <div id="craft-panel-4" class="var-detail-panel" role="tabpanel" aria-hidden="true" hidden>
                                         <h3>The Platform Difference</h3>
                                         <p data-cms-key="deepdive.craft.p7">This is the difference between a tool that copies artwork and a platform that reproduces design. A designer sets the intent once, from the mask behavior to the texture, to the type system, to the finish, and EasyVariants carries that intent faithfully across the full breadth of a license. The craft stays in the designer's hands; the multiplication becomes the machine's.</p>
                                     </div>
