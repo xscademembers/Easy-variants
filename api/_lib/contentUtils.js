@@ -138,15 +138,14 @@ export function validateBlocksForPage(page, blocks) {
   if (keys.length === 0) {
     return { ok: false, error: 'At least one block is required.' };
   }
-  if (keys.length > 200) {
-    return { ok: false, error: 'Too many blocks in one request (max 200).' };
+  if (keys.length > 500) {
+    return { ok: false, error: 'Too many blocks in one request (max 500).' };
   }
 
   const normalized = {};
   for (const key of keys) {
-    if (!allowed.has(key)) {
-      return { ok: false, error: `Key "${key}" is not allowed for page "${page}".` };
-    }
+    // Skip retired keys still stored in Mongo so older published docs can be re-saved.
+    if (!allowed.has(key)) continue;
     const result = validateContentBlock(page, key, blocks[key]);
     if (!result.ok) return result;
     normalized[key] = result.block;

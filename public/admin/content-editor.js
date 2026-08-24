@@ -11,7 +11,7 @@
   };
 
   const SECTION_HINTS = {
-    'Header navigation': 'Demo button in the top menu',
+    'Header navigation': 'Top menu links and demo button',
     Hero: 'Large banner at the top of the homepage',
     'Meet EasyVariants': 'Video section — “Meet EasyVariants”',
     'Meet EasyVariants · Media': 'Explainer video file',
@@ -26,6 +26,18 @@
     'Our Solution · Feature cards': 'Four feature cards',
     Workflow: 'Workflow section intro',
     'Workflow · Steps': 'Five-step workflow cards',
+    'Building Blocks': 'Variable system section heading',
+    'Building Blocks · Intro': 'Intro copy and tab labels',
+    'Building Blocks · Placement Zones': 'Placement Zones tab content',
+    'Building Blocks · Color Blocks': 'Color Blocks tab content',
+    'Building Blocks · Embroidery Zones': 'Embroidery Zones tab content',
+    'Building Blocks · Dimensions': 'Dimensions tab content',
+    'Building Blocks · Text': 'Text tab content',
+    'Building Blocks · Treatments & Effects': 'Treatments tab content',
+    'How EasyVariants Works': 'Four steps section heading',
+    'How EasyVariants Works · Steps': 'Step tabs and body copy',
+    'Craft That Scales': 'Craft section heading',
+    'Craft That Scales · Copy': 'Craft tabs, headings, and paragraphs',
     'Demo Videos': 'Demo videos section intro',
     'Demo Videos · YouTube list': 'YouTube videos in the carousel',
     'Where It Fits': 'Product types and use cases section intro',
@@ -36,7 +48,7 @@
     'Footer · Menu links': 'Footer navigation links',
     'Footer · Social links': 'Social media links',
     'Page header': 'Contact page title area',
-    'Contact form': 'Form heading above the contact form',
+    'Contact form': 'Form headings, labels, and placeholders',
     'Info cards': 'Email, response time, demo, support cards',
     'Quick stats': 'Numbers shown on the contact page',
   };

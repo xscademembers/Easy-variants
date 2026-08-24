@@ -78,6 +78,10 @@
       el.setAttribute('href', String(value));
       return;
     }
+    if ((el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') && key && key.includes('placeholder')) {
+      el.setAttribute('placeholder', String(value));
+      return;
+    }
     el.textContent = String(value);
   }
 
@@ -220,6 +224,26 @@
     return out;
   }
 
+  async function fetchPageContent(page) {
+    const preview = isDraftPreview();
+    const edit = isEditMode();
+    const token = localStorage.getItem('ev_admin_token');
+
+    if ((preview || edit) && !token) return null;
+
+    const useAdmin = preview || edit;
+    const url = useAdmin
+      ? `/api/admin/content?page=${encodeURIComponent(page)}&source=draft`
+      : `/api/content?page=${encodeURIComponent(page)}`;
+
+    const headers = {};
+    if (useAdmin && token) headers.Authorization = `Bearer ${token}`;
+
+    const res = await fetch(url, { credentials: 'same-origin', headers });
+    if (!res.ok) return null;
+    return res.json();
+  }
+
   async function loadCmsContent(page) {
     const preview = isDraftPreview();
     const edit = isEditMode();
@@ -238,30 +262,32 @@
     }
 
     try {
-      const useAdmin = preview || edit;
-      const url = useAdmin
-        ? `/api/admin/content?page=${encodeURIComponent(page)}&source=draft`
-        : `/api/content?page=${encodeURIComponent(page)}`;
-
-      const headers = {};
-      if (useAdmin && token) headers.Authorization = `Bearer ${token}`;
-
-      const res = await fetch(url, {
-        credentials: 'same-origin',
-        headers,
+      const extraPages = new Set();
+      document.querySelectorAll('[data-cms-page]').forEach((el) => {
+        const scope = el.getAttribute('data-cms-page');
+        if (scope && scope !== page) extraPages.add(scope);
       });
-      if (!res.ok) return null;
 
-      const data = await res.json();
+      const data = await fetchPageContent(page);
       if (!data?.blocks) return null;
 
-      applyBlocks(page, sanitizeBlockKeys(data.blocks));
+      const blocksByPage = { [page]: sanitizeBlockKeys(data.blocks) };
+      applyBlocks(page, blocksByPage[page]);
+
+      for (const extra of extraPages) {
+        const extraData = await fetchPageContent(extra);
+        if (extraData?.blocks) {
+          blocksByPage[extra] = sanitizeBlockKeys(extraData.blocks);
+          applyBlocks(extra, blocksByPage[extra]);
+        }
+      }
 
       if (preview && !edit) showPreviewBanner(Boolean(data.isDraftPreview));
 
       window.__EZ_CMS__ = {
         page,
-        blocks: sanitizeBlockKeys(data.blocks),
+        blocks: blocksByPage[page],
+        blocksByPage,
         updatedAt: data.updatedAt || null,
         preview,
         edit,
