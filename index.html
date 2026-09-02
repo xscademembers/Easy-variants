@@ -1005,6 +1005,13 @@
             flex-shrink: 0;
             background: rgba(53, 37, 205, 0.06);
             border: 1px solid rgba(53, 37, 205, 0.1);
+            color: #3525cd;
+        }
+
+        .footer-mini-card__icon .cms-icon-svg,
+        .footer-mini-card__icon .cms-icon-img {
+            width: 1.25rem;
+            height: 1.25rem;
         }
 
         .footer-mini-card__title {
@@ -1641,6 +1648,33 @@
             flex-shrink: 0;
         }
 
+        .var-nav__icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: #3525cd;
+        }
+
+        .var-nav__btn .var-nav__icon .material-symbols-outlined {
+            color: inherit;
+            font-size: 1.125rem;
+            opacity: 0.7;
+        }
+
+        .var-nav__btn .var-nav__icon .cms-icon-svg {
+            width: 1.125rem;
+            height: 1.125rem;
+            background-color: currentColor;
+            opacity: 0.7;
+        }
+
+        .var-nav__btn .var-nav__icon .cms-icon-img {
+            width: 1.125rem;
+            height: 1.125rem;
+            opacity: 1;
+        }
+
         .var-nav__btn:hover {
             background: rgba(53, 37, 205, 0.06);
             border-color: rgba(53, 37, 205, 0.12);
@@ -1653,8 +1687,15 @@
             box-shadow: 0 4px 12px rgba(53, 37, 205, 0.2);
         }
 
-        .var-nav__btn[aria-selected="true"] .material-symbols-outlined {
+        .var-nav__btn[aria-selected="true"] .material-symbols-outlined,
+        .var-nav__btn[aria-selected="true"] .var-nav__icon {
             color: #ffffff;
+            opacity: 1;
+        }
+
+        .var-nav__btn[aria-selected="true"] .var-nav__icon .material-symbols-outlined,
+        .var-nav__btn[aria-selected="true"] .var-nav__icon .cms-icon-svg {
+            color: inherit;
             opacity: 1;
         }
 
@@ -1987,6 +2028,12 @@
 
         .steps-picker__icon .material-symbols-outlined {
             font-size: 1.35rem;
+        }
+
+        .steps-picker__icon .cms-icon-svg,
+        .steps-picker__icon .cms-icon-img {
+            width: 1.35rem;
+            height: 1.35rem;
         }
 
         .steps-picker__text {
@@ -3044,28 +3091,28 @@
                         <div class="deep-dive-body">
                             <div class="steps-picker" role="tablist" aria-label="How EasyVariants works">
                                 <button type="button" class="steps-picker__btn" role="tab" data-evstep="0" aria-selected="true" aria-controls="ev-step-panel-0">
-                                    <span class="steps-picker__icon"><span class="material-symbols-outlined">folder_open</span></span>
+                                    <span class="steps-picker__icon" data-cms-key="deepdive.steps.0.icon" data-cms-icon data-cms-icon-name="folder_open" data-cms-icon-tint><span class="material-symbols-outlined">folder_open</span></span>
                                     <span class="steps-picker__text">
                                         <span class="steps-picker__num" data-cms-key="deepdive.steps.0.num">Step 01</span>
                                         <span class="steps-picker__label" data-cms-key="deepdive.steps.0.pickerLabel">Logo Library</span>
                                     </span>
                                 </button>
                                 <button type="button" class="steps-picker__btn" role="tab" data-evstep="1" aria-selected="false" aria-controls="ev-step-panel-1" tabindex="-1">
-                                    <span class="steps-picker__icon"><span class="material-symbols-outlined">brush</span></span>
+                                    <span class="steps-picker__icon" data-cms-key="deepdive.steps.1.icon" data-cms-icon data-cms-icon-name="brush" data-cms-icon-tint><span class="material-symbols-outlined">brush</span></span>
                                     <span class="steps-picker__text">
                                         <span class="steps-picker__num" data-cms-key="deepdive.steps.1.num">Step 02</span>
                                         <span class="steps-picker__label" data-cms-key="deepdive.steps.1.pickerLabel">The Hero</span>
                                     </span>
                                 </button>
                                 <button type="button" class="steps-picker__btn" role="tab" data-evstep="2" aria-selected="false" aria-controls="ev-step-panel-2" tabindex="-1">
-                                    <span class="steps-picker__icon"><span class="material-symbols-outlined">grid_view</span></span>
+                                    <span class="steps-picker__icon" data-cms-key="deepdive.steps.2.icon" data-cms-icon data-cms-icon-name="grid_view" data-cms-icon-tint><span class="material-symbols-outlined">grid_view</span></span>
                                     <span class="steps-picker__text">
                                         <span class="steps-picker__num" data-cms-key="deepdive.steps.2.num">Step 03</span>
                                         <span class="steps-picker__label" data-cms-key="deepdive.steps.2.pickerLabel">Template</span>
                                     </span>
                                 </button>
                                 <button type="button" class="steps-picker__btn" role="tab" data-evstep="3" aria-selected="false" aria-controls="ev-step-panel-3" tabindex="-1">
-                                    <span class="steps-picker__icon"><span class="material-symbols-outlined">link</span></span>
+                                    <span class="steps-picker__icon" data-cms-key="deepdive.steps.3.icon" data-cms-icon data-cms-icon-name="link" data-cms-icon-tint><span class="material-symbols-outlined">link</span></span>
                                     <span class="steps-picker__text">
                                         <span class="steps-picker__num" data-cms-key="deepdive.steps.3.num">Step 04</span>
                                         <span class="steps-picker__label" data-cms-key="deepdive.steps.3.pickerLabel">Generate</span>
@@ -3122,11 +3169,11 @@
                         <div class="deep-dive-body">
                             <div class="var-explorer">
                                 <nav class="var-nav" role="tablist" aria-label="Craft topics">
-                                    <button type="button" class="var-nav__btn" role="tab" data-craft="0" aria-selected="true" aria-controls="craft-panel-0"><span class="material-symbols-outlined">texture</span><span data-cms-key="deepdive.craft.tabs.0">Masking</span></button>
-                                    <button type="button" class="var-nav__btn" role="tab" data-craft="1" aria-selected="false" aria-controls="craft-panel-1" tabindex="-1"><span class="material-symbols-outlined">grid_on</span><span data-cms-key="deepdive.craft.tabs.1">Texture</span></button>
-                                    <button type="button" class="var-nav__btn" role="tab" data-craft="2" aria-selected="false" aria-controls="craft-panel-2" tabindex="-1"><span class="material-symbols-outlined">format_letter_spacing</span><span data-cms-key="deepdive.craft.tabs.2">Type System</span></button>
-                                    <button type="button" class="var-nav__btn" role="tab" data-craft="3" aria-selected="false" aria-controls="craft-panel-3" tabindex="-1"><span class="material-symbols-outlined">blur_on</span><span data-cms-key="deepdive.craft.tabs.3">Effects</span></button>
-                                    <button type="button" class="var-nav__btn" role="tab" data-craft="4" aria-selected="false" aria-controls="craft-panel-4" tabindex="-1"><span class="material-symbols-outlined">verified</span><span data-cms-key="deepdive.craft.tabs.4">Summary</span></button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-craft="0" aria-selected="true" aria-controls="craft-panel-0"><span class="var-nav__icon" data-cms-key="deepdive.craft.tabs.0.icon" data-cms-icon data-cms-icon-name="texture" data-cms-icon-tint><span class="material-symbols-outlined">texture</span></span><span data-cms-key="deepdive.craft.tabs.0">Masking</span></button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-craft="1" aria-selected="false" aria-controls="craft-panel-1" tabindex="-1"><span class="var-nav__icon" data-cms-key="deepdive.craft.tabs.1.icon" data-cms-icon data-cms-icon-name="grid_on" data-cms-icon-tint><span class="material-symbols-outlined">grid_on</span></span><span data-cms-key="deepdive.craft.tabs.1">Texture</span></button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-craft="2" aria-selected="false" aria-controls="craft-panel-2" tabindex="-1"><span class="var-nav__icon" data-cms-key="deepdive.craft.tabs.2.icon" data-cms-icon data-cms-icon-name="format_letter_spacing" data-cms-icon-tint><span class="material-symbols-outlined">format_letter_spacing</span></span><span data-cms-key="deepdive.craft.tabs.2">Type System</span></button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-craft="3" aria-selected="false" aria-controls="craft-panel-3" tabindex="-1"><span class="var-nav__icon" data-cms-key="deepdive.craft.tabs.3.icon" data-cms-icon data-cms-icon-name="blur_on" data-cms-icon-tint><span class="material-symbols-outlined">blur_on</span></span><span data-cms-key="deepdive.craft.tabs.3">Effects</span></button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-craft="4" aria-selected="false" aria-controls="craft-panel-4" tabindex="-1"><span class="var-nav__icon" data-cms-key="deepdive.craft.tabs.4.icon" data-cms-icon data-cms-icon-name="verified" data-cms-icon-tint><span class="material-symbols-outlined">verified</span></span><span data-cms-key="deepdive.craft.tabs.4">Summary</span></button>
                                 </nav>
 
                                 <div class="var-detail">
@@ -3404,7 +3451,7 @@
                 <!-- Mini cards -->
                 <div class="xl:col-span-4 flex flex-col gap-4">
                     <div class="footer-mini-card">
-                        <div class="footer-mini-card__icon">
+                        <div class="footer-mini-card__icon" data-cms-key="footer.email.icon" data-cms-icon data-cms-icon-name="mail" data-cms-icon-tint>
                             <span class="material-symbols-outlined text-primary text-xl">mail</span>
                         </div>
                         <div>
@@ -3415,7 +3462,7 @@
                         </div>
                     </div>
                     <div class="footer-mini-card">
-                        <div class="footer-mini-card__icon">
+                        <div class="footer-mini-card__icon" data-cms-key="footer.support.icon" data-cms-icon data-cms-icon-name="support_agent" data-cms-icon-tint>
                             <span class="material-symbols-outlined text-primary text-xl">support_agent</span>
                         </div>
                         <div>

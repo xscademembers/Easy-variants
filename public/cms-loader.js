@@ -111,6 +111,18 @@
         width: 1.5rem;
         height: 1.5rem;
       }
+      .cms-icon-svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        display: block;
+        background-color: currentColor;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+      }
       [data-cms-icon].cms-icon-host--raster {
         background: transparent !important;
         border-color: transparent !important;
@@ -131,6 +143,11 @@
     el.dataset.cmsIconReady = '1';
   }
 
+  function cssMaskUrl(src) {
+    const s = String(src || '').replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    return `url("${s}")`;
+  }
+
   function applyIcon(el, value) {
     if (!el || !value || typeof value !== 'object') return;
     injectIconStyles();
@@ -140,11 +157,26 @@
     const name = String(value.name || el.dataset.cmsIconName || '').trim();
     const spanClass = el.dataset.cmsIconClass || 'material-symbols-outlined';
     const uploadedSvg = Boolean(src) && isSvgSrc(src);
+    const tintWithCurrentColor = el.hasAttribute('data-cms-icon-tint');
+    const keepHostBox =
+      el.classList.contains('steps-picker__icon') ||
+      el.classList.contains('var-nav__icon') ||
+      el.classList.contains('footer-mini-card__icon');
 
-    el.classList.toggle('cms-icon-host--raster', Boolean(src) && !uploadedSvg);
+    el.classList.toggle('cms-icon-host--raster', Boolean(src) && !uploadedSvg && !keepHostBox);
     el.innerHTML = '';
 
     if (src) {
+      if (uploadedSvg && tintWithCurrentColor) {
+        const glyph = document.createElement('span');
+        glyph.className = 'cms-icon-svg';
+        glyph.setAttribute('aria-hidden', 'true');
+        const mask = cssMaskUrl(src);
+        glyph.style.webkitMaskImage = mask;
+        glyph.style.maskImage = mask;
+        el.appendChild(glyph);
+        return;
+      }
       const img = document.createElement('img');
       img.className = uploadedSvg ? 'cms-icon-img cms-icon-img--glyph' : 'cms-icon-img';
       img.src = src;
