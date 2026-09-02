@@ -101,23 +101,15 @@
     const style = document.createElement('style');
     style.id = 'ez-cms-icon-styles';
     style.textContent = `
-      .cms-icon-svg {
-        width: 1.5rem;
-        height: 1.5rem;
-        display: block;
-        background-color: var(--cms-icon-color, currentColor);
-        -webkit-mask-repeat: no-repeat;
-        mask-repeat: no-repeat;
-        -webkit-mask-position: center;
-        mask-position: center;
-        -webkit-mask-size: contain;
-        mask-size: contain;
-      }
       .cms-icon-img {
         width: 100%;
         height: 100%;
         object-fit: contain;
         display: block;
+      }
+      .cms-icon-img--glyph {
+        width: 1.5rem;
+        height: 1.5rem;
       }
       [data-cms-icon].cms-icon-host--raster {
         background: transparent !important;
@@ -127,10 +119,6 @@
       }
     `;
     document.head.appendChild(style);
-  }
-
-  function cssMaskUrl(src) {
-    return `url("${String(src).replace(/\\/g, '\\\\').replace(/"/g, '\\"')}")`;
   }
 
   function rememberIconDefaults(el) {
@@ -149,32 +137,19 @@
     rememberIconDefaults(el);
 
     const src = String(value.src || '').trim();
-    const color = String(value.color || '').trim();
     const name = String(value.name || el.dataset.cmsIconName || '').trim();
     const spanClass = el.dataset.cmsIconClass || 'material-symbols-outlined';
+    const uploadedSvg = Boolean(src) && isSvgSrc(src);
 
-    el.classList.toggle('cms-icon-host--raster', Boolean(src) && !isSvgSrc(src));
+    el.classList.toggle('cms-icon-host--raster', Boolean(src) && !uploadedSvg);
     el.innerHTML = '';
 
-    if (src && !isSvgSrc(src)) {
+    if (src) {
       const img = document.createElement('img');
-      img.className = 'cms-icon-img';
+      img.className = uploadedSvg ? 'cms-icon-img cms-icon-img--glyph' : 'cms-icon-img';
       img.src = src;
       img.alt = '';
       el.appendChild(img);
-      return;
-    }
-
-    if (src && isSvgSrc(src)) {
-      const glyph = document.createElement('span');
-      glyph.className = 'cms-icon-svg';
-      glyph.setAttribute('role', 'img');
-      glyph.setAttribute('aria-hidden', 'true');
-      glyph.style.setProperty('--cms-icon-color', color || 'currentColor');
-      const mask = cssMaskUrl(src);
-      glyph.style.webkitMaskImage = mask;
-      glyph.style.maskImage = mask;
-      el.appendChild(glyph);
       return;
     }
 
@@ -182,7 +157,6 @@
     span.className = spanClass;
     span.setAttribute('aria-hidden', 'true');
     span.textContent = name || 'imagesmode';
-    if (color) span.style.color = color;
     el.appendChild(span);
   }
 

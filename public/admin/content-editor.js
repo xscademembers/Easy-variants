@@ -66,10 +66,6 @@
     return s.endsWith('.svg') || s.includes('image/svg');
   }
 
-  function canRecolorIcon(src) {
-    return !String(src || '').trim() || isSvgSrc(src);
-  }
-
   function sectionSlug(name) {
     return `cms-section-${name.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '').toLowerCase()}`;
   }
@@ -163,7 +159,7 @@
         value: {
           src: String(raw.src || '').trim(),
           name: String(raw.name || '').trim(),
-          color: String(raw.color || '').trim(),
+          color: '',
         },
       };
     }
@@ -462,19 +458,11 @@
 
     wrap.appendChild(el('label', '', field.label));
     wrap.appendChild(
-      el(
-        'p',
-        'cms-field-hint',
-        'Change this icon: choose an SVG to recolor it, or a PNG/JPEG to show the file as uploaded.'
-      )
+      el('p', 'cms-field-hint', 'Choose an SVG, PNG, or JPEG. The file is shown as uploaded.')
     );
-
-    const srcId = `cms-icon-src-${field.key.replace(/[^a-z0-9]+/gi, '-')}`;
-    const colorId = `cms-icon-color-${field.key.replace(/[^a-z0-9]+/gi, '-')}`;
 
     const srcInput = document.createElement('input');
     srcInput.type = 'hidden';
-    srcInput.id = srcId;
     srcInput.value = value.src || '';
     srcInput.dataset.cmsPart = 'src';
 
@@ -483,48 +471,17 @@
     nameInput.dataset.cmsPart = 'name';
     nameInput.value = value.name || '';
 
-    const colorWrap = el('div', 'cms-icon-color-row');
-    const colorLabel = el('label', 'cms-sublabel', 'Icon color (SVG and default icons)');
-    colorLabel.setAttribute('for', colorId);
-
-    const colorPicker = document.createElement('input');
-    colorPicker.type = 'color';
-    colorPicker.id = colorId;
-    colorPicker.value = /^#[0-9a-fA-F]{6}$/.test(value.color || '')
-      ? value.color
-      : '#3525cd';
-
-    const colorInput = document.createElement('input');
-    colorInput.type = 'text';
-    colorInput.value = value.color || '';
-    colorInput.dataset.cmsPart = 'color';
-    colorInput.placeholder = '#ef4444';
-    colorInput.maxLength = 7;
-
-    colorWrap.appendChild(colorPicker);
-    colorWrap.appendChild(colorInput);
-
     const fileStatus = el('p', 'cms-upload-status', value.src ? 'Custom file selected' : 'Using default icon');
-
     const preview = el('div', 'cms-icon-preview');
 
     const syncPreview = () => {
       const src = srcInput.value.trim();
-      const color = colorInput.value.trim();
       const name = nameInput.value.trim();
-      const recolor = canRecolorIcon(src);
-      colorWrap.hidden = !recolor;
-      colorLabel.hidden = !recolor;
-      fileStatus.textContent = src
-        ? isSvgSrc(src)
-          ? 'SVG selected — color can be changed'
-          : 'Image selected — shown as uploaded (color locked)'
-        : 'Using default icon';
-
+      fileStatus.textContent = src ? 'Custom file selected' : 'Using default icon';
       preview.innerHTML = '';
       preview.classList.toggle('cms-icon-preview--raster', Boolean(src) && !isSvgSrc(src));
 
-      if (src && !isSvgSrc(src)) {
+      if (src) {
         const img = document.createElement('img');
         img.src = src;
         img.alt = '';
@@ -532,33 +489,11 @@
         return;
       }
 
-      if (src && isSvgSrc(src)) {
-        const glyph = document.createElement('span');
-        glyph.className = 'cms-icon-svg';
-        glyph.style.setProperty('--cms-icon-color', color || 'currentColor');
-        glyph.style.webkitMaskImage = `url("${src.replace(/"/g, '\\"')}")`;
-        glyph.style.maskImage = `url("${src.replace(/"/g, '\\"')}")`;
-        preview.appendChild(glyph);
-        return;
-      }
-
       const span = document.createElement('span');
       span.className = 'material-symbols-outlined';
       span.textContent = name || 'imagesmode';
-      if (color) span.style.color = color;
       preview.appendChild(span);
     };
-
-    colorPicker.addEventListener('input', () => {
-      colorInput.value = colorPicker.value;
-      syncPreview();
-    });
-    colorInput.addEventListener('input', () => {
-      if (/^#[0-9a-fA-F]{6}$/.test(colorInput.value.trim())) {
-        colorPicker.value = colorInput.value.trim();
-      }
-      syncPreview();
-    });
 
     wrap.appendChild(el('p', 'cms-sublabel', 'Change this icon'));
     wrap.appendChild(
@@ -585,8 +520,6 @@
     wrap.appendChild(nameInput);
     wrap.appendChild(fileStatus);
     wrap.appendChild(resetBtn);
-    wrap.appendChild(colorLabel);
-    wrap.appendChild(colorWrap);
     wrap.appendChild(preview);
     syncPreview();
     return wrap;
@@ -652,8 +585,7 @@
             raw.poster = wrap.querySelector('[data-cms-part="poster"]')?.value || '';
           } else {
             raw.name = wrap.querySelector('[data-cms-part="name"]')?.value || '';
-            raw.color = wrap.querySelector('[data-cms-part="color"]')?.value || '';
-            if (raw.src && !isSvgSrc(raw.src)) raw.color = '';
+            raw.color = '';
           }
           blocks[field.key] = buildBlockFromField(field, raw);
         } else if (field.type === 'list') {
