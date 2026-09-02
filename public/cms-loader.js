@@ -91,6 +91,101 @@
     if (value.alt != null) el.alt = String(value.alt);
   }
 
+  function isSvgSrc(src) {
+    const s = String(src || '').split('?')[0].toLowerCase();
+    return s.endsWith('.svg') || s.includes('image/svg');
+  }
+
+  function injectIconStyles() {
+    if (document.getElementById('ez-cms-icon-styles')) return;
+    const style = document.createElement('style');
+    style.id = 'ez-cms-icon-styles';
+    style.textContent = `
+      .cms-icon-svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        display: block;
+        background-color: var(--cms-icon-color, currentColor);
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+      }
+      .cms-icon-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+      [data-cms-icon].cms-icon-host--raster {
+        background: transparent !important;
+        border-color: transparent !important;
+        box-shadow: none !important;
+        padding: 0;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function cssMaskUrl(src) {
+    return `url("${String(src).replace(/\\/g, '\\\\').replace(/"/g, '\\"')}")`;
+  }
+
+  function rememberIconDefaults(el) {
+    if (el.dataset.cmsIconReady === '1') return;
+    const ms = el.querySelector('.material-symbols-outlined');
+    if (ms) {
+      if (!el.dataset.cmsIconName) el.dataset.cmsIconName = ms.textContent.trim();
+      if (!el.dataset.cmsIconClass) el.dataset.cmsIconClass = ms.className;
+    }
+    el.dataset.cmsIconReady = '1';
+  }
+
+  function applyIcon(el, value) {
+    if (!el || !value || typeof value !== 'object') return;
+    injectIconStyles();
+    rememberIconDefaults(el);
+
+    const src = String(value.src || '').trim();
+    const color = String(value.color || '').trim();
+    const name = String(value.name || el.dataset.cmsIconName || '').trim();
+    const spanClass = el.dataset.cmsIconClass || 'material-symbols-outlined';
+
+    el.classList.toggle('cms-icon-host--raster', Boolean(src) && !isSvgSrc(src));
+    el.innerHTML = '';
+
+    if (src && !isSvgSrc(src)) {
+      const img = document.createElement('img');
+      img.className = 'cms-icon-img';
+      img.src = src;
+      img.alt = '';
+      el.appendChild(img);
+      return;
+    }
+
+    if (src && isSvgSrc(src)) {
+      const glyph = document.createElement('span');
+      glyph.className = 'cms-icon-svg';
+      glyph.setAttribute('role', 'img');
+      glyph.setAttribute('aria-hidden', 'true');
+      glyph.style.setProperty('--cms-icon-color', color || 'currentColor');
+      const mask = cssMaskUrl(src);
+      glyph.style.webkitMaskImage = mask;
+      glyph.style.maskImage = mask;
+      el.appendChild(glyph);
+      return;
+    }
+
+    const span = document.createElement('span');
+    span.className = spanClass;
+    span.setAttribute('aria-hidden', 'true');
+    span.textContent = name || 'imagesmode';
+    if (color) span.style.color = color;
+    el.appendChild(span);
+  }
+
   function getYouTubeId(url) {
     if (!url) return null;
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -163,6 +258,11 @@
 
     if (block.type === 'image' && el.tagName === 'IMG') {
       applyImage(el, block.value);
+      return;
+    }
+
+    if (block.type === 'icon') {
+      applyIcon(el, block.value);
       return;
     }
 
@@ -300,6 +400,8 @@
       return null;
     }
   }
+
+  window.__EZ_CMS_ICON__ = { apply: applyIcon, isSvg: isSvgSrc };
 
   function boot() {
     const page = document.body?.dataset?.cmsPage;

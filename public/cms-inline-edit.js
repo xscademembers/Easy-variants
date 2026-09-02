@@ -240,7 +240,7 @@
         color: #464555;
         margin: 8px 0 4px;
       }
-      .ez-edit-popover input,
+      .ez-edit-popover input:not([type="file"]):not([type="hidden"]):not([type="color"]),
       .ez-edit-popover textarea {
         width: 100%;
         font: inherit;
@@ -250,6 +250,54 @@
         color: #1a1c1d;
       }
       .ez-edit-popover textarea { min-height: 80px; resize: vertical; }
+
+      .ez-file-picker {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        margin: 4px 0 10px;
+      }
+      .ez-file-picker__btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 40px;
+        padding: 8px 16px;
+        border-radius: 999px;
+        border: 1px solid #3525cd;
+        background: #3525cd;
+        color: #fff;
+        font-size: 0.8125rem;
+        font-weight: 700;
+        cursor: pointer;
+        overflow: hidden;
+      }
+      .ez-file-picker input[type="file"] {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        cursor: pointer;
+        font-size: 0;
+        background: transparent;
+      }
+      .ez-file-picker input[type="file"]::file-selector-button {
+        display: none;
+      }
+      .ez-file-picker__name {
+        font-size: 0.8125rem;
+        color: #6b7280;
+        max-width: 180px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
       .ez-edit-popover .ez-edit-popover-actions {
         display: flex;
         gap: 6px;
@@ -304,6 +352,25 @@
       body.ez-cms-edit-mode [data-cms-key="meet.video"]:hover::after,
       body.ez-cms-edit-mode [data-cms-key="demos.videos"]:hover::after {
         background: rgba(53, 37, 205, 0.08);
+      }
+
+      .ez-icon-color-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .ez-icon-color-row input[type="color"] {
+        width: 40px;
+        height: 36px;
+        padding: 2px;
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+      .ez-icon-hint {
+        margin: 0 0 8px;
+        color: #6b7280;
+        font-size: 0.75rem;
+        line-height: 1.4;
       }
 
       .ez-edit-toast {
@@ -587,7 +654,7 @@
     if (overlay) overlay.classList.remove('is-open');
   }
 
-  function openPopover({ anchorEl, html, onConfirm }) {
+  function openPopover({ anchorEl, html, onConfirm, onReady }) {
     closePopover();
 
     let overlay = document.getElementById('ez-cms-edit-overlay');
@@ -629,9 +696,11 @@
     pop.querySelector('[data-action="confirm"]')?.addEventListener('click', () => {
       onConfirm(pop);
     });
+    onReady?.(pop);
 
     setTimeout(() => {
-      pop.querySelector('input, textarea')?.focus();
+      const first = pop.querySelector('input:not([type="file"]):not([type="hidden"]), textarea');
+      first?.focus();
     }, 50);
   }
 
@@ -690,6 +759,176 @@
     return data;
   }
 
+  function filePickerMarkup(field, accept, buttonLabel) {
+    return `
+      <div class="ez-file-picker">
+        <label class="ez-file-picker__btn">
+          ${buttonLabel || 'Choose file'}
+          <input data-field="${field}" type="file" accept="${accept}" />
+        </label>
+        <span class="ez-file-picker__name" data-field="${field}-name">No file chosen</span>
+      </div>
+    `;
+  }
+
+  function bindFilePickerName(pop, field) {
+    const input = pop.querySelector(`[data-field="${field}"]`);
+    const name = pop.querySelector(`[data-field="${field}-name"]`);
+    if (!input || !name) return;
+    input.addEventListener('change', () => {
+      name.textContent = input.files?.[0]?.name || 'No file chosen';
+    });
+  }
+
+  function isSvgSrc(src) {
+    if (window.__EZ_CMS_ICON__?.isSvg) return window.__EZ_CMS_ICON__.isSvg(src);
+    const s = String(src || '').split('?')[0].toLowerCase();
+    return s.endsWith('.svg') || s.includes('image/svg');
+  }
+
+  function canRecolorIcon(src) {
+    return !String(src || '').trim() || isSvgSrc(src);
+  }
+
+  function applyIconLocal(el, value) {
+    if (window.__EZ_CMS_ICON__?.apply) {
+      window.__EZ_CMS_ICON__.apply(el, value);
+      return;
+    }
+    const src = String(value?.src || '').trim();
+    if (src && !isSvgSrc(src)) {
+      el.innerHTML = `<img class="cms-icon-img" src="${escapeAttr(src)}" alt="">`;
+    }
+  }
+
+  function rgbToHex(rgb) {
+    const m = String(rgb || '').match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+    if (!m) return '';
+    const hex = (n) => Number(n).toString(16).padStart(2, '0');
+    return `#${hex(m[1])}${hex(m[2])}${hex(m[3])}`;
+  }
+
+  function readIconValue(el, key) {
+    const fromCms = state.publishedBlocks[key]?.type === 'icon' ? state.publishedBlocks[key].value : null;
+    const dirty = state.dirty.get(`${elementPage(el)}\t${key}`);
+    const fromDirty = dirty?.block?.type === 'icon' ? dirty.block.value : null;
+    const value = fromDirty || fromCms || {};
+    let color = String(value.color || '').trim();
+    if (!color) {
+      const glyph = el.querySelector('.material-symbols-outlined, .cms-icon-svg');
+      if (glyph) color = rgbToHex(getComputedStyle(glyph).color);
+    }
+    return {
+      src: String(value.src || '').trim(),
+      name: String(value.name || el.getAttribute('data-cms-icon-name') || '').trim(),
+      color,
+    };
+  }
+
+  function editIcon(el, key) {
+    const current = readIconValue(el, key);
+    const colorValue = /^#[0-9a-fA-F]{6}$/.test(current.color) ? current.color : '#3525cd';
+
+    openPopover({
+      anchorEl: el,
+      html: `
+        <h4>Change this icon</h4>
+        <p class="ez-icon-hint">Choose an SVG to change its color. PNG, JPEG, WebP, or GIF will show as uploaded.</p>
+        ${filePickerMarkup('file', 'image/svg+xml,image/png,image/jpeg,image/webp,image/gif,.svg,.png,.jpg,.jpeg,.webp,.gif', 'Choose file')}
+        <input data-field="src" type="hidden" value="${escapeAttr(current.src)}" />
+        <input data-field="name" type="hidden" value="${escapeAttr(current.name)}" />
+        <p class="ez-icon-hint" data-field="status">${current.src ? (isSvgSrc(current.src) ? 'SVG selected — color can be changed' : 'Image selected — shown as uploaded') : 'Using default icon'}</p>
+        <div data-field="color-block" ${canRecolorIcon(current.src) ? '' : 'hidden'}>
+          <label>Icon color</label>
+          <div class="ez-icon-color-row">
+            <input data-field="color-picker" type="color" value="${escapeAttr(colorValue)}" />
+            <input data-field="color" type="text" value="${escapeAttr(current.color)}" placeholder="#ef4444" maxlength="7" />
+          </div>
+        </div>
+        <div class="ez-edit-popover-actions">
+          <button class="primary" data-action="confirm" type="button">Apply</button>
+          <button class="ghost" data-action="reset" type="button">Use default</button>
+          <button class="ghost" data-action="cancel" type="button">Cancel</button>
+        </div>
+      `,
+      onConfirm: async (pop) => {
+        const fileInput = pop.querySelector('[data-field="file"]');
+        const srcInput = pop.querySelector('[data-field="src"]');
+        const nameInput = pop.querySelector('[data-field="name"]');
+        const colorInput = pop.querySelector('[data-field="color"]');
+        const file = fileInput.files?.[0];
+
+        if (file && file.size > 4.5 * 1024 * 1024) {
+          toast('Icon exceeds Vercel\'s 4.5 MB upload limit. Please use a smaller file.', 'error');
+          return;
+        }
+
+        try {
+          if (file) {
+            toast('Uploading icon…', 'success');
+            const up = await uploadFile(file, 'icon');
+            srcInput.value = up.src;
+          }
+          const next = {
+            src: srcInput.value.trim(),
+            name: nameInput.value.trim(),
+            color: canRecolorIcon(srcInput.value.trim()) ? colorInput.value.trim() : '',
+          };
+          applyIconLocal(el, next);
+          markDirty(key, { type: 'icon', value: next }, elementPage(el));
+          closePopover();
+        } catch (err) {
+          toast(err.message || 'Upload failed.', 'error');
+        }
+      },
+      onReady: (pop) => {
+        bindFilePickerName(pop, 'file');
+        const fileInput = pop.querySelector('[data-field="file"]');
+        const srcInput = pop.querySelector('[data-field="src"]');
+        const colorBlock = pop.querySelector('[data-field="color-block"]');
+        const colorPicker = pop.querySelector('[data-field="color-picker"]');
+        const colorInput = pop.querySelector('[data-field="color"]');
+        const status = pop.querySelector('[data-field="status"]');
+        const resetBtn = pop.querySelector('[data-action="reset"]');
+        const fileName = pop.querySelector('[data-field="file-name"]');
+
+        const syncColorUi = (src) => {
+          const recolor = canRecolorIcon(src);
+          if (colorBlock) colorBlock.hidden = !recolor;
+          if (status) {
+            status.textContent = src
+              ? isSvgSrc(src)
+                ? 'SVG selected — color can be changed'
+                : 'Image selected — shown as uploaded'
+              : 'Using default icon';
+          }
+        };
+
+        fileInput?.addEventListener('change', () => {
+          const file = fileInput.files?.[0];
+          if (!file) return;
+          const fakeSrc = file.name;
+          syncColorUi(isSvgSrc(fakeSrc) ? fakeSrc : 'file.png');
+        });
+        colorPicker?.addEventListener('input', () => {
+          if (colorInput) colorInput.value = colorPicker.value;
+        });
+        colorInput?.addEventListener('input', () => {
+          if (colorPicker && /^#[0-9a-fA-F]{6}$/.test(colorInput.value.trim())) {
+            colorPicker.value = colorInput.value.trim();
+          }
+        });
+        resetBtn?.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (srcInput) srcInput.value = '';
+          if (fileInput) fileInput.value = '';
+          if (fileName) fileName.textContent = 'No file chosen';
+          syncColorUi('');
+        });
+      },
+    });
+  }
+
   function editImage(el, key) {
     const current = {
       src: el.getAttribute('src') || '',
@@ -700,8 +939,8 @@
       anchorEl: el,
       html: `
         <h4>${humanLabel(key)}</h4>
-        <label>Upload new image</label>
-        <input data-field="file" type="file" accept="image/jpeg,image/png,image/webp,image/gif" />
+        <label>Change this image</label>
+        ${filePickerMarkup('file', 'image/jpeg,image/png,image/webp,image/gif', 'Choose file')}
         <label>Image URL or path</label>
         <input data-field="src" type="text" value="${escapeAttr(current.src)}" />
         <label>Alt text (describe the image)</label>
@@ -745,6 +984,7 @@
           toast(err.message || 'Upload failed.', 'error');
         }
       },
+      onReady: (pop) => bindFilePickerName(pop, 'file'),
     });
   }
 
@@ -762,13 +1002,13 @@
       html: `
         <h4>${humanLabel(key)}</h4>
         <div class="ez-edit-popover-scroll-body">
-          <label>Upload new video</label>
-          <input data-field="file" type="file" accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov" />
+          <label>Change this video</label>
+          ${filePickerMarkup('file', 'video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov', 'Choose file')}
           <label>Video URL or path</label>
           <input data-field="src" type="text" value="${escapeAttr(current.src || '')}" />
           
-          <label>Upload poster image (optional)</label>
-          <input data-field="poster-file" type="file" accept="image/jpeg,image/png,image/webp,image/gif" />
+          <label>Change poster image (optional)</label>
+          ${filePickerMarkup('poster-file', 'image/jpeg,image/png,image/webp,image/gif', 'Choose file')}
           <label>Poster URL or path</label>
           <input data-field="poster" type="text" value="${escapeAttr(current.poster || '')}" />
         </div>
@@ -861,6 +1101,10 @@
         } catch (err) {
           toast(err.message || 'Upload failed.', 'error');
         }
+      },
+      onReady: (pop) => {
+        bindFilePickerName(pop, 'file');
+        bindFilePickerName(pop, 'poster-file');
       },
     });
   }
@@ -1011,6 +1255,11 @@
 
         if (el.tagName === 'IMG') {
           editImage(el, key);
+          return;
+        }
+
+        if (el.hasAttribute('data-cms-icon') || key.endsWith('.icon')) {
+          editIcon(el, key);
           return;
         }
 

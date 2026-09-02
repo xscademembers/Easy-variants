@@ -13,6 +13,19 @@ function cardFields(prefix, items) {
       { key: `${prefix}.${i}.title`, label: `${title} — heading`, type: 'text', default: title },
       { key: `${prefix}.${i}.description`, label: `${title} — text`, type: 'textarea', default: description }
     );
+    if (item && typeof item === 'object' && item.icon) {
+      const icon = typeof item.icon === 'string' ? { name: item.icon } : item.icon;
+      fields.push({
+        key: `${prefix}.${i}.icon`,
+        label: `${title} — icon`,
+        type: 'icon',
+        default: {
+          src: '',
+          name: icon.name || '',
+          color: icon.color || '',
+        },
+      });
+    }
   });
   return fields;
 }
@@ -148,21 +161,25 @@ export const CMS_SCHEMA = {
           title: 'Repetitive Work',
           description:
             'Duplicating assets across hundreds of styles, regions, and channels. Production teams lose hours on repetitive execution work.',
+          icon: { name: 'cycle', color: '#ef4444' },
         },
         {
           title: 'Consistency Challenges',
           description:
             'Maintaining brand consistency across factories and production lines is difficult when variants are created manually.',
+          icon: { name: 'rule', color: '#ef4444' },
         },
         {
           title: 'Slow Time-to-Market',
           description:
             'Manual operations delay line launches and replenishment cycles when manufacturing calendars are already compressed.',
+          icon: { name: 'hourglass_empty', color: '#ef4444' },
         },
         {
           title: 'Limited Personalization',
           description:
             'Variant expansion becomes expensive and risky when every SKU requires individual manual intervention.',
+          icon: { name: 'block', color: '#ef4444' },
         },
       ]),
     },
@@ -178,18 +195,22 @@ export const CMS_SCHEMA = {
         {
           title: 'Boost Output 10X',
           description: 'Free your designers from repetitive drudgery, allowing them to focus on pure innovation.',
+          icon: { name: 'rocket_launch', color: '#ffffff' },
         },
         {
           title: 'Guaranteed Consistency',
           description: 'Eliminate human error and ensure every variant perfectly aligns with your brand standards.',
+          icon: { name: 'verified', color: '#ffffff' },
         },
         {
           title: 'Faster Time-to-Market',
           description: 'Rapidly customize and deploy new collections, gaining a critical competitive edge.',
+          icon: { name: 'trending_up', color: '#ffffff' },
         },
         {
           title: 'Scalable Personalization',
           description: 'Offer extensive personalization without fear of an unmanageable design workload.',
+          icon: { name: 'tune', color: '#ffffff' },
         },
       ]),
     },
@@ -246,21 +267,25 @@ export const CMS_SCHEMA = {
             title: 'Variable Control',
             description:
               'Define text, colors, and images once. Reuse everywhere instantly with smart templates and dynamic layers that scale without limits.',
+            icon: { name: 'tune', color: '#ffffff' },
           },
           {
             title: 'Intelligent Generation',
             description:
               'Automatically create hundreds of design variations in seconds with an AI-powered layout engine built for production teams.',
+            icon: { name: 'auto_awesome', color: '#3525cd' },
           },
           {
             title: 'Layer Management',
             description:
               'Organize static and dynamic elements with precision control. Full layer hierarchy and placement rules at your fingertips.',
+            icon: { name: 'layers', color: '#3525cd' },
           },
           {
             title: 'Export Anywhere',
             description:
               'Download assets in multiple formats, ready for any platform. Production-ready outputs in a single click.',
+            icon: { name: 'ios_share', color: '#ffffff' },
           },
         ]),
         { key: 'solution.formats.0', label: 'Export format 1', type: 'text', default: 'PNG' },
@@ -1051,7 +1076,7 @@ export function schemaDefaults(page) {
   for (const section of sections) {
     for (const field of section.fields) {
       if (field.default === undefined) continue;
-      if (field.type === 'image' || field.type === 'video') {
+      if (field.type === 'image' || field.type === 'video' || field.type === 'icon') {
         blocks[field.key] = { type: field.type, value: field.default };
       } else if (field.type === 'list') {
         blocks[field.key] = { type: 'list', value: field.default };

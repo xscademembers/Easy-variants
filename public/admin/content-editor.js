@@ -7,6 +7,7 @@
   const UPLOAD_ACCEPT = {
     image: 'image/jpeg,image/png,image/webp,image/gif',
     poster: 'image/jpeg,image/png,image/webp,image/gif',
+    icon: 'image/svg+xml,image/png,image/jpeg,image/webp,image/gif,.svg,.png,.jpg,.jpeg,.webp,.gif',
     video: 'video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov',
   };
 
@@ -16,14 +17,14 @@
     'Meet EasyVariants': 'Video section — “Meet EasyVariants”',
     'Meet EasyVariants · Media': 'Explainer video file',
     'The Problem': '“The Design Bottleneck” section intro',
-    'The Problem · Cards': 'Four rotating problem cards',
+    'The Problem · Cards': 'Four rotating problem cards, including icons',
     'The EasyVariants Advantage': 'Benefits section intro',
-    'Advantage · Cards': 'Four benefit cards',
+    'Advantage · Cards': 'Four benefit cards, including icons',
     'Inside EasyVariants': 'Illustrator plugin section intro',
     'Inside EasyVariants · Features & CTA': 'Feature list and button',
     'Our Solution': 'Smart Automation section intro',
     'Our Solution · Stats': 'Three stat pills',
-    'Our Solution · Feature cards': 'Four feature cards',
+    'Our Solution · Feature cards': 'Four feature cards, including icons',
     Workflow: 'Workflow section intro',
     'Workflow · Steps': 'Five-step workflow cards',
     'Building Blocks': 'Variable system section heading',
@@ -59,6 +60,15 @@
     'hero.image': 'Main image next to the hero headline',
     'demos.videos': 'YouTube video IDs for the homepage demo carousel',
   };
+
+  function isSvgSrc(src) {
+    const s = String(src || '').split('?')[0].toLowerCase();
+    return s.endsWith('.svg') || s.includes('image/svg');
+  }
+
+  function canRecolorIcon(src) {
+    return !String(src || '').trim() || isSvgSrc(src);
+  }
 
   function sectionSlug(name) {
     return `cms-section-${name.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '').toLowerCase()}`;
@@ -98,6 +108,12 @@
     return fallback ?? { src: '', poster: '' };
   }
 
+  function blockIcon(blocks, key, fallback) {
+    const b = blocks?.[key];
+    if (b?.type === 'icon' && b.value && (b.value.src || b.value.name)) return b.value;
+    return fallback ?? { src: '', name: '', color: '' };
+  }
+
   function blockList(blocks, key, fallback) {
     const b = blocks?.[key];
     if (b?.type === 'list' && Array.isArray(b.value)) return b.value;
@@ -108,6 +124,7 @@
     if (field.default !== undefined) return field.default;
     if (field.type === 'image') return { src: '', alt: '' };
     if (field.type === 'video') return { src: '', poster: '' };
+    if (field.type === 'icon') return { src: '', name: '', color: '' };
     if (field.type === 'list') return [];
     return '';
   }
@@ -116,6 +133,7 @@
     const key = field.key;
     if (field.type === 'image') return blockImage(blocks, key, fieldDefault(field));
     if (field.type === 'video') return blockVideo(blocks, key, fieldDefault(field));
+    if (field.type === 'icon') return blockIcon(blocks, key, fieldDefault(field));
     if (field.type === 'list') return blockList(blocks, key, fieldDefault(field));
     return blockText(blocks, key, fieldDefault(field));
   }
@@ -136,6 +154,16 @@
         value: {
           src: String(raw.src || '').trim(),
           poster: String(raw.poster || '').trim(),
+        },
+      };
+    }
+    if (field.type === 'icon') {
+      return {
+        type: 'icon',
+        value: {
+          src: String(raw.src || '').trim(),
+          name: String(raw.name || '').trim(),
+          color: String(raw.color || '').trim(),
         },
       };
     }
@@ -173,25 +201,31 @@
 
   function createUploadControl({ label, accept, kind, hint, onUploaded }) {
     const row = el('div', 'cms-upload-row');
+    const picker = el('div', 'cms-file-picker');
+
+    const btn = document.createElement('label');
+    btn.className = 'cms-file-picker__btn';
+    btn.textContent = label || 'Choose file';
+
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
     fileInput.accept = accept;
-    fileInput.hidden = true;
+    fileInput.className = 'cms-file-picker__input';
+    btn.appendChild(fileInput);
 
-    const btn = el('button', 'clear-filters cms-upload-btn', '');
-    btn.type = 'button';
-    btn.innerHTML = `<span class="material-symbols-outlined" style="font-size:18px;">upload</span> ${label}`;
-
+    const nameSpan = el('span', 'cms-file-picker__name', 'No file chosen');
     const status = el('span', 'cms-upload-status', hint || '');
-
-    btn.addEventListener('click', () => fileInput.click());
 
     fileInput.addEventListener('change', async () => {
       const file = fileInput.files?.[0];
-      fileInput.value = '';
-      if (!file) return;
+      if (!file) {
+        nameSpan.textContent = 'No file chosen';
+        return;
+      }
 
-      btn.disabled = true;
+      nameSpan.textContent = file.name;
+      fileInput.value = '';
+      btn.classList.add('is-disabled');
       status.textContent = 'Uploading…';
       status.classList.remove('cms-upload-status--error');
 
@@ -213,13 +247,14 @@
           })
         );
       } finally {
-        btn.disabled = false;
+        btn.classList.remove('is-disabled');
       }
     });
 
-    row.appendChild(btn);
+    picker.appendChild(btn);
+    picker.appendChild(nameSpan);
+    row.appendChild(picker);
     row.appendChild(status);
-    row.appendChild(fileInput);
     return row;
   }
 
@@ -299,10 +334,10 @@
 
     wrap.appendChild(
       createUploadControl({
-        label: 'Upload image',
+        label: 'Choose file',
         accept: UPLOAD_ACCEPT.image,
         kind: 'image',
-        hint: 'Max 5 MB · JPEG, PNG, WebP, GIF',
+        hint: 'JPEG, PNG, WebP, GIF · Max 5 MB',
         onUploaded: (result) => {
           srcInput.value = result.src;
           syncPreview();
@@ -383,12 +418,13 @@
     posterInput.addEventListener('input', syncPreview);
     syncPreview();
 
+    wrap.appendChild(el('p', 'cms-sublabel', 'Change this video'));
     wrap.appendChild(
       createUploadControl({
-        label: 'Upload video',
+        label: 'Choose file',
         accept: UPLOAD_ACCEPT.video,
         kind: 'video',
-        hint: 'Max 50 MB · MP4, WebM, MOV',
+        hint: 'MP4, WebM, MOV · Max 50 MB',
         onUploaded: (result) => {
           srcInput.value = result.src;
           syncPreview();
@@ -396,12 +432,13 @@
       })
     );
 
+    wrap.appendChild(el('p', 'cms-sublabel', 'Change poster image (optional)'));
     wrap.appendChild(
       createUploadControl({
-        label: 'Upload poster',
+        label: 'Choose file',
         accept: UPLOAD_ACCEPT.poster,
         kind: 'poster',
-        hint: 'Max 5 MB · JPEG, PNG, WebP, GIF',
+        hint: 'JPEG, PNG, WebP, GIF · Max 5 MB',
         onUploaded: (result) => {
           posterInput.value = result.src;
           syncPreview();
@@ -415,6 +452,143 @@
     wrap.appendChild(posterInput);
     wrap.appendChild(videoPreview);
     wrap.appendChild(posterPreview);
+    return wrap;
+  }
+
+  function renderIconField(field, value) {
+    const wrap = el('div', 'cms-field cms-field--icon');
+    wrap.dataset.cmsKey = field.key;
+    wrap.dataset.cmsType = 'icon';
+
+    wrap.appendChild(el('label', '', field.label));
+    wrap.appendChild(
+      el(
+        'p',
+        'cms-field-hint',
+        'Change this icon: choose an SVG to recolor it, or a PNG/JPEG to show the file as uploaded.'
+      )
+    );
+
+    const srcId = `cms-icon-src-${field.key.replace(/[^a-z0-9]+/gi, '-')}`;
+    const colorId = `cms-icon-color-${field.key.replace(/[^a-z0-9]+/gi, '-')}`;
+
+    const srcInput = document.createElement('input');
+    srcInput.type = 'hidden';
+    srcInput.id = srcId;
+    srcInput.value = value.src || '';
+    srcInput.dataset.cmsPart = 'src';
+
+    const nameInput = document.createElement('input');
+    nameInput.type = 'hidden';
+    nameInput.dataset.cmsPart = 'name';
+    nameInput.value = value.name || '';
+
+    const colorWrap = el('div', 'cms-icon-color-row');
+    const colorLabel = el('label', 'cms-sublabel', 'Icon color (SVG and default icons)');
+    colorLabel.setAttribute('for', colorId);
+
+    const colorPicker = document.createElement('input');
+    colorPicker.type = 'color';
+    colorPicker.id = colorId;
+    colorPicker.value = /^#[0-9a-fA-F]{6}$/.test(value.color || '')
+      ? value.color
+      : '#3525cd';
+
+    const colorInput = document.createElement('input');
+    colorInput.type = 'text';
+    colorInput.value = value.color || '';
+    colorInput.dataset.cmsPart = 'color';
+    colorInput.placeholder = '#ef4444';
+    colorInput.maxLength = 7;
+
+    colorWrap.appendChild(colorPicker);
+    colorWrap.appendChild(colorInput);
+
+    const fileStatus = el('p', 'cms-upload-status', value.src ? 'Custom file selected' : 'Using default icon');
+
+    const preview = el('div', 'cms-icon-preview');
+
+    const syncPreview = () => {
+      const src = srcInput.value.trim();
+      const color = colorInput.value.trim();
+      const name = nameInput.value.trim();
+      const recolor = canRecolorIcon(src);
+      colorWrap.hidden = !recolor;
+      colorLabel.hidden = !recolor;
+      fileStatus.textContent = src
+        ? isSvgSrc(src)
+          ? 'SVG selected — color can be changed'
+          : 'Image selected — shown as uploaded (color locked)'
+        : 'Using default icon';
+
+      preview.innerHTML = '';
+      preview.classList.toggle('cms-icon-preview--raster', Boolean(src) && !isSvgSrc(src));
+
+      if (src && !isSvgSrc(src)) {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = '';
+        preview.appendChild(img);
+        return;
+      }
+
+      if (src && isSvgSrc(src)) {
+        const glyph = document.createElement('span');
+        glyph.className = 'cms-icon-svg';
+        glyph.style.setProperty('--cms-icon-color', color || 'currentColor');
+        glyph.style.webkitMaskImage = `url("${src.replace(/"/g, '\\"')}")`;
+        glyph.style.maskImage = `url("${src.replace(/"/g, '\\"')}")`;
+        preview.appendChild(glyph);
+        return;
+      }
+
+      const span = document.createElement('span');
+      span.className = 'material-symbols-outlined';
+      span.textContent = name || 'imagesmode';
+      if (color) span.style.color = color;
+      preview.appendChild(span);
+    };
+
+    colorPicker.addEventListener('input', () => {
+      colorInput.value = colorPicker.value;
+      syncPreview();
+    });
+    colorInput.addEventListener('input', () => {
+      if (/^#[0-9a-fA-F]{6}$/.test(colorInput.value.trim())) {
+        colorPicker.value = colorInput.value.trim();
+      }
+      syncPreview();
+    });
+
+    wrap.appendChild(el('p', 'cms-sublabel', 'Change this icon'));
+    wrap.appendChild(
+      createUploadControl({
+        label: 'Choose file',
+        accept: UPLOAD_ACCEPT.icon,
+        kind: 'icon',
+        hint: 'SVG, PNG, JPEG, WebP, GIF · Max 5 MB',
+        onUploaded: (result) => {
+          srcInput.value = result.src || '';
+          syncPreview();
+        },
+      })
+    );
+
+    const resetBtn = el('button', 'clear-filters cms-icon-reset', 'Use default icon');
+    resetBtn.type = 'button';
+    resetBtn.addEventListener('click', () => {
+      srcInput.value = '';
+      syncPreview();
+    });
+
+    wrap.appendChild(srcInput);
+    wrap.appendChild(nameInput);
+    wrap.appendChild(fileStatus);
+    wrap.appendChild(resetBtn);
+    wrap.appendChild(colorLabel);
+    wrap.appendChild(colorWrap);
+    wrap.appendChild(preview);
+    syncPreview();
     return wrap;
   }
 
@@ -458,6 +632,7 @@
     const value = readFieldValue(blocks, field);
     if (field.type === 'image') return renderImageField(field, value);
     if (field.type === 'video') return renderVideoField(field, value);
+    if (field.type === 'icon') return renderIconField(field, value);
     if (field.type === 'list') return renderListField(field, value);
     return renderTextField(field, value);
   }
@@ -466,15 +641,19 @@
     const blocks = {};
     for (const section of schemaSections) {
       for (const field of section.fields) {
-        if (field.type === 'image' || field.type === 'video') {
+        if (field.type === 'image' || field.type === 'video' || field.type === 'icon') {
           const wrap = form.querySelector(`[data-cms-key="${field.key}"]`);
           if (!wrap) continue;
           const src = wrap.querySelector('[data-cms-part="src"]')?.value || '';
           const raw = { src };
           if (field.type === 'image') {
             raw.alt = wrap.querySelector('[data-cms-part="alt"]')?.value || '';
-          } else {
+          } else if (field.type === 'video') {
             raw.poster = wrap.querySelector('[data-cms-part="poster"]')?.value || '';
+          } else {
+            raw.name = wrap.querySelector('[data-cms-part="name"]')?.value || '';
+            raw.color = wrap.querySelector('[data-cms-part="color"]')?.value || '';
+            if (raw.src && !isSvgSrc(raw.src)) raw.color = '';
           }
           blocks[field.key] = buildBlockFromField(field, raw);
         } else if (field.type === 'list') {

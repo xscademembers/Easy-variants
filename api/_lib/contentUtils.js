@@ -12,6 +12,14 @@ function isOptionalString(value, maxLen = TEXT_MAX) {
   return value === undefined || value === null || (typeof value === 'string' && value.length <= maxLen);
 }
 
+function isHexColor(value) {
+  return typeof value === 'string' && /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(value.trim());
+}
+
+function isIconName(value) {
+  return typeof value === 'string' && /^[a-z0-9_]{1,80}$/i.test(value.trim());
+}
+
 function isUrlLike(value) {
   if (typeof value !== 'string' || !value.trim()) return false;
   if (value.length > URL_MAX) return false;
@@ -106,6 +114,34 @@ export function validateContentBlock(page, key, block) {
           src: String(value.src).trim(),
           poster: value.poster ? String(value.poster).trim() : '',
         },
+      },
+    };
+  }
+
+  if (type === 'icon') {
+    if (!value || typeof value !== 'object') {
+      return { ok: false, error: `Block "${key}" icon value must be { src?, name?, color? }.` };
+    }
+    const src = value.src ? String(value.src).trim() : '';
+    const name = value.name ? String(value.name).trim() : '';
+    const color = value.color ? String(value.color).trim() : '';
+    if (src && !isUrlLike(src)) {
+      return { ok: false, error: `Block "${key}" icon src must be a valid URL or site path.` };
+    }
+    if (!src && !name) {
+      return { ok: false, error: `Block "${key}" icon needs a file or a default icon name.` };
+    }
+    if (name && !isIconName(name)) {
+      return { ok: false, error: `Block "${key}" icon name is invalid.` };
+    }
+    if (color && !isHexColor(color)) {
+      return { ok: false, error: `Block "${key}" icon color must be a hex value such as #ef4444.` };
+    }
+    return {
+      ok: true,
+      block: {
+        type: 'icon',
+        value: { src, name, color },
       },
     };
   }

@@ -12,11 +12,13 @@ const LOCAL_UPLOAD_DIR = join(__dirname, '../../public/uploads/cms');
 export const MEDIA_LIMITS = {
   image: 5 * 1024 * 1024,
   poster: 5 * 1024 * 1024,
+  icon: 5 * 1024 * 1024,
   video: 50 * 1024 * 1024,
 };
 
 const IMAGE_MIMES = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/gif']);
 const VIDEO_MIMES = new Set(['video/mp4', 'video/webm', 'video/quicktime']);
+const SVG_MIMES = new Set(['image/svg+xml', 'image/svg']);
 
 function extForMime(mime) {
   const map = {
@@ -24,6 +26,8 @@ function extForMime(mime) {
     'image/png': '.png',
     'image/webp': '.webp',
     'image/gif': '.gif',
+    'image/svg+xml': '.svg',
+    'image/svg': '.svg',
     'video/mp4': '.mp4',
     'video/webm': '.webm',
     'video/quicktime': '.mov',
@@ -43,10 +47,16 @@ function sanitizeBaseName(filename) {
 function maxBytesForKind(kind) {
   if (kind === 'video') return MEDIA_LIMITS.video;
   if (kind === 'poster') return MEDIA_LIMITS.poster;
+  if (kind === 'icon') return MEDIA_LIMITS.icon;
   return MEDIA_LIMITS.image;
 }
 
-function validateUpload(kind, mimeType, size) {
+function isSvgUpload(mimeType, filename) {
+  if (SVG_MIMES.has(mimeType)) return true;
+  return /\.svg$/i.test(String(filename || ''));
+}
+
+function validateUpload(kind, mimeType, size, filename) {
   const max = maxBytesForKind(kind);
   if (size > max) {
     const mb = Math.round(max / (1024 * 1024));
@@ -58,6 +68,13 @@ function validateUpload(kind, mimeType, size) {
       return { ok: false, error: 'Video must be MP4, WebM, or MOV.' };
     }
     return { ok: true };
+  }
+
+  if (kind === 'icon') {
+    if (isSvgUpload(mimeType, filename) || IMAGE_MIMES.has(mimeType)) {
+      return { ok: true };
+    }
+    return { ok: false, error: 'Icon must be SVG, PNG, JPEG, WebP, or GIF.' };
   }
 
   if (!IMAGE_MIMES.has(mimeType)) {
@@ -166,14 +183,17 @@ async function storeBlob(buffer, filename, mimeType) {
 
 export async function handleMediaUpload(req) {
   const parsed = await parseMultipartFile(req);
-  const validation = validateUpload(parsed.kind, parsed.mimeType, parsed.size);
+  const validation = validateUpload(parsed.kind, parsed.mimeType, parsed.size, parsed.filename);
   if (!validation.ok) {
     const err = new Error(validation.error);
     err.statusCode = 400;
     throw err;
   }
 
-  const result = await storeBlob(parsed.buffer, parsed.filename, parsed.mimeType);
+  const mimeType = isSvgUpload(parsed.mimeType, parsed.filename)
+    ? 'image/svg+xml'
+    : parsed.mimeType;
+  const result = await storeBlob(parsed.buffer, parsed.filename, mimeType);
   return {
     ok: true,
     kind: parsed.kind,
