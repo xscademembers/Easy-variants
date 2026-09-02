@@ -123,10 +123,13 @@ export const CMS_SCHEMA = {
         },
         { key: 'hero.stats.0.value', label: 'Hero stat 1 value', type: 'text', default: '10×' },
         { key: 'hero.stats.0.label', label: 'Hero stat 1 heading', type: 'text', default: 'Faster output' },
+        { key: 'hero.stats.0.icon', label: 'Hero stat 1 icon', type: 'icon', default: { src: '', name: 'layers', color: '#3525cd' } },
         { key: 'hero.stats.1.value', label: 'Hero stat 2 value', type: 'text', default: '1K+' },
         { key: 'hero.stats.1.label', label: 'Hero stat 2 heading', type: 'text', default: 'SKUs per run' },
+        { key: 'hero.stats.1.icon', label: 'Hero stat 2 icon', type: 'icon', default: { src: '', name: 'inventory_2', color: '#4f46e5' } },
         { key: 'hero.stats.2.value', label: 'Hero stat 3 value', type: 'text', default: 'Illustrator' },
         { key: 'hero.stats.2.label', label: 'Hero stat 3 heading', type: 'text', default: 'Native plugin' },
+        { key: 'hero.stats.2.icon', label: 'Hero stat 3 icon', type: 'icon', default: { src: '', name: 'draw', color: '#16a34a' } },
       ],
     },
     sectionHeader('meet', 'Meet EasyVariants', {
@@ -309,24 +312,29 @@ export const CMS_SCHEMA = {
             title: 'Upload PLM Colorways',
             description:
               'Bring in approved colorway data from your PLM and set the foundation for automated outputs.',
+            icon: { name: 'palette', color: '#3525cd' },
           },
           {
             title: 'Load Ai Template',
             description: 'Load your Illustrator template so structure and artwork layers are ready for mapping.',
+            icon: { name: 'upload_file', color: '#3525cd' },
           },
           {
             title: 'Define Variables',
             description:
               'Define variable inputs like colors, names, codes, and artwork references for each variant.',
+            icon: { name: 'data_object', color: '#3525cd' },
           },
           {
             title: 'Map Elements',
             description:
               'Map template elements to variable data so every layer updates accurately across outputs.',
+            icon: { name: 'rule_settings', color: '#3525cd' },
           },
           {
             title: 'Generate Variants',
             description: 'Run generation to produce final, production-ready variants at scale in minutes.',
+            icon: { name: 'auto_awesome_motion', color: '#3525cd' },
           },
         ]),
         { key: 'workflow.moreDetails', label: 'More details button', type: 'text', default: 'More details' },
@@ -849,31 +857,37 @@ export const CMS_SCHEMA = {
             title: 'Headwear',
             description:
               'Where it started, and is still the densest test of the system. Fitted, snapback, trucker, and dad-cap silhouettes, each with front logo, side hit, back closure, and undervisor placements. Multiple embroidery zones per cap, precise thread and PMS callouts, and crown-panel recolors that all have to stay in register across a full team roster.',
+            icon: { name: 'checkroom', color: '#3525cd' },
           },
           {
             title: 'Jerseys',
             description:
               'Chest crest, sleeve numbers, nameplate, and manufacturer marks – each its own placement, each resolving per team. Nameplate text splits and reflows for names of every length, and the twill and applique construction rides along as treatment on the fill.',
+            icon: { name: 'sports_soccer', color: '#3525cd' },
           },
           {
             title: 'T-shirts & Tees',
             description:
               'Front graphic, back print, sleeve hit, and left-chest logo. Screenprint and distressed-finish treatments – grain, wash, fade – carried as effects that reproduce identically on every team\'s version.',
+            icon: { name: 'styler', color: '#3525cd' },
           },
           {
             title: 'Polos & Performance',
             description:
               'Clean, embroidery-first layouts. Left-chest logo, sleeve mark, and collar detail – the zone where thread color and PMS accuracy matter most, and where a stale swatch is most visible.',
+            icon: { name: 'dry_cleaning', color: '#3525cd' },
           },
           {
             title: 'Jackets & Outerwear',
             description:
               'Back panels, chest crests, sleeve wordmarks, and zip-placket detailing. Multiple large placements per piece, often mixing embroidery, applique, and print in a single garment – exactly the multi-treatment case the appearance stack is built for.',
+            icon: { name: 'apparel', color: '#3525cd' },
           },
           {
             title: 'Accessories',
             description:
               'Bags, beanies, scarves, and patches. Small formats where a single logo or wordmark carries the whole design, and where volume across a league still makes manual replication expensive.',
+            icon: { name: 'shopping_bag', color: '#3525cd' },
           },
         ]),
       ],
@@ -885,15 +899,18 @@ export const CMS_SCHEMA = {
           title: 'Seasonal Lines',
           description:
             'Product that changes regularly, where the cost of manual replication compounds with every new style.',
+          icon: { name: 'calendar_month', color: '#3525cd' },
         },
         {
           title: 'Evergreen Product',
           description: 'The designs that relaunch season after season, where a template built once keeps paying out.',
+          icon: { name: 'autorenew', color: '#3525cd' },
         },
         {
           title: 'Prototypes & Customs',
           description:
             'Even a simple, single-color piece needs a prototype before an order lands. EasyVariants makes it cheap enough to produce one.',
+          icon: { name: 'science', color: '#3525cd' },
         },
       ]),
     },
@@ -1034,6 +1051,7 @@ export const CMS_SCHEMA = {
       fields: [
         { key: 'contact.info.0.title', label: 'Email card heading', type: 'text', default: 'Email Us' },
         { key: 'contact.info.0.description', label: 'Email card text', type: 'text', default: 'hello@easyvariants.com' },
+        { key: 'contact.info.0.icon', label: 'Email card icon', type: 'icon', default: { src: '', name: 'mail', color: '#3525cd' } },
         { key: 'contact.info.1.title', label: 'Response time heading', type: 'text', default: 'Response Time' },
         {
           key: 'contact.info.1.description',
@@ -1041,6 +1059,7 @@ export const CMS_SCHEMA = {
           type: 'textarea',
           default: 'We typically respond within 24 hours on business days.',
         },
+        { key: 'contact.info.1.icon', label: 'Response time icon', type: 'icon', default: { src: '', name: 'schedule', color: '#3525cd' } },
         { key: 'contact.info.2.title', label: 'Live demo heading', type: 'text', default: 'Live Demo' },
         {
           key: 'contact.info.2.description',
@@ -1048,6 +1067,7 @@ export const CMS_SCHEMA = {
           type: 'textarea',
           default: 'Get a personalized walkthrough of the platform, tailored to your use case.',
         },
+        { key: 'contact.info.2.icon', label: 'Live demo icon', type: 'icon', default: { src: '', name: 'devices', color: '#3525cd' } },
         { key: 'contact.info.3.title', label: 'Support heading', type: 'text', default: 'Dedicated Support' },
         {
           key: 'contact.info.3.description',
@@ -1055,6 +1075,7 @@ export const CMS_SCHEMA = {
           type: 'textarea',
           default: 'Our team is here to help you every step of the way.',
         },
+        { key: 'contact.info.3.icon', label: 'Support icon', type: 'icon', default: { src: '', name: 'support_agent', color: '#3525cd' } },
       ],
     },
     {

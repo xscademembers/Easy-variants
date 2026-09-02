@@ -158,20 +158,45 @@ async function storeLocal(buffer, filename, mimeType) {
   };
 }
 
+const DATA_URL_MAX_BYTES = 350 * 1024;
+
+function isVercelRuntime() {
+  return process.env.VERCEL === '1' || Boolean(process.env.VERCEL);
+}
+
+function storageUnavailableError(kind) {
+  const err = new Error(
+    kind === 'video'
+      ? 'Video cannot be saved on this host. Add Vercel Blob (Storage → Blob → Create store) and redeploy.'
+      : 'This file is too large to store without Vercel Blob. Use an SVG/PNG under 350 KB, or add Blob storage.'
+  );
+  err.statusCode = 503;
+  return err;
+}
+
+function storeDataUrl(buffer, filename, mimeType) {
+  if (buffer.length > DATA_URL_MAX_BYTES) {
+    throw storageUnavailableError('icon');
+  }
+  return {
+    src: `data:${mimeType};base64,${buffer.toString('base64')}`,
+    pathname: sanitizeBaseName(filename),
+    size: buffer.length,
+    mime: mimeType,
+    storage: 'inline',
+  };
+}
+
 async function storeBlob(buffer, filename, mimeType) {
   const token = process.env.BLOB_READ_WRITE_TOKEN;
-  if (!token) {
-    return storeLocal(buffer, filename, mimeType);
-  }
-
   const pathname = `cms/${sanitizeBaseName(filename)}-${randomBytes(6).toString('hex')}${extForMime(mimeType)}`;
-  const blob = await put(pathname, buffer, {
+  const options = {
     access: 'public',
     addRandomSuffix: false,
     contentType: mimeType,
-    token,
-  });
-
+  };
+  if (token) options.token = token;
+  const blob = await put(pathname, buffer, options);
   return {
     src: blob.url,
     pathname: blob.pathname,
@@ -179,6 +204,39 @@ async function storeBlob(buffer, filename, mimeType) {
     mime: mimeType,
     storage: 'blob',
   };
+}
+
+async function persistUpload(buffer, filename, mimeType, kind) {
+  const onVercel = isVercelRuntime();
+  const hasBlobToken = Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+
+  if (hasBlobToken) {
+    try {
+      return await storeBlob(buffer, filename, mimeType);
+    } catch (err) {
+      if (kind === 'video') throw storageUnavailableError('video');
+      try {
+        return storeDataUrl(buffer, filename, mimeType);
+      } catch (fallbackErr) {
+        throw fallbackErr;
+      }
+    }
+  }
+
+  if (onVercel) {
+    if (kind === 'video') throw storageUnavailableError('video');
+    return storeDataUrl(buffer, filename, mimeType);
+  }
+
+  try {
+    return await storeLocal(buffer, filename, mimeType);
+  } catch (err) {
+    if (err?.code === 'EROFS' || err?.code === 'EACCES') {
+      if (kind === 'video') throw storageUnavailableError('video');
+      return storeDataUrl(buffer, filename, mimeType);
+    }
+    throw err;
+  }
 }
 
 export async function handleMediaUpload(req) {
@@ -193,7 +251,7 @@ export async function handleMediaUpload(req) {
   const mimeType = isSvgUpload(parsed.mimeType, parsed.filename)
     ? 'image/svg+xml'
     : parsed.mimeType;
-  const result = await storeBlob(parsed.buffer, parsed.filename, mimeType);
+  const result = await persistUpload(parsed.buffer, parsed.filename, mimeType, parsed.kind);
   return {
     ok: true,
     kind: parsed.kind,

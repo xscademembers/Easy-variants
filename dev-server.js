@@ -45,7 +45,7 @@ async function mountRoutes() {
     console.log('[dev-server]  /api/admin/media (multipart, raw body)');
   }
 
-  app.use(express.json({ limit: '1mb' }));
+  app.use(express.json({ limit: '4mb' }));
 
   for (const file of files) {
     const rel = relative(API_DIR, file).replace(/\\/g, '/').replace(/\.js$/, '');

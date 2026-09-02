@@ -3,6 +3,7 @@ import { decodeBlocks } from './blockKeyUtils.js';
 
 const TEXT_MAX = 10000;
 const URL_MAX = 2048;
+const DATA_URL_MAX = 500000;
 
 function isNonEmptyString(value, maxLen = TEXT_MAX) {
   return typeof value === 'string' && value.trim().length > 0 && value.length <= maxLen;
@@ -20,8 +21,15 @@ function isIconName(value) {
   return typeof value === 'string' && /^[a-z0-9_]{1,80}$/i.test(value.trim());
 }
 
+function isDataImageUrl(value) {
+  return /^data:image\/(jpeg|jpg|png|gif|webp|svg\+xml|svg);base64,/i.test(String(value || '').trim());
+}
+
 function isUrlLike(value) {
   if (typeof value !== 'string' || !value.trim()) return false;
+  if (isDataImageUrl(value)) {
+    return value.length <= DATA_URL_MAX;
+  }
   if (value.length > URL_MAX) return false;
   if (value.startsWith('/') || value.startsWith('./') || value.startsWith('images/') || value.startsWith('assets/')) return true;
   try {
