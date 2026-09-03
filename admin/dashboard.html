@@ -858,7 +858,7 @@
       display: none;
     }
 
-    .cms-field label {
+    .cms-field label:not(.cms-file-picker__btn) {
       display: block;
       font-size: 0.8125rem;
       font-weight: 600;
@@ -1044,6 +1044,7 @@
       gap: 10px;
     }
 
+    .cms-field label.cms-file-picker__btn,
     .cms-file-picker__btn {
       position: relative;
       display: inline-flex;
@@ -1055,10 +1056,12 @@
       border: 1px solid #3525cd;
       background: #3525cd;
       color: #fff;
+      -webkit-text-fill-color: #fff;
       font-size: 0.8125rem;
       font-weight: 700;
       cursor: pointer;
       overflow: hidden;
+      margin: 0;
     }
 
     .cms-file-picker__btn.is-disabled {

@@ -244,7 +244,7 @@
         color: #3525cd;
         font-weight: 700;
       }
-      .ez-edit-popover label {
+      .ez-edit-popover label:not(.ez-file-picker__btn) {
         display: block;
         font-size: 0.75rem;
         font-weight: 600;
@@ -269,6 +269,7 @@
         gap: 10px;
         margin: 4px 0 10px;
       }
+      .ez-edit-popover label.ez-file-picker__btn,
       .ez-file-picker__btn {
         position: relative;
         display: inline-flex;
@@ -280,10 +281,12 @@
         border: 1px solid #3525cd;
         background: #3525cd;
         color: #fff;
+        -webkit-text-fill-color: #fff;
         font-size: 0.8125rem;
         font-weight: 700;
         cursor: pointer;
         overflow: hidden;
+        margin: 0;
       }
       .ez-file-picker input[type="file"] {
         position: absolute;
