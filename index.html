@@ -1055,11 +1055,21 @@
         }
 
         /* ═══ GLOBAL SMOOTHNESS ═══ */
-        img,
+        img:not(.cms-icon-img),
         video {
             transform: translateZ(0);
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
+        }
+
+        img.cms-icon-img {
+            transform: none;
+            backface-visibility: visible;
+            -webkit-backface-visibility: visible;
+            border: 0;
+            outline: none;
+            box-shadow: none;
+            background: transparent;
         }
 
         a,
@@ -1673,6 +1683,10 @@
             width: 1.125rem;
             height: 1.125rem;
             opacity: 1;
+            border: 0;
+            outline: none;
+            box-shadow: none;
+            background: transparent;
         }
 
         .var-nav__btn:hover {
@@ -2991,12 +3005,12 @@
                         <div class="deep-dive-body">
                             <div class="var-explorer">
                                 <nav class="var-nav" role="tablist" aria-label="Variable types">
-                                    <button type="button" class="var-nav__btn" role="tab" data-var="0" aria-selected="true" aria-controls="var-panel-0"><span class="material-symbols-outlined">place</span><span data-cms-key="deepdive.variables.tabs.0">Placement Zones</span></button>
-                                    <button type="button" class="var-nav__btn" role="tab" data-var="1" aria-selected="false" aria-controls="var-panel-1" tabindex="-1"><span class="material-symbols-outlined">palette</span><span data-cms-key="deepdive.variables.tabs.1">Color Blocks</span></button>
-                                    <button type="button" class="var-nav__btn" role="tab" data-var="2" aria-selected="false" aria-controls="var-panel-2" tabindex="-1"><span class="material-symbols-outlined">draw</span><span data-cms-key="deepdive.variables.tabs.2">Embroidery Zones</span></button>
-                                    <button type="button" class="var-nav__btn" role="tab" data-var="3" aria-selected="false" aria-controls="var-panel-3" tabindex="-1"><span class="material-symbols-outlined">straighten</span><span data-cms-key="deepdive.variables.tabs.3">Dimensions</span></button>
-                                    <button type="button" class="var-nav__btn" role="tab" data-var="4" aria-selected="false" aria-controls="var-panel-4" tabindex="-1"><span class="material-symbols-outlined">text_fields</span><span data-cms-key="deepdive.variables.tabs.4">Text</span></button>
-                                    <button type="button" class="var-nav__btn" role="tab" data-var="5" aria-selected="false" aria-controls="var-panel-5" tabindex="-1"><span class="material-symbols-outlined">auto_fix_high</span><span data-cms-key="deepdive.variables.tabs.5">Treatments &amp; Effects</span></button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-var="0" aria-selected="true" aria-controls="var-panel-0"><span class="var-nav__icon" data-cms-key="deepdive.variables.tabs.0.icon" data-cms-icon data-cms-icon-name="place" data-cms-icon-tint><span class="material-symbols-outlined">place</span></span><span data-cms-key="deepdive.variables.tabs.0">Placement Zones</span></button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-var="1" aria-selected="false" aria-controls="var-panel-1" tabindex="-1"><span class="var-nav__icon" data-cms-key="deepdive.variables.tabs.1.icon" data-cms-icon data-cms-icon-name="palette" data-cms-icon-tint><span class="material-symbols-outlined">palette</span></span><span data-cms-key="deepdive.variables.tabs.1">Color Blocks</span></button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-var="2" aria-selected="false" aria-controls="var-panel-2" tabindex="-1"><span class="var-nav__icon" data-cms-key="deepdive.variables.tabs.2.icon" data-cms-icon data-cms-icon-name="draw" data-cms-icon-tint><span class="material-symbols-outlined">draw</span></span><span data-cms-key="deepdive.variables.tabs.2">Embroidery Zones</span></button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-var="3" aria-selected="false" aria-controls="var-panel-3" tabindex="-1"><span class="var-nav__icon" data-cms-key="deepdive.variables.tabs.3.icon" data-cms-icon data-cms-icon-name="straighten" data-cms-icon-tint><span class="material-symbols-outlined">straighten</span></span><span data-cms-key="deepdive.variables.tabs.3">Dimensions</span></button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-var="4" aria-selected="false" aria-controls="var-panel-4" tabindex="-1"><span class="var-nav__icon" data-cms-key="deepdive.variables.tabs.4.icon" data-cms-icon data-cms-icon-name="text_fields" data-cms-icon-tint><span class="material-symbols-outlined">text_fields</span></span><span data-cms-key="deepdive.variables.tabs.4">Text</span></button>
+                                    <button type="button" class="var-nav__btn" role="tab" data-var="5" aria-selected="false" aria-controls="var-panel-5" tabindex="-1"><span class="var-nav__icon" data-cms-key="deepdive.variables.tabs.5.icon" data-cms-icon data-cms-icon-name="auto_fix_high" data-cms-icon-tint><span class="material-symbols-outlined">auto_fix_high</span></span><span data-cms-key="deepdive.variables.tabs.5">Treatments &amp; Effects</span></button>
                                 </nav>
 
                                 <div class="var-detail">

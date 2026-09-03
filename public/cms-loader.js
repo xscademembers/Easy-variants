@@ -102,10 +102,19 @@
     style.id = 'ez-cms-icon-styles';
     style.textContent = `
       .cms-icon-img {
-        width: 100%;
-        height: 100%;
+        width: 1.5rem;
+        height: 1.5rem;
+        max-width: 100%;
+        max-height: 100%;
         object-fit: contain;
         display: block;
+        border: 0 !important;
+        outline: none !important;
+        box-shadow: none !important;
+        background: transparent;
+        transform: none !important;
+        backface-visibility: visible;
+        -webkit-backface-visibility: visible;
       }
       .cms-icon-img--glyph {
         width: 1.5rem;
@@ -122,12 +131,6 @@
         mask-position: center;
         -webkit-mask-size: contain;
         mask-size: contain;
-      }
-      [data-cms-icon].cms-icon-host--raster {
-        background: transparent !important;
-        border-color: transparent !important;
-        box-shadow: none !important;
-        padding: 0;
       }
     `;
     document.head.appendChild(style);
@@ -158,12 +161,8 @@
     const spanClass = el.dataset.cmsIconClass || 'material-symbols-outlined';
     const uploadedSvg = Boolean(src) && isSvgSrc(src);
     const tintWithCurrentColor = el.hasAttribute('data-cms-icon-tint');
-    const keepHostBox =
-      el.classList.contains('steps-picker__icon') ||
-      el.classList.contains('var-nav__icon') ||
-      el.classList.contains('footer-mini-card__icon');
 
-    el.classList.toggle('cms-icon-host--raster', Boolean(src) && !uploadedSvg && !keepHostBox);
+    el.classList.remove('cms-icon-host--raster');
     el.innerHTML = '';
 
     if (src) {

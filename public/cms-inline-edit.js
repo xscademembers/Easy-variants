@@ -175,6 +175,17 @@
         outline: 2px solid #ffd966;
         outline-offset: 4px;
       }
+      body.ez-cms-edit-mode [data-cms-icon],
+      body.ez-cms-edit-mode [data-cms-icon]:hover,
+      body.ez-cms-edit-mode [data-cms-icon][data-ez-dirty="1"],
+      body.ez-cms-edit-mode [data-cms-icon][data-ez-editing="1"] {
+        outline: none !important;
+        outline-offset: 0;
+      }
+      body.ez-cms-edit-mode [data-cms-icon]:hover {
+        box-shadow: 0 0 0 2px rgba(53, 37, 205, 0.28);
+        border-radius: 0.5rem;
+      }
       body.ez-cms-edit-mode [data-cms-key][data-ez-editing="1"] {
         outline: 2px solid #3525cd;
         outline-offset: 4px;

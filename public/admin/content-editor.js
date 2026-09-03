@@ -28,7 +28,7 @@
     Workflow: 'Workflow section intro',
     'Workflow · Steps': 'Five-step workflow cards',
     'Building Blocks': 'Variable system section heading',
-    'Building Blocks · Intro': 'Intro copy and tab labels',
+    'Building Blocks · Intro': 'Intro copy, tab labels, and tab icons',
     'Building Blocks · Placement Zones': 'Placement Zones tab content',
     'Building Blocks · Color Blocks': 'Color Blocks tab content',
     'Building Blocks · Embroidery Zones': 'Embroidery Zones tab content',
@@ -479,7 +479,7 @@
       const name = nameInput.value.trim();
       fileStatus.textContent = src ? 'Custom file selected' : 'Using default icon';
       preview.innerHTML = '';
-      preview.classList.toggle('cms-icon-preview--raster', Boolean(src) && !isSvgSrc(src));
+      preview.classList.remove('cms-icon-preview--raster');
 
       if (src) {
         const img = document.createElement('img');
