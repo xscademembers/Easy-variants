@@ -180,18 +180,62 @@
     const token = localStorage.getItem('ev_admin_token');
     if (!token) throw new Error('Not authenticated. Please log in again.');
 
-    const fd = new FormData();
-    fd.append('file', file);
-    fd.append('kind', kind);
+    const authHeaders = { Authorization: `Bearer ${token}` };
+    const meta = {
+      action: 'prepare',
+      kind,
+      filename: file.name || 'upload',
+      mimeType: file.type || 'application/octet-stream',
+      size: file.size,
+    };
 
-    const res = await fetch('/api/admin/media', {
+    const prepareRes = await fetch('/api/admin/media', {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
-      body: fd,
+      headers: { ...authHeaders, 'Content-Type': 'application/json' },
+      body: JSON.stringify(meta),
     });
+    const prepare = await prepareRes.json();
+    if (!prepareRes.ok) throw new Error(prepare.error || 'Upload prepare failed.');
 
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Upload failed.');
+    // Local development without R2: proxy bytes through the API to disk.
+    if (prepare.mode === 'proxy') {
+      const fd = new FormData();
+      fd.append('file', file);
+      fd.append('kind', kind);
+      const res = await fetch('/api/admin/media', {
+        method: 'POST',
+        headers: authHeaders,
+        body: fd,
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Upload failed.');
+      return data;
+    }
+
+    const putHeaders = { ...(prepare.headers || {}) };
+    const putRes = await fetch(prepare.uploadUrl, {
+      method: 'PUT',
+      headers: putHeaders,
+      body: file,
+    });
+    if (!putRes.ok) {
+      throw new Error(`Cloudflare R2 upload failed (${putRes.status}). Check bucket CORS and credentials.`);
+    }
+
+    const finalizeRes = await fetch('/api/admin/media', {
+      method: 'POST',
+      headers: { ...authHeaders, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'finalize',
+        kind,
+        filename: file.name || 'upload',
+        mimeType: prepare.mime || file.type || 'application/octet-stream',
+        size: file.size,
+        objectKey: prepare.objectKey,
+      }),
+    });
+    const data = await finalizeRes.json();
+    if (!finalizeRes.ok) throw new Error(data.error || 'Upload finalize failed.');
     return data;
   }
 

@@ -748,16 +748,60 @@
 
   async function uploadFile(file, kind) {
     const token = localStorage.getItem(TOKEN_KEY);
-    const fd = new FormData();
-    fd.append('file', file);
-    fd.append('kind', kind);
-    const res = await fetch('/api/admin/media', {
+    if (!token) throw new Error('Not authenticated. Please log in again.');
+
+    const authHeaders = { Authorization: `Bearer ${token}` };
+    const prepareRes = await fetch('/api/admin/media', {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
-      body: fd,
+      headers: { ...authHeaders, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'prepare',
+        kind,
+        filename: file.name || 'upload',
+        mimeType: file.type || 'application/octet-stream',
+        size: file.size,
+      }),
     });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Upload failed.');
+    const prepare = await prepareRes.json();
+    if (!prepareRes.ok) throw new Error(prepare.error || 'Upload prepare failed.');
+
+    if (prepare.mode === 'proxy') {
+      const fd = new FormData();
+      fd.append('file', file);
+      fd.append('kind', kind);
+      const res = await fetch('/api/admin/media', {
+        method: 'POST',
+        headers: authHeaders,
+        body: fd,
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Upload failed.');
+      return data;
+    }
+
+    const putRes = await fetch(prepare.uploadUrl, {
+      method: 'PUT',
+      headers: { ...(prepare.headers || {}) },
+      body: file,
+    });
+    if (!putRes.ok) {
+      throw new Error(`Cloudflare R2 upload failed (${putRes.status}). Check bucket CORS and credentials.`);
+    }
+
+    const finalizeRes = await fetch('/api/admin/media', {
+      method: 'POST',
+      headers: { ...authHeaders, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'finalize',
+        kind,
+        filename: file.name || 'upload',
+        mimeType: prepare.mime || file.type || 'application/octet-stream',
+        size: file.size,
+        objectKey: prepare.objectKey,
+      }),
+    });
+    const data = await finalizeRes.json();
+    if (!finalizeRes.ok) throw new Error(data.error || 'Upload finalize failed.');
     return data;
   }
 
@@ -834,8 +878,8 @@
         const nameInput = pop.querySelector('[data-field="name"]');
         const file = fileInput.files?.[0];
 
-        if (file && file.size > 4.5 * 1024 * 1024) {
-          toast('Icon exceeds Vercel\'s 4.5 MB upload limit. Please use a smaller file.', 'error');
+        if (file && file.size > 5 * 1024 * 1024) {
+          toast('Icon exceeds the 5 MB limit. Please use a smaller file.', 'error');
           return;
         }
 
@@ -907,9 +951,9 @@
         const file = fileInput.files?.[0];
 
         if (file) {
-          const maxMB = 4.5;
+          const maxMB = 5;
           if (file.size > maxMB * 1024 * 1024) {
-            toast(`Image exceeds Vercel's ${maxMB} MB upload limit. Please paste a link or optimize the file.`, 'error');
+            toast(`Image exceeds the ${maxMB} MB limit. Please paste a link or use a smaller file.`, 'error');
             return;
           }
         }
@@ -975,14 +1019,13 @@
 
         const file = fileInput.files?.[0];
         const posterFile = posterFileInput.files?.[0];
-        const maxMB = 4.5;
 
-        if (file && file.size > maxMB * 1024 * 1024) {
-          toast(`Video exceeds Vercel's ${maxMB} MB upload limit. Please paste a YouTube link or host it externally.`, 'error');
+        if (file && file.size > 50 * 1024 * 1024) {
+          toast('Video exceeds the 50 MB limit. Please use a smaller file or paste a YouTube link.', 'error');
           return;
         }
-        if (posterFile && posterFile.size > maxMB * 1024 * 1024) {
-          toast(`Poster exceeds Vercel's ${maxMB} MB upload limit. Please optimize the image.`, 'error');
+        if (posterFile && posterFile.size > 5 * 1024 * 1024) {
+          toast('Poster exceeds the 5 MB limit. Please optimize the image.', 'error');
           return;
         }
 

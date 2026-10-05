@@ -7,36 +7,49 @@
   const UPLOAD_ACCEPT = {
     image: 'image/jpeg,image/png,image/webp,image/gif',
     poster: 'image/jpeg,image/png,image/webp,image/gif',
+    icon: 'image/svg+xml,image/png,image/jpeg,image/webp,image/gif,.svg,.png,.jpg,.jpeg,.webp,.gif',
     video: 'video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov',
   };
 
   const SECTION_HINTS = {
-    'Header navigation': 'Demo button in the top menu',
+    'Header navigation': 'Top menu links and demo button',
     Hero: 'Large banner at the top of the homepage',
     'Meet EasyVariants': 'Video section — “Meet EasyVariants”',
     'Meet EasyVariants · Media': 'Explainer video file',
     'The Problem': '“The Design Bottleneck” section intro',
-    'The Problem · Cards': 'Four rotating problem cards',
+    'The Problem · Cards': 'Four rotating problem cards, including icons',
     'The EasyVariants Advantage': 'Benefits section intro',
-    'Advantage · Cards': 'Four benefit cards',
+    'Advantage · Cards': 'Four benefit cards, including icons',
     'Inside EasyVariants': 'Illustrator plugin section intro',
     'Inside EasyVariants · Features & CTA': 'Feature list and button',
     'Our Solution': 'Smart Automation section intro',
     'Our Solution · Stats': 'Three stat pills',
-    'Our Solution · Feature cards': 'Four feature cards',
+    'Our Solution · Feature cards': 'Four feature cards, including icons',
     Workflow: 'Workflow section intro',
     'Workflow · Steps': 'Five-step workflow cards',
+    'Building Blocks': 'Variable system section heading',
+    'Building Blocks · Intro': 'Intro copy, tab labels, and tab icons',
+    'Building Blocks · Placement Zones': 'Placement Zones tab content',
+    'Building Blocks · Color Blocks': 'Color Blocks tab content',
+    'Building Blocks · Embroidery Zones': 'Embroidery Zones tab content',
+    'Building Blocks · Dimensions': 'Dimensions tab content',
+    'Building Blocks · Text': 'Text tab content',
+    'Building Blocks · Treatments & Effects': 'Treatments tab content',
+    'How EasyVariants Works': 'Four steps section heading',
+    'How EasyVariants Works · Steps': 'Step tabs, tab icons, and body copy',
+    'Craft That Scales': 'Craft section heading',
+    'Craft That Scales · Copy': 'Craft tabs, tab icons, headings, and paragraphs',
     'Demo Videos': 'Demo videos section intro',
     'Demo Videos · YouTube list': 'YouTube videos in the carousel',
     'Where It Fits': 'Product types and use cases section intro',
     'Where It Fits · Product types': 'Six product category cards',
     'Where It Fits · Use cases': 'Seasonal, evergreen, and prototype cards',
     'Final CTA': 'Bottom call-to-action banner',
-    Footer: 'Site footer text',
+    Footer: 'Site footer text and contact card icons',
     'Footer · Menu links': 'Footer navigation links',
     'Footer · Social links': 'Social media links',
     'Page header': 'Contact page title area',
-    'Contact form': 'Form heading above the contact form',
+    'Contact form': 'Form headings, labels, and placeholders',
     'Info cards': 'Email, response time, demo, support cards',
     'Quick stats': 'Numbers shown on the contact page',
   };
@@ -47,6 +60,11 @@
     'hero.image': 'Main image next to the hero headline',
     'demos.videos': 'YouTube video IDs for the homepage demo carousel',
   };
+
+  function isSvgSrc(src) {
+    const s = String(src || '').split('?')[0].toLowerCase();
+    return s.endsWith('.svg') || s.includes('image/svg');
+  }
 
   function sectionSlug(name) {
     return `cms-section-${name.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '').toLowerCase()}`;
@@ -86,6 +104,12 @@
     return fallback ?? { src: '', poster: '' };
   }
 
+  function blockIcon(blocks, key, fallback) {
+    const b = blocks?.[key];
+    if (b?.type === 'icon' && b.value && (b.value.src || b.value.name)) return b.value;
+    return fallback ?? { src: '', name: '', color: '' };
+  }
+
   function blockList(blocks, key, fallback) {
     const b = blocks?.[key];
     if (b?.type === 'list' && Array.isArray(b.value)) return b.value;
@@ -96,6 +120,7 @@
     if (field.default !== undefined) return field.default;
     if (field.type === 'image') return { src: '', alt: '' };
     if (field.type === 'video') return { src: '', poster: '' };
+    if (field.type === 'icon') return { src: '', name: '', color: '' };
     if (field.type === 'list') return [];
     return '';
   }
@@ -104,6 +129,7 @@
     const key = field.key;
     if (field.type === 'image') return blockImage(blocks, key, fieldDefault(field));
     if (field.type === 'video') return blockVideo(blocks, key, fieldDefault(field));
+    if (field.type === 'icon') return blockIcon(blocks, key, fieldDefault(field));
     if (field.type === 'list') return blockList(blocks, key, fieldDefault(field));
     return blockText(blocks, key, fieldDefault(field));
   }
@@ -127,6 +153,16 @@
         },
       };
     }
+    if (field.type === 'icon') {
+      return {
+        type: 'icon',
+        value: {
+          src: String(raw.src || '').trim(),
+          name: String(raw.name || '').trim(),
+          color: '',
+        },
+      };
+    }
     if (field.type === 'list') {
       return { type: 'list', value: raw };
     }
@@ -144,42 +180,92 @@
     const token = localStorage.getItem('ev_admin_token');
     if (!token) throw new Error('Not authenticated. Please log in again.');
 
-    const fd = new FormData();
-    fd.append('file', file);
-    fd.append('kind', kind);
+    const authHeaders = { Authorization: `Bearer ${token}` };
+    const meta = {
+      action: 'prepare',
+      kind,
+      filename: file.name || 'upload',
+      mimeType: file.type || 'application/octet-stream',
+      size: file.size,
+    };
 
-    const res = await fetch('/api/admin/media', {
+    const prepareRes = await fetch('/api/admin/media', {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
-      body: fd,
+      headers: { ...authHeaders, 'Content-Type': 'application/json' },
+      body: JSON.stringify(meta),
     });
+    const prepare = await prepareRes.json();
+    if (!prepareRes.ok) throw new Error(prepare.error || 'Upload prepare failed.');
 
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Upload failed.');
+    // Local development without R2: proxy bytes through the API to disk.
+    if (prepare.mode === 'proxy') {
+      const fd = new FormData();
+      fd.append('file', file);
+      fd.append('kind', kind);
+      const res = await fetch('/api/admin/media', {
+        method: 'POST',
+        headers: authHeaders,
+        body: fd,
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Upload failed.');
+      return data;
+    }
+
+    const putHeaders = { ...(prepare.headers || {}) };
+    const putRes = await fetch(prepare.uploadUrl, {
+      method: 'PUT',
+      headers: putHeaders,
+      body: file,
+    });
+    if (!putRes.ok) {
+      throw new Error(`Cloudflare R2 upload failed (${putRes.status}). Check bucket CORS and credentials.`);
+    }
+
+    const finalizeRes = await fetch('/api/admin/media', {
+      method: 'POST',
+      headers: { ...authHeaders, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'finalize',
+        kind,
+        filename: file.name || 'upload',
+        mimeType: prepare.mime || file.type || 'application/octet-stream',
+        size: file.size,
+        objectKey: prepare.objectKey,
+      }),
+    });
+    const data = await finalizeRes.json();
+    if (!finalizeRes.ok) throw new Error(data.error || 'Upload finalize failed.');
     return data;
   }
 
   function createUploadControl({ label, accept, kind, hint, onUploaded }) {
     const row = el('div', 'cms-upload-row');
+    const picker = el('div', 'cms-file-picker');
+
+    const btn = document.createElement('label');
+    btn.className = 'cms-file-picker__btn';
+    btn.textContent = label || 'Choose file';
+
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
     fileInput.accept = accept;
-    fileInput.hidden = true;
+    fileInput.className = 'cms-file-picker__input';
+    btn.appendChild(fileInput);
 
-    const btn = el('button', 'clear-filters cms-upload-btn', '');
-    btn.type = 'button';
-    btn.innerHTML = `<span class="material-symbols-outlined" style="font-size:18px;">upload</span> ${label}`;
-
+    const nameSpan = el('span', 'cms-file-picker__name', 'No file chosen');
     const status = el('span', 'cms-upload-status', hint || '');
-
-    btn.addEventListener('click', () => fileInput.click());
 
     fileInput.addEventListener('change', async () => {
       const file = fileInput.files?.[0];
-      fileInput.value = '';
-      if (!file) return;
+      if (!file) {
+        nameSpan.textContent = 'No file chosen';
+        return;
+      }
 
-      btn.disabled = true;
+      nameSpan.textContent = file.name;
+      fileInput.value = '';
+      btn.classList.add('is-disabled');
       status.textContent = 'Uploading…';
       status.classList.remove('cms-upload-status--error');
 
@@ -201,13 +287,14 @@
           })
         );
       } finally {
-        btn.disabled = false;
+        btn.classList.remove('is-disabled');
       }
     });
 
-    row.appendChild(btn);
+    picker.appendChild(btn);
+    picker.appendChild(nameSpan);
+    row.appendChild(picker);
     row.appendChild(status);
-    row.appendChild(fileInput);
     return row;
   }
 
@@ -287,10 +374,10 @@
 
     wrap.appendChild(
       createUploadControl({
-        label: 'Upload image',
+        label: 'Choose file',
         accept: UPLOAD_ACCEPT.image,
         kind: 'image',
-        hint: 'Max 5 MB · JPEG, PNG, WebP, GIF',
+        hint: 'JPEG, PNG, WebP, GIF · Max 5 MB',
         onUploaded: (result) => {
           srcInput.value = result.src;
           syncPreview();
@@ -371,12 +458,13 @@
     posterInput.addEventListener('input', syncPreview);
     syncPreview();
 
+    wrap.appendChild(el('p', 'cms-sublabel', 'Change this video'));
     wrap.appendChild(
       createUploadControl({
-        label: 'Upload video',
+        label: 'Choose file',
         accept: UPLOAD_ACCEPT.video,
         kind: 'video',
-        hint: 'Max 50 MB · MP4, WebM, MOV',
+        hint: 'MP4, WebM, MOV · Max 50 MB',
         onUploaded: (result) => {
           srcInput.value = result.src;
           syncPreview();
@@ -384,12 +472,13 @@
       })
     );
 
+    wrap.appendChild(el('p', 'cms-sublabel', 'Change poster image (optional)'));
     wrap.appendChild(
       createUploadControl({
-        label: 'Upload poster',
+        label: 'Choose file',
         accept: UPLOAD_ACCEPT.poster,
         kind: 'poster',
-        hint: 'Max 5 MB · JPEG, PNG, WebP, GIF',
+        hint: 'JPEG, PNG, WebP, GIF · Max 5 MB',
         onUploaded: (result) => {
           posterInput.value = result.src;
           syncPreview();
@@ -403,6 +492,80 @@
     wrap.appendChild(posterInput);
     wrap.appendChild(videoPreview);
     wrap.appendChild(posterPreview);
+    return wrap;
+  }
+
+  function renderIconField(field, value) {
+    const wrap = el('div', 'cms-field cms-field--icon');
+    wrap.dataset.cmsKey = field.key;
+    wrap.dataset.cmsType = 'icon';
+
+    wrap.appendChild(el('label', '', field.label));
+    wrap.appendChild(
+      el('p', 'cms-field-hint', 'Choose an SVG, PNG, or JPEG. The file is shown as uploaded.')
+    );
+
+    const srcInput = document.createElement('input');
+    srcInput.type = 'hidden';
+    srcInput.value = value.src || '';
+    srcInput.dataset.cmsPart = 'src';
+
+    const nameInput = document.createElement('input');
+    nameInput.type = 'hidden';
+    nameInput.dataset.cmsPart = 'name';
+    nameInput.value = value.name || '';
+
+    const fileStatus = el('p', 'cms-upload-status', value.src ? 'Custom file selected' : 'Using default icon');
+    const preview = el('div', 'cms-icon-preview');
+
+    const syncPreview = () => {
+      const src = srcInput.value.trim();
+      const name = nameInput.value.trim();
+      fileStatus.textContent = src ? 'Custom file selected' : 'Using default icon';
+      preview.innerHTML = '';
+      preview.classList.remove('cms-icon-preview--raster');
+
+      if (src) {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = '';
+        preview.appendChild(img);
+        return;
+      }
+
+      const span = document.createElement('span');
+      span.className = 'material-symbols-outlined';
+      span.textContent = name || 'imagesmode';
+      preview.appendChild(span);
+    };
+
+    wrap.appendChild(el('p', 'cms-sublabel', 'Change this icon'));
+    wrap.appendChild(
+      createUploadControl({
+        label: 'Choose file',
+        accept: UPLOAD_ACCEPT.icon,
+        kind: 'icon',
+        hint: 'SVG, PNG, JPEG, WebP, GIF · Max 5 MB',
+        onUploaded: (result) => {
+          srcInput.value = result.src || '';
+          syncPreview();
+        },
+      })
+    );
+
+    const resetBtn = el('button', 'clear-filters cms-icon-reset', 'Use default icon');
+    resetBtn.type = 'button';
+    resetBtn.addEventListener('click', () => {
+      srcInput.value = '';
+      syncPreview();
+    });
+
+    wrap.appendChild(srcInput);
+    wrap.appendChild(nameInput);
+    wrap.appendChild(fileStatus);
+    wrap.appendChild(resetBtn);
+    wrap.appendChild(preview);
+    syncPreview();
     return wrap;
   }
 
@@ -446,6 +609,7 @@
     const value = readFieldValue(blocks, field);
     if (field.type === 'image') return renderImageField(field, value);
     if (field.type === 'video') return renderVideoField(field, value);
+    if (field.type === 'icon') return renderIconField(field, value);
     if (field.type === 'list') return renderListField(field, value);
     return renderTextField(field, value);
   }
@@ -454,15 +618,18 @@
     const blocks = {};
     for (const section of schemaSections) {
       for (const field of section.fields) {
-        if (field.type === 'image' || field.type === 'video') {
+        if (field.type === 'image' || field.type === 'video' || field.type === 'icon') {
           const wrap = form.querySelector(`[data-cms-key="${field.key}"]`);
           if (!wrap) continue;
           const src = wrap.querySelector('[data-cms-part="src"]')?.value || '';
           const raw = { src };
           if (field.type === 'image') {
             raw.alt = wrap.querySelector('[data-cms-part="alt"]')?.value || '';
-          } else {
+          } else if (field.type === 'video') {
             raw.poster = wrap.querySelector('[data-cms-part="poster"]')?.value || '';
+          } else {
+            raw.name = wrap.querySelector('[data-cms-part="name"]')?.value || '';
+            raw.color = '';
           }
           blocks[field.key] = buildBlockFromField(field, raw);
         } else if (field.type === 'list') {

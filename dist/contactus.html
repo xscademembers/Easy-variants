@@ -4,7 +4,9 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>EasyVariants - Contact Us</title>
+  <title>EasyVariants | Contact Us — Apparel & Headwear Artwork and Tech Pack Automation</title>
+  <meta name="description" content="EasyVariants is an Adobe Illustrator solution that automates artwork and tech pack creation for apparel and headwear. Generate product variants, colorways, logos, and production-ready artwork faster and more efficiently.">
+  <meta name="keywords" content="EasyVariants, Easy Variants, apparel artwork automation, headwear artwork automation, Adobe Illustrator plugin, Illustrator plugin for apparel, tech pack automation, tech pack generator, apparel tech pack, headwear tech pack, colorway generator, colorway automation, artwork variant generator, product variant automation, logo placement automation, apparel product development, headwear product development, production artwork, design automation">
   <link rel="icon" type="image/png" href="/images/EV logo.png" />
   <link rel="apple-touch-icon" href="/images/EV logo.png" />
   <link href="https://fonts.googleapis.com" rel="preconnect" />
@@ -120,6 +122,13 @@
       flex-shrink: 0;
       background: rgba(53, 37, 205, 0.06);
       border: 1px solid rgba(53, 37, 205, 0.1);
+      color: #3525cd;
+    }
+
+    .footer-mini-card__icon .cms-icon-svg,
+    .footer-mini-card__icon .cms-icon-img {
+      width: 1.25rem;
+      height: 1.25rem;
     }
 
     .footer-mini-card__title {
@@ -409,7 +418,7 @@
       }
     }
   </style>
-  <link rel="stylesheet" crossorigin href="/assets/tailwind-ZS13SZAZ.css">
+  <link rel="stylesheet" crossorigin href="/assets/tailwind-Cuw0piSz.css">
 </head>
 
 <body class="font-body text-on-surface antialiased" data-cms-page="contact">
@@ -427,19 +436,17 @@
 
       <!-- Center: Links -->
       <div class="hidden lg:flex items-center justify-center gap-6 xl:gap-10">
-        <a class="ez-nav-link"
-          href="index.html#home">Home</a>
-        <a class="ez-nav-link"
-          href="index.html#solution">Our Solution</a>
-        <a class="ez-nav-link"
-          href="index.html#how-it-works">Workflow</a>
-        <a class="ez-nav-link"
-          href="index.html#demos">Demo Videos</a>
+        <a class="ez-nav-link" href="index.html#home"><span data-cms-page="home" data-cms-key="header.nav.0.label">Home</span></a>
+        <a class="ez-nav-link" href="index.html#solution"><span data-cms-page="home" data-cms-key="header.nav.1.label">Our Solution</span></a>
+        <a class="ez-nav-link" href="index.html#how-it-works"><span data-cms-page="home" data-cms-key="header.nav.2.label">Workflow</span></a>
+        <a class="ez-nav-link" href="index.html#demos"><span data-cms-page="home" data-cms-key="header.nav.3.label">Demo Videos</span></a>
       </div>
 
       <!-- Right: CTA -->
       <div class="flex-1 hidden lg:flex items-center justify-end gap-6">
-        <a href="contactus.html" class="ev-pill-btn ev-pill-btn--sm">Get Your Demo Today</a>
+        <a href="contactus.html" class="ev-pill-btn ev-pill-btn--sm" data-cms-page="home" data-cms-key="header.cta.href">
+          <span data-cms-page="home" data-cms-key="header.cta.label">Get Your Demo Today</span>
+        </a>
       </div>
 
       <!-- Mobile: Toggle -->
@@ -455,16 +462,18 @@
   <div id="mobileMenu" class="mobile-menu-light" role="dialog" aria-modal="true" aria-label="Navigation menu"
     aria-hidden="true">
     <div class="mobile-menu-light__header">
-      <span class="mobile-menu-light__title">Menu</span>
+      <span class="mobile-menu-light__title" data-cms-page="home" data-cms-key="header.mobileTitle">Menu</span>
       <button type="button" id="mobileMenuClose" class="mobile-menu-light__close ez-icon-btn" aria-label="Close menu">
         <span class="material-symbols-outlined text-xl">close</span>
       </button>
     </div>
-    <a href="index.html#home">Home</a>
-    <a href="index.html#solution">Our Solution</a>
-    <a href="index.html#how-it-works">Workflow</a>
-    <a href="index.html#demos">Demo Videos</a>
-    <a href="contactus.html" class="ev-pill-btn ev-pill-btn--sm">Get Your Demo Today</a>
+    <a href="index.html#home"><span data-cms-page="home" data-cms-key="header.nav.0.label">Home</span></a>
+    <a href="index.html#solution"><span data-cms-page="home" data-cms-key="header.nav.1.label">Our Solution</span></a>
+    <a href="index.html#how-it-works"><span data-cms-page="home" data-cms-key="header.nav.2.label">Workflow</span></a>
+    <a href="index.html#demos"><span data-cms-page="home" data-cms-key="header.nav.3.label">Demo Videos</span></a>
+    <a href="contactus.html" class="ev-pill-btn ev-pill-btn--sm" data-cms-page="home" data-cms-key="header.cta.href">
+      <span data-cms-page="home" data-cms-key="header.cta.label">Get Your Demo Today</span>
+    </a>
   </div>
 
   <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
@@ -501,35 +510,35 @@
           <form id="contactForm" class="space-y-5">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
-                <label class="contact-label" for="firstName">First Name</label>
-                <input type="text" id="firstName" name="firstName" class="contact-input" placeholder="John" required />
+                <label class="contact-label" for="firstName" data-cms-key="contact.form.firstName.label">First Name</label>
+                <input type="text" id="firstName" name="firstName" class="contact-input" placeholder="John" required data-cms-key="contact.form.firstName.placeholder" />
               </div>
               <div>
-                <label class="contact-label" for="lastName">Last Name</label>
-                <input type="text" id="lastName" name="lastName" class="contact-input" placeholder="Doe" required />
+                <label class="contact-label" for="lastName" data-cms-key="contact.form.lastName.label">Last Name</label>
+                <input type="text" id="lastName" name="lastName" class="contact-input" placeholder="Doe" required data-cms-key="contact.form.lastName.placeholder" />
               </div>
             </div>
 
             <div>
-              <label class="contact-label" for="email">Email Address</label>
+              <label class="contact-label" for="email" data-cms-key="contact.form.email.label">Email Address</label>
               <input type="email" id="email" name="email" class="contact-input" placeholder="john@company.com"
-                required />
+                required data-cms-key="contact.form.email.placeholder" />
             </div>
 
             <div>
-              <label class="contact-label" for="company">Company (Optional)</label>
-              <input type="text" id="company" name="company" class="contact-input" placeholder="Acme Corp" />
+              <label class="contact-label" for="company" data-cms-key="contact.form.company.label">Company (Optional)</label>
+              <input type="text" id="company" name="company" class="contact-input" placeholder="Acme Corp" data-cms-key="contact.form.company.placeholder" />
             </div>
 
             <div>
-              <label class="contact-label" for="message">Message</label>
+              <label class="contact-label" for="message" data-cms-key="contact.form.message.label">Message</label>
               <textarea id="message" name="message" class="contact-input"
-                placeholder="Tell us about your project or how we can help..." required></textarea>
+                placeholder="Tell us about your project or how we can help..." required data-cms-key="contact.form.message.placeholder"></textarea>
             </div>
 
             <div class="pt-2">
               <button type="submit" class="submit-btn ev-pill-btn ev-pill-btn--lg w-full md:w-auto">
-                Send Message
+                <span data-cms-key="contact.form.submit">Send Message</span>
                 <span class="material-symbols-outlined text-base ml-2 align-middle"
                   style="font-size: 18px;">arrow_forward</span>
               </button>
@@ -537,11 +546,11 @@
 
             <div class="success-msg" id="successMsg" role="status" aria-live="polite">
               <span class="material-symbols-outlined text-base mr-2 align-middle">check_circle</span>
-              Message sent successfully! We'll be in touch soon.
+              <span data-cms-key="contact.form.success">Message sent successfully! We'll be in touch soon.</span>
             </div>
             <div class="error-msg" id="errorMsg" role="alert" aria-live="assertive">
               <span class="material-symbols-outlined text-base mr-2 align-middle">error</span>
-              <span id="errorMsgText">Something went wrong. Please try again.</span>
+              <span id="errorMsgText" data-cms-key="contact.form.error">Something went wrong. Please try again.</span>
             </div>
           </form>
         </div>
@@ -551,7 +560,7 @@
           <!-- Info Card 1 -->
           <div class="card-premium rounded-[2rem] p-6 md:p-8 hover-lift group">
             <div class="flex items-start gap-4">
-              <div class="info-icon-wrap bg-primary/5 border border-primary/10">
+              <div class="info-icon-wrap bg-primary/5 border border-primary/10" data-cms-key="contact.info.0.icon" data-cms-icon data-cms-icon-name="mail">
                 <span class="material-symbols-outlined text-primary text-xl">mail</span>
               </div>
               <div>
@@ -564,7 +573,7 @@
           <!-- Info Card 2 -->
           <div class="card-premium rounded-[2rem] p-6 md:p-8 hover-lift group">
             <div class="flex items-start gap-4">
-              <div class="info-icon-wrap bg-primary/5 border border-primary/10">
+              <div class="info-icon-wrap bg-primary/5 border border-primary/10" data-cms-key="contact.info.1.icon" data-cms-icon data-cms-icon-name="schedule">
                 <span class="material-symbols-outlined text-primary text-xl">schedule</span>
               </div>
               <div>
@@ -578,7 +587,7 @@
           <!-- Info Card 3 -->
           <div class="card-premium rounded-[2rem] p-8 hover-lift group">
             <div class="flex items-start gap-4">
-              <div class="info-icon-wrap bg-primary/5 border border-primary/10">
+              <div class="info-icon-wrap bg-primary/5 border border-primary/10" data-cms-key="contact.info.2.icon" data-cms-icon data-cms-icon-name="devices">
                 <span class="material-symbols-outlined text-primary text-xl">devices</span>
               </div>
               <div>
@@ -592,7 +601,7 @@
           <!-- Info Card 4 -->
           <div class="card-premium rounded-[2rem] p-8 hover-lift group">
             <div class="flex items-start gap-4">
-              <div class="info-icon-wrap bg-primary/5 border border-primary/10">
+              <div class="info-icon-wrap bg-primary/5 border border-primary/10" data-cms-key="contact.info.3.icon" data-cms-icon data-cms-icon-name="support_agent">
                 <span class="material-symbols-outlined text-primary text-xl">support_agent</span>
               </div>
               <div>
@@ -635,7 +644,7 @@
               <div class="xl:col-span-4 flex flex-col gap-5">
                   <img src="/assets/logo-C015aalk.png" alt="EasyVariants"
                     class="brand-logo-img h-20 w-auto max-w-[min(100%,280px)] sm:h-24 object-contain self-start" />
-                  <p class="ez-p2 text-on-surface font-semibold max-w-md">
+                  <p class="ez-p2 text-on-surface font-semibold max-w-md" data-cms-page="home" data-cms-key="footer.brand.description">
                       Enterprise design automation for large manufacturers. Scale product variants across global
                       operations with controlled, repeatable workflows.
                   </p>
@@ -643,42 +652,42 @@
 
               <!-- Menu -->
               <div class="xl:col-span-2 footer-link-col">
-                  <h4 class="ez-footer-title mb-1">Menu</h4>
-                  <a href="index.html#home">Home</a>
-                  <a href="index.html#solution">Our Solution</a>
-                  <a href="index.html#how-it-works">Workflow</a>
-                  <a href="index.html#demos">Demo Videos</a>
+                  <h4 class="ez-footer-title mb-1" data-cms-page="home" data-cms-key="footer.menuTitle">Menu</h4>
+                  <a href="index.html#home"><span data-cms-page="home" data-cms-key="footer.menu.0.label">Home</span></a>
+                  <a href="index.html#solution"><span data-cms-page="home" data-cms-key="footer.menu.1.label">Our Solution</span></a>
+                  <a href="index.html#how-it-works"><span data-cms-page="home" data-cms-key="footer.menu.2.label">Workflow</span></a>
+                  <a href="index.html#demos"><span data-cms-page="home" data-cms-key="footer.menu.3.label">Demo Videos</span></a>
               </div>
 
               <!-- Quick Links -->
               <div class="xl:col-span-2 footer-link-col">
-                  <h4 class="ez-footer-title mb-1">Quick Links</h4>
-                  <a href="https://www.linkedin.com/company/xinthe-technologies/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                  <a href="https://www.youtube.com/@xinthetechnologies6321" target="_blank" rel="noopener noreferrer">Youtube</a>
-                  <a href="https://facebook.com/xintheemployees" target="_blank" rel="noopener noreferrer">facebook</a>
-                  <a href="https://x.com/xinthetech" target="_blank" rel="noopener noreferrer">X</a>
+                  <h4 class="ez-footer-title mb-1" data-cms-page="home" data-cms-key="footer.socialTitle">Quick Links</h4>
+                  <a href="https://www.linkedin.com/company/xinthe-technologies/" target="_blank" rel="noopener noreferrer" data-cms-page="home" data-cms-key="footer.social.0.href"><span data-cms-page="home" data-cms-key="footer.social.0.label">LinkedIn</span></a>
+                  <a href="https://www.youtube.com/@xinthetechnologies6321" target="_blank" rel="noopener noreferrer" data-cms-page="home" data-cms-key="footer.social.1.href"><span data-cms-page="home" data-cms-key="footer.social.1.label">Youtube</span></a>
+                  <a href="https://facebook.com/xintheemployees" target="_blank" rel="noopener noreferrer" data-cms-page="home" data-cms-key="footer.social.2.href"><span data-cms-page="home" data-cms-key="footer.social.2.label">facebook</span></a>
+                  <a href="https://x.com/xinthetech" target="_blank" rel="noopener noreferrer" data-cms-page="home" data-cms-key="footer.social.3.href"><span data-cms-page="home" data-cms-key="footer.social.3.label">X</span></a>
               </div>
 
               <!-- Mini cards -->
               <div class="xl:col-span-4 flex flex-col gap-4">
                   <div class="footer-mini-card">
-                      <div class="footer-mini-card__icon">
+                      <div class="footer-mini-card__icon" data-cms-page="home" data-cms-key="footer.email.icon" data-cms-icon data-cms-icon-name="mail" data-cms-icon-tint>
                           <span class="material-symbols-outlined text-primary text-xl">mail</span>
                       </div>
                       <div>
-                          <p class="footer-mini-card__title">Email Us</p>
+                          <p class="footer-mini-card__title" data-cms-page="home" data-cms-key="footer.email.title">Email Us</p>
                           <p class="footer-mini-card__text">
-                              <a href="mailto:hello@easyvariants.com" class="hover:text-primary transition-colors">hello@easyvariants.com</a>
+                              <a href="mailto:hello@easyvariants.com" class="hover:text-primary transition-colors" data-cms-page="home" data-cms-key="footer.email.href"><span data-cms-page="home" data-cms-key="footer.email.address">hello@easyvariants.com</span></a>
                           </p>
                       </div>
                   </div>
                   <div class="footer-mini-card">
-                      <div class="footer-mini-card__icon">
+                      <div class="footer-mini-card__icon" data-cms-page="home" data-cms-key="footer.support.icon" data-cms-icon data-cms-icon-name="support_agent" data-cms-icon-tint>
                           <span class="material-symbols-outlined text-primary text-xl">support_agent</span>
                       </div>
                       <div>
-                          <p class="footer-mini-card__title">Dedicated Support</p>
-                          <p class="footer-mini-card__text">Our team is here to help you every step of the way.</p>
+                          <p class="footer-mini-card__title" data-cms-page="home" data-cms-key="footer.support.title">Dedicated Support</p>
+                          <p class="footer-mini-card__text" data-cms-page="home" data-cms-key="footer.support.text">Our team is here to help you every step of the way.</p>
                       </div>
                   </div>
               </div>
@@ -687,8 +696,8 @@
           <div class="footer-divider"></div>
 
           <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
-              <p class="ez-p3-legal">© 2026 EasyVariants. All Rights Reserved.</p>
-              <p class="ez-p3-legal">
+              <p class="ez-p3-legal" data-cms-page="home" data-cms-key="footer.copyright">© 2026 EasyVariants. All Rights Reserved.</p>
+              <p class="ez-p3-legal" data-cms-page="home" data-cms-key="footer.disclaimer">
                   Adobe Illustrator® is a trademark of Adobe Inc. EasyVariants is not affiliated.
               </p>
           </div>

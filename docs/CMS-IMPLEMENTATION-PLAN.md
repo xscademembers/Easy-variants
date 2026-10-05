@@ -25,7 +25,7 @@ What "no redeploy" means: admin edits text/media → saved to MongoDB → next p
 flowchart LR
   Admin[Admin Dashboard UI] -->|PUT /api/admin/content| API[Serverless API]
   Admin -->|POST /api/admin/media| Upload[Upload Handler]
-  Upload --> Blob[(Vercel Blob / Cloudinary)]
+  Upload --> Blob[(Cloudflare R2)]
   API --> DB[(MongoDB - content collection)]
   Browser[Public site index.html, contactus.html] -->|GET /api/content?page=home| API
   API --> DB
@@ -453,7 +453,7 @@ Vercel: add to `vercel.json` if needed (most just work via `api/` folder convent
 
 ### Phase 3 — Media (≈ 0.5–1 day) ✅ Done
 
-- [x] `POST /api/admin/media` with Vercel Blob (+ local dev fallback).
+- [x] `POST /api/admin/media` with Cloudflare R2 direct uploads (`prepare` / `finalize`) + local dev fallback.
 - [x] Image picker UI (preview + upload + replace).
 - [x] Video picker UI (with size cap + poster image upload).
 

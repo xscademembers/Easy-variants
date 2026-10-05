@@ -65,7 +65,10 @@
     return url.pathname + (url.search || '') + (url.hash || '');
   }
 
-  function humanLabel(key) {
+  function humanLabel(key, page) {
+    const p = page || state.page;
+    const fromSchema = state.fieldLabels[p]?.[key];
+    if (fromSchema) return fromSchema;
     if (KEY_LABELS[key]) return KEY_LABELS[key];
     const [root] = key.split('.');
     const section = SECTION_LABELS[root] || root;
@@ -162,38 +165,58 @@
         position: relative;
         outline: 1px dashed rgba(53, 37, 205, 0.0);
         outline-offset: 4px;
-        transition: outline-color 0.15s ease, background-color 0.15s ease;
+        transition: outline-color 0.15s ease;
         cursor: pointer;
       }
       body.ez-cms-edit-mode [data-cms-key]:hover {
-        outline-color: rgba(53, 37, 205, 0.6);
-        background-color: rgba(255, 217, 102, 0.08);
+        outline-color: rgba(53, 37, 205, 0.55);
       }
       body.ez-cms-edit-mode [data-cms-key][data-ez-dirty="1"] {
         outline: 2px solid #ffd966;
         outline-offset: 4px;
       }
+      body.ez-cms-edit-mode [data-cms-icon],
+      body.ez-cms-edit-mode [data-cms-icon]:hover,
+      body.ez-cms-edit-mode [data-cms-icon][data-ez-dirty="1"],
+      body.ez-cms-edit-mode [data-cms-icon][data-ez-editing="1"] {
+        outline: none !important;
+        outline-offset: 0;
+      }
+      body.ez-cms-edit-mode [data-cms-icon]:hover {
+        box-shadow: 0 0 0 2px rgba(53, 37, 205, 0.28);
+        border-radius: 0.5rem;
+      }
       body.ez-cms-edit-mode [data-cms-key][data-ez-editing="1"] {
         outline: 2px solid #3525cd;
         outline-offset: 4px;
-        background-color: rgba(255, 217, 102, 0.18);
-        color: inherit;
         cursor: text;
       }
       body.ez-cms-edit-mode [contenteditable="true"] {
         cursor: text;
         outline: none;
-        color: inherit;
-        background-color: transparent;
         caret-color: currentColor;
       }
-      /* Keep text visible on dark/coloured cards (e.g. solution accent cards) */
-      body.ez-cms-edit-mode .solution-feature-card--accent [data-cms-key][data-ez-editing="1"],
-      body.ez-cms-edit-mode .solution-feature-card--accent [contenteditable="true"],
-      body.ez-cms-edit-mode .fit-usecase-card [data-cms-key][data-ez-editing="1"],
-      body.ez-cms-edit-mode .fit-usecase-card [contenteditable="true"] {
-        color: rgba(255, 255, 255, 0.92);
-        -webkit-text-fill-color: rgba(255, 255, 255, 0.92);
+      body.ez-cms-edit-mode [data-cms-key][data-cms-label]:hover::before,
+      body.ez-cms-edit-mode [data-cms-key][data-ez-editing="1"][data-cms-label]::before {
+        content: attr(data-cms-label);
+        position: absolute;
+        left: 0;
+        top: -1.35rem;
+        z-index: 20;
+        background: #3525cd;
+        color: #fff;
+        font-family: Manrope, Inter, system-ui, sans-serif;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        line-height: 1;
+        padding: 0.28rem 0.45rem;
+        border-radius: 999px;
+        white-space: nowrap;
+        pointer-events: none;
+        max-width: min(70vw, 280px);
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       body.ez-cms-edit-mode a[data-cms-key]:not([data-ez-editing="1"]) {
         pointer-events: auto;
@@ -221,14 +244,14 @@
         color: #3525cd;
         font-weight: 700;
       }
-      .ez-edit-popover label {
+      .ez-edit-popover label:not(.ez-file-picker__btn) {
         display: block;
         font-size: 0.75rem;
         font-weight: 600;
         color: #464555;
         margin: 8px 0 4px;
       }
-      .ez-edit-popover input,
+      .ez-edit-popover input:not([type="file"]):not([type="hidden"]):not([type="color"]),
       .ez-edit-popover textarea {
         width: 100%;
         font: inherit;
@@ -238,6 +261,57 @@
         color: #1a1c1d;
       }
       .ez-edit-popover textarea { min-height: 80px; resize: vertical; }
+
+      .ez-file-picker {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        margin: 4px 0 10px;
+      }
+      .ez-edit-popover label.ez-file-picker__btn,
+      .ez-file-picker__btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 40px;
+        padding: 8px 16px;
+        border-radius: 999px;
+        border: 1px solid #3525cd;
+        background: #3525cd;
+        color: #fff;
+        -webkit-text-fill-color: #fff;
+        font-size: 0.8125rem;
+        font-weight: 700;
+        cursor: pointer;
+        overflow: hidden;
+        margin: 0;
+      }
+      .ez-file-picker input[type="file"] {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        cursor: pointer;
+        font-size: 0;
+        background: transparent;
+      }
+      .ez-file-picker input[type="file"]::file-selector-button {
+        display: none;
+      }
+      .ez-file-picker__name {
+        font-size: 0.8125rem;
+        color: #6b7280;
+        max-width: 180px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
       .ez-edit-popover .ez-edit-popover-actions {
         display: flex;
         gap: 6px;
@@ -294,6 +368,13 @@
         background: rgba(53, 37, 205, 0.08);
       }
 
+      .ez-icon-hint {
+        margin: 0 0 8px;
+        color: #6b7280;
+        font-size: 0.75rem;
+        line-height: 1.4;
+      }
+
       .ez-edit-toast {
         position: fixed;
         bottom: 24px;
@@ -336,16 +417,25 @@
   /* ─── State ─── */
   const state = {
     page: null,
-    publishedBlocks: {}, // server-known blocks (published + draft merged)
-    dirty: new Map(), // key → block (changed)
-    hasDraft: false, // saved draft on server, not yet published
+    publishedBlocks: {},
+    blocksByPage: {},
+    fieldLabels: {},
+    dirty: new Map(), // `${page}\t${key}` → { page, key, block }
+    hasDraft: false,
   };
 
-  function markDirty(key, block) {
-    state.dirty.set(key, block);
+  function elementPage(el) {
+    return el?.getAttribute?.('data-cms-page') || state.page;
+  }
+
+  function markDirty(key, block, page) {
+    const p = page || state.page;
+    state.dirty.set(`${p}\t${key}`, { page: p, key, block });
     document
       .querySelectorAll(`[data-cms-key="${cssEscape(key)}"]`)
-      .forEach((el) => el.setAttribute('data-ez-dirty', '1'));
+      .forEach((el) => {
+        if (elementPage(el) === p) el.setAttribute('data-ez-dirty', '1');
+      });
     updateStatus();
   }
 
@@ -478,6 +568,10 @@
 
   function makeTextEditable(el, key) {
     if (el.getAttribute('data-ez-editing') === '1') return;
+    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+      editPlainValue(el, key, el.getAttribute('placeholder') || '', 'Placeholder text');
+      return;
+    }
     el.setAttribute('data-ez-editing', '1');
     el.setAttribute('contenteditable', 'true');
     el.focus();
@@ -494,18 +588,24 @@
     const finish = (commit) => {
       el.removeEventListener('blur', onBlur);
       el.removeEventListener('keydown', onKey);
+      el.removeEventListener('paste', onPaste);
       el.removeAttribute('contenteditable');
       el.removeAttribute('data-ez-editing');
       const next = cleanText(el);
       if (commit && next !== originalText) {
         el.textContent = next;
-        markDirty(key, { type: 'text', value: next });
+        markDirty(key, { type: 'text', value: next }, elementPage(el));
       } else {
         el.innerHTML = originalHtml;
       }
     };
 
     const onBlur = () => finish(true);
+    const onPaste = (e) => {
+      e.preventDefault();
+      const text = (e.clipboardData || window.clipboardData)?.getData('text/plain') || '';
+      document.execCommand('insertText', false, text);
+    };
     const onKey = (e) => {
       if (e.key === 'Enter' && !e.shiftKey && el.tagName !== 'TEXTAREA') {
         e.preventDefault();
@@ -518,6 +618,30 @@
 
     el.addEventListener('blur', onBlur);
     el.addEventListener('keydown', onKey);
+    el.addEventListener('paste', onPaste);
+  }
+
+  function editPlainValue(el, key, current, fieldTitle) {
+    openPopover({
+      anchorEl: el,
+      html: `
+        <h4>${humanLabel(key, elementPage(el))}</h4>
+        <label>${fieldTitle}</label>
+        <input data-field="value" type="text" value="${escapeAttr(current)}" />
+        <div class="ez-edit-popover-actions">
+          <button class="primary" data-action="confirm" type="button">Apply</button>
+          <button class="ghost" data-action="cancel" type="button">Cancel</button>
+        </div>
+      `,
+      onConfirm: (pop) => {
+        const next = pop.querySelector('[data-field="value"]').value.trim();
+        if (next && next !== current) {
+          el.setAttribute('placeholder', next);
+          markDirty(key, { type: 'text', value: next }, elementPage(el));
+        }
+        closePopover();
+      },
+    });
   }
 
   /* ─── Popover (links + images) ─── */
@@ -532,7 +656,7 @@
     if (overlay) overlay.classList.remove('is-open');
   }
 
-  function openPopover({ anchorEl, html, onConfirm }) {
+  function openPopover({ anchorEl, html, onConfirm, onReady }) {
     closePopover();
 
     let overlay = document.getElementById('ez-cms-edit-overlay');
@@ -574,9 +698,11 @@
     pop.querySelector('[data-action="confirm"]')?.addEventListener('click', () => {
       onConfirm(pop);
     });
+    onReady?.(pop);
 
     setTimeout(() => {
-      pop.querySelector('input, textarea')?.focus();
+      const first = pop.querySelector('input:not([type="file"]):not([type="hidden"]), textarea');
+      first?.focus();
     }, 50);
   }
 
@@ -606,13 +732,13 @@
         const newLabel = pop.querySelector('[data-field="label"]').value.trim();
         if (newHref && newHref !== currentHref) {
           el.setAttribute('href', newHref);
-          markDirty(key, { type: 'text', value: newHref });
+          markDirty(key, { type: 'text', value: newHref }, elementPage(el));
         }
         if (newLabel && newLabel !== currentLabel) {
           const labelEl = el.querySelector(`[data-cms-key="${cssEscape(labelKey)}"]`);
           if (labelEl) {
             labelEl.textContent = newLabel;
-            markDirty(labelKey, { type: 'text', value: newLabel });
+            markDirty(labelKey, { type: 'text', value: newLabel }, elementPage(labelEl));
           }
         }
         closePopover();
@@ -622,17 +748,179 @@
 
   async function uploadFile(file, kind) {
     const token = localStorage.getItem(TOKEN_KEY);
-    const fd = new FormData();
-    fd.append('file', file);
-    fd.append('kind', kind);
-    const res = await fetch('/api/admin/media', {
+    if (!token) throw new Error('Not authenticated. Please log in again.');
+
+    const authHeaders = { Authorization: `Bearer ${token}` };
+    const prepareRes = await fetch('/api/admin/media', {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
-      body: fd,
+      headers: { ...authHeaders, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'prepare',
+        kind,
+        filename: file.name || 'upload',
+        mimeType: file.type || 'application/octet-stream',
+        size: file.size,
+      }),
     });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Upload failed.');
+    const prepare = await prepareRes.json();
+    if (!prepareRes.ok) throw new Error(prepare.error || 'Upload prepare failed.');
+
+    if (prepare.mode === 'proxy') {
+      const fd = new FormData();
+      fd.append('file', file);
+      fd.append('kind', kind);
+      const res = await fetch('/api/admin/media', {
+        method: 'POST',
+        headers: authHeaders,
+        body: fd,
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Upload failed.');
+      return data;
+    }
+
+    const putRes = await fetch(prepare.uploadUrl, {
+      method: 'PUT',
+      headers: { ...(prepare.headers || {}) },
+      body: file,
+    });
+    if (!putRes.ok) {
+      throw new Error(`Cloudflare R2 upload failed (${putRes.status}). Check bucket CORS and credentials.`);
+    }
+
+    const finalizeRes = await fetch('/api/admin/media', {
+      method: 'POST',
+      headers: { ...authHeaders, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'finalize',
+        kind,
+        filename: file.name || 'upload',
+        mimeType: prepare.mime || file.type || 'application/octet-stream',
+        size: file.size,
+        objectKey: prepare.objectKey,
+      }),
+    });
+    const data = await finalizeRes.json();
+    if (!finalizeRes.ok) throw new Error(data.error || 'Upload finalize failed.');
     return data;
+  }
+
+  function filePickerMarkup(field, accept, buttonLabel) {
+    return `
+      <div class="ez-file-picker">
+        <label class="ez-file-picker__btn">
+          ${buttonLabel || 'Choose file'}
+          <input data-field="${field}" type="file" accept="${accept}" />
+        </label>
+        <span class="ez-file-picker__name" data-field="${field}-name">No file chosen</span>
+      </div>
+    `;
+  }
+
+  function bindFilePickerName(pop, field) {
+    const input = pop.querySelector(`[data-field="${field}"]`);
+    const name = pop.querySelector(`[data-field="${field}-name"]`);
+    if (!input || !name) return;
+    input.addEventListener('change', () => {
+      name.textContent = input.files?.[0]?.name || 'No file chosen';
+    });
+  }
+
+  function isSvgSrc(src) {
+    if (window.__EZ_CMS_ICON__?.isSvg) return window.__EZ_CMS_ICON__.isSvg(src);
+    const s = String(src || '').split('?')[0].toLowerCase();
+    return s.endsWith('.svg') || s.includes('image/svg');
+  }
+
+  function applyIconLocal(el, value) {
+    if (window.__EZ_CMS_ICON__?.apply) {
+      window.__EZ_CMS_ICON__.apply(el, value);
+      return;
+    }
+    const src = String(value?.src || '').trim();
+    if (src) {
+      el.innerHTML = `<img class="cms-icon-img" src="${escapeAttr(src)}" alt="">`;
+    }
+  }
+
+  function readIconValue(el, key) {
+    const fromCms = state.publishedBlocks[key]?.type === 'icon' ? state.publishedBlocks[key].value : null;
+    const dirty = state.dirty.get(`${elementPage(el)}\t${key}`);
+    const fromDirty = dirty?.block?.type === 'icon' ? dirty.block.value : null;
+    const value = fromDirty || fromCms || {};
+    return {
+      src: String(value.src || '').trim(),
+      name: String(value.name || el.getAttribute('data-cms-icon-name') || '').trim(),
+    };
+  }
+
+  function editIcon(el, key) {
+    const current = readIconValue(el, key);
+
+    openPopover({
+      anchorEl: el,
+      html: `
+        <h4>Change this icon</h4>
+        <p class="ez-icon-hint">Choose an SVG, PNG, or JPEG. The file is shown as uploaded.</p>
+        ${filePickerMarkup('file', 'image/svg+xml,image/png,image/jpeg,image/webp,image/gif,.svg,.png,.jpg,.jpeg,.webp,.gif', 'Choose file')}
+        <input data-field="src" type="hidden" value="${escapeAttr(current.src)}" />
+        <input data-field="name" type="hidden" value="${escapeAttr(current.name)}" />
+        <p class="ez-icon-hint" data-field="status">${current.src ? 'Custom file selected' : 'Using default icon'}</p>
+        <div class="ez-edit-popover-actions">
+          <button class="primary" data-action="confirm" type="button">Apply</button>
+          <button class="ghost" data-action="reset" type="button">Use default</button>
+          <button class="ghost" data-action="cancel" type="button">Cancel</button>
+        </div>
+      `,
+      onConfirm: async (pop) => {
+        const fileInput = pop.querySelector('[data-field="file"]');
+        const srcInput = pop.querySelector('[data-field="src"]');
+        const nameInput = pop.querySelector('[data-field="name"]');
+        const file = fileInput.files?.[0];
+
+        if (file && file.size > 5 * 1024 * 1024) {
+          toast('Icon exceeds the 5 MB limit. Please use a smaller file.', 'error');
+          return;
+        }
+
+        try {
+          if (file) {
+            toast('Uploading icon…', 'success');
+            const up = await uploadFile(file, 'icon');
+            srcInput.value = up.src;
+          }
+          const next = {
+            src: srcInput.value.trim(),
+            name: nameInput.value.trim(),
+            color: '',
+          };
+          applyIconLocal(el, next);
+          markDirty(key, { type: 'icon', value: next }, elementPage(el));
+          closePopover();
+        } catch (err) {
+          toast(err.message || 'Upload failed.', 'error');
+        }
+      },
+      onReady: (pop) => {
+        bindFilePickerName(pop, 'file');
+        const fileInput = pop.querySelector('[data-field="file"]');
+        const srcInput = pop.querySelector('[data-field="src"]');
+        const status = pop.querySelector('[data-field="status"]');
+        const resetBtn = pop.querySelector('[data-action="reset"]');
+        const fileName = pop.querySelector('[data-field="file-name"]');
+
+        fileInput?.addEventListener('change', () => {
+          if (status) status.textContent = fileInput.files?.[0] ? 'Custom file selected' : 'Using default icon';
+        });
+        resetBtn?.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (srcInput) srcInput.value = '';
+          if (fileInput) fileInput.value = '';
+          if (fileName) fileName.textContent = 'No file chosen';
+          if (status) status.textContent = 'Using default icon';
+        });
+      },
+    });
   }
 
   function editImage(el, key) {
@@ -645,8 +933,8 @@
       anchorEl: el,
       html: `
         <h4>${humanLabel(key)}</h4>
-        <label>Upload new image</label>
-        <input data-field="file" type="file" accept="image/jpeg,image/png,image/webp,image/gif" />
+        <label>Change this image</label>
+        ${filePickerMarkup('file', 'image/jpeg,image/png,image/webp,image/gif', 'Choose file')}
         <label>Image URL or path</label>
         <input data-field="src" type="text" value="${escapeAttr(current.src)}" />
         <label>Alt text (describe the image)</label>
@@ -663,9 +951,9 @@
         const file = fileInput.files?.[0];
 
         if (file) {
-          const maxMB = 4.5;
+          const maxMB = 5;
           if (file.size > maxMB * 1024 * 1024) {
-            toast(`Image exceeds Vercel's ${maxMB} MB upload limit. Please paste a link or optimize the file.`, 'error');
+            toast(`Image exceeds the ${maxMB} MB limit. Please paste a link or use a smaller file.`, 'error');
             return;
           }
         }
@@ -683,13 +971,14 @@
           if (next.src !== current.src) el.setAttribute('src', next.src);
           if (next.alt !== current.alt) el.setAttribute('alt', next.alt);
           if (next.src !== current.src || next.alt !== current.alt) {
-            markDirty(key, { type: 'image', value: next });
+            markDirty(key, { type: 'image', value: next }, elementPage(el));
           }
           closePopover();
         } catch (err) {
           toast(err.message || 'Upload failed.', 'error');
         }
       },
+      onReady: (pop) => bindFilePickerName(pop, 'file'),
     });
   }
 
@@ -707,13 +996,13 @@
       html: `
         <h4>${humanLabel(key)}</h4>
         <div class="ez-edit-popover-scroll-body">
-          <label>Upload new video</label>
-          <input data-field="file" type="file" accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov" />
+          <label>Change this video</label>
+          ${filePickerMarkup('file', 'video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov', 'Choose file')}
           <label>Video URL or path</label>
           <input data-field="src" type="text" value="${escapeAttr(current.src || '')}" />
           
-          <label>Upload poster image (optional)</label>
-          <input data-field="poster-file" type="file" accept="image/jpeg,image/png,image/webp,image/gif" />
+          <label>Change poster image (optional)</label>
+          ${filePickerMarkup('poster-file', 'image/jpeg,image/png,image/webp,image/gif', 'Choose file')}
           <label>Poster URL or path</label>
           <input data-field="poster" type="text" value="${escapeAttr(current.poster || '')}" />
         </div>
@@ -730,14 +1019,13 @@
 
         const file = fileInput.files?.[0];
         const posterFile = posterFileInput.files?.[0];
-        const maxMB = 4.5;
 
-        if (file && file.size > maxMB * 1024 * 1024) {
-          toast(`Video exceeds Vercel's ${maxMB} MB upload limit. Please paste a YouTube link or host it externally.`, 'error');
+        if (file && file.size > 50 * 1024 * 1024) {
+          toast('Video exceeds the 50 MB limit. Please use a smaller file or paste a YouTube link.', 'error');
           return;
         }
-        if (posterFile && posterFile.size > maxMB * 1024 * 1024) {
-          toast(`Poster exceeds Vercel's ${maxMB} MB upload limit. Please optimize the image.`, 'error');
+        if (posterFile && posterFile.size > 5 * 1024 * 1024) {
+          toast('Poster exceeds the 5 MB limit. Please optimize the image.', 'error');
           return;
         }
 
@@ -800,12 +1088,16 @@
               }
             }
 
-            markDirty(key, { type: 'video', value: next });
+            markDirty(key, { type: 'video', value: next }, elementPage(container));
           }
           closePopover();
         } catch (err) {
           toast(err.message || 'Upload failed.', 'error');
         }
+      },
+      onReady: (pop) => {
+        bindFilePickerName(pop, 'file');
+        bindFilePickerName(pop, 'poster-file');
       },
     });
   }
@@ -895,7 +1187,7 @@
           if (window.__EZ_CMS__?.blocks) {
             window.__EZ_CMS__.blocks[key] = { type: 'list', value: nextValue };
           }
-          markDirty(key, { type: 'list', value: nextValue });
+          markDirty(key, { type: 'list', value: nextValue }, elementPage(el));
           document.dispatchEvent(new CustomEvent('ez-cms-loaded', { detail: window.__EZ_CMS__ }));
         }
 
@@ -934,18 +1226,11 @@
       const key = el.getAttribute('data-cms-key');
       if (!key) return;
 
-      const pos = window.getComputedStyle(el).position;
-      if (pos === 'static') el.style.position = 'relative';
-
-      // Hover hint via native tooltip — does NOT pollute textContent
-      if (!el.getAttribute('title')) {
-        el.setAttribute('title', `Click to edit · ${humanLabel(key)}`);
-      }
+      el.setAttribute('data-cms-label', humanLabel(key, elementPage(el)));
 
       el.addEventListener('click', (e) => {
         if (el.getAttribute('data-ez-editing') === '1') return;
 
-        // Don't open editor when clicking the tag itself or nested editable child
         const innerEditable = e.target.closest('[data-cms-key]');
         if (innerEditable && innerEditable !== el) return;
 
@@ -956,7 +1241,6 @@
           if (key.endsWith('.href')) {
             editLink(el, key);
           } else {
-            // Anchor with label key — edit text inside
             makeTextEditable(el, key);
           }
           return;
@@ -964,6 +1248,16 @@
 
         if (el.tagName === 'IMG') {
           editImage(el, key);
+          return;
+        }
+
+        if (el.hasAttribute('data-cms-icon') || key.endsWith('.icon')) {
+          editIcon(el, key);
+          return;
+        }
+
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+          makeTextEditable(el, key);
           return;
         }
 
@@ -977,19 +1271,18 @@
           return;
         }
 
-        // Default: editable text
         makeTextEditable(el, key);
       });
     });
 
-    // Block stray navigation while editing
     document.querySelectorAll('a:not([data-cms-key])').forEach((a) => {
       if (a.dataset.ezNavBound === '1') return;
       a.dataset.ezNavBound = '1';
       a.addEventListener('click', (e) => {
         if (a.closest('#ez-cms-edit-bar')) return;
         const href = a.getAttribute('href') || '';
-        if (href.startsWith('#')) return; // allow anchor jumps
+        if (href.startsWith('#')) return;
+        if (a.querySelector('[data-cms-key]')) return;
         e.preventDefault();
         toast('Navigation is disabled in edit mode. Use the top bar to exit.', 'success');
       });
@@ -997,13 +1290,23 @@
   }
 
   /* ─── Save ─── */
-  async function save(mode) {
-    console.log('[cms] save() called with mode=%s', mode, {
-      dirty: state.dirty.size,
-      hasDraft: state.hasDraft,
-      publishedKeys: Object.keys(state.publishedBlocks).length,
+  async function savePage(page, blocks, mode, token) {
+    const res = await fetch('/api/admin/content', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ page, blocks, mode }),
     });
+    let data;
+    try {
+      data = await res.json();
+    } catch {
+      throw new Error(`Server returned ${res.status} (no JSON). Is the dev server restarted?`);
+    }
+    if (!res.ok) throw new Error(data.error || `Save failed (HTTP ${res.status}).`);
+    return data;
+  }
 
+  async function save(mode) {
     const token = localStorage.getItem(TOKEN_KEY);
     if (!token) {
       toast('Session expired. Log in again.', 'error');
@@ -1011,12 +1314,25 @@
       return;
     }
 
-    const merged = sanitizeBlocks({
-      ...state.publishedBlocks,
-      ...Object.fromEntries(state.dirty),
+    const dirtyByPage = new Map();
+    state.dirty.forEach((entry) => {
+      const page = entry.page || state.page;
+      if (!dirtyByPage.has(page)) dirtyByPage.set(page, {});
+      dirtyByPage.get(page)[entry.key] = entry.block;
     });
 
-    if (Object.keys(merged).length === 0) {
+    if (dirtyByPage.size === 0) {
+      dirtyByPage.set(state.page, {});
+    }
+
+    const pages = [...dirtyByPage.keys()];
+    const hasWork = pages.some((p) => {
+      const existing = state.blocksByPage[p] || (p === state.page ? state.publishedBlocks : {});
+      const merged = { ...existing, ...dirtyByPage.get(p) };
+      return Object.keys(merged).length > 0;
+    });
+
+    if (!hasWork) {
       toast('Nothing to save yet — edit some text first.', 'error');
       return;
     }
@@ -1028,27 +1344,37 @@
     toast(mode === 'draft' ? 'Saving draft…' : 'Publishing…', 'success');
 
     try {
-      const res = await fetch('/api/admin/content', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ page: state.page, blocks: merged, mode }),
-      });
-      console.log('[cms] PUT /api/admin/content status=%s', res.status);
-      let data;
-      try {
-        data = await res.json();
-      } catch {
-        throw new Error(`Server returned ${res.status} (no JSON). Is the dev server restarted?`);
+      let anyDraft = false;
+      for (const page of pages) {
+        let existing = state.blocksByPage[page] || {};
+        if (page === state.page && Object.keys(existing).length === 0) {
+          existing = state.publishedBlocks || {};
+        }
+        if (Object.keys(existing).length === 0) {
+          const loaded = await fetch('/api/admin/content?page=' + encodeURIComponent(page) + '&source=draft', {
+            headers: { Authorization: `Bearer ${token}` },
+          }).then((r) => r.json());
+          existing = sanitizeBlocks(loaded.blocks || {});
+          state.blocksByPage[page] = existing;
+        }
+        const merged = sanitizeBlocks({
+          ...existing,
+          ...dirtyByPage.get(page),
+        });
+        if (Object.keys(merged).length === 0) continue;
+
+        const data = await savePage(page, merged, mode, token);
+        state.blocksByPage[page] = sanitizeBlocks({
+          ...(data.blocks || {}),
+          ...(data.draftBlocks || {}),
+        });
+        if (page === state.page) {
+          state.publishedBlocks = state.blocksByPage[page];
+          anyDraft = Boolean(data.hasDraft);
+        }
       }
-      if (!res.ok) throw new Error(data.error || `Save failed (HTTP ${res.status}).`);
 
-      console.log('[cms] save response', data);
-
-      state.publishedBlocks = sanitizeBlocks({
-        ...(data.blocks || {}),
-        ...(data.draftBlocks || {}),
-      });
-      state.hasDraft = mode === 'draft' ? true : Boolean(data.hasDraft);
+      state.hasDraft = mode === 'draft' ? true : anyDraft;
       clearDirty();
       toast(
         mode === 'draft'
@@ -1065,22 +1391,59 @@
   }
 
   /* ─── Init ─── */
-  function activate(detail) {
+  function labelsFromSchema(schema) {
+    const out = {};
+    Object.entries(schema || {}).forEach(([page, sections]) => {
+      out[page] = {};
+      (sections || []).forEach((section) => {
+        (section.fields || []).forEach((field) => {
+          out[page][field.key] = field.label;
+        });
+      });
+    });
+    return out;
+  }
+
+  async function loadFieldLabels() {
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (!token) return;
+    try {
+      const res = await fetch('/api/admin/content-schema', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) return;
+      const data = await res.json();
+      if (data?.schema) state.fieldLabels = labelsFromSchema(data.schema);
+    } catch {
+      /* keep fallback labels */
+    }
+  }
+
+  async function activate(detail) {
     if (document.body.classList.contains('ez-cms-edit-mode')) return;
 
     state.page = detail.page;
     state.publishedBlocks = sanitizeBlocks(detail.blocks || {});
+    state.blocksByPage = {};
+    Object.entries(detail.blocksByPage || { [detail.page]: detail.blocks }).forEach(([page, blocks]) => {
+      state.blocksByPage[page] = sanitizeBlocks(blocks);
+    });
     state.hasDraft = Boolean(detail.hasDraft);
 
+    await loadFieldLabels();
     injectStyles();
     document.body.classList.add('ez-cms-edit-mode');
     buildBar(state.page);
     bindElements();
     updateStatus();
 
-    // Re-bind whenever the CMS loader replaces elements (e.g. lists)
     document.addEventListener('ez-cms-loaded', (e) => {
       state.publishedBlocks = sanitizeBlocks(e.detail?.blocks || state.publishedBlocks);
+      if (e.detail?.blocksByPage) {
+        Object.entries(e.detail.blocksByPage).forEach(([page, blocks]) => {
+          state.blocksByPage[page] = sanitizeBlocks(blocks);
+        });
+      }
       bindElements();
     });
   }

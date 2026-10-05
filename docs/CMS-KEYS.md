@@ -219,5 +219,6 @@ When logged in, a floating **Edit content** button appears on `index.html` / `co
 - **Images:** max 5 MB (JPEG, PNG, WebP, GIF)
 - **Videos:** max 50 MB (MP4, WebM, MOV)
 - **Posters:** max 5 MB (optional thumbnail for `<video>`)
-- **Production:** set `BLOB_READ_WRITE_TOKEN` in Vercel env (Blob storage)
-- **Local dev:** without token, files save to `public/uploads/cms/` and are served at `/uploads/cms/…`
+- **Production:** set Cloudflare R2 env vars in Vercel (`R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `R2_PUBLIC_BASE_URL`). Browser uploads go directly to R2 (original bytes preserved).
+- **R2 CORS:** allow `PUT`/`GET`/`HEAD` from your production origin and `http://localhost:5173` (dev).
+- **Local dev:** without R2 env vars, files save to `public/uploads/cms/` and are served at `/uploads/cms/…`

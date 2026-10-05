@@ -31,18 +31,34 @@ function walk(dir, files = []) {
 async function mountRoutes() {
   const files = walk(API_DIR);
 
-  // Media upload must run before express.json() so the raw stream is available.
+  // Media upload must run before express.json() so multipart keeps a raw stream.
+  // JSON prepare/finalize actions also hit this route (body parsed only for JSON).
   const mediaFile = files.find((f) => f.replace(/\\/g, '/').endsWith('admin/media.js'));
   if (mediaFile) {
     const mod = await import(pathToFileURL(mediaFile).href);
     const handler = mod.default;
+    const jsonParser = express.json({ limit: '1mb' });
     app.post('/api/admin/media', (req, res) => {
-      Promise.resolve(handler(req, res)).catch((err) => {
-        console.error('[dev-server] /api/admin/media threw:', err);
-        if (!res.headersSent) res.status(500).json({ error: 'Internal server error.' });
+      const ct = String(req.headers['content-type'] || '');
+      if (ct.includes('multipart/form-data')) {
+        Promise.resolve(handler(req, res)).catch((err) => {
+          console.error('[dev-server] /api/admin/media threw:', err);
+          if (!res.headersSent) res.status(500).json({ error: 'Internal server error.' });
+        });
+        return;
+      }
+      jsonParser(req, res, (err) => {
+        if (err) {
+          if (!res.headersSent) res.status(400).json({ error: 'Invalid JSON body.' });
+          return;
+        }
+        Promise.resolve(handler(req, res)).catch((e) => {
+          console.error('[dev-server] /api/admin/media threw:', e);
+          if (!res.headersSent) res.status(500).json({ error: 'Internal server error.' });
+        });
       });
     });
-    console.log('[dev-server]  /api/admin/media (multipart, raw body)');
+    console.log('[dev-server]  /api/admin/media (multipart + JSON prepare/finalize)');
   }
 
   app.use(express.json({ limit: '4mb' }));

@@ -78,6 +78,10 @@
       el.setAttribute('href', String(value));
       return;
     }
+    if ((el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') && key && key.includes('placeholder')) {
+      el.setAttribute('placeholder', String(value));
+      return;
+    }
     el.textContent = String(value);
   }
 
@@ -85,6 +89,106 @@
     if (!value || typeof value !== 'object') return;
     if (value.src) el.src = value.src;
     if (value.alt != null) el.alt = String(value.alt);
+  }
+
+  function isSvgSrc(src) {
+    const s = String(src || '').split('?')[0].toLowerCase();
+    return s.endsWith('.svg') || s.includes('image/svg');
+  }
+
+  function injectIconStyles() {
+    if (document.getElementById('ez-cms-icon-styles')) return;
+    const style = document.createElement('style');
+    style.id = 'ez-cms-icon-styles';
+    style.textContent = `
+      .cms-icon-img {
+        width: 1.5rem;
+        height: 1.5rem;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        display: block;
+        border: 0 !important;
+        outline: none !important;
+        box-shadow: none !important;
+        background: transparent;
+        transform: none !important;
+        backface-visibility: visible;
+        -webkit-backface-visibility: visible;
+      }
+      .cms-icon-img--glyph {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+      .cms-icon-svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        display: block;
+        background-color: currentColor;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function rememberIconDefaults(el) {
+    if (el.dataset.cmsIconReady === '1') return;
+    const ms = el.querySelector('.material-symbols-outlined');
+    if (ms) {
+      if (!el.dataset.cmsIconName) el.dataset.cmsIconName = ms.textContent.trim();
+      if (!el.dataset.cmsIconClass) el.dataset.cmsIconClass = ms.className;
+    }
+    el.dataset.cmsIconReady = '1';
+  }
+
+  function cssMaskUrl(src) {
+    const s = String(src || '').replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    return `url("${s}")`;
+  }
+
+  function applyIcon(el, value) {
+    if (!el || !value || typeof value !== 'object') return;
+    injectIconStyles();
+    rememberIconDefaults(el);
+
+    const src = String(value.src || '').trim();
+    const name = String(value.name || el.dataset.cmsIconName || '').trim();
+    const spanClass = el.dataset.cmsIconClass || 'material-symbols-outlined';
+    const uploadedSvg = Boolean(src) && isSvgSrc(src);
+    const tintWithCurrentColor = el.hasAttribute('data-cms-icon-tint');
+
+    el.classList.remove('cms-icon-host--raster');
+    el.innerHTML = '';
+
+    if (src) {
+      if (uploadedSvg && tintWithCurrentColor) {
+        const glyph = document.createElement('span');
+        glyph.className = 'cms-icon-svg';
+        glyph.setAttribute('aria-hidden', 'true');
+        const mask = cssMaskUrl(src);
+        glyph.style.webkitMaskImage = mask;
+        glyph.style.maskImage = mask;
+        el.appendChild(glyph);
+        return;
+      }
+      const img = document.createElement('img');
+      img.className = uploadedSvg ? 'cms-icon-img cms-icon-img--glyph' : 'cms-icon-img';
+      img.src = src;
+      img.alt = '';
+      el.appendChild(img);
+      return;
+    }
+
+    const span = document.createElement('span');
+    span.className = spanClass;
+    span.setAttribute('aria-hidden', 'true');
+    span.textContent = name || 'imagesmode';
+    el.appendChild(span);
   }
 
   function getYouTubeId(url) {
@@ -162,6 +266,11 @@
       return;
     }
 
+    if (block.type === 'icon') {
+      applyIcon(el, block.value);
+      return;
+    }
+
     if (block.type === 'video' && (el.tagName === 'VIDEO' || el.tagName === 'IFRAME' || el.tagName === 'DIV')) {
       applyVideo(el, block.value);
     }
@@ -220,6 +329,26 @@
     return out;
   }
 
+  async function fetchPageContent(page) {
+    const preview = isDraftPreview();
+    const edit = isEditMode();
+    const token = localStorage.getItem('ev_admin_token');
+
+    if ((preview || edit) && !token) return null;
+
+    const useAdmin = preview || edit;
+    const url = useAdmin
+      ? `/api/admin/content?page=${encodeURIComponent(page)}&source=draft`
+      : `/api/content?page=${encodeURIComponent(page)}`;
+
+    const headers = {};
+    if (useAdmin && token) headers.Authorization = `Bearer ${token}`;
+
+    const res = await fetch(url, { credentials: 'same-origin', headers });
+    if (!res.ok) return null;
+    return res.json();
+  }
+
   async function loadCmsContent(page) {
     const preview = isDraftPreview();
     const edit = isEditMode();
@@ -238,30 +367,32 @@
     }
 
     try {
-      const useAdmin = preview || edit;
-      const url = useAdmin
-        ? `/api/admin/content?page=${encodeURIComponent(page)}&source=draft`
-        : `/api/content?page=${encodeURIComponent(page)}`;
-
-      const headers = {};
-      if (useAdmin && token) headers.Authorization = `Bearer ${token}`;
-
-      const res = await fetch(url, {
-        credentials: 'same-origin',
-        headers,
+      const extraPages = new Set();
+      document.querySelectorAll('[data-cms-page]').forEach((el) => {
+        const scope = el.getAttribute('data-cms-page');
+        if (scope && scope !== page) extraPages.add(scope);
       });
-      if (!res.ok) return null;
 
-      const data = await res.json();
+      const data = await fetchPageContent(page);
       if (!data?.blocks) return null;
 
-      applyBlocks(page, sanitizeBlockKeys(data.blocks));
+      const blocksByPage = { [page]: sanitizeBlockKeys(data.blocks) };
+      applyBlocks(page, blocksByPage[page]);
+
+      for (const extra of extraPages) {
+        const extraData = await fetchPageContent(extra);
+        if (extraData?.blocks) {
+          blocksByPage[extra] = sanitizeBlockKeys(extraData.blocks);
+          applyBlocks(extra, blocksByPage[extra]);
+        }
+      }
 
       if (preview && !edit) showPreviewBanner(Boolean(data.isDraftPreview));
 
       window.__EZ_CMS__ = {
         page,
-        blocks: sanitizeBlockKeys(data.blocks),
+        blocks: blocksByPage[page],
+        blocksByPage,
         updatedAt: data.updatedAt || null,
         preview,
         edit,
@@ -274,6 +405,8 @@
       return null;
     }
   }
+
+  window.__EZ_CMS_ICON__ = { apply: applyIcon, isSvg: isSvgSrc };
 
   function boot() {
     const page = document.body?.dataset?.cmsPage;
