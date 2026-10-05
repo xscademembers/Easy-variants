@@ -1,7 +1,7 @@
 // Local API server that mirrors Vercel serverless functions.
 // Vite proxies /api requests here in development.
 
-import 'dotenv/config';
+import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import { readdirSync, statSync } from 'fs';
@@ -9,6 +9,9 @@ import { fileURLToPath, pathToFileURL } from 'url';
 import { dirname, join, relative } from 'path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+// Match Vite's local convention: .env.local overrides .env.
+dotenv.config({ path: join(__dirname, '.env.local'), override: false });
+dotenv.config({ path: join(__dirname, '.env'), override: false });
 const PORT = process.env.API_PORT || 3001;
 const API_DIR = join(__dirname, 'api');
 

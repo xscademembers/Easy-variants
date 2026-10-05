@@ -24,12 +24,9 @@ export default async function handler(req, res) {
     await connectToDatabase();
     const doc = await Content.findOne({ page }).lean();
 
-    // Browsers must revalidate every request (cheap JSON) so newly published
-    // content shows up immediately. CDN still caches for 60s with SWR.
-    res.setHeader(
-      'Cache-Control',
-      'public, max-age=0, must-revalidate, s-maxage=60, stale-while-revalidate=300'
-    );
+    // This is small CMS JSON. Do not let browsers or Vercel's CDN serve stale
+    // media URLs after an admin publishes new content.
+    res.setHeader('Cache-Control', 'no-store');
 
     return res.status(200).json({
       ok: true,

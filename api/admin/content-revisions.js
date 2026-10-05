@@ -88,21 +88,6 @@ export default async function handler(req, res) {
         });
       }
 
-      let doc = await Content.findOne({ page });
-      if (!doc) {
-        doc = new Content({ page });
-      }
-
-      if (Object.keys(previousPublished).length) {
-        await saveRevisionSnapshot({
-          pageKey: page,
-          logicalPage: page,
-          locale: 'en',
-          blocks: previousPublished,
-          savedBy: email,
-        });
-      }
-
       await Content.updateOne(
         { page },
         {
@@ -118,7 +103,7 @@ export default async function handler(req, res) {
         { upsert: true }
       );
 
-      doc = await Content.findOne({ page }).lean();
+      const doc = await Content.findOne({ page }).lean();
 
       await logContentAudit({
         pageKey: page,

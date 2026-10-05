@@ -1858,6 +1858,48 @@
       }
     }
 
+    async function undoLastCmsPublish(button) {
+      if (button) button.disabled = true;
+      try {
+        const revisionsRes = await authFetch(
+          `/api/admin/content-revisions?page=${encodeURIComponent(cmsPage)}&limit=1`
+        );
+        const revisionsData = await revisionsRes.json();
+        if (!revisionsRes.ok) {
+          throw new Error(revisionsData.error || 'Could not load publish history.');
+        }
+
+        const previous = revisionsData.revisions?.[0];
+        if (!previous) {
+          throw new Error('There is no previous published version to restore.');
+        }
+
+        const savedAt = fmtDate(previous.savedAt);
+        if (!window.confirm(`Restore the version saved before the last publish (${savedAt})?`)) {
+          return;
+        }
+
+        const restoreRes = await authFetch('/api/admin/content-revisions', {
+          method: 'POST',
+          body: JSON.stringify({
+            page: cmsPage,
+            revisionId: previous.id,
+          }),
+        });
+        const restoreData = await restoreRes.json();
+        if (!restoreRes.ok) {
+          throw new Error(restoreData.error || 'Could not restore the previous version.');
+        }
+
+        showToast('Previous published version restored live.', 'success');
+        await loadCmsEditor();
+      } catch (err) {
+        showToast(err.message || 'Could not undo the last publish.', 'error');
+      } finally {
+        if (button?.isConnected) button.disabled = false;
+      }
+    }
+
     function wireCmsForm(form, meta) {
       const view = form.querySelector('#cmsViewSiteLink');
       if (view) view.href = cmsSiteUrl(cmsPage);
@@ -1870,6 +1912,8 @@
       });
       form.querySelector('#cmsDraftBtn')?.addEventListener('click', () => saveCms('draft'));
       form.querySelector('#cmsReloadBtn')?.addEventListener('click', () => loadCmsEditor());
+      const undoButton = form.querySelector('#cmsUndoPublishBtn');
+      undoButton?.addEventListener('click', () => undoLastCmsPublish(undoButton));
 
       setCmsMeta(
         meta?.hasDraft

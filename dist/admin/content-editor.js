@@ -213,11 +213,18 @@
     }
 
     const putHeaders = { ...(prepare.headers || {}) };
-    const putRes = await fetch(prepare.uploadUrl, {
-      method: 'PUT',
-      headers: putHeaders,
-      body: file,
-    });
+    let putRes;
+    try {
+      putRes = await fetch(prepare.uploadUrl, {
+        method: 'PUT',
+        headers: putHeaders,
+        body: file,
+      });
+    } catch {
+      throw new Error(
+        'Cloudflare R2 blocked the upload. In the R2 bucket CORS policy, allow this website origin with PUT and the Content-Type and Cache-Control headers.'
+      );
+    }
     if (!putRes.ok) {
       throw new Error(`Cloudflare R2 upload failed (${putRes.status}). Check bucket CORS and credentials.`);
     }
@@ -332,18 +339,13 @@
 
     wrap.appendChild(el('label', '', field.label));
 
-    const srcId = `cms-src-${field.key.replace(/[^a-z0-9]+/gi, '-')}`;
     const altId = `cms-alt-${field.key.replace(/[^a-z0-9]+/gi, '-')}`;
 
-    const srcLabel = el('label', 'cms-sublabel', 'Image URL or path');
-    srcLabel.setAttribute('for', srcId);
     const srcInput = document.createElement('input');
-    srcInput.type = 'text';
-    srcInput.id = srcId;
+    srcInput.type = 'hidden';
     srcInput.value = value.src || '';
     srcInput.required = true;
     srcInput.dataset.cmsPart = 'src';
-    srcInput.placeholder = '/images/example.jpg or https://…';
 
     const altLabel = el('label', 'cms-sublabel', 'Alt text');
     altLabel.setAttribute('for', altId);
@@ -368,7 +370,6 @@
       preview.hidden = false;
     };
 
-    srcInput.addEventListener('input', syncPreview);
     altInput.addEventListener('input', syncPreview);
     syncPreview();
 
@@ -385,7 +386,6 @@
       })
     );
 
-    wrap.appendChild(srcLabel);
     wrap.appendChild(srcInput);
     wrap.appendChild(altLabel);
     wrap.appendChild(altInput);
@@ -400,27 +400,16 @@
 
     wrap.appendChild(el('label', '', field.label));
 
-    const srcId = `cms-vsrc-${field.key.replace(/[^a-z0-9]+/gi, '-')}`;
-    const posterId = `cms-vposter-${field.key.replace(/[^a-z0-9]+/gi, '-')}`;
-
-    const srcLabel = el('label', 'cms-sublabel', 'Video URL or path');
-    srcLabel.setAttribute('for', srcId);
     const srcInput = document.createElement('input');
-    srcInput.type = 'text';
-    srcInput.id = srcId;
+    srcInput.type = 'hidden';
     srcInput.value = value.src || '';
     srcInput.required = true;
     srcInput.dataset.cmsPart = 'src';
-    srcInput.placeholder = '/images/video.mp4 or https://…';
 
-    const posterLabel = el('label', 'cms-sublabel', 'Poster image URL (optional)');
-    posterLabel.setAttribute('for', posterId);
     const posterInput = document.createElement('input');
-    posterInput.type = 'text';
-    posterInput.id = posterId;
+    posterInput.type = 'hidden';
     posterInput.value = value.poster || '';
     posterInput.dataset.cmsPart = 'poster';
-    posterInput.placeholder = '/images/poster.jpg';
 
     const videoPreview = document.createElement('video');
     videoPreview.className = 'cms-preview cms-preview--video';
@@ -454,8 +443,6 @@
       }
     };
 
-    srcInput.addEventListener('input', syncPreview);
-    posterInput.addEventListener('input', syncPreview);
     syncPreview();
 
     wrap.appendChild(el('p', 'cms-sublabel', 'Change this video'));
@@ -486,9 +473,7 @@
       })
     );
 
-    wrap.appendChild(srcLabel);
     wrap.appendChild(srcInput);
-    wrap.appendChild(posterLabel);
     wrap.appendChild(posterInput);
     wrap.appendChild(videoPreview);
     wrap.appendChild(posterPreview);
@@ -682,6 +667,10 @@
         <button class="clear-filters" type="button" id="cmsReloadBtn">
           <span class="material-symbols-outlined" style="font-size:18px;">refresh</span>
           Reload
+        </button>
+        <button class="clear-filters" type="button" id="cmsUndoPublishBtn">
+          <span class="material-symbols-outlined" style="font-size:18px;">undo</span>
+          Undo last publish
         </button>
         <a class="clear-filters" id="cmsViewSiteLink" href="/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;">
           <span class="material-symbols-outlined" style="font-size:18px;">open_in_new</span>

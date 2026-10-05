@@ -779,11 +779,18 @@
       return data;
     }
 
-    const putRes = await fetch(prepare.uploadUrl, {
-      method: 'PUT',
-      headers: { ...(prepare.headers || {}) },
-      body: file,
-    });
+    let putRes;
+    try {
+      putRes = await fetch(prepare.uploadUrl, {
+        method: 'PUT',
+        headers: { ...(prepare.headers || {}) },
+        body: file,
+      });
+    } catch {
+      throw new Error(
+        'Cloudflare R2 blocked the upload. In the R2 bucket CORS policy, allow this website origin with PUT and the Content-Type and Cache-Control headers.'
+      );
+    }
     if (!putRes.ok) {
       throw new Error(`Cloudflare R2 upload failed (${putRes.status}). Check bucket CORS and credentials.`);
     }
@@ -935,8 +942,7 @@
         <h4>${humanLabel(key)}</h4>
         <label>Change this image</label>
         ${filePickerMarkup('file', 'image/jpeg,image/png,image/webp,image/gif', 'Choose file')}
-        <label>Image URL or path</label>
-        <input data-field="src" type="text" value="${escapeAttr(current.src)}" />
+        <input data-field="src" type="hidden" value="${escapeAttr(current.src)}" />
         <label>Alt text (describe the image)</label>
         <input data-field="alt" type="text" value="${escapeAttr(current.alt)}" />
         <div class="ez-edit-popover-actions">
@@ -953,7 +959,7 @@
         if (file) {
           const maxMB = 5;
           if (file.size > maxMB * 1024 * 1024) {
-            toast(`Image exceeds the ${maxMB} MB limit. Please paste a link or use a smaller file.`, 'error');
+            toast(`Image exceeds the ${maxMB} MB limit. Please use a smaller file.`, 'error');
             return;
           }
         }
@@ -998,13 +1004,11 @@
         <div class="ez-edit-popover-scroll-body">
           <label>Change this video</label>
           ${filePickerMarkup('file', 'video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov', 'Choose file')}
-          <label>Video URL or path</label>
-          <input data-field="src" type="text" value="${escapeAttr(current.src || '')}" />
+          <input data-field="src" type="hidden" value="${escapeAttr(current.src || '')}" />
           
           <label>Change poster image (optional)</label>
           ${filePickerMarkup('poster-file', 'image/jpeg,image/png,image/webp,image/gif', 'Choose file')}
-          <label>Poster URL or path</label>
-          <input data-field="poster" type="text" value="${escapeAttr(current.poster || '')}" />
+          <input data-field="poster" type="hidden" value="${escapeAttr(current.poster || '')}" />
         </div>
         <div class="ez-edit-popover-actions">
           <button class="primary" data-action="confirm" type="button">Apply</button>
@@ -1021,7 +1025,7 @@
         const posterFile = posterFileInput.files?.[0];
 
         if (file && file.size > 50 * 1024 * 1024) {
-          toast('Video exceeds the 50 MB limit. Please use a smaller file or paste a YouTube link.', 'error');
+          toast('Video exceeds the 50 MB limit. Please use a smaller file.', 'error');
           return;
         }
         if (posterFile && posterFile.size > 5 * 1024 * 1024) {
